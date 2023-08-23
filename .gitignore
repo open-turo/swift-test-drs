@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# Xcode
+xcuserdata
+
+# AppCode
+.idea/
+
+# Other
+build/
