@@ -4,6 +4,10 @@
 # Xcode
 xcuserdata
 
+# SPM
+*/.swiftpm/configuration/registries.json
+*/.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+
 # AppCode
 .idea/
 
