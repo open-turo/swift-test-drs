@@ -1,0 +1,121 @@
+--swiftversion 5
+
+--rules                       \
+# in style guidelines
+    redundantType,            \
+    typeSugar,                \
+    genericExtensions,        \
+    semicolons,               \
+    redundantParens,          \
+    markTypes,                \
+    elseOnSameLine,           \
+    blankLinesBetweenScopes,  \
+    blockComments,            \
+    redundantSelf,            \
+    trailingClosures,         \
+    strongOutlets,            \
+    redundantFileprivate,     \
+    braces,                   \
+    consecutiveBlankLines,    \
+    initCoderUnavailable,     \
+    isEmpty,                  \
+    redundantReturn,          \
+# good to have
+    anyObjectProtocol,        \
+    blankLineAfterImports,    \
+    blankLinesAroundMark,     \
+    blankLinesAtStartOfScope, \
+    blankLinesBetweenImports, \
+    consecutiveSpaces,        \
+    duplicateImports,         \
+    emptyBraces,              \
+    indent,                   \
+    leadingDelimiters,        \
+    linebreakAtEndOfFile,     \
+    redundantBreak,           \
+    redundantClosure,         \
+    redundantExtensionACL,    \
+    redundantGet,             \
+    redundantInit,            \
+    redundantNilInit,         \
+    redundantObjc,            \
+    redundantOptionalBinding, \
+    redundantPattern,         \
+    redundantRawValues,       \
+    redundantVoidReturnType,  \
+    sortImports,              \
+    spaceAroundBraces,        \
+    spaceAroundBrackets,      \
+    spaceAroundComments,      \
+    spaceAroundGenerics,      \
+    spaceAroundOperators,     \
+    spaceAroundParens,        \
+    spaceInsideBraces,        \
+    spaceInsideBrackets,      \
+    spaceInsideGenerics,      \
+    spaceInsideParens,        \
+    trailingSpace,            \
+# new rules
+    blankLinesAtEndOfScope,   \
+    redundantOptionalBinding, \
+    sortDeclarations,         \
+    todos,                    \
+    unusedArguments,          \
+    wrapArguments,            \
+    yodaConditions
+
+#------------------------------
+# options
+
+# redundantType
+--redundanttype infer-locals-only
+
+# semicolons
+--semicolons never
+
+# markTypes
+--marktypes never
+--markextensions if-not-empty
+
+# elseOnSameLine
+--elseposition same-line
+--guardelse auto
+
+# redundantSelf
+--self remove
+
+# blankLinesAroundMark
+--lineaftermarks false
+
+# blankLinesAtStartOfScope
+--typeblanklines preserve
+
+# braces
+--allman false
+
+# emptyBraces
+--emptybraces no-space
+
+# indent
+--indent 4
+--tabwidth 4
+--ifdef no-indent
+
+# spaceAroundOperators
+--operatorfunc spaced
+--ranges spaced
+
+# unusedArguments
+--stripunusedargs closure-only
+
+## wrap
+#--maxwidth 100
+
+# wrapArguments
+--wrapparameters before-first
+--wraparguments before-first
+--wrapcollections before-first
+--closingparen balanced
+--wrapconditions preserve
+--wrapreturntype preserve
+--wraptypealiases preserve
