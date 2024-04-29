@@ -24,3 +24,9 @@ repos:
     hooks:
       - id: shellcheck
       - id: shfmt
+  - repo: local
+    hooks:
+      - id: swiftformat
+        name: swiftformat
+        entry: Scripts/run_swiftformat
+        language: system
