@@ -89,6 +89,7 @@ extension Spy {
     private func checkEqual<each T: Equatable>(lhs: repeat each T, rhs: repeat each T) -> Bool {
         do {
             // The only way to implement control flow within a repeat is to try a throwing method.
+            // TODO: Update to use pack iteration with Swift 6: https://www.swift.org/blog/pack-iteration/
             repeat try checkEqualOrThrow(each lhs, each rhs)
         } catch {
             return false
