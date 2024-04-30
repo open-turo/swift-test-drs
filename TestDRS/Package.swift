@@ -19,14 +19,11 @@ let package = Package(
         ),
     ],
     dependencies: [
-        // Depend on the latest Swift 5.9 prerelease of SwiftSyntax
-        .package(url: "https://github.com/apple/swift-syntax.git", from: "509.0.0-swift-5.9-DEVELOPMENT-SNAPSHOT-2023-04-25-b"),
-        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.52.2"),
+        .package(url: "https://github.com/apple/swift-syntax.git", from: "510.0.1"),
+        .package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", .upToNextMajor(from: "1.1.2"))
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        // Macro implementation that performs the source transformation of a macro.
+        // TestDRS macros target
         .macro(
             name: "TestDRSMacros",
             dependencies: [
@@ -35,18 +32,31 @@ let package = Package(
             ]
         ),
 
-        // Library that exposes a macro as part of its API, which is used in client programs.
-        .target(name: "TestDRS", dependencies: ["TestDRSMacros"]),
+        // Library that exposes TestDRS macros as part of its API
+        .target(name: "TestDRS", dependencies: [
+            "TestDRSMacros",
+            .product(name: "XCTestDynamicOverlay", package: "xctest-dynamic-overlay")
+        ]),
 
-        // A client of the library, which is able to use the macro in its own code.
+        // An example client used to try out TestDRS
         .executableTarget(name: "TestDRSClient", dependencies: ["TestDRS"]),
 
-        // A test target used to develop the macro implementation.
+        // Unit tests for TestDRS
         .testTarget(
             name: "TestDRSTests",
             dependencies: [
-                "TestDRSMacros",
                 .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
+                "TestDRS",
+                "TestDRSMacros",
+            ]
+        ),
+
+        // Example unit tests to try out TestDRS
+        .testTarget(
+            name: "TestDRSClientTests",
+            dependencies: [
+                "TestDRS",
+                "TestDRSClient"
             ]
         ),
     ]

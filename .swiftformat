@@ -6,7 +6,8 @@
     typeSugar,                \
     genericExtensions,        \
     semicolons,               \
-    redundantParens,          \
+    # Disabled redundantParens for now as it causes issues with parameter packs
+    # redundantParens,        \
     markTypes,                \
     elseOnSameLine,           \
     blankLinesBetweenScopes,  \
