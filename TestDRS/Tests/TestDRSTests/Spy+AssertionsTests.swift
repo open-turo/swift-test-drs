@@ -8,8 +8,9 @@ final class SpyAssertionsTests: SpyTestCase {
     func testAssertCallCount_WithNoCalls() {
         assertCallCount(to: "foo()", equals: 0)
 
-        XCTExpectFailure()
-        assertCallCount(to: "foo()", equals: 1)
+        XCTExpectFailure {
+            assertCallCount(to: "foo()", equals: 1)
+        }
     }
 
     func testAssertCallCount_WithMultipleCalls() {
@@ -19,15 +20,17 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertCallCount(to: "foo()", equals: 3)
 
-        XCTExpectFailure()
-        assertCallCount(to: "foo()", equals: 1)
+        XCTExpectFailure {
+            assertCallCount(to: "foo()", equals: 1)
+        }
     }
 
     func testAssertCallCountWithInputType_WithNoCalls() {
         assertCallCount(to: "zab(paramOne:)", withInputType: Bool.self, equals: 0)
 
-        XCTExpectFailure()
-        assertCallCount(to: "zab(paramOne:)", withInputType: Bool.self, equals: 1)
+        XCTExpectFailure {
+            assertCallCount(to: "zab(paramOne:)", withInputType: Bool.self, equals: 1)
+        }
     }
 
     func testAssertCallCountWithInputType_WithMultipleCalls() {
@@ -42,12 +45,15 @@ final class SpyAssertionsTests: SpyTestCase {
         assertCallCount(to: "zab(paramOne:)", withInputType: String.self, equals: 2)
         assertCallCount(to: "zab(paramOne:)", withInputType: Int.self, equals: 3)
 
-        XCTExpectFailure()
-        assertCallCount(to: "zab(paramOne:)", withInputType: Bool.self, equals: 4)
-        XCTExpectFailure()
-        assertCallCount(to: "zab(paramOne:)", withInputType: String.self, equals: 4)
-        XCTExpectFailure()
-        assertCallCount(to: "zab(paramOne:)", withInputType: Int.self, equals: 4)
+        XCTExpectFailure {
+            assertCallCount(to: "zab(paramOne:)", withInputType: Bool.self, equals: 4)
+        }
+        XCTExpectFailure {
+            assertCallCount(to: "zab(paramOne:)", withInputType: String.self, equals: 4)
+        }
+        XCTExpectFailure {
+            assertCallCount(to: "zab(paramOne:)", withInputType: Int.self, equals: 4)
+        }
     }
 
     // MARK: - assertWasCalled
@@ -77,12 +83,15 @@ final class SpyAssertionsTests: SpyTestCase {
         assertWasCalled("zab(paramOne:)", with: 2)
         assertWasCalled("zab(paramOne:)", with: 3)
 
-        XCTExpectFailure()
-        assertWasCalled("zab(paramOne:)", with: false)
-        XCTExpectFailure()
-        assertWasCalled("zab(paramOne:)", with: "Goodbye")
-        XCTExpectFailure()
-        assertWasCalled("zab(paramOne:)", with: 4)
+        XCTExpectFailure {
+            _ = assertWasCalled("zab(paramOne:)", with: false)
+        }
+        XCTExpectFailure {
+            _ = assertWasCalled("zab(paramOne:)", with: "Goodbye")
+        }
+        XCTExpectFailure {
+            _ = assertWasCalled("zab(paramOne:)", with: 4)
+        }
     }
 
     func testAssertWasCalled_WithMultipleParameters() {
@@ -92,17 +101,20 @@ final class SpyAssertionsTests: SpyTestCase {
         assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 1, "Hello")
         assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: false, Int?.none, String?.none)
 
-        XCTExpectFailure()
-        assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 2, "Hello")
-        XCTExpectFailure()
-        assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, Int?.none, String?.none)
+        XCTExpectFailure {
+            _ = assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 2, "Hello")
+        }
+        XCTExpectFailure {
+            _ = assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, Int?.none, String?.none)
+        }
     }
 
     // MARK: - assertWasCalledExactlyOnce
 
     func testAssertWasCalledExactlyOnce_WithoutCalling() {
-        XCTExpectFailure()
-        assertWasCalledExactlyOnce("foo()")
+        XCTExpectFailure {
+            _ = assertWasCalledExactlyOnce("foo()")
+        }
     }
 
     func testAssertWasCalledExactlyOnce_WithNoParameters() {
@@ -111,8 +123,9 @@ final class SpyAssertionsTests: SpyTestCase {
 
         foo()
 
-        XCTExpectFailure()
-        assertWasCalledExactlyOnce("foo()")
+        XCTExpectFailure {
+            _ = assertWasCalledExactlyOnce("foo()")
+        }
     }
 
     func testAssertWasCalledExactlyOnce_WithSingleParameter() {
@@ -120,8 +133,9 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalledExactlyOnce("bar(paramOne:)", with: true)
 
-        XCTExpectFailure()
-        assertWasCalledExactlyOnce("bar(paramOne:)", with: false)
+        XCTExpectFailure {
+            _ = assertWasCalledExactlyOnce("bar(paramOne:)", with: false)
+        }
     }
 
     func testAssertWasCalledExactlyOnce_WithMultipleParameters() {
@@ -131,26 +145,30 @@ final class SpyAssertionsTests: SpyTestCase {
 
         rab(paramOne: true, paramTwo: 1, paramThree: "Hello")
 
-        XCTExpectFailure()
-        assertWasCalledExactlyOnce("rab(paramOne:paramTwo:paramThree:)", with: true, 1, "Hello")
+        XCTExpectFailure {
+            _ = assertWasCalledExactlyOnce("rab(paramOne:paramTwo:paramThree:)", with: true, 1, "Hello")
+        }
     }
 
     func testAssertWasCalledExactlyOnce_WithMultipleCalls_WithDifferentParameterTypes() {
         zab(paramOne: true)
         zab(paramOne: "Hello World")
 
-        XCTExpectFailure()
-        assertWasCalledExactlyOnce("zab(paramOne:)")
+        XCTExpectFailure {
+            _ = assertWasCalledExactlyOnce("zab(paramOne:)")
+        }
 
-        XCTExpectFailure()
-        assertWasCalledExactlyOnce("zab(paramOne:)", with: true)
+        XCTExpectFailure {
+            _ = assertWasCalledExactlyOnce("zab(paramOne:)", with: true)
+        }
     }
 
     // MARK: - assertWasCalledFirst
 
     func testAssertWasCalledFirst_WithoutCalling() {
-        XCTExpectFailure()
-        assertWasCalledFirst("foo()")
+        XCTExpectFailure {
+            _ = assertWasCalledFirst("foo()")
+        }
     }
 
     func testAssertWasCalledFirst_WithNoParameters() {
@@ -159,8 +177,9 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalledFirst("foo()")
 
-        XCTExpectFailure()
-        assertWasCalledFirst("bar(paramOne:)")
+        XCTExpectFailure {
+            _ = assertWasCalledFirst("bar(paramOne:)")
+        }
     }
 
     func testAssertWasCalledFirst_WithSingleParameter() {
@@ -169,8 +188,9 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalledFirst("bar(paramOne:)", with: true)
 
-        XCTExpectFailure()
-        assertWasCalledFirst("bar(paramOne:)", with: false)
+        XCTExpectFailure {
+            _ = assertWasCalledFirst("bar(paramOne:)", with: false)
+        }
     }
 
     func testAssertWasCalledFirst_WithMultipleParameters() {
@@ -180,10 +200,12 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalledFirst("rab(paramOne:paramTwo:paramThree:)", with: true, 1, "Hello")
 
-        XCTExpectFailure()
-        assertWasCalledFirst("rab(paramOne:paramTwo:paramThree:)", with: true, 2, "World")
-        XCTExpectFailure()
-        assertWasCalledFirst("oof(paramOne:paramTwo:)", with: false, 3)
+        XCTExpectFailure {
+            _ = assertWasCalledFirst("rab(paramOne:paramTwo:paramThree:)", with: true, 2, "World")
+        }
+        XCTExpectFailure {
+            _ = assertWasCalledFirst("oof(paramOne:paramTwo:)", with: false, 3)
+        }
     }
 
     func testAssertWasCalledFirst_WithDifferentParameterTypes() {
@@ -192,15 +214,17 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalledFirst("zab(paramOne:)", with: true)
 
-        XCTExpectFailure()
-        assertWasCalledFirst("zab(paramOne:)", with: "Hello")
+        XCTExpectFailure {
+            _ = assertWasCalledFirst("zab(paramOne:)", with: "Hello")
+        }
     }
 
     // MARK: - assertWasCalledLast
 
     func testAssertWasCalledLast_WithoutCalling() {
-        XCTExpectFailure()
-        assertWasCalledLast("foo()")
+        XCTExpectFailure {
+            _ = assertWasCalledLast("foo()")
+        }
     }
 
     func testAssertWasCalledLast_WithNoParameters() throws {
@@ -212,10 +236,12 @@ final class SpyAssertionsTests: SpyTestCase {
         let callToFoo = assertWasCalledLast("foo()")
         assertWasCalledLast("foo()", immediatelyAfter: callToBar)
 
-        XCTExpectFailure()
-        assertWasCalledLast("bar(paramOne:)")
-        XCTExpectFailure()
-        assertWasCalledLast("foo()", immediatelyAfter: callToFoo)
+        XCTExpectFailure {
+            _ = assertWasCalledLast("bar(paramOne:)")
+        }
+        XCTExpectFailure {
+            _ = assertWasCalledLast("foo()", immediatelyAfter: callToFoo)
+        }
     }
 
     func testAssertWasCalledLast_WithSingleParameter() throws {
@@ -227,10 +253,12 @@ final class SpyAssertionsTests: SpyTestCase {
         let callToBar = assertWasCalledLast("bar(paramOne:)", with: true)
         assertWasCalledLast("bar(paramOne:)", with: true, immediatelyAfter: callToFoo)
 
-        XCTExpectFailure()
-        assertWasCalledLast("bar(paramOne:)", with: false)
-        XCTExpectFailure()
-        assertWasCalledLast("bar(paramOne:)", with: true, immediatelyAfter: callToBar)
+        XCTExpectFailure {
+            _ = assertWasCalledLast("bar(paramOne:)", with: false)
+        }
+        XCTExpectFailure {
+            _ = assertWasCalledLast("bar(paramOne:)", with: true, immediatelyAfter: callToBar)
+        }
     }
 
     func testAssertWasCalledLast_WithMultipleParameters() throws {
@@ -243,12 +271,15 @@ final class SpyAssertionsTests: SpyTestCase {
         let lastCallToRab = assertWasCalledLast("rab(paramOne:paramTwo:paramThree:)", with: true, 3, "World")
         assertWasCalledLast("rab(paramOne:paramTwo:paramThree:)", with: true, 3, "World", immediatelyAfter: firstCallToRab)
 
-        XCTExpectFailure()
-        assertWasCalledLast("rab(paramOne:paramTwo:paramThree:)", with: true, 2, "Hello")
-        XCTExpectFailure()
-        assertWasCalledLast("oof(paramOne:paramTwo:)", with: false, 1)
-        XCTExpectFailure()
-        assertWasCalledLast("rab(paramOne:paramTwo:paramThree:)", with: true, 3, "World", immediatelyAfter: lastCallToRab)
+        XCTExpectFailure {
+            _ = assertWasCalledLast("rab(paramOne:paramTwo:paramThree:)", with: true, 2, "Hello")
+        }
+        XCTExpectFailure {
+            _ = assertWasCalledLast("oof(paramOne:paramTwo:)", with: false, 1)
+        }
+        XCTExpectFailure {
+            _ = assertWasCalledLast("rab(paramOne:paramTwo:paramThree:)", with: true, 3, "World", immediatelyAfter: lastCallToRab)
+        }
     }
 
     func testAssertWasCalledLast_WithDifferentParameterTypes() throws {
@@ -260,18 +291,21 @@ final class SpyAssertionsTests: SpyTestCase {
         let lastCallToZab = assertWasCalledLast("zab(paramOne:)", with: "Hello")
         assertWasCalledLast("zab(paramOne:)", with: "Hello", immediatelyAfter: firstCallToZab)
 
-        XCTExpectFailure()
-        assertWasCalledLast("zab(paramOne:)", with: true)
+        XCTExpectFailure {
+            _ = assertWasCalledLast("zab(paramOne:)", with: true)
+        }
 
-        XCTExpectFailure()
-        assertWasCalledLast("zab(paramOne:)", with: "Hello", immediatelyAfter: lastCallToZab)
+        XCTExpectFailure {
+            _ = assertWasCalledLast("zab(paramOne:)", with: "Hello", immediatelyAfter: lastCallToZab)
+        }
     }
 
     // MARK: - assertWasCalled after previousCall
 
     func testAssertWasCalledAfter_WithoutCallingAnything() {
-        XCTExpectFailure()
-        assertWasCalled("foo()", after: ConcreteFunctionCall(signature: "", input: Void(), output: Void(), time: Date()))
+        XCTExpectFailure {
+            _ = assertWasCalled("foo()", after: ConcreteFunctionCall(signature: "", input: Void(), output: Void(), time: Date()))
+        }
     }
 
     func testAssertWasCalledAfter_WithNoParameters() throws {
@@ -284,8 +318,9 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalled("foo()", after: firstCallToBar)
 
-        XCTExpectFailure()
-        assertWasCalled("foo()", after: lastCallToBar)
+        XCTExpectFailure {
+            _ = assertWasCalled("foo()", after: lastCallToBar)
+        }
     }
 
     func testAssertWasCalledAfter_WithSingleParameter() throws {
@@ -298,10 +333,12 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalled("bar(paramOne:)", after: firstCallToFoo)
 
-        XCTExpectFailure()
-        assertWasCalled("bar(paramOne:)", with: false, after: firstCallToFoo)
-        XCTExpectFailure()
-        assertWasCalled("bar(paramOne:)", after: lastCallToFoo)
+        XCTExpectFailure {
+            _ = assertWasCalled("bar(paramOne:)", with: false, after: firstCallToFoo)
+        }
+        XCTExpectFailure {
+            _ = assertWasCalled("bar(paramOne:)", after: lastCallToFoo)
+        }
     }
 
     func testAssertWasCalledAfter_WithMultipleParameters() throws {
@@ -314,10 +351,12 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 2, "Hello", after: firstCallToOof)
 
-        XCTExpectFailure()
-        assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: false, 2, "Hello", after: lastCallToOof)
-        XCTExpectFailure()
-        assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 3, "Hello", after: lastCallToOof)
+        XCTExpectFailure {
+            _ = assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: false, 2, "Hello", after: lastCallToOof)
+        }
+        XCTExpectFailure {
+            _ = assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 3, "Hello", after: lastCallToOof)
+        }
     }
 
     func testAssertWasCalledAfter_WithDifferentParameterTypes() throws {
@@ -333,17 +372,20 @@ final class SpyAssertionsTests: SpyTestCase {
         assertWasCalled("zab(paramOne:)", with: "Hello", after: firstCallToBaz)
         assertWasCalled("zab(paramOne:)", with: "Hello", after: lastCallToBaz)
 
-        XCTExpectFailure()
-        assertWasCalled("zab(paramOne:)", with: false, after: firstCallToBaz)
-        XCTExpectFailure()
-        assertWasCalled("zab(paramOne:)", with: true, after: lastCallToBaz)
+        XCTExpectFailure {
+            _ = assertWasCalled("zab(paramOne:)", with: false, after: firstCallToBaz)
+        }
+        XCTExpectFailure {
+            _ = assertWasCalled("zab(paramOne:)", with: true, after: lastCallToBaz)
+        }
     }
 
     // MARK: - assertWasCalled immediatelyAfter previousCall
 
     func testAssertWasCalledImmediatelyAfter_WithoutCallingAnything() {
-        XCTExpectFailure()
-        assertWasCalled("foo()", immediatelyAfter: ConcreteFunctionCall(signature: "", input: Void(), output: Void(), time: Date()))
+        XCTExpectFailure {
+            _ = assertWasCalled("foo()", immediatelyAfter: ConcreteFunctionCall(signature: "", input: Void(), output: Void(), time: Date()))
+        }
     }
 
     func testAssertWasCalledImmediatelyAfter_WithNoParameters() throws {
@@ -356,8 +398,9 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalled("foo()", immediatelyAfter: secondCallToBar)
 
-        XCTExpectFailure()
-        assertWasCalled("foo()", immediatelyAfter: firstCallToBar)
+        XCTExpectFailure {
+            _ = assertWasCalled("foo()", immediatelyAfter: firstCallToBar)
+        }
     }
 
     func testAssertWasCalledImmediatelyAfter_WithSingleParameter() throws {
@@ -370,10 +413,12 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalled("bar(paramOne:)", immediatelyAfter: lastCallToFoo)
 
-        XCTExpectFailure()
-        assertWasCalled("bar(paramOne:)", with: false, after: lastCallToFoo)
-        XCTExpectFailure()
-        assertWasCalled("bar(paramOne:)", immediatelyAfter: firstCallToFoo)
+        XCTExpectFailure {
+            _ = assertWasCalled("bar(paramOne:)", with: false, after: lastCallToFoo)
+        }
+        XCTExpectFailure {
+            _ = assertWasCalled("bar(paramOne:)", immediatelyAfter: firstCallToFoo)
+        }
     }
 
     func testAssertWasCalledImmediatelyAfter_WithMultipleParameters() throws {
@@ -386,10 +431,12 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 2, "Hello", immediatelyAfter: lastCallToOof)
 
-        XCTExpectFailure()
-        assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: false, 2, "Hello", immediatelyAfter: lastCallToOof)
-        XCTExpectFailure()
-        assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 3, "Hello", immediatelyAfter: firstCallToOof)
+        XCTExpectFailure {
+            _ = assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: false, 2, "Hello", immediatelyAfter: lastCallToOof)
+        }
+        XCTExpectFailure {
+            _ = assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 3, "Hello", immediatelyAfter: firstCallToOof)
+        }
     }
 
     func testAssertWasCalledImmediatelyAfter_WithDifferentParameterTypes() throws {
@@ -404,9 +451,11 @@ final class SpyAssertionsTests: SpyTestCase {
         assertWasCalled("zab(paramOne:)", with: true, immediatelyAfter: firstCallToBaz)
         assertWasCalled("zab(paramOne:)", with: "Hello", immediatelyAfter: lastCallToBaz)
 
-        XCTExpectFailure()
-        assertWasCalled("zab(paramOne:)", with: false, immediatelyAfter: firstCallToBaz)
-        XCTExpectFailure()
-        assertWasCalled("zab(paramOne:)", with: true, immediatelyAfter: lastCallToBaz)
+        XCTExpectFailure {
+            _ = assertWasCalled("zab(paramOne:)", with: false, immediatelyAfter: firstCallToBaz)
+        }
+        XCTExpectFailure {
+            _ = assertWasCalled("zab(paramOne:)", with: true, immediatelyAfter: lastCallToBaz)
+        }
     }
 }
