@@ -83,7 +83,9 @@ public final class BlackBox {
                 guard let index = storage.firstIndex(of: previousCall) else { return [] }
                 return storage.dropFirst(index + 1).filter(signature: signature).compactMap { $0 as? ConcreteFunctionCall<Input, Output> }
             }
-            return storage.filter(signature: signature).compactMap { $0 as? ConcreteFunctionCall<Input, Output> }
+            return storage.filter(signature: signature).compactMap {
+                $0 as? ConcreteFunctionCall<Input, Output>
+            }
         }
     }
 
@@ -134,8 +136,7 @@ private extension Sequence<any FunctionCall> {
     /// - Returns: An array of function calls that match the given signature.
     func filter(signature: String) -> [any FunctionCall] {
         return filter { call in
-            guard call.signature == signature else { return false }
-            return true
+            call.signature == signature
         }
     }
 
@@ -147,11 +148,7 @@ private extension Sequence<any FunctionCall> {
     /// - Returns: An array of function calls that match the given signature and input type.
     func filter<Input>(signature: String, inputType: Input.Type) -> [any FunctionCall] {
         return filter { call in
-            guard
-                call.signature == signature,
-                inputType == Void.self || call.input as? Input != nil
-            else { return false }
-            return true
+            call.signature == signature && (inputType == Void.self || call.input is Input)
         }
     }
 }
@@ -162,7 +159,7 @@ private extension [any FunctionCall] {
     /// - Parameter call: The function call to find.
     /// - Returns: The index of the first occurrence of the given function call, or `nil` if not found.
     func firstIndex(of call: any FunctionCall) -> Int? {
-        return firstIndex(where: { $0.signature == call.signature && $0.time == call.time })
+        firstIndex(where: { $0.signature == call.signature && $0.time == call.time })
     }
 }
 
