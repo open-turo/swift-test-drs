@@ -16,7 +16,7 @@ import Foundation
 ///     let stubRegistry = StubRegistry()
 ///
 ///     func foo() -> Int {
-///         stub()
+///         stubOutput()
 ///     }
 /// }
 ///
