@@ -18,7 +18,7 @@ public final class StubRegistry {
     ///   - signature: The signature of the function.
     func register<Input, Output>(
         output: Output,
-        for function: (Input) throws -> Output,
+        for function: (Input) async throws -> Output,
         withSignature signature: String
     ) {
         let identifier = StubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
@@ -33,7 +33,7 @@ public final class StubRegistry {
     ///   - signature: The signature of the function.
     func register<Input, Output>(
         error: Error,
-        for function: (Input) throws -> Output,
+        for function: (Input) async throws -> Output,
         withSignature signature: String
     ) {
         let identifier = StubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
@@ -82,6 +82,7 @@ public final class StubRegistry {
             return try closure(input)
         }
     }
+
 }
 
 extension StubRegistry {

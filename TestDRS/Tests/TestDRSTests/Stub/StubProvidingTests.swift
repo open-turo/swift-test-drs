@@ -110,29 +110,116 @@ final class StubProvidingTests: XCTestCase {
         XCTAssertEqual(stubProvider.rab(paramOne: "Hello"), "Hello World")
     }
 
+    func testStubbingAsyncFunction() async {
+        stubProvider.setStub(for: stubProvider.zab, withSignature: "zab()", returning: 7)
+
+        let result = await stubProvider.zab()
+
+        XCTAssertEqual(result, 7)
+    }
+
+    func testDynamicallyStubbingAsyncFunction() async {
+        var x = 1
+        stubProvider.setDynamicStub(for: stubProvider.zab, withSignature: "zab()") {
+            x * 7
+        }
+
+        let resultOne = await stubProvider.zab()
+        x = 7
+        let resultTwo = await stubProvider.zab()
+
+        XCTAssertEqual(resultOne, 7)
+        XCTAssertEqual(resultTwo, 49)
+    }
+
+    func testStubbingAsyncThrowingFunction_ReturningValue() async throws {
+        stubProvider.setStub(for: stubProvider.zoo, withSignature: "zoo()", returning: 7)
+
+        let result = try await stubProvider.zoo()
+
+        XCTAssertEqual(result, 7)
+    }
+
+    func testStubbingAsyncThrowingFunction_ThrowingError() async throws {
+        stubProvider.setStub(for: stubProvider.zoo, withSignature: "zoo()", throwing: StubProviderError())
+
+        do {
+            _ = try await stubProvider.zoo()
+            XCTFail("Expected error to be thrown")
+        } catch let error as StubProviderError {
+            // Expected
+        } catch {
+            XCTFail("Expected error to be StubProviderError")
+        }
+    }
+
+    func testDynamicallyStubbingAsyncThrowingFunction_ReturningValue() async throws {
+        var x = 1
+        stubProvider.setDynamicStub(for: stubProvider.zoo, withSignature: "zoo()") {
+            x * 7
+        }
+
+        let resultOne = try await stubProvider.zoo()
+        x = 7
+        let resultTwo = try await stubProvider.zoo()
+
+        XCTAssertEqual(resultOne, 7)
+        XCTAssertEqual(resultTwo, 49)
+    }
+
+    func testDynamicallyStubbingAsyncThrowingFunction_ThrowingError() async throws {
+        var shouldThrow = false
+        stubProvider.setDynamicStub(for: stubProvider.zoo, withSignature: "zoo()") {
+            guard !shouldThrow else { throw StubProviderError() }
+            return 7
+        }
+
+        let result = try await stubProvider.zoo()
+        XCTAssertEqual(result, 7)
+
+        shouldThrow = true
+
+        do {
+            _ = try await stubProvider.zoo()
+            XCTFail("Expected error to be thrown")
+        } catch let error as StubProviderError {
+            // Expected
+        } catch {
+            XCTFail("Expected error to be StubProviderError")
+        }
+    }
+
 }
 
 private struct StubProvider: StubProviding {
     var stubRegistry = StubRegistry()
 
     func foo() -> Int {
-        stub()
+        stubOutput()
     }
 
     func bar(paramOne: Bool) -> String {
-        stub(for: paramOne)
+        stubOutput(for: paramOne)
     }
 
     func baz(paramOne: Bool, paramTwo: String, paramThree: Int) -> String {
-        stub(for: (paramOne, paramTwo, paramThree))
+        stubOutput(for: (paramOne, paramTwo, paramThree))
     }
 
     func oof() throws -> Int {
-        try throwingStub()
+        try throwingStubOutput()
     }
 
     func rab<T>(paramOne: T) -> T {
-        stub(for: paramOne)
+        stubOutput(for: paramOne)
+    }
+
+    func zab() async -> Int {
+        stubOutput()
+    }
+
+    func zoo() async throws -> Int {
+        try throwingStubOutput()
     }
 }
 

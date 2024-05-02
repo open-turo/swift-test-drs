@@ -43,7 +43,7 @@ public extension StubProviding {
     ///   - Note: The compiler will not be able to disambiguate when stubbing functions that are overloaded *and* share the same output type.
     ///   If that is the case, use `setDynamicStub(for:withSignature:using:)` and specify the input to the closure explicitly.
     func setStub<Input, Output>(
-        for function: (Input) throws -> Output,
+        for function: (Input) async throws -> Output,
         withSignature signature: String,
         returning output: Output
     ) {
@@ -61,7 +61,7 @@ public extension StubProviding {
     ///   - Note: The compiler will not be able to disambiguate when stubbing functions that are overloaded *and* share the same output type.
     ///   If that is the case, use `setDynamicStub(for:withSignature:using:)` and specify the input to the closure explicitly.
     func setStub<Input, Output>(
-        for function: (Input) throws -> Output,
+        for function: (Input) async throws -> Output,
         withSignature signature: String,
         throwing error: Error
     ) {
@@ -76,7 +76,7 @@ public extension StubProviding {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - closure: A closure that takes in the function's input and returns the desired output when the function is called.
     func setDynamicStub<Input, Output>(
-        for function: (Input) throws -> Output,
+        for function: (Input) async throws -> Output,
         withSignature signature: String,
         using closure: @escaping (Input) throws -> Output
     ) {
@@ -93,7 +93,7 @@ public extension StubProviding {
     /// - Returns: The stubbed output for the calling function.
     ///
     /// - Precondition: A corresponding stub must be set prior to calling this function. Otherwise, a fatal error will be thrown.
-    func stub<Input, Output>(
+    func stubOutput<Input, Output>(
         for input: Input = Void(),
         signature: String = #function
     ) -> Output {
@@ -114,7 +114,7 @@ public extension StubProviding {
     ///   - signature: **Do not pass in this argument**, it will automatically capture the signature of the calling function.
     /// - Returns: The stubbed output for the calling function, provided one has been set.
     /// - Throws: Any error that has been set to be thrown for this function.
-    func throwingStub<Input, Output>(
+    func throwingStubOutput<Input, Output>(
         for input: Input = Void(),
         signature: String = #function
     ) throws -> Output {
