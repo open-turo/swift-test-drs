@@ -146,7 +146,7 @@ final class StubProvidingTests: XCTestCase {
         do {
             _ = try await stubProvider.zoo()
             XCTFail("Expected error to be thrown")
-        } catch let error as StubProviderError {
+        } catch _ as StubProviderError {
             // Expected
         } catch {
             XCTFail("Expected error to be StubProviderError")
@@ -182,7 +182,7 @@ final class StubProvidingTests: XCTestCase {
         do {
             _ = try await stubProvider.zoo()
             XCTFail("Expected error to be thrown")
-        } catch let error as StubProviderError {
+        } catch _ as StubProviderError {
             // Expected
         } catch {
             XCTFail("Expected error to be StubProviderError")
