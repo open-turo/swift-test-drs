@@ -14,7 +14,7 @@ public extension Spy {
 
     /// Records a function call along with details about how it and when it was called.
     /// - Parameters:
-    ///   - input: The parameter(s) passed in to the method. For multiple parameters, use a tuple. Defaults to `Void()`.
+    ///   - input: The parameter(s) passed in to the function. For multiple parameters, use a tuple. Defaults to `Void()`.
     ///   - time: The time when the function was called.
     ///   - output: The output that will be returned from the function.
     ///   - signature: **Do not pass in this argument**, it will automatically capture the signature of the calling function.
