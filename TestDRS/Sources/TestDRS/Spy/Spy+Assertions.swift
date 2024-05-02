@@ -12,7 +12,9 @@ public extension Spy {
     ///
     /// - Parameters:
     ///   - signature: The signature of the function to check.
-    ///   - expectedCount: The expected call count.
+    ///   The signature can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
+    ///   This should also match what is recorded by the `#function` macro.
+    ///   - expectedCount: The expected number of times for the function to have been called.
     ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the assertion is being made.
     ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the assertion is being made.
     func assertCallCount(
@@ -35,8 +37,10 @@ public extension Spy {
     ///
     /// - Parameters:
     ///   - signature: The signature of the function to check.
+    ///   The signature can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
+    ///   This should also match what is recorded by the `#function` macro.
     ///   - inputType: The type of input parameter(s) for the function.
-    ///   - expectedCount: The expected call count.
+    ///   - expectedCount: The expected number of times for the function to have been called.
     ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the assertion is being made.
     ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the assertion is being made.
     func assertCallCount<Input>(
@@ -59,7 +63,8 @@ public extension Spy {
     /// Asserts that a function with the given signature was called with the expected input.
     ///
     /// - Parameters:
-    ///   - signature: The signature of the function to check.
+    ///   - signature: The signature of the function to stub, which can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
+    ///   This should also match what is recorded by the `#function` macro.
     ///   - expectedInput: The expected input parameter(s) for the function.
     ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the assertion is being made.
     ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the assertion is being made.
@@ -95,6 +100,8 @@ public extension Spy {
     ///
     /// - Parameters:
     ///   - signature: The signature of the function to check.
+    ///   The signature can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
+    ///   This should also match what is recorded by the `#function` macro.
     ///   - expectedInput: The expected input parameter(s) for the function.
     ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the assertion is being made.
     ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the assertion is being made.
@@ -123,6 +130,8 @@ public extension Spy {
     ///
     /// - Parameters:
     ///   - signature: The signature of the function to check.
+    ///   The signature can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
+    ///   This should also match what is recorded by the `#function` macro.
     ///   - expectedInput: The expected input parameter(s) for the function.
     ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the assertion is being made.
     ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the assertion is being made.
@@ -146,6 +155,8 @@ public extension Spy {
     ///
     /// - Parameters:
     ///   - signature: The signature of the function to check.
+    ///   The signature can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
+    ///   This should also match what is recorded by the `#function` macro.
     ///   - expectedInput: The expected input parameter(s) for the function.
     ///   - previousCall: If provided, this call must have occured immediately before the last call. Defaults to `nil`.
     ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the assertion is being made.
@@ -178,6 +189,8 @@ public extension Spy {
     ///
     /// - Parameters:
     ///   - signature: The signature of the function to check.
+    ///   The signature can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
+    ///   This should also match what is recorded by the `#function` macro.
     ///   - expectedInput: The expected input parameter(s) for the function.
     ///   - previousCall: A previous function call that must come before the matching call.
     ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the assertion is being made.
@@ -215,6 +228,8 @@ public extension Spy {
     ///
     /// - Parameters:
     ///   - signature: The signature of the function to check.
+    ///   The signature can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
+    ///   This should also match what is recorded by the `#function` macro.
     ///   - expectedInput: The expected input parameter(s) for the function.
     ///   - previousCall: The previous function call that must come immediately before the matching call.
     ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the assertion is being made.
