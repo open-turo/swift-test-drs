@@ -83,6 +83,31 @@ public extension StubProviding {
         stubRegistry.register(closure: closure, forSignature: signature)
     }
 
+    /// Sets a stub for a given property to return a provided output.
+    ///
+    /// - Parameters:
+    ///   - value: The value to return.
+    ///   - propertyName: The name of the property to stub as a `String`.
+    func setStub<Output>(
+        value: Output,
+        forPropertyNamed propertyName: String
+    ) {
+        stubRegistry.register(value: value, for: propertyName)
+    }
+
+    /// Sets a stub for a given property to return a provided output.
+    /// Meant to be called from the setter of the property, will automatically record the property name.
+    ///
+    /// - Parameters:
+    ///   - value: The value to return.
+    ///   - propertyName: **Do not pass in this argument**, it will automatically capture the name of the calling property.
+    func setStub<Output>(
+        value: Output,
+        forPropertyNamed propertyName: StaticString = #function
+    ) {
+        stubRegistry.register(value: value, for: String(describing: propertyName))
+    }
+
     // MARK: - Get
 
     /// Retrieves the stubbed output for the calling function based on the given input and expected output type.

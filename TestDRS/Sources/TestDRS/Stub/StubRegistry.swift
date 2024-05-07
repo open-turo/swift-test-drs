@@ -55,6 +55,18 @@ public final class StubRegistry {
         stubs[identifier] = .closure(closure)
     }
 
+    /// Registers a value to return for a given property name.
+    /// - Parameters:
+    ///   - value: The value to return for the given property.
+    ///   - propertyName: The name of the property that is being stubbed.
+    func register<Output>(
+        value: Output,
+        for propertyName: String
+    ) {
+        let identifier = StubIdentifier(signature: propertyName, inputType: Void.self, outputType: Output.self)
+        stubs[identifier] = .output(value)
+    }
+
     /// Retrieves the output value for a given input and function signature.
     ///
     /// - Parameters:
