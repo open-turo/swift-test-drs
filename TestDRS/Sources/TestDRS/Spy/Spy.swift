@@ -6,7 +6,7 @@
 import Foundation
 
 /// A protocol to enable spying on function calls.
-public protocol Spy: AnyObject {
+public protocol Spy {
     var blackBox: BlackBox { get }
 }
 
