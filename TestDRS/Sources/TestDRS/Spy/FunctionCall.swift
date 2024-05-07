@@ -6,6 +6,8 @@
 import Foundation
 
 /// `FunctionCall` is a protocol that represents a function call in a generic way.
+/// Captures the `Input` and `Output` type information while allowing us to store an array of function calls as an `[any FunctionCall]`.
+/// - SeeAlso: `ConcreteFunctionCall` which is the concrete version of a function call.
 public protocol FunctionCall: CustomDebugStringConvertible {
     associatedtype Input
     associatedtype Output

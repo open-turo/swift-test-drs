@@ -124,7 +124,7 @@ extension BlackBox: CustomDebugStringConvertible {
                 ******* Function Call \(index + 1) *******
                 \(functionCall)
                 """
-            }.joined(separator: "\n \n")
+            }.joined(separator: "\n \n") // The empty newline is stripped without the space inbetween.
         }
     }
 }
