@@ -134,7 +134,11 @@ public extension StubProviding {
     ) {
         switch stubError {
         case .noStub:
-            fatalError("No stub with input `\(Input.self)` and output `\(Output.self)` was set for \(signature).")
+            if stubRegistry.isEmpty {
+                fatalError("No stubs were set for this \(Self.self).")
+            } else {
+                fatalError("No stub with input `\(Input.self)` and output `\(Output.self)` was set for \(signature).\n\n\(stubRegistry.debugDescription)")
+            }
         case .incorrectOutputType, .incorrectClosureType:
             fatalError("This should not happen, there must be an issue in TestDRS within the `StubProviding` protocol and/or the `StubRegistry`.")
         }

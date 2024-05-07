@@ -6,6 +6,8 @@
 /// Handles registering and retrieving stubs for functions, meant to be used with the `StubProviding` protocol.
 public final class StubRegistry {
 
+    var isEmpty: Bool { stubs.isEmpty }
+
     private var stubs: [StubIdentifier: Stub] = [:]
 
     public init() {}
@@ -83,11 +85,21 @@ public final class StubRegistry {
         }
     }
 
+    public var debugDescription: String {
+        stubs.enumerated().map { index, stub -> String in
+            """
+            ******* Stub \(index + 1) *******
+            \(stub.key.debugDescription)
+            \(stub.value.debugDescription)
+            """
+        }.joined(separator: "\n \n")
+    }
+
 }
 
 extension StubRegistry {
 
-    private struct StubIdentifier: Hashable {
+    fileprivate struct StubIdentifier: Hashable {
         let signature: String
         let inputType: String
         let outputType: String
@@ -99,7 +111,7 @@ extension StubRegistry {
         }
     }
 
-    private enum Stub {
+    fileprivate enum Stub {
         case output(Any)
         case error(Error)
         case closure(Any)
@@ -114,4 +126,27 @@ extension StubRegistry {
         case incorrectClosureType
     }
 
+}
+
+extension StubRegistry.StubIdentifier {
+    public var debugDescription: String {
+        """
+        signature: \(signature)
+        inputType: \(inputType)
+        outputType: \(outputType)
+        """
+    }
+}
+
+extension StubRegistry.Stub {
+    public var debugDescription: String {
+        switch self {
+        case .output(let output):
+            "stubbed output: \(output)"
+        case .error(let error):
+            "stubbed error: \(error)"
+        case .closure:
+            "stubbed using a closure"
+        }
+    }
 }
