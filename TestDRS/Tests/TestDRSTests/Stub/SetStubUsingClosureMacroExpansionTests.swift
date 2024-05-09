@@ -6,8 +6,6 @@
 #if canImport(TestDRSMacros)
 
 import MacroTesting
-import SwiftSyntaxMacros
-import TestDRS
 import TestDRSMacros
 import XCTest
 
