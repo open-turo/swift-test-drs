@@ -14,6 +14,10 @@ struct TestDRSMacrosPlugin: CompilerPlugin {
         MockMacro.self,
         SetStubReturningOutputMacro.self,
         SetStubThrowingErrorMacro.self,
-        SetStubUsingClosureMacro.self
+        SetStubUsingClosureMacro.self,
+        AssertWasCalledMacro.self,
+        AssertWasCalledExactlyOnceMacro.self,
+        AssertWasCalledFirstMacro.self,
+        AssertWasCalledLastMacro.self,
     ]
 }

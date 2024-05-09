@@ -74,3 +74,21 @@ public macro stub<Input, Output>(_ function: (Input) async throws -> Output, thr
 @freestanding(expression)
 @discardableResult
 public macro stub<Input, Output>(_ function: (Input) async throws -> Output, using closure: (Input) throws -> Output) -> Void = #externalMacro(module: "TestDRSMacros", type: "SetStubUsingClosureMacro")
+
+// MARK: - Spy Assertion Macros
+
+@freestanding(expression)
+@discardableResult
+public macro assertWasCalled<T>(_ functionOrCall: T) -> (any FunctionCall)? = #externalMacro(module: "TestDRSMacros", type: "AssertWasCalledMacro")
+
+@freestanding(expression)
+@discardableResult
+public macro assertWasCalledFirst<T>(_ functionOrCall: T) -> (any FunctionCall)? = #externalMacro(module: "TestDRSMacros", type: "AssertWasCalledFirstMacro")
+
+@freestanding(expression)
+@discardableResult
+public macro assertWasCalledLast<T>(_ functionOrCall: T) -> (any FunctionCall)? = #externalMacro(module: "TestDRSMacros", type: "AssertWasCalledLastMacro")
+
+@freestanding(expression)
+@discardableResult
+public macro assertWasCalledExactlyOnce<T>(_ functionOrCall: T) -> (any FunctionCall)? = #externalMacro(module: "TestDRSMacros", type: "AssertWasCalledExactlyOnceMacro")
