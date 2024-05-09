@@ -23,7 +23,7 @@ public extension Spy {
     @discardableResult
     func recordCall<Input, Output>(
         with input: Input = Void(),
-        at time: Date,
+        at time: Date = Date(),
         returning output: Output = Void(),
         signature: String = #function
     ) -> Output {

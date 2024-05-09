@@ -294,7 +294,6 @@ public struct MockMacro: PeerMacro {
                         if returningExpression != .void && method.hasParameters {
                             LabeledExprSyntax(
                                 label: "for",
-                                colon: .colonToken(),
                                 expression: method.inputParameters
                             )
                         }
