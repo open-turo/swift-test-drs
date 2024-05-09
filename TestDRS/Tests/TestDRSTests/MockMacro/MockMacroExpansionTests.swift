@@ -10,7 +10,6 @@ import TestDRSMacros
 import XCTest
 
 final class MockMacroExpansionTests: XCTestCase {
-    private let testMacros = ["Mock": MockMacro.self]
 
     override func invokeTest() {
         withMacroTesting(macros: ["Mock": MockMacro.self]) {
@@ -66,6 +65,7 @@ final class MockMacroExpansionTests: XCTestCase {
             """
         }
     }
+
 }
 
 #endif
