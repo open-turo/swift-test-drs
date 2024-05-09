@@ -26,3 +26,8 @@ class DataParserClass: DataParserProtocol {
         // Real implementation would parse the data into the specified Decodable type
     }
 }
+
+enum DataParsingError: Error {
+    case errorParsingData
+    case unknown
+}
