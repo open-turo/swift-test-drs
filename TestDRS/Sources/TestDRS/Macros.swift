@@ -68,6 +68,9 @@ public macro stub<Input, Output>(_ method: (Input) async throws -> Output, throw
 /// - Parameters:
 ///   - method: The method to stub.
 ///   - closure: A closure that takes in the method's input and returns the desired output when the method is called.
+///
+///   - Note: Macros do not seem to support trailing syntax currently, so you must specify the argument label `using`.
+///   This also serves to disambiguate from `stub(_:returning:)` where the `Output` is a closure.
 @freestanding(expression)
 @discardableResult
 public macro stub<Input, Output>(_ method: (Input) async throws -> Output, using closure: (Input) throws -> Output) -> Void = #externalMacro(module: "TestDRSMacros", type: "SetStubUsingClosureMacro")
