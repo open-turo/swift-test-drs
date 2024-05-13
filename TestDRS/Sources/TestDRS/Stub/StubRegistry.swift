@@ -67,6 +67,47 @@ public final class StubRegistry {
         stubs[identifier] = .output(value)
     }
 
+    /// Retrieves the stubbed output for the calling function based on the given input and expected output type.
+    ///
+    /// - Parameters:
+    ///   - input: The input to the calling function.
+    ///   - signature: **Do not pass in this argument**, it will automatically capture the signature of the calling function.
+    /// - Returns: The stubbed output for the calling function.
+    ///
+    /// - Precondition: A corresponding stub must be set prior to calling this function. Otherwise, a fatal error will be thrown.
+    func stubOutput<Input, Output>(
+        for input: Input,
+        signature: String
+    ) -> Output {
+        do {
+            return try getOutput(for: input, withSignature: signature)
+        } catch {
+            if let stubError = error as? StubRegistry.StubError {
+                report(stubError, signature: signature, input: Input.self, output: Output.self)
+            }
+            fatalError("Unexpected error getting stub for \(signature)")
+        }
+    }
+
+    /// Retrieves the stubbed output for the calling function based on the given input and expected output type, allowing for potential throwing of errors.
+    ///
+    /// - Parameters:
+    ///   - input: The input to the calling function.
+    ///   - signature: **Do not pass in this argument**, it will automatically capture the signature of the calling function.
+    /// - Returns: The stubbed output for the calling function, provided one has been set.
+    /// - Throws: Any error that has been set to be thrown for this function.
+    func throwingStubOutput<Input, Output>(
+        for input: Input,
+        signature: String
+    ) throws -> Output {
+        do {
+            return try getOutput(for: input, withSignature: signature)
+        } catch let stubError as StubRegistry.StubError {
+            report(stubError, signature: signature, input: Input.self, output: Output.self)
+            throw stubError
+        }
+    }
+
     /// Retrieves the output value for a given input and function signature.
     ///
     /// - Parameters:
@@ -74,7 +115,7 @@ public final class StubRegistry {
     ///   - signature: The signature of the function.
     /// - Returns: The output value for the given input and function signature.
     /// - Throws: `StubError.noStub` if no stub is registered for the given input and function signature, or any error thrown by the registered closure.
-    func getOutput<Input, Output>(for input: Input, withSignature signature: String) throws -> Output {
+    private func getOutput<Input, Output>(for input: Input, withSignature signature: String) throws -> Output {
         let identifier = StubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
 
         guard let stub = stubs[identifier] else {
@@ -94,6 +135,24 @@ public final class StubRegistry {
                 throw StubError.incorrectClosureType
             }
             return try closure(input)
+        }
+    }
+
+    private func report<Input, Output>(
+        _ stubError: StubRegistry.StubError,
+        signature: String,
+        input: Input.Type,
+        output: Output.Type
+    ) {
+        switch stubError {
+        case .noStub:
+            if isEmpty {
+                fatalError("No stubs were set for this \(Self.self).")
+            } else {
+                fatalError("No stub with input `\(Input.self)` and output `\(Output.self)` was set for \(signature).\n\n\(debugDescription)")
+            }
+        case .incorrectOutputType, .incorrectClosureType:
+            fatalError("This should not happen, there must be an issue in TestDRS within the `StubProviding` protocol and/or the `StubRegistry`.")
         }
     }
 

@@ -146,16 +146,13 @@ public struct MockMacro: PeerMacro {
 
         let mockTypes = members.filter { $0.decl.isTypeDeclaration }
 
-        let containsStaticMembers = mockProperties.contains { $0.isStatic || $0.isClassMember } || mockMethods.contains { $0.isStatic || $0.isClassMember }
-
         return MemberBlockItemListSyntax {
             mockTypes
             DeclSyntax("let blackBox = BlackBox()")
                 .with(\.leadingTrivia, .newlines(2))
             DeclSyntax("let stubRegistry = StubRegistry()")
-            if containsStaticMembers {
-                DeclSyntax("static let staticMock = StaticMock()")
-            }
+            DeclSyntax("static let blackBox = BlackBox()")
+            DeclSyntax("static let stubRegistry = StubRegistry()")
             MemberBlockItemListSyntax {
                 for mockProperty in mockProperties {
                     mockProperty
@@ -197,10 +194,10 @@ public struct MockMacro: PeerMacro {
 
     private static func mockPropertyAccessor(isStatic: Bool) -> AccessorBlockSyntax {
         let getter = AccessorDeclSyntax(accessorSpecifier: .keyword(.get)) {
-            isStatic ? "staticMock.stubOutput()" : "stubOutput()"
+            "stubOutput()"
         }
         let setter = AccessorDeclSyntax(accessorSpecifier: .keyword(.set)) {
-            isStatic ? "staticMock.setStub(value: newValue)" : "setStub(value: newValue)"
+            "setStub(value: newValue)"
         }
         return AccessorBlockSyntax(
             leftBrace: .leftBraceToken(),
@@ -275,20 +272,22 @@ public struct MockMacro: PeerMacro {
 
         return ReturnStmtSyntax(
             expression: FunctionCallExprSyntax(
-                method.isStatic || method.isClassMember ? "staticMock.recordCall" : "recordCall",
+                "recordCall",
                 rightParen: .rightParenToken().with(\.leadingTrivia, leadingTrivia)
             ) {
                 if method.hasParameters {
-                    LabeledExprSyntax("with", expression: method.inputParameters)
+                    LabeledExprSyntax(label: "with", expression: method.inputParameters)
                         .with(\.leadingTrivia, leadingTrivia)
+                        .with(\.trailingComma, .commaToken())
                 }
 
-                LabeledExprSyntax("at", expression: DeclReferenceExprSyntax(baseName: .identifier("callTime")))
+                LabeledExprSyntax(label: "at", expression: DeclReferenceExprSyntax(baseName: .identifier("callTime")))
                     .with(\.leadingTrivia, leadingTrivia)
+                    .with(\.trailingComma, .commaToken())
 
                 LabeledExprSyntax(
-                    "returning",
-                    expression: FunctionCallExprSyntax(returningExpression.text(forMethod: method)) {
+                    label: "returning",
+                    expression: FunctionCallExprSyntax(returningExpression.rawValue) {
                         if returningExpression != .void && method.hasParameters {
                             LabeledExprSyntax(
                                 label: "for",
@@ -297,8 +296,7 @@ public struct MockMacro: PeerMacro {
                             )
                         }
                     }
-                    .wrappedInTry(returningExpression == .throwingStubOutput),
-                    trailingComma: nil
+                    .wrappedInTry(returningExpression == .throwingStubOutput)
                 )
                 .with(\.leadingTrivia, leadingTrivia)
             }
@@ -314,16 +312,6 @@ private extension MockMacro {
         case void = "Void"
         case stubOutput
         case throwingStubOutput
-
-        func text(forMethod method: FunctionDeclSyntax) -> String {
-            guard self != .void else { return rawValue }
-
-            if method.isStatic || method.isClassMember {
-                return "staticMock.\(rawValue)"
-            } else {
-                return rawValue
-            }
-        }
     }
 
 }
@@ -341,22 +329,6 @@ private extension FunctionCallExprSyntax {
             leftParen: leftParen,
             rightParen: rightParen,
             argumentsBuilder: argumentsBuilder
-        )
-    }
-}
-
-private extension LabeledExprSyntax {
-    /// Abbreviated `LabeledExprSyntax` initializer to improve readability.
-    init(
-        _ label: TokenSyntax,
-        expression: ExprSyntaxProtocol,
-        trailingComma: TokenSyntax? = .commaToken()
-    ) {
-        self = LabeledExprSyntax(
-            label: label,
-            colon: .colonToken(),
-            expression: expression,
-            trailingComma: trailingComma
         )
     }
 }

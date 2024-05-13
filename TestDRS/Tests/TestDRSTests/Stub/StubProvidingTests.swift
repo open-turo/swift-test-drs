@@ -192,7 +192,8 @@ final class StubProvidingTests: XCTestCase {
 }
 
 private struct StubProvider: StubProviding {
-    var stubRegistry = StubRegistry()
+    let stubRegistry = StubRegistry()
+    static let stubRegistry = StubRegistry()
 
     func foo() -> Int {
         stubOutput()
