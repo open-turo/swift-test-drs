@@ -5,7 +5,7 @@
 
 import Foundation
 
-/// Extension for the `Spy` class that provides assertion utilities.
+/// Extension for `BlackBox` that provides assertion utilities.
 extension BlackBox {
 
     /// Retrieves the first recorded function call that matches the given signature.

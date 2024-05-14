@@ -94,9 +94,9 @@ extension MockMacroExpansionTests {
             """
             @Mock
             protocol SomeProtocol {
-                var foo { get }
-                static var bar { get set }
-                static var baz { get set }
+                var foo: String { get }
+                static var bar: Int { get set }
+                static var baz: Bool { get set }
 
                 static func oof(paramOne: String) -> Int
             }
@@ -104,9 +104,9 @@ extension MockMacroExpansionTests {
         } expansion: {
             """
             protocol SomeProtocol {
-                var foo { get }
-                static var bar { get set }
-                static var baz { get set }
+                var foo: String { get }
+                static var bar: Int { get set }
+                static var baz: Bool { get set }
 
                 static func oof(paramOne: String) -> Int
             }
@@ -120,7 +120,7 @@ extension MockMacroExpansionTests {
                 static let blackBox = BlackBox()
                 static let stubRegistry = StubRegistry()
 
-                var foo {
+                var foo: String {
                     get {
                         stubOutput()
                     }
@@ -129,7 +129,7 @@ extension MockMacroExpansionTests {
                     }
                 }
 
-                static var bar {
+                static var bar: Int {
                     get {
                         stubOutput()
                     }
@@ -138,7 +138,7 @@ extension MockMacroExpansionTests {
                     }
                 }
 
-                static var baz {
+                static var baz: Bool {
                     get {
                         stubOutput()
                     }
