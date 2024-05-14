@@ -27,9 +27,9 @@ final class WeatherServiceTests: XCTestCase {
         XCTAssertEqual(weather.description, "Sunny")
 
         // TODO: Use assert macro
-        networkClient.assertWasCalled("get(url:)", with: expectedURL)
+        networkClient.assertWasCalled(networkClient.get(url:), withSignature: "get(url:)", expectedInput: expectedURL)
         // TODO: Use assert macro
-        dataParser.assertWasCalled("parse(_:)", with: data)
+        dataParser.assertWasCalled(dataParser.parse(_:), withSignature: "parse(_:)", expectedInput: data, returning: Weather.self)
     }
 
     func testFetchingWeather_WithNetworkClientError() throws {
@@ -51,7 +51,7 @@ final class WeatherServiceTests: XCTestCase {
         }
 
         // TODO: Use assert macro
-        dataParser.assertCallCount(to: "parse(_:)", equals: 0)
+        dataParser.assertCallCount(to: dataParser.parse(_:), withSignature: "parse(_:)", returning: Weather.self, equals: 0)
     }
 
     func testFetchingWeather_WithDataParserError() throws {

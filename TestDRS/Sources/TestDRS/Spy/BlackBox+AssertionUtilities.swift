@@ -8,6 +8,23 @@ import Foundation
 /// Extension for `BlackBox` that provides assertion utilities.
 extension BlackBox {
 
+    /// Retrieves the only recorded function call that matches the given signature, if indeed there is only one call recorded.
+    ///
+    /// - Parameters:
+    ///   - signature: The signature of the function call to search for.
+    ///   - file: The file where the assertion is being made.
+    ///   - line: The line number where the assertion is being made.
+    /// - Returns: The only recorded function call that matches the given signature, or `nil` if zero or multiple calls were recorded with the given signature.
+    func onlyCall(withSignature signature: String, file: StaticString, line: UInt) -> (any FunctionCall)? {
+        let calls = callsMatching(signature: signature)
+        guard calls.count == 1, let onlyCall = calls.first else {
+            let message = "Expected \(signature) to be called exactly once, but \(calls.count) calls were recorded"
+            reportFailure(message: message, file: file, line: line)
+            return nil
+        }
+        return onlyCall
+    }
+
     /// Retrieves the first recorded function call that matches the given signature.
     ///
     /// - Parameters:

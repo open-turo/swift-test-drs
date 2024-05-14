@@ -6,10 +6,10 @@ final class SpyAssertionsTests: SpyTestCase {
     // MARK: - assertCallCount
 
     func testAssertCallCount_WithNoCalls() {
-        assertCallCount(to: "foo()", equals: 0)
+        assertCallCount(to: foo, withSignature: "foo()", equals: 0)
 
         XCTExpectFailure {
-            assertCallCount(to: "foo()", equals: 1)
+            assertCallCount(to: foo, withSignature: "foo()", equals: 1)
         }
     }
 
@@ -18,18 +18,18 @@ final class SpyAssertionsTests: SpyTestCase {
         foo()
         foo()
 
-        assertCallCount(to: "foo()", equals: 3)
+        assertCallCount(to: foo, withSignature: "foo()", equals: 3)
 
         XCTExpectFailure {
-            assertCallCount(to: "foo()", equals: 1)
+            assertCallCount(to: foo, withSignature: "foo()", equals: 1)
         }
     }
 
     func testAssertCallCountWithInputType_WithNoCalls() {
-        assertCallCount(to: "zab(paramOne:)", withInputType: Bool.self, equals: 0)
+        assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self, equals: 0)
 
         XCTExpectFailure {
-            assertCallCount(to: "zab(paramOne:)", withInputType: Bool.self, equals: 1)
+            assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self, equals: 1)
         }
     }
 
@@ -41,18 +41,18 @@ final class SpyAssertionsTests: SpyTestCase {
         zab(paramOne: 2)
         zab(paramOne: 3)
 
-        assertCallCount(to: "zab(paramOne:)", withInputType: Bool.self, equals: 1)
-        assertCallCount(to: "zab(paramOne:)", withInputType: String.self, equals: 2)
-        assertCallCount(to: "zab(paramOne:)", withInputType: Int.self, equals: 3)
+        assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self, equals: 1)
+        assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: String.self, equals: 2)
+        assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: Int.self, equals: 3)
 
         XCTExpectFailure {
-            assertCallCount(to: "zab(paramOne:)", withInputType: Bool.self, equals: 4)
+            assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self, equals: 4)
         }
         XCTExpectFailure {
-            assertCallCount(to: "zab(paramOne:)", withInputType: String.self, equals: 4)
+            assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: String.self, equals: 4)
         }
         XCTExpectFailure {
-            assertCallCount(to: "zab(paramOne:)", withInputType: Int.self, equals: 4)
+            assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: Int.self, equals: 4)
         }
     }
 
@@ -60,12 +60,12 @@ final class SpyAssertionsTests: SpyTestCase {
 
     func testAssertWasCalled_WithoutCalling() {
         XCTExpectFailure()
-        assertWasCalled("foo()")
+        assertWasCalled(foo, withSignature: "foo()")
     }
 
     func testAssertWasCalled_WithNoParameters() {
         foo()
-        assertWasCalled("foo()")
+        assertWasCalled(foo, withSignature: "foo()")
     }
 
     func testAssertWasCalled_WithDifferentParameterTypes() {
@@ -76,21 +76,21 @@ final class SpyAssertionsTests: SpyTestCase {
         zab(paramOne: 2)
         zab(paramOne: 3)
 
-        assertWasCalled("zab(paramOne:)", with: true)
-        assertWasCalled("zab(paramOne:)", with: "Hello")
-        assertWasCalled("zab(paramOne:)", with: "World")
-        assertWasCalled("zab(paramOne:)", with: 1)
-        assertWasCalled("zab(paramOne:)", with: 2)
-        assertWasCalled("zab(paramOne:)", with: 3)
+        assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true)
+        assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello")
+        assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "World")
+        assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 1)
+        assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 2)
+        assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 3)
 
         XCTExpectFailure {
-            _ = assertWasCalled("zab(paramOne:)", with: false)
+            _ = assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: false)
         }
         XCTExpectFailure {
-            _ = assertWasCalled("zab(paramOne:)", with: "Goodbye")
+            _ = assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Goodbye")
         }
         XCTExpectFailure {
-            _ = assertWasCalled("zab(paramOne:)", with: 4)
+            _ = assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 4)
         }
     }
 
@@ -98,14 +98,14 @@ final class SpyAssertionsTests: SpyTestCase {
         rab(paramOne: true, paramTwo: 1, paramThree: "Hello")
         rab(paramOne: false, paramTwo: nil, paramThree: nil)
 
-        assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 1, "Hello")
-        assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: false, Int?.none, String?.none)
+        assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
+        assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: false, Int?.none, String?.none)
 
         XCTExpectFailure {
-            _ = assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 2, "Hello")
+            _ = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "Hello")
         }
         XCTExpectFailure {
-            _ = assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, Int?.none, String?.none)
+            _ = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, Int?.none, String?.none)
         }
     }
 
@@ -113,61 +113,64 @@ final class SpyAssertionsTests: SpyTestCase {
 
     func testAssertWasCalledExactlyOnce_WithoutCalling() {
         XCTExpectFailure {
-            _ = assertWasCalledExactlyOnce("foo()")
+            _ = assertWasCalledExactlyOnce(foo, withSignature: "foo()")
         }
     }
 
     func testAssertWasCalledExactlyOnce_WithNoParameters() {
         foo()
-        assertWasCalledExactlyOnce("foo()")
+        assertWasCalledExactlyOnce(foo, withSignature: "foo()")
 
         foo()
 
         XCTExpectFailure {
-            _ = assertWasCalledExactlyOnce("foo()")
+            _ = assertWasCalledExactlyOnce(foo, withSignature: "foo()")
         }
     }
 
     func testAssertWasCalledExactlyOnce_WithSingleParameter() {
         bar(paramOne: true)
 
-        assertWasCalledExactlyOnce("bar(paramOne:)", with: true)
+        assertWasCalledExactlyOnce(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: true)
 
         XCTExpectFailure {
-            _ = assertWasCalledExactlyOnce("bar(paramOne:)", with: false)
+            _ = assertWasCalledExactlyOnce(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: false)
         }
     }
 
     func testAssertWasCalledExactlyOnce_WithMultipleParameters() {
         rab(paramOne: true, paramTwo: 1, paramThree: "Hello")
 
-        assertWasCalledExactlyOnce("rab(paramOne:paramTwo:paramThree:)", with: true, 1, "Hello")
+        assertWasCalledExactlyOnce(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
 
         rab(paramOne: true, paramTwo: 1, paramThree: "Hello")
 
         XCTExpectFailure {
-            _ = assertWasCalledExactlyOnce("rab(paramOne:paramTwo:paramThree:)", with: true, 1, "Hello")
+            _ = assertWasCalledExactlyOnce(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
         }
     }
 
     func testAssertWasCalledExactlyOnce_WithMultipleCalls_WithDifferentParameterTypes() {
-        zab(paramOne: true)
+//        zab(paramOne: true)
         zab(paramOne: "Hello World")
 
         XCTExpectFailure {
-            _ = assertWasCalledExactlyOnce("zab(paramOne:)")
+            _ = assertWasCalledExactlyOnce(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self)
         }
 
         XCTExpectFailure {
-            _ = assertWasCalledExactlyOnce("zab(paramOne:)", with: true)
+            _ = assertWasCalledExactlyOnce(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true)
         }
+
+        let call = assertWasCalledExactlyOnce(zab(paramOne:), withSignature: "zab(paramOne:)", returning: String.self)
+        XCTAssertEqual(call?.output, "Hello World")
     }
 
     // MARK: - assertWasCalledFirst
 
     func testAssertWasCalledFirst_WithoutCalling() {
         XCTExpectFailure {
-            _ = assertWasCalledFirst("foo()")
+            _ = assertWasCalledFirst(foo, withSignature: "foo()")
         }
     }
 
@@ -175,10 +178,10 @@ final class SpyAssertionsTests: SpyTestCase {
         foo()
         bar(paramOne: true)
 
-        assertWasCalledFirst("foo()")
+        assertWasCalledFirst(foo, withSignature: "foo()")
 
         XCTExpectFailure {
-            _ = assertWasCalledFirst("bar(paramOne:)")
+            _ = assertWasCalledFirst(bar(paramOne:), withSignature: "bar(paramOne:)")
         }
     }
 
@@ -186,10 +189,10 @@ final class SpyAssertionsTests: SpyTestCase {
         bar(paramOne: true)
         foo()
 
-        assertWasCalledFirst("bar(paramOne:)", with: true)
+        assertWasCalledFirst(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: true)
 
         XCTExpectFailure {
-            _ = assertWasCalledFirst("bar(paramOne:)", with: false)
+            _ = assertWasCalledFirst(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: false)
         }
     }
 
@@ -198,13 +201,13 @@ final class SpyAssertionsTests: SpyTestCase {
         rab(paramOne: true, paramTwo: 2, paramThree: "World")
         oof(paramOne: false, paramTwo: 3)
 
-        assertWasCalledFirst("rab(paramOne:paramTwo:paramThree:)", with: true, 1, "Hello")
+        assertWasCalledFirst(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
 
         XCTExpectFailure {
-            _ = assertWasCalledFirst("rab(paramOne:paramTwo:paramThree:)", with: true, 2, "World")
+            _ = assertWasCalledFirst(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "World")
         }
         XCTExpectFailure {
-            _ = assertWasCalledFirst("oof(paramOne:paramTwo:)", with: false, 3)
+            _ = assertWasCalledFirst(oof(paramOne:paramTwo:), withSignature: "oof(paramOne:paramTwo:)", expectedInput: false, 3)
         }
     }
 
@@ -212,10 +215,10 @@ final class SpyAssertionsTests: SpyTestCase {
         zab(paramOne: true)
         zab(paramOne: "Hello")
 
-        assertWasCalledFirst("zab(paramOne:)", with: true)
+        assertWasCalledFirst(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true)
 
         XCTExpectFailure {
-            _ = assertWasCalledFirst("zab(paramOne:)", with: "Hello")
+            _ = assertWasCalledFirst(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello")
         }
     }
 
@@ -223,7 +226,7 @@ final class SpyAssertionsTests: SpyTestCase {
 
     func testAssertWasCalledLast_WithoutCalling() {
         XCTExpectFailure {
-            _ = assertWasCalledLast("foo()")
+            _ = assertWasCalledLast(foo, withSignature: "foo()")
         }
     }
 
@@ -233,14 +236,14 @@ final class SpyAssertionsTests: SpyTestCase {
 
         let callToBar = try XCTUnwrap(calls(to: "bar(paramOne:)").first)
 
-        let callToFoo = assertWasCalledLast("foo()")
-        assertWasCalledLast("foo()", immediatelyAfter: callToBar)
+        let callToFoo = assertWasCalledLast(foo, withSignature: "foo()")
+        assertWasCalledLast(foo, withSignature: "foo()", immediatelyAfter: callToBar)
 
         XCTExpectFailure {
-            _ = assertWasCalledLast("bar(paramOne:)")
+            _ = assertWasCalledLast(bar(paramOne:), withSignature: "bar(paramOne:)")
         }
         XCTExpectFailure {
-            _ = assertWasCalledLast("foo()", immediatelyAfter: callToFoo)
+            _ = assertWasCalledLast(foo, withSignature: "foo()", immediatelyAfter: callToFoo)
         }
     }
 
@@ -250,14 +253,14 @@ final class SpyAssertionsTests: SpyTestCase {
 
         let callToFoo = try XCTUnwrap(calls(to: "foo()").first)
 
-        let callToBar = assertWasCalledLast("bar(paramOne:)", with: true)
-        assertWasCalledLast("bar(paramOne:)", with: true, immediatelyAfter: callToFoo)
+        let callToBar = assertWasCalledLast(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: true)
+        assertWasCalledLast(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: true, immediatelyAfter: callToFoo)
 
         XCTExpectFailure {
-            _ = assertWasCalledLast("bar(paramOne:)", with: false)
+            _ = assertWasCalledLast(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: false)
         }
         XCTExpectFailure {
-            _ = assertWasCalledLast("bar(paramOne:)", with: true, immediatelyAfter: callToBar)
+            _ = assertWasCalledLast(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: true, immediatelyAfter: callToBar)
         }
     }
 
@@ -268,17 +271,17 @@ final class SpyAssertionsTests: SpyTestCase {
 
         let firstCallToRab = try XCTUnwrap(calls(to: "rab(paramOne:paramTwo:paramThree:)").first)
 
-        let lastCallToRab = assertWasCalledLast("rab(paramOne:paramTwo:paramThree:)", with: true, 3, "World")
-        assertWasCalledLast("rab(paramOne:paramTwo:paramThree:)", with: true, 3, "World", immediatelyAfter: firstCallToRab)
+        let lastCallToRab = assertWasCalledLast(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 3, "World")
+        assertWasCalledLast(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 3, "World", immediatelyAfter: firstCallToRab)
 
         XCTExpectFailure {
-            _ = assertWasCalledLast("rab(paramOne:paramTwo:paramThree:)", with: true, 2, "Hello")
+            _ = assertWasCalledLast(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "Hello")
         }
         XCTExpectFailure {
-            _ = assertWasCalledLast("oof(paramOne:paramTwo:)", with: false, 1)
+            _ = assertWasCalledLast(oof(paramOne:paramTwo:), withSignature: "oof(paramOne:paramTwo:)", expectedInput: false, 1)
         }
         XCTExpectFailure {
-            _ = assertWasCalledLast("rab(paramOne:paramTwo:paramThree:)", with: true, 3, "World", immediatelyAfter: lastCallToRab)
+            _ = assertWasCalledLast(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 3, "World", immediatelyAfter: lastCallToRab)
         }
     }
 
@@ -288,15 +291,15 @@ final class SpyAssertionsTests: SpyTestCase {
 
         let firstCallToZab = try XCTUnwrap(calls(to: "zab(paramOne:)").first)
 
-        let lastCallToZab = assertWasCalledLast("zab(paramOne:)", with: "Hello")
-        assertWasCalledLast("zab(paramOne:)", with: "Hello", immediatelyAfter: firstCallToZab)
+        let lastCallToZab = assertWasCalledLast(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello")
+        assertWasCalledLast(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello", immediatelyAfter: firstCallToZab)
 
         XCTExpectFailure {
-            _ = assertWasCalledLast("zab(paramOne:)", with: true)
+            _ = assertWasCalledLast(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true)
         }
 
         XCTExpectFailure {
-            _ = assertWasCalledLast("zab(paramOne:)", with: "Hello", immediatelyAfter: lastCallToZab)
+            _ = assertWasCalledLast(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello", immediatelyAfter: lastCallToZab)
         }
     }
 
@@ -304,7 +307,7 @@ final class SpyAssertionsTests: SpyTestCase {
 
     func testAssertWasCalledAfter_WithoutCallingAnything() {
         XCTExpectFailure {
-            _ = assertWasCalled("foo()", after: ConcreteFunctionCall(signature: "", input: Void(), output: Void(), time: Date()))
+            _ = assertWasCalled(foo, withSignature: "foo()", after: ConcreteFunctionCall(signature: "", input: Void(), output: Void(), time: Date()))
         }
     }
 
@@ -316,10 +319,10 @@ final class SpyAssertionsTests: SpyTestCase {
         let firstCallToBar = try XCTUnwrap(calls(to: "bar(paramOne:)").first)
         let lastCallToBar = try XCTUnwrap(calls(to: "bar(paramOne:)").last)
 
-        assertWasCalled("foo()", after: firstCallToBar)
+        assertWasCalled(foo, withSignature: "foo()", after: firstCallToBar)
 
         XCTExpectFailure {
-            _ = assertWasCalled("foo()", after: lastCallToBar)
+            _ = assertWasCalled(foo, withSignature: "foo()", after: lastCallToBar)
         }
     }
 
@@ -331,13 +334,13 @@ final class SpyAssertionsTests: SpyTestCase {
         let firstCallToFoo = try XCTUnwrap(calls(to: "foo()").first)
         let lastCallToFoo = try XCTUnwrap(calls(to: "foo()").last)
 
-        assertWasCalled("bar(paramOne:)", after: firstCallToFoo)
+        assertWasCalled(bar(paramOne:), withSignature: "bar(paramOne:)", after: firstCallToFoo)
 
         XCTExpectFailure {
-            _ = assertWasCalled("bar(paramOne:)", with: false, after: firstCallToFoo)
+            _ = assertWasCalled(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: false, after: firstCallToFoo)
         }
         XCTExpectFailure {
-            _ = assertWasCalled("bar(paramOne:)", after: lastCallToFoo)
+            _ = assertWasCalled(bar(paramOne:), withSignature: "bar(paramOne:)", after: lastCallToFoo)
         }
     }
 
@@ -349,13 +352,13 @@ final class SpyAssertionsTests: SpyTestCase {
         let firstCallToOof = try XCTUnwrap(calls(to: "oof(paramOne:paramTwo:)").first)
         let lastCallToOof = try XCTUnwrap(calls(to: "oof(paramOne:paramTwo:)").last)
 
-        assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 2, "Hello", after: firstCallToOof)
+        assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "Hello", after: firstCallToOof)
 
         XCTExpectFailure {
-            _ = assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: false, 2, "Hello", after: lastCallToOof)
+            _ = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: false, 2, "Hello", after: lastCallToOof)
         }
         XCTExpectFailure {
-            _ = assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 3, "Hello", after: lastCallToOof)
+            _ = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 3, "Hello", after: lastCallToOof)
         }
     }
 
@@ -368,15 +371,15 @@ final class SpyAssertionsTests: SpyTestCase {
         let firstCallToBaz = try XCTUnwrap(calls(to: "baz(paramOne:)").first)
         let lastCallToBaz = try XCTUnwrap(calls(to: "baz(paramOne:)").last)
 
-        assertWasCalled("zab(paramOne:)", with: true, after: firstCallToBaz)
-        assertWasCalled("zab(paramOne:)", with: "Hello", after: firstCallToBaz)
-        assertWasCalled("zab(paramOne:)", with: "Hello", after: lastCallToBaz)
+        assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true, after: firstCallToBaz)
+        assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello", after: firstCallToBaz)
+        assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello", after: lastCallToBaz)
 
         XCTExpectFailure {
-            _ = assertWasCalled("zab(paramOne:)", with: false, after: firstCallToBaz)
+            _ = assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: false, after: firstCallToBaz)
         }
         XCTExpectFailure {
-            _ = assertWasCalled("zab(paramOne:)", with: true, after: lastCallToBaz)
+            _ = assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true, after: lastCallToBaz)
         }
     }
 
@@ -384,7 +387,7 @@ final class SpyAssertionsTests: SpyTestCase {
 
     func testAssertWasCalledImmediatelyAfter_WithoutCallingAnything() {
         XCTExpectFailure {
-            _ = assertWasCalled("foo()", immediatelyAfter: ConcreteFunctionCall(signature: "", input: Void(), output: Void(), time: Date()))
+            _ = assertWasCalled(foo, withSignature: "foo()", immediatelyAfter: ConcreteFunctionCall(signature: "", input: Void(), output: Void(), time: Date()))
         }
     }
 
@@ -396,10 +399,10 @@ final class SpyAssertionsTests: SpyTestCase {
         let firstCallToBar = try XCTUnwrap(calls(to: "bar(paramOne:)").first)
         let secondCallToBar = try XCTUnwrap(calls(to: "bar(paramOne:)").last)
 
-        assertWasCalled("foo()", immediatelyAfter: secondCallToBar)
+        assertWasCalled(foo, withSignature: "foo()", immediatelyAfter: secondCallToBar)
 
         XCTExpectFailure {
-            _ = assertWasCalled("foo()", immediatelyAfter: firstCallToBar)
+            _ = assertWasCalled(foo, withSignature: "foo()", immediatelyAfter: firstCallToBar)
         }
     }
 
@@ -411,13 +414,13 @@ final class SpyAssertionsTests: SpyTestCase {
         let firstCallToFoo = try XCTUnwrap(calls(to: "foo()").first)
         let lastCallToFoo = try XCTUnwrap(calls(to: "foo()").last)
 
-        assertWasCalled("bar(paramOne:)", immediatelyAfter: lastCallToFoo)
+        assertWasCalled(bar(paramOne:), withSignature: "bar(paramOne:)", immediatelyAfter: lastCallToFoo)
 
         XCTExpectFailure {
-            _ = assertWasCalled("bar(paramOne:)", with: false, after: lastCallToFoo)
+            _ = assertWasCalled(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: false, after: lastCallToFoo)
         }
         XCTExpectFailure {
-            _ = assertWasCalled("bar(paramOne:)", immediatelyAfter: firstCallToFoo)
+            _ = assertWasCalled(bar(paramOne:), withSignature: "bar(paramOne:)", immediatelyAfter: firstCallToFoo)
         }
     }
 
@@ -429,13 +432,13 @@ final class SpyAssertionsTests: SpyTestCase {
         let firstCallToOof = try XCTUnwrap(calls(to: "oof(paramOne:paramTwo:)").first)
         let lastCallToOof = try XCTUnwrap(calls(to: "oof(paramOne:paramTwo:)").last)
 
-        assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 2, "Hello", immediatelyAfter: lastCallToOof)
+        assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "Hello", immediatelyAfter: lastCallToOof)
 
         XCTExpectFailure {
-            _ = assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: false, 2, "Hello", immediatelyAfter: lastCallToOof)
+            _ = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: false, 2, "Hello", immediatelyAfter: lastCallToOof)
         }
         XCTExpectFailure {
-            _ = assertWasCalled("rab(paramOne:paramTwo:paramThree:)", with: true, 3, "Hello", immediatelyAfter: firstCallToOof)
+            _ = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 3, "Hello", immediatelyAfter: firstCallToOof)
         }
     }
 
@@ -448,14 +451,15 @@ final class SpyAssertionsTests: SpyTestCase {
         let firstCallToBaz = try XCTUnwrap(calls(to: "baz(paramOne:)").first)
         let lastCallToBaz = try XCTUnwrap(calls(to: "baz(paramOne:)").last)
 
-        assertWasCalled("zab(paramOne:)", with: true, immediatelyAfter: firstCallToBaz)
-        assertWasCalled("zab(paramOne:)", with: "Hello", immediatelyAfter: lastCallToBaz)
+        assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true, immediatelyAfter: firstCallToBaz)
+        assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello", immediatelyAfter: lastCallToBaz)
 
         XCTExpectFailure {
-            _ = assertWasCalled("zab(paramOne:)", with: false, immediatelyAfter: firstCallToBaz)
+            _ = assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: false, immediatelyAfter: firstCallToBaz)
         }
         XCTExpectFailure {
-            _ = assertWasCalled("zab(paramOne:)", with: true, immediatelyAfter: lastCallToBaz)
+            _ = assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true, immediatelyAfter: lastCallToBaz)
         }
     }
+
 }
