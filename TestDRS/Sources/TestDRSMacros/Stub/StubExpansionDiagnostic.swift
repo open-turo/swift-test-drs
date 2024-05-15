@@ -17,7 +17,7 @@ enum StubExpansionDiagnostic: String, DiagnosticMessage {
     }
 
     var diagnosticID: MessageID {
-        MessageID(domain: "StubMacros", id: rawValue)
+        MessageID(domain: Self.moduleDomain, id: "\(String(describing: Self.self)).\(rawValue)")
     }
 
     var severity: DiagnosticSeverity { .error }
