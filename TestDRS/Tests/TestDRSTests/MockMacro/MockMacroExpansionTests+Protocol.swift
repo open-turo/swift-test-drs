@@ -34,7 +34,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            class MockSomeProtocol: SomeProtocol, Spy, StubProviding {
+            final class MockSomeProtocol: SomeProtocol, Spy, StubProviding {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -113,7 +113,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            class MockSomeProtocol: SomeProtocol, Spy, StubProviding {
+            final class MockSomeProtocol: SomeProtocol, Spy, StubProviding {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -179,7 +179,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            class MockSomeProtocol: SomeProtocol, Spy, StubProviding {
+            final class MockSomeProtocol: SomeProtocol, Spy, StubProviding {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -214,7 +214,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            class MockSomeProtocol: SomeProtocol, Spy, StubProviding {
+            final class MockSomeProtocol: SomeProtocol, Spy, StubProviding {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -249,7 +249,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            @objc class MockSomeProtocol: NSObject, SomeProtocol, Spy, StubProviding {
+            @objc final class MockSomeProtocol: NSObject, SomeProtocol, Spy, StubProviding {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -288,7 +288,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            class MockSomeProtocol<T>: SomeProtocol, Spy, StubProviding {
+            final class MockSomeProtocol<T>: SomeProtocol, Spy, StubProviding {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()

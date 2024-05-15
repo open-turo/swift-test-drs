@@ -20,7 +20,7 @@ struct DataParserStruct: DataParserProtocol {
 }
 
 @Mock
-struct DataParserClass: DataParserProtocol {
+class DataParserClass: DataParserProtocol {
     func parse<T: Decodable>(_ data: Data) throws -> T {
         fatalError()
         // Real implementation would parse the data into the specified Decodable type

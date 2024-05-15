@@ -39,7 +39,6 @@ final class MockMacroExpansionTests: XCTestCase {
         }
     }
 
-    // TODO: Support mocking actors
     func testMockMacro_WithActor_ProducesDiagnostic() {
         assertMacro {
             """

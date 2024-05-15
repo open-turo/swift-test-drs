@@ -18,26 +18,15 @@ extension InheritanceClauseSyntax {
     ///
     /// - Returns: An updated `InheritanceClauseSyntax` with the appended types.
     func appending(_ types: [String]) -> InheritanceClauseSyntax {
-        var typeList = inheritedTypes.trimmed
-
-        if var lastType = typeList.last, let lastIndex = typeList.index(of: lastType) {
-            lastType.trailingComma = .commaToken()
-            typeList[lastIndex] = lastType
+        let typeList = InheritedTypeListSyntax {
+            for existingType in inheritedTypes.trimmed {
+                existingType
+            }
+            for type in types {
+                InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier(type)))
+            }
         }
-
-        types.enumerated().forEach { index, type in
-            typeList.append(
-                InheritedTypeSyntax(
-                    leadingTrivia: [],
-                    type: IdentifierTypeSyntax(name: .identifier(type)),
-                    trailingComma: index == types.count - 1 ? nil : .commaToken()
-                )
-            )
-        }
-
-        var clause = self
-        clause.inheritedTypes = typeList
-        return clause
+        return with(\.inheritedTypes, typeList)
     }
 
 }

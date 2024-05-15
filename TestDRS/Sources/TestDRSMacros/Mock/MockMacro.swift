@@ -74,7 +74,7 @@ public struct MockMacro: PeerMacro {
                 rightAngle: .rightAngleToken()
             )
         }
-        classDeclaration.modifiers = protocolDeclaration.modifiers
+        classDeclaration.modifiers += protocolDeclaration.modifiers
         classDeclaration.attributes = protocolDeclaration.attributes
             .filter { $0.trimmedDescription != "@Mock" }
 
@@ -118,6 +118,9 @@ public struct MockMacro: PeerMacro {
         isSubclass: Bool = false
     ) throws -> ClassDeclSyntax {
         return ClassDeclSyntax(
+            modifiers: DeclModifierListSyntax(
+                [DeclModifierSyntax(name: .keyword(.final))]
+            ),
             name: mockTypeName(from: typeName),
             inheritanceClause: inheritanceClause
         ) {
@@ -184,8 +187,8 @@ public struct MockMacro: PeerMacro {
         mockProperty.bindings = PatternBindingListSyntax {
             for binding in mockProperty.bindings {
                 binding
-                    .withoutInitializer()
-                    .withAccessorBlock(mockPropertyAccessor(isStatic: mockProperty.isStatic || mockProperty.isClassMember))
+                    .with(\.initializer, nil)
+                    .with(\.accessorBlock, (mockPropertyAccessor(isStatic: mockProperty.isStatic || mockProperty.isClassMember)))
             }
         }
 

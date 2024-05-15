@@ -74,7 +74,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            class MockSomeClass: SomeClass, Spy, StubProviding {
+            final class MockSomeClass: SomeClass, Spy, StubProviding {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -164,7 +164,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            class MockSomeClass: SomeClass, Spy, StubProviding {
+            final class MockSomeClass: SomeClass, Spy, StubProviding {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -242,7 +242,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            class MockSomeClass: SomeClass, Spy, StubProviding {
+            final class MockSomeClass: SomeClass, Spy, StubProviding {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -304,7 +304,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            class MockSomeClass: SomeClass, Spy, StubProviding {
+            final class MockSomeClass: SomeClass, Spy, StubProviding {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -366,7 +366,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            class MockSomeClass: SomeClass, Spy, StubProviding {
+            final class MockSomeClass: SomeClass, Spy, StubProviding {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -437,7 +437,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            class MockSomeClass: SomeClass, Spy, StubProviding {
+            final class MockSomeClass: SomeClass, Spy, StubProviding {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
