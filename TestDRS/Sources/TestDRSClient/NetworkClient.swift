@@ -26,3 +26,8 @@ class NetworkClientClass: NetworkClientProtocol {
         // Real implementation would make a network request and return the data
     }
 }
+
+enum NetworkClientError: Error {
+    case noNetworkConnection
+    case serverError
+}

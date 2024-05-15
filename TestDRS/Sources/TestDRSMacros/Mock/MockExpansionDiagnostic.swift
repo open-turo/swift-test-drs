@@ -7,7 +7,7 @@ import SwiftDiagnostics
 
 enum MockExpansionDiagnostic: String, DiagnosticMessage {
 
-    case invalidType = "invalid type"
+    case invalidType
 
     var message: String {
         switch self {
@@ -17,7 +17,7 @@ enum MockExpansionDiagnostic: String, DiagnosticMessage {
     }
 
     var diagnosticID: MessageID {
-        MessageID(domain: String(describing: MockMacro.self), id: rawValue)
+        MessageID(domain: Self.moduleDomain, id: "\(Self.self).\(rawValue)")
     }
 
     var severity: DiagnosticSeverity { .error }
