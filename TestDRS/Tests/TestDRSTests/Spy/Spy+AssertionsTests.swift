@@ -109,6 +109,32 @@ final class SpyAssertionsTests: SpyTestCase {
         }
     }
 
+    func testAssertWasCalled_WithPredicate() {
+        rab(paramOne: false, paramTwo: nil, paramThree: nil)
+        rab(paramOne: true, paramTwo: 1, paramThree: nil)
+
+        assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)") { call in
+            guard let paramTwo = call.input.1 else { return false }
+            return paramTwo < 5
+        }
+        assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)") { call in
+            call.input.1 == nil && call.input.2 == nil
+        }
+
+        XCTExpectFailure {
+            _ = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)") { call in
+                guard let paramTwo = call.input.1 else { return false }
+                return paramTwo > 5
+            }
+        }
+        XCTExpectFailure {
+            _ = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)") { call in
+                guard let paramThree = call.input.2 else { return false }
+                return paramThree == "Hello World"
+            }
+        }
+    }
+
     // MARK: - assertWasCalledExactlyOnce
 
     func testAssertWasCalledExactlyOnce_WithoutCalling() {
