@@ -8,7 +8,8 @@ import XCTest
 
 class SpyTestCase: XCTestCase, Spy {
 
-    var blackBox = BlackBox()
+    let blackBox = BlackBox()
+    static let blackBox = BlackBox()
 
     private var second = 0
 

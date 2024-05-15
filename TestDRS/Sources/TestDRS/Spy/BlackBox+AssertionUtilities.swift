@@ -5,8 +5,8 @@
 
 import Foundation
 
-/// Extension for the `Spy` class that provides assertion utilities.
-extension Spy {
+/// Extension for `BlackBox` that provides assertion utilities.
+extension BlackBox {
 
     /// Retrieves the first recorded function call that matches the given signature.
     ///
@@ -16,7 +16,7 @@ extension Spy {
     ///   - line: The line number where the assertion is being made.
     /// - Returns: The first recorded function call that matches the given signature, or `nil` if no calls were recorded or if the first call does not match the signature.
     func firstCall(signature: String, file: StaticString, line: UInt) -> (any FunctionCall)? {
-        guard let firstCall = blackBox.firstCall else {
+        guard let firstCall = firstCall else {
             reportFailure(message: "No calls were recorded", file: file, line: line)
             return nil
         }
@@ -36,7 +36,7 @@ extension Spy {
     ///   - line: The line number where the assertion is being made.
     /// - Returns: The last recorded function call that matches the given signature, or `nil` if no calls were recorded or if the last call does not match the signature.
     func lastCall(signature: String, file: StaticString, line: UInt) -> (any FunctionCall)? {
-        guard let lastCall = blackBox.lastCall else {
+        guard let lastCall = lastCall else {
             reportFailure(message: "No calls were recorded", file: file, line: line)
             return nil
         }
@@ -57,7 +57,7 @@ extension Spy {
     ///   - line: The line number where the assertion is being made.
     /// - Returns: The next recorded function call after the given previous call that matches the given signature, or `nil` if no calls were recorded after the previous call or if the next call does not match the signature.
     func nextCall(after previousCall: (any FunctionCall), signature: String, file: StaticString, line: UInt) -> (any FunctionCall)? {
-        guard let nextCall = blackBox.callAfter(previousCall) else {
+        guard let nextCall = callAfter(previousCall) else {
             reportFailure(message: "No calls were recorded after \(previousCall.signature)", file: file, line: line)
             return nil
         }
