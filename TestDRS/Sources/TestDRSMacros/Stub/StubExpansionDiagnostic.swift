@@ -13,8 +13,8 @@ struct StubExpansionDiagnostic: DiagnosticMessage {
 
     var message: String {
         switch issue {
-        case .missingArgument(let argumentLabel):
-            "Missing argument named `\(argumentLabel)` when attempting to expand \(macro)"
+        case .incorrectArguments:
+            "Incorrect arguments when attempting to expand \(macro)"
         case .unableToResolveMember:
             "Unable to resolve member to stub when attempting to expand \(macro)"
         }
@@ -31,18 +31,9 @@ struct StubExpansionDiagnostic: DiagnosticMessage {
 // MARK: StubExpansionDiagnostic.Issue
 extension StubExpansionDiagnostic {
 
-    enum Issue: CustomDebugStringConvertible {
-        case missingArgument(labeled: String)
+    enum Issue: String {
+        case incorrectArguments
         case unableToResolveMember
-
-        var debugDescription: String {
-            switch self {
-            case .missingArgument:
-                "missingArgument"
-            case .unableToResolveMember:
-                "unableToResolveMember"
-            }
-        }
     }
 
 }

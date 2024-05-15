@@ -14,13 +14,15 @@ public struct SetStubReturningOutputMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        let outputArgumentLabel = "returning"
-        guard let output = node.arguments.first(where: { $0.label?.text == outputArgumentLabel })?.expression else {
+        guard node.arguments.count == 2,
+              let firstArgument = node.arguments.first?.expression,
+              let output = node.arguments.last?.expression
+        else {
             context.diagnose(
                 Diagnostic(
                     node: Syntax(node),
                     message: StubExpansionDiagnostic(
-                        issue: .missingArgument(labeled: outputArgumentLabel),
+                        issue: .incorrectArguments,
                         macro: Self.self
                     )
                 )
@@ -28,11 +30,11 @@ public struct SetStubReturningOutputMacro: ExpressionMacro {
             return ""
         }
 
-        if let memberAccess = node.arguments.first?.expression.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
+        if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
             return """
             \(base).setStub(for: \(memberAccess), withSignature: "\(memberAccess.declName.baseName)\(memberAccess.resolvedArguments)", returning: \(output))
             """
-        } else if let expression = node.arguments.first?.expression.as(DeclReferenceExprSyntax.self) {
+        } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
             return """
             setStub(for: \(expression), withSignature: "\(expression.argumentNames == nil ? "\(expression)()" : "\(expression)")", returning: \(output))
             """
@@ -53,13 +55,15 @@ public struct SetStubThrowingErrorMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        let outputArgumentLabel = "throwing"
-        guard let error = node.arguments.first(where: { $0.label?.text == outputArgumentLabel })?.expression else {
+        guard node.arguments.count == 2,
+              let firstArgument = node.arguments.first?.expression,
+              let error = node.arguments.last?.expression
+        else {
             context.diagnose(
                 Diagnostic(
                     node: Syntax(node),
                     message: StubExpansionDiagnostic(
-                        issue: .missingArgument(labeled: outputArgumentLabel),
+                        issue: .incorrectArguments,
                         macro: Self.self
                     )
                 )
@@ -67,11 +71,11 @@ public struct SetStubThrowingErrorMacro: ExpressionMacro {
             return ""
         }
 
-        if let memberAccess = node.arguments.first?.expression.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
+        if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
             return """
             \(base).setStub(for: \(memberAccess), withSignature: "\(memberAccess.declName.baseName)\(memberAccess.resolvedArguments)", throwing: \(error))
             """
-        } else if let expression = node.arguments.first?.expression.as(DeclReferenceExprSyntax.self) {
+        } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
             return """
             setStub(for: \(expression), withSignature: "\(expression.argumentNames == nil ? "\(expression)()" : "\(expression)")", throwing: \(error))
             """
@@ -92,13 +96,15 @@ public struct SetStubUsingClosureMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        let outputArgumentLabel = "using"
-        guard let closure = node.arguments.first(where: { $0.label?.text == outputArgumentLabel })?.expression else {
+        guard node.arguments.count == 2,
+              let firstArgument = node.arguments.first?.expression,
+              let closure = node.arguments.last?.expression
+        else {
             context.diagnose(
                 Diagnostic(
                     node: Syntax(node),
                     message: StubExpansionDiagnostic(
-                        issue: .missingArgument(labeled: outputArgumentLabel),
+                        issue: .incorrectArguments,
                         macro: Self.self
                     )
                 )
@@ -106,11 +112,11 @@ public struct SetStubUsingClosureMacro: ExpressionMacro {
             return ""
         }
 
-        if let memberAccess = node.arguments.first?.expression.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
+        if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
             return """
             \(base).setDynamicStub(for: \(memberAccess), withSignature: "\(memberAccess.declName.baseName)\(memberAccess.resolvedArguments)")\(closure)
             """
-        } else if let expression = node.arguments.first?.expression.as(DeclReferenceExprSyntax.self) {
+        } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
             return """
             setDynamicStub(for: \(expression), withSignature: "\(expression.argumentNames == nil ? "\(expression)()" : "\(expression)")")\(closure)
             """
