@@ -66,12 +66,16 @@ final class SetStubUsingClosureMacroExpansionTests: XCTestCase {
     func testStubbingMethod_WithNoBase_WithArguments() {
         assertMacro {
             """
-            #stub(foo(_:paramTwo:), using: { "Hello World" })
+            let x = "Hello "
+            let y = "World"
+            #stub(foo(_:paramTwo:), using: { x + y })
             """
         } expansion: {
             """
+            let x = "Hello "
+            let y = "World"
             setDynamicStub(for: foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)") {
-                "Hello World"
+                x + y
             }
             """
         }

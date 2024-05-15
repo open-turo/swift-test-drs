@@ -39,38 +39,38 @@
 @attached(peer, names: prefixed(Mock))
 public macro Mock() = #externalMacro(module: "TestDRSMacros", type: "MockMacro")
 
-/// Sets a stub for a given method to return a provided output.
+/// Sets a stub for a given function to return a provided output.
 ///
 /// - Parameters:
-///   - method: The method to stub.
-///   - output: The output value to be returned when the method is called.
+///   - function: The function to stub.
+///   - output: The output value to be returned when the function is called.
 ///
-///   - Note: The compiler will not be able to disambiguate when stubbing methods that are overloaded *and* share the same output type.
+///   - Note: The compiler will not be able to disambiguate when stubbing functions that are overloaded *and* share the same output type.
 ///   If that is the case, use `#stub(_:using:)` and specify the input to the closure explicitly.
 @freestanding(expression)
 @discardableResult
-public macro stub<Input, Output>(_ method: (Input) async throws -> Output, returning output: Output) -> Void = #externalMacro(module: "TestDRSMacros", type: "SetStubReturningOutputMacro")
+public macro stub<Input, Output>(_ function: (Input) async throws -> Output, returning output: Output) -> Void = #externalMacro(module: "TestDRSMacros", type: "SetStubReturningOutputMacro")
 
-/// Sets a stub for a given method to throw a provided error.
+/// Sets a stub for a given function to throw a provided error.
 ///
 /// - Parameters:
-///   - method: The method to stub.
-///   - error: The error to be thrown when the method is called.
+///   - function: The function to stub.
+///   - error: The error to be thrown when the function is called.
 ///
-///   - Note: The compiler will not be able to disambiguate when stubbing methods that are overloaded *and* share the same output type.
+///   - Note: The compiler will not be able to disambiguate when stubbing functions that are overloaded *and* share the same output type.
 ///   If that is the case, use `#stub(_:using:)` and specify the input to the closure explicitly.
 @freestanding(expression)
 @discardableResult
-public macro stub<Input, Output>(_ method: (Input) async throws -> Output, throwing error: Error) -> Void = #externalMacro(module: "TestDRSMacros", type: "SetStubThrowingErrorMacro")
+public macro stub<Input, Output>(_ function: (Input) async throws -> Output, throwing error: Error) -> Void = #externalMacro(module: "TestDRSMacros", type: "SetStubThrowingErrorMacro")
 
-/// Sets a stub for a given method using a closure to dynamically determine the output.
+/// Sets a stub for a given function using a closure to dynamically determine the output.
 ///
 /// - Parameters:
-///   - method: The method to stub.
-///   - closure: A closure that takes in the method's input and returns the desired output when the method is called.
+///   - function: The function to stub.
+///   - closure: A closure that takes in the function's input and returns the desired output when the function is called.
 ///
 ///   - Note: Macros do not seem to support trailing syntax currently, so you must specify the argument label `using`.
 ///   This also serves to disambiguate from `stub(_:returning:)` where the `Output` is a closure.
 @freestanding(expression)
 @discardableResult
-public macro stub<Input, Output>(_ method: (Input) async throws -> Output, using closure: (Input) throws -> Output) -> Void = #externalMacro(module: "TestDRSMacros", type: "SetStubUsingClosureMacro")
+public macro stub<Input, Output>(_ function: (Input) async throws -> Output, using closure: (Input) throws -> Output) -> Void = #externalMacro(module: "TestDRSMacros", type: "SetStubUsingClosureMacro")

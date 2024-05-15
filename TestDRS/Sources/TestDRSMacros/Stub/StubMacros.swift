@@ -14,11 +14,15 @@ public struct SetStubReturningOutputMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        guard let output = node.arguments.last?.expression else {
+        let outputArgumentLabel = "returning"
+        guard let output = node.arguments.first(where: { $0.label?.text == outputArgumentLabel })?.expression else {
             context.diagnose(
                 Diagnostic(
                     node: Syntax(node),
-                    message: StubExpansionDiagnostic.unknown
+                    message: StubExpansionDiagnostic(
+                        issue: .missingArgument(labeled: outputArgumentLabel),
+                        macro: Self.self
+                    )
                 )
             )
             return ""
@@ -36,7 +40,7 @@ public struct SetStubReturningOutputMacro: ExpressionMacro {
             context.diagnose(
                 Diagnostic(
                     node: Syntax(node),
-                    message: StubExpansionDiagnostic.unknown
+                    message: StubExpansionDiagnostic(issue: .unableToResolveMember, macro: Self.self)
                 )
             )
             return ""
@@ -49,11 +53,15 @@ public struct SetStubThrowingErrorMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        guard let error = node.arguments.last?.expression else {
+        let outputArgumentLabel = "throwing"
+        guard let error = node.arguments.first(where: { $0.label?.text == outputArgumentLabel })?.expression else {
             context.diagnose(
                 Diagnostic(
                     node: Syntax(node),
-                    message: StubExpansionDiagnostic.unknown
+                    message: StubExpansionDiagnostic(
+                        issue: .missingArgument(labeled: outputArgumentLabel),
+                        macro: Self.self
+                    )
                 )
             )
             return ""
@@ -71,7 +79,7 @@ public struct SetStubThrowingErrorMacro: ExpressionMacro {
             context.diagnose(
                 Diagnostic(
                     node: Syntax(node),
-                    message: StubExpansionDiagnostic.unknown
+                    message: StubExpansionDiagnostic(issue: .unableToResolveMember, macro: Self.self)
                 )
             )
             return ""
@@ -84,11 +92,15 @@ public struct SetStubUsingClosureMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        guard let closure = node.arguments.last?.expression else {
+        let outputArgumentLabel = "using"
+        guard let closure = node.arguments.first(where: { $0.label?.text == outputArgumentLabel })?.expression else {
             context.diagnose(
                 Diagnostic(
                     node: Syntax(node),
-                    message: StubExpansionDiagnostic.unknown
+                    message: StubExpansionDiagnostic(
+                        issue: .missingArgument(labeled: outputArgumentLabel),
+                        macro: Self.self
+                    )
                 )
             )
             return ""
@@ -106,7 +118,7 @@ public struct SetStubUsingClosureMacro: ExpressionMacro {
             context.diagnose(
                 Diagnostic(
                     node: Syntax(node),
-                    message: StubExpansionDiagnostic.unknown
+                    message: StubExpansionDiagnostic(issue: .unableToResolveMember, macro: Self.self)
                 )
             )
             return ""

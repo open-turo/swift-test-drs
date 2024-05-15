@@ -17,7 +17,7 @@ enum MockExpansionDiagnostic: String, DiagnosticMessage {
     }
 
     var diagnosticID: MessageID {
-        MessageID(domain: Self.moduleDomain, id: "\(String(describing: Self.self)).\(rawValue)")
+        MessageID(domain: Self.moduleDomain, id: "\(Self.self).\(rawValue)")
     }
 
     var severity: DiagnosticSeverity { .error }
