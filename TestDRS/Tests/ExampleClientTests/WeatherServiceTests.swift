@@ -3,8 +3,8 @@
 // Copyright © 2024 Turo Open Source. All rights reserved.
 //
 
+@testable import ExampleClient
 import TestDRS
-@testable import TestDRSClient
 import XCTest
 
 final class WeatherServiceTests: XCTestCase {
