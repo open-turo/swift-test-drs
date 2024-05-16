@@ -421,7 +421,7 @@ final class SpyAssertionsTests: SpyTestCase {
         zab(paramOne: "Hello World")
 
         let call = assertWasCalledExactlyOnce(zab(paramOne:), withSignature: "zab(paramOne:)", returning: String.self)
-        XCTAssertEqual(call?.output, "Hello World")
+        XCTAssertEqual(call?.input, "Hello World")
 
         XCTExpectFailure(
             failingBlock: {
@@ -704,7 +704,6 @@ final class SpyAssertionsTests: SpyTestCase {
         let callToOof = try XCTUnwrap(calls(to: "oof(paramOne:paramTwo:)").first)
         let firstCallToRab = try XCTUnwrap(calls(to: "rab(paramOne:paramTwo:paramThree:)").first)
 
-        let lastCallToRab = assertWasCalledLast(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 3, "World")
         assertWasCalledLast(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 3, "World", immediatelyAfter: firstCallToRab)
 
         XCTExpectFailure(
@@ -804,7 +803,7 @@ final class SpyAssertionsTests: SpyTestCase {
 
     func testAssertWasCalledAfter_WithoutCallingAnything() {
         XCTExpectFailure {
-            _ = assertWasCalled(foo, withSignature: "foo()", after: ConcreteFunctionCall(signature: "", input: Void(), output: Void(), time: Date()))
+            _ = assertWasCalled(foo, withSignature: "foo()", after: ConcreteFunctionCall(signature: "", input: Void(), outputType: Void.self, time: Date()))
         }
     }
 
@@ -886,7 +885,7 @@ final class SpyAssertionsTests: SpyTestCase {
 
     func testAssertWasCalledImmediatelyAfter_WithoutCallingAnything() {
         XCTExpectFailure {
-            _ = assertWasCalled(foo, withSignature: "foo()", immediatelyAfter: ConcreteFunctionCall(signature: "", input: Void(), output: Void(), time: Date()))
+            _ = assertWasCalled(foo, withSignature: "foo()", immediatelyAfter: ConcreteFunctionCall(signature: "", input: Void(), outputType: Void.self, time: Date()))
         }
     }
 

@@ -72,18 +72,26 @@ public final class StubRegistry {
     /// - Parameters:
     ///   - input: The input to the calling function.
     ///   - signature: **Do not pass in this argument**, it will automatically capture the signature of the calling function.
+    ///   - stubProvidingType: The type where the stub is being retrieved.
     /// - Returns: The stubbed output for the calling function.
     ///
     /// - Precondition: A corresponding stub must be set prior to calling this function. Otherwise, a fatal error will be thrown.
     func stubOutput<Input, Output>(
         for input: Input,
-        signature: String
+        signature: String,
+        in stubProvidingType: StubProviding.Type
     ) -> Output {
         do {
             return try getOutput(for: input, withSignature: signature)
         } catch {
             if let stubError = error as? StubRegistry.StubError {
-                report(stubError, signature: signature, input: Input.self, output: Output.self)
+                report(
+                    stubError,
+                    in: stubProvidingType,
+                    signature: signature,
+                    input: Input.self,
+                    output: Output.self
+                )
             }
             fatalError("Unexpected error getting stub for \(signature)")
         }
@@ -94,16 +102,24 @@ public final class StubRegistry {
     /// - Parameters:
     ///   - input: The input to the calling function.
     ///   - signature: **Do not pass in this argument**, it will automatically capture the signature of the calling function.
+    ///   - stubProvidingType: The type where the stub is being retrieved.
     /// - Returns: The stubbed output for the calling function, provided one has been set.
     /// - Throws: Any error that has been set to be thrown for this function.
     func throwingStubOutput<Input, Output>(
         for input: Input,
-        signature: String
+        signature: String,
+        in stubProvidingType: StubProviding.Type
     ) throws -> Output {
         do {
             return try getOutput(for: input, withSignature: signature)
         } catch let stubError as StubRegistry.StubError {
-            report(stubError, signature: signature, input: Input.self, output: Output.self)
+            report(
+                stubError,
+                in: stubProvidingType,
+                signature: signature,
+                input: Input.self,
+                output: Output.self
+            )
             throw stubError
         }
     }
@@ -119,6 +135,9 @@ public final class StubRegistry {
         let identifier = StubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
 
         guard let stub = stubs[identifier] else {
+            if let void = Void() as? Output {
+                return void
+            }
             throw StubError.noStub
         }
 
@@ -140,6 +159,7 @@ public final class StubRegistry {
 
     private func report<Input, Output>(
         _ stubError: StubRegistry.StubError,
+        in stubProvidingType: StubProviding.Type,
         signature: String,
         input: Input.Type,
         output: Output.Type
@@ -147,23 +167,31 @@ public final class StubRegistry {
         switch stubError {
         case .noStub:
             if isEmpty {
-                fatalError("No stubs were set for this \(Self.self).")
+                fatalError("No stubs were set for this \(stubProvidingType)")
             } else {
-                fatalError("No stub with input `\(Input.self)` and output `\(Output.self)` was set for \(signature).\n\n\(debugDescription)")
+                fatalError("No stub was found for \(signature) with input type \(Input.self) and output type \(Output.self):\(debugDescription)")
             }
         case .incorrectOutputType, .incorrectClosureType:
             fatalError("This should not happen, there must be an issue in TestDRS within the `StubProviding` protocol and/or the `StubRegistry`.")
         }
     }
 
+}
+
+// MARK: CustomDebugStringConvertible
+extension StubRegistry: CustomDebugStringConvertible {
+
     public var debugDescription: String {
-        stubs.enumerated().map { index, stub -> String in
-            """
-            ******* Stub \(index + 1) *******
-            \(stub.key.debugDescription)
-            \(stub.value.debugDescription)
-            """
-        }.joined(separator: "\n \n")
+        "\n \n" +
+            stubs.enumerated().map { index, stub -> String in
+                """
+                ******* Stub \(index + 1) *******
+                \(stub.key.debugDescription)
+                \(stub.value.debugDescription)
+                """
+            }
+            .joined(separator: "\n \n")
+            + "\n "
     }
 
 }

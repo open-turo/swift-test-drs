@@ -26,7 +26,7 @@ public final class BlackBox {
     func recordCall<Input, Output>(
         with input: Input,
         at time: Date,
-        returning output: Output,
+        returning outputType: Output.Type,
         signature: String
     ) {
         storageQueue.async {
@@ -34,7 +34,7 @@ public final class BlackBox {
                 ConcreteFunctionCall(
                     signature: signature,
                     input: input,
-                    output: output,
+                    outputType: outputType,
                     time: time
                 )
             )
@@ -119,12 +119,15 @@ public final class BlackBox {
 extension BlackBox: CustomDebugStringConvertible {
     public var debugDescription: String {
         storageQueue.sync {
-            storage.enumerated().map { index, functionCall -> String in
-                """
-                ******* Function Call \(index + 1) *******
-                \(functionCall)
-                """
-            }.joined(separator: "\n \n") // The empty newline is stripped without the space inbetween.
+            "\n \n" +
+                storage.enumerated().map { index, functionCall -> String in
+                    """
+                    ******* Function Call \(index + 1) *******
+                    \(functionCall)
+                    """
+                }
+                .joined(separator: "\n \n") // The empty newline is stripped without the space inbetween.
+                + "\n "
         }
     }
 }

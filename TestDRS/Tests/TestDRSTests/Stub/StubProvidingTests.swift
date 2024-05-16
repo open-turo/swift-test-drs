@@ -10,6 +10,11 @@ final class StubProvidingTests: XCTestCase {
 
     private let stubProvider = StubProvider()
 
+    func testCallingMethodReturningVoid_WithoutStubbing() {
+        // Methods returning void should not need to be stubbed
+        return stubProvider.foo()
+    }
+
     func testStubbingFunctionWithNoParameters() {
         stubProvider.setStub(for: stubProvider.foo, withSignature: "foo()", returning: 7)
 
@@ -194,6 +199,10 @@ final class StubProvidingTests: XCTestCase {
 private struct StubProvider: StubProviding {
     let stubRegistry = StubRegistry()
     static let stubRegistry = StubRegistry()
+
+    func foo() {
+        return stubOutput()
+    }
 
     func foo() -> Int {
         stubOutput()

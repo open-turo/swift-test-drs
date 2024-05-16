@@ -147,17 +147,14 @@ final class SpyTests: SpyTestCase {
         XCTAssertEqual(calls[0].time, .functionCallTime(second: 0))
         XCTAssertEqual(calls[0].signature, "zab(paramOne:)")
         XCTAssertEqual(calls[0].input as? Bool, true)
-        XCTAssertEqual(calls[0].output as? Bool, true)
 
         XCTAssertEqual(calls[1].time, .functionCallTime(second: 1))
         XCTAssertEqual(calls[1].signature, "zab(paramOne:)")
         XCTAssertEqual(calls[1].input as? String, "Hello")
-        XCTAssertEqual(calls[1].output as? String, "Hello")
 
         XCTAssertEqual(calls[2].time, .functionCallTime(second: 2))
         XCTAssertEqual(calls[2].signature, "zab(paramOne:)")
         XCTAssertEqual(calls[2].input as? Int, 1)
-        XCTAssertEqual(calls[2].output as? Int, 1)
     }
 
 }
