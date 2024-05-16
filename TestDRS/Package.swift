@@ -14,8 +14,8 @@ let package = Package(
             targets: ["TestDRS"]
         ),
         .executable(
-            name: "TestDRSClient",
-            targets: ["TestDRSClient"]
+            name: "ExampleClient",
+            targets: ["ExampleClient"]
         ),
     ],
     dependencies: [
@@ -40,7 +40,7 @@ let package = Package(
         ]),
 
         // An example client used to try out TestDRS
-        .executableTarget(name: "TestDRSClient", dependencies: ["TestDRS"]),
+        .executableTarget(name: "ExampleClient", dependencies: ["TestDRS"]),
 
         // Unit tests for TestDRS
         .testTarget(
@@ -55,10 +55,10 @@ let package = Package(
 
         // Example unit tests to try out TestDRS
         .testTarget(
-            name: "TestDRSClientTests",
+            name: "ExampleClientTests",
             dependencies: [
-                "TestDRS",
-                "TestDRSClient"
+                "ExampleClient",
+                "TestDRS"
             ]
         ),
     ]
