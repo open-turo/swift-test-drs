@@ -8,6 +8,23 @@ import Foundation
 /// Extension for `BlackBox` that provides assertion utilities.
 extension BlackBox {
 
+    /// Retrieves the only recorded function call that matches the given signature, if indeed there is only one call recorded.
+    ///
+    /// - Parameters:
+    ///   - signature: The signature of the function call to search for.
+    ///   - file: The file where the assertion is being made.
+    ///   - line: The line number where the assertion is being made.
+    /// - Returns: The only recorded function call that matches the given signature, or `nil` if zero or multiple calls were recorded with the given signature.
+    func onlyCall(withSignature signature: String, file: StaticString, line: UInt) -> (any FunctionCall)? {
+        let calls = callsMatching(signature: signature)
+        guard calls.count == 1, let onlyCall = calls.first else {
+            let message = "Expected \(signature) to be called exactly once, but \(calls.count) calls were recorded"
+            reportFailure(message: message, file: file, line: line)
+            return nil
+        }
+        return onlyCall
+    }
+
     /// Retrieves the first recorded function call that matches the given signature.
     ///
     /// - Parameters:
@@ -17,11 +34,11 @@ extension BlackBox {
     /// - Returns: The first recorded function call that matches the given signature, or `nil` if no calls were recorded or if the first call does not match the signature.
     func firstCall(signature: String, file: StaticString, line: UInt) -> (any FunctionCall)? {
         guard let firstCall = firstCall else {
-            reportFailure(message: "No calls were recorded", file: file, line: line)
+            reportFailure(message: "No calls to \(signature) were recorded", file: file, line: line)
             return nil
         }
         guard firstCall.signature == signature else {
-            reportFailure(message: "\(firstCall.signature) was called first", file: file, line: line)
+            reportFailure(message: "Expected \(signature) to be called first but \(firstCall.signature) was called first", file: file, line: line)
             return nil
         }
 
@@ -37,11 +54,11 @@ extension BlackBox {
     /// - Returns: The last recorded function call that matches the given signature, or `nil` if no calls were recorded or if the last call does not match the signature.
     func lastCall(signature: String, file: StaticString, line: UInt) -> (any FunctionCall)? {
         guard let lastCall = lastCall else {
-            reportFailure(message: "No calls were recorded", file: file, line: line)
+            reportFailure(message: "No calls to \(signature) were recorded", file: file, line: line)
             return nil
         }
         guard lastCall.signature == signature else {
-            reportFailure(message: "\(lastCall.signature) was called last", file: file, line: line)
+            reportFailure(message: "Expected \(signature) to be called last but \(lastCall.signature) was called last", file: file, line: line)
             return nil
         }
 

@@ -49,6 +49,11 @@ class SpyTestCase: XCTestCase, Spy {
         return recordCall(with: paramOne, at: .functionCallTime(second: second), returning: paramOne)
     }
 
+    func zoo<T: SomeProtocol>() -> T {
+        defer { second += 1 }
+        return recordCall(at: .functionCallTime(second: second), returning: T())
+    }
+
 }
 
 extension Date {
@@ -56,4 +61,16 @@ extension Date {
         let startDateComponents = DateComponents(year: 2018, month: 6, day: 15, hour: 0, minute: 0, second: second)
         return Calendar.autoupdatingCurrent.date(from: startDateComponents)!
     }
+}
+
+extension SpyTestCase {
+
+    protocol SomeProtocol {
+        init()
+    }
+
+    struct StructA: SomeProtocol {}
+
+    struct StructB: SomeProtocol {}
+
 }
