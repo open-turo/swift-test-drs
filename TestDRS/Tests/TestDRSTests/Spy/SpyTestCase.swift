@@ -46,12 +46,14 @@ class SpyTestCase: XCTestCase, Spy {
     @discardableResult
     func zab<T>(paramOne: T) -> T {
         defer { second += 1 }
-        return recordCall(with: paramOne, at: .functionCallTime(second: second), returning: paramOne)
+        recordCall(with: paramOne, at: .functionCallTime(second: second), returning: T.self)
+        return paramOne
     }
 
     func zoo<T: SomeProtocol>() -> T {
         defer { second += 1 }
-        return recordCall(at: .functionCallTime(second: second), returning: T())
+        recordCall(at: .functionCallTime(second: second), returning: T.self)
+        return T()
     }
 
 }

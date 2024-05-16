@@ -36,7 +36,7 @@ extension MockMacroExpansionTests {
                     fatalError("Unimplemented")
                 }
 
-                func zab(paramOne: Int) async throws -> Int {
+                func zab(paramOne: Int) async throws -> (() -> Void) {
                     fatalError("Unimplemented")
                 }
 
@@ -66,7 +66,7 @@ extension MockMacroExpansionTests {
                     fatalError("Unimplemented")
                 }
 
-                func zab(paramOne: Int) async throws -> Int {
+                func zab(paramOne: Int) async throws -> (() -> Void) {
                     fatalError("Unimplemented")
                 }
 
@@ -82,45 +82,33 @@ extension MockMacroExpansionTests {
                 static let stubRegistry = StubRegistry()
 
                 override func foo() {
-                    let callTime = Date()
-                    return recordCall(at: callTime, returning: Void())
+                    recordCall()
+                    return stubOutput()
                 }
 
                 override func bar() -> Int {
-                    let callTime = Date()
-                    return recordCall(at: callTime, returning: stubOutput())
+                    recordCall(returning: Int.self)
+                    return stubOutput()
                 }
 
                 override func baz(paramOne: String) -> Int {
-                    let callTime = Date()
-                    return recordCall(
-                        with: paramOne,
-                        at: callTime,
-                        returning: stubOutput(for: paramOne)
-                    )
+                    recordCall(with: paramOne, returning: Int.self)
+                    return stubOutput(for: paramOne)
                 }
 
                 override func oof() throws -> Int {
-                    let callTime = Date()
-                    return recordCall(at: callTime, returning: try throwingStubOutput())
+                    recordCall(returning: Int.self)
+                    return try throwingStubOutput()
                 }
 
                 override func rab(paramOne: Int, paramTwo: String, paramThree: bool) -> Int {
-                    let callTime = Date()
-                    return recordCall(
-                        with: (paramOne, paramTwo, paramThree),
-                        at: callTime,
-                        returning: stubOutput(for: (paramOne, paramTwo, paramThree))
-                    )
+                    recordCall(with: (paramOne, paramTwo, paramThree), returning: Int.self)
+                    return stubOutput(for: (paramOne, paramTwo, paramThree))
                 }
 
-                override func zab(paramOne: Int) async throws -> Int {
-                    let callTime = Date()
-                    return recordCall(
-                        with: paramOne,
-                        at: callTime,
-                        returning: try throwingStubOutput(for: paramOne)
-                    )
+                override func zab(paramOne: Int) async throws -> (() -> Void) {
+                    recordCall(with: paramOne, returning: (() -> Void).self)
+                    return try throwingStubOutput(for: paramOne)
                 }
 
             }
@@ -199,12 +187,8 @@ extension MockMacroExpansionTests {
                 }
 
                 class override func oof(paramOne: String) -> Int {
-                    let callTime = Date()
-                    return recordCall(
-                        with: paramOne,
-                        at: callTime,
-                        returning: stubOutput(for: paramOne)
-                    )
+                    recordCall(with: paramOne, returning: Int.self)
+                    return stubOutput(for: paramOne)
                 }
 
             }
@@ -264,6 +248,58 @@ extension MockMacroExpansionTests {
         }
     }
 
+    func testMockMacro_WithSubclass() {
+        assertMacro {
+            """
+            @Mock
+            class SomeClass: SomeSuperclass {
+                override var foo = "Hello World"
+
+                override func bar() -> Int {
+                    fatalError("Unimplemented")
+                }
+            }
+            """
+        } expansion: {
+            """
+            class SomeClass: SomeSuperclass {
+                override var foo = "Hello World"
+
+                override func bar() -> Int {
+                    fatalError("Unimplemented")
+                }
+            }
+
+            #if DEBUG
+
+            final class MockSomeClass: SomeClass, Spy, StubProviding {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+                static let blackBox = BlackBox()
+                static let stubRegistry = StubRegistry()
+
+                override var foo {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                override func bar() -> Int {
+                    recordCall(returning: Int.self)
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
+            """
+        }
+    }
+
     func testMockMacro_WithClass_WithComputedProperties() {
         assertMacro {
             """
@@ -281,7 +317,6 @@ extension MockMacroExpansionTests {
                     get { "Hello World" }
                     set {}
                 }
-
             }
             """
         } expansion: {
@@ -299,7 +334,6 @@ extension MockMacroExpansionTests {
                     get { "Hello World" }
                     set {}
                 }
-
             }
 
             #if DEBUG
@@ -349,19 +383,15 @@ extension MockMacroExpansionTests {
             """
             @Mock
             class SomeClass {
-
                 var foo: String?
                 let bar: Int!
-
             }
             """
         } expansion: {
             """
             class SomeClass {
-
                 var foo: String?
                 let bar: Int!
-
             }
 
             #if DEBUG
@@ -402,7 +432,6 @@ extension MockMacroExpansionTests {
             """
             @Mock
             class SomeClass {
-
                 var foo: String
 
                 private var bar: String
@@ -420,7 +449,6 @@ extension MockMacroExpansionTests {
         } expansion: {
             """
             class SomeClass {
-
                 var foo: String
 
                 private var bar: String
@@ -454,8 +482,8 @@ extension MockMacroExpansionTests {
                 }
 
                 override func oof() {
-                    let callTime = Date()
-                    return recordCall(at: callTime, returning: Void())
+                    recordCall()
+                    return stubOutput()
                 }
 
             }

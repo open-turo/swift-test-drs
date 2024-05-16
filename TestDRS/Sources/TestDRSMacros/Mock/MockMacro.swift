@@ -222,116 +222,53 @@ public struct MockMacro: PeerMacro {
         var mockMethod = method.trimmed
 
         if isInClass {
-            mockMethod = removeMutatingModifierIfNeeded(from: mockMethod)
-        }
-        if shouldAddOverrideModifier {
-            mockMethod = addOverrideModifierIfNeeded(to: mockMethod)
+            mockMethod.modifiers = mockMethod.modifiers.filter { $0.name.tokenKind != .keyword(.mutating) }
         }
 
-        mockMethod.body = mockMethodBody(
-            for: mockMethod,
-            returningExpression: returningExpression(for: method)
-        )
+        if shouldAddOverrideModifier && !mockMethod.isOverride {
+            mockMethod.modifiers += [DeclModifierSyntax(name: .keyword(.override))]
+        }
+
+        mockMethod.body = mockMethodBody(for: mockMethod)
 
         return mockMethod
     }
 
-    private static func addOverrideModifierIfNeeded(to method: FunctionDeclSyntax) -> FunctionDeclSyntax {
-        guard !method.isOverride else { return method }
-        var method = method
-        method.modifiers.append(
-            DeclModifierSyntax(name: .keyword(.override))
-        )
-        return method
-    }
-
-    private static func removeMutatingModifierIfNeeded(from method: FunctionDeclSyntax) -> FunctionDeclSyntax {
-        var method = method
-        method.modifiers = method.modifiers.filter { $0.name.tokenKind != .keyword(.mutating) }
-        return method
-    }
-
-    private static func returningExpression(for method: FunctionDeclSyntax) -> ReturningExpression {
-        if let returnType = method.signature.returnClause?.type, returnType != "Void" {
-            method.isThrowing ? .throwingStubOutput : .stubOutput
-        } else {
-            .void
-        }
-    }
-
-    private static func mockMethodBody(for method: FunctionDeclSyntax, returningExpression: ReturningExpression) -> CodeBlockSyntax {
+    private static func mockMethodBody(for method: FunctionDeclSyntax) -> CodeBlockSyntax {
         CodeBlockSyntax(
             leftBrace: .leftBraceToken(),
             statements: CodeBlockItemListSyntax {
-                DeclSyntax("let callTime = Date()")
-                returnStatement(for: method, returningExpression: returningExpression)
+                recordCallSyntax(for: method)
+                ReturnStmtSyntax(expression: stubOutputSyntax(for: method))
             },
             rightBrace: .rightBraceToken()
         )
     }
 
-    private static func returnStatement(for method: FunctionDeclSyntax, returningExpression: ReturningExpression) -> ReturnStmtSyntax {
-        let leadingTrivia = method.hasParameters ? Trivia.newline : []
+    private static func stubOutputSyntax(for method: FunctionDeclSyntax) -> ExprSyntax {
+        FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: method.isThrowing ? "throwingStubOutput" : "stubOutput")) {
+            if method.hasParameters {
+                LabeledExprSyntax(
+                    label: "for",
+                    expression: method.inputParameters
+                )
+            }
+        }
+        .wrappedInTry(method.isThrowing)
+    }
 
-        return ReturnStmtSyntax(
-            expression: FunctionCallExprSyntax(
-                "recordCall",
-                rightParen: .rightParenToken().with(\.leadingTrivia, leadingTrivia)
-            ) {
-                if method.hasParameters {
-                    LabeledExprSyntax(label: "with", expression: method.inputParameters)
-                        .with(\.leadingTrivia, leadingTrivia)
-                        .with(\.trailingComma, .commaToken())
-                }
+    private static func recordCallSyntax(for method: FunctionDeclSyntax) -> FunctionCallExprSyntax {
+        FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "recordCall")) {
+            if method.hasParameters {
+                LabeledExprSyntax(label: "with", expression: method.inputParameters)
+            }
 
-                LabeledExprSyntax(label: "at", expression: DeclReferenceExprSyntax(baseName: .identifier("callTime")))
-                    .with(\.leadingTrivia, leadingTrivia)
-                    .with(\.trailingComma, .commaToken())
-
+            if let returnClause = method.signature.returnClause {
                 LabeledExprSyntax(
                     label: "returning",
-                    expression: FunctionCallExprSyntax(returningExpression.rawValue) {
-                        if returningExpression != .void && method.hasParameters {
-                            LabeledExprSyntax(
-                                label: "for",
-                                colon: .colonToken(),
-                                expression: method.inputParameters
-                            )
-                        }
-                    }
-                    .wrappedInTry(returningExpression == .throwingStubOutput)
+                    expression: ExprSyntax(stringLiteral: "\(returnClause.type.trimmed).self")
                 )
-                .with(\.leadingTrivia, leadingTrivia)
             }
-        )
-    }
-
-}
-
-// MARK: MockMacro.ReturningExpression
-private extension MockMacro {
-
-    enum ReturningExpression: String {
-        case void = "Void"
-        case stubOutput
-        case throwingStubOutput
-    }
-
-}
-
-private extension FunctionCallExprSyntax {
-    /// Abbreviated `FunctionCallExprSyntax` initializer to improve readability.
-    init(
-        _ calledExpressionText: String,
-        leftParen: TokenSyntax = .leftParenToken(),
-        rightParen: TokenSyntax = .rightParenToken(),
-        @LabeledExprListBuilder argumentsBuilder: () throws -> LabeledExprListSyntax
-    ) rethrows {
-        self = try FunctionCallExprSyntax(
-            calledExpression: DeclReferenceExprSyntax(baseName: .identifier(calledExpressionText)),
-            leftParen: leftParen,
-            rightParen: rightParen,
-            argumentsBuilder: argumentsBuilder
-        )
+        }
     }
 }

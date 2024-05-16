@@ -125,7 +125,7 @@ public extension StubProviding {
         for input: Input = Void(),
         signature: String = #function
     ) -> Output {
-        stubRegistry.stubOutput(for: input, signature: signature)
+        stubRegistry.stubOutput(for: input, signature: signature, in: Self.self)
     }
 
     /// Retrieves the stubbed output for the calling function based on the given input and expected output type, allowing for potential throwing of errors.
@@ -139,7 +139,7 @@ public extension StubProviding {
         for input: Input = Void(),
         signature: String = #function
     ) throws -> Output {
-        try stubRegistry.throwingStubOutput(for: input, signature: signature)
+        try stubRegistry.throwingStubOutput(for: input, signature: signature, in: Self.self)
     }
 
 }
@@ -242,7 +242,7 @@ public extension StubProviding {
         for input: Input = Void(),
         signature: String = #function
     ) -> Output {
-        stubRegistry.stubOutput(for: input, signature: signature)
+        stubRegistry.stubOutput(for: input, signature: signature, in: Self.self)
     }
 
     /// Retrieves the stubbed output for the calling function based on the given input and expected output type, allowing for potential throwing of errors.
@@ -256,7 +256,7 @@ public extension StubProviding {
         for input: Input = Void(),
         signature: String = #function
     ) throws -> Output {
-        try stubRegistry.throwingStubOutput(for: input, signature: signature)
+        try stubRegistry.throwingStubOutput(for: input, signature: signature, in: Self.self)
     }
 
 }

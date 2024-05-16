@@ -82,45 +82,33 @@ extension MockMacroExpansionTests {
                 static let stubRegistry = StubRegistry()
 
                 func foo() {
-                    let callTime = Date()
-                    return recordCall(at: callTime, returning: Void())
+                    recordCall()
+                    return stubOutput()
                 }
 
                 func bar() -> Int {
-                    let callTime = Date()
-                    return recordCall(at: callTime, returning: stubOutput())
+                    recordCall(returning: Int.self)
+                    return stubOutput()
                 }
 
                 func baz(paramOne: String) -> Int {
-                    let callTime = Date()
-                    return recordCall(
-                        with: paramOne,
-                        at: callTime,
-                        returning: stubOutput(for: paramOne)
-                    )
+                    recordCall(with: paramOne, returning: Int.self)
+                    return stubOutput(for: paramOne)
                 }
 
                 func oof() throws -> Int {
-                    let callTime = Date()
-                    return recordCall(at: callTime, returning: try throwingStubOutput())
+                    recordCall(returning: Int.self)
+                    return try throwingStubOutput()
                 }
 
                 func rab(paramOne: Int, paramTwo: String, paramThree: bool) -> Int {
-                    let callTime = Date()
-                    return recordCall(
-                        with: (paramOne, paramTwo, paramThree),
-                        at: callTime,
-                        returning: stubOutput(for: (paramOne, paramTwo, paramThree))
-                    )
+                    recordCall(with: (paramOne, paramTwo, paramThree), returning: Int.self)
+                    return stubOutput(for: (paramOne, paramTwo, paramThree))
                 }
 
                 func zab(paramOne: Int) async throws -> Int {
-                    let callTime = Date()
-                    return recordCall(
-                        with: paramOne,
-                        at: callTime,
-                        returning: try throwingStubOutput(for: paramOne)
-                    )
+                    recordCall(with: paramOne, returning: Int.self)
+                    return try throwingStubOutput(for: paramOne)
                 }
 
             }
@@ -193,12 +181,8 @@ extension MockMacroExpansionTests {
                 }
 
                 static func oof(paramOne: String) -> Int {
-                    let callTime = Date()
-                    return recordCall(
-                        with: paramOne,
-                        at: callTime,
-                        returning: stubOutput(for: paramOne)
-                    )
+                    recordCall(with: paramOne, returning: Int.self)
+                    return stubOutput(for: paramOne)
                 }
 
             }
@@ -398,8 +382,8 @@ extension MockMacroExpansionTests {
                 }
 
                 func oof() {
-                    let callTime = Date()
-                    return recordCall(at: callTime, returning: Void())
+                    recordCall()
+                    return stubOutput()
                 }
 
             }
@@ -473,8 +457,8 @@ extension MockMacroExpansionTests {
                 }
 
                 func bar() {
-                    let callTime = Date()
-                    return recordCall(at: callTime, returning: Void())
+                    recordCall()
+                    return stubOutput()
                 }
 
             }
@@ -533,8 +517,8 @@ extension MockMacroExpansionTests {
                     }
 
                     func nestedBar() {
-                        let callTime = Date()
-                        return recordCall(at: callTime, returning: Void())
+                        recordCall()
+                        return stubOutput()
                     }
 
                 }
@@ -596,8 +580,8 @@ extension MockMacroExpansionTests {
                 }
 
                 func bar() -> T {
-                    let callTime = Date()
-                    return recordCall(at: callTime, returning: stubOutput())
+                    recordCall(returning: T.self)
+                    return stubOutput()
                 }
 
             }

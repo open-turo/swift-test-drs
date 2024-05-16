@@ -19,7 +19,7 @@ public protocol FunctionCall: CustomDebugStringConvertible {
     var input: Input { get }
 
     /// The return type of the function.
-    var output: Output { get }
+    var outputType: Output.Type { get }
 
     /// The time at which the function was called.
     var time: Date { get }
@@ -30,7 +30,7 @@ extension FunctionCall {
         """
         signature: \(signature)
         input: \(input)
-        output: \(output)
+        outputType: \(outputType)
         time: \(FunctionCallUtilities.dateFormatter.string(from: time))
         """
     }
@@ -54,7 +54,7 @@ public struct ConcreteFunctionCall<Input, Output>: FunctionCall {
     public let input: Input
 
     /// The return type of the function.
-    public let output: Output
+    public let outputType: Output.Type
 
     /// The time at which the function was called.
     public let time: Date
