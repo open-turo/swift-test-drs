@@ -21,10 +21,13 @@ extension BlackBox {
         let calls = callsMatching(signature: signature, taking: Input.self, returning: Output.self)
 
         if calls.count != expectedCount {
-            var message = "Expected \(signature) to be called \(expectedCount) times, but \(calls.count) calls were recorded"
-            message += calls
-                .map { "+\($0.input)" }
-                .joined(separator: "\n")
+            var message = "Expected \(signature) to be called \(expectedCount) times, but \(calls.count) calls were recorded with input type \(Input.self) and output type \(Output.self)"
+            if !calls.isEmpty {
+                message += ":\n\n"
+                message += calls
+                    .map { "+\($0.input)" }
+                    .joined(separator: "\n")
+            }
             reportFailure(message: message, file: file, line: line)
         }
     }
@@ -53,10 +56,10 @@ extension BlackBox {
         }
 
         guard let call = calls.first(where: { check(repeat each expectedInput, against: $0.input) }) else {
-            var message = "\(signature) was not called with expected input (-), but was called with other input (+):\n-\((repeat each expectedInput))"
-            message += calls
+            let actualInputs = calls
                 .map { "+\($0.input)" }
                 .joined(separator: "\n")
+            let message = "\(signature) was not called with expected input (-), but was called with other input (+):\n\n-\((repeat each expectedInput))\n\(actualInputs)"
             reportFailure(message: message, file: file, line: line)
             return nil
         }
@@ -109,7 +112,7 @@ extension BlackBox {
         guard let onlyCall = onlyCall(withSignature: signature, file: file, line: line) else { return nil }
 
         guard check(repeat each expectedInput, against: onlyCall.input) else {
-            let message = "\(signature) was called exactly once, but with different input (+) than expected (-):\n-\((repeat each expectedInput))\n+\(onlyCall.input)"
+            let message = "\(signature) was called exactly once, but with different input (+) than expected (-):\n\n-\((repeat each expectedInput))\n+\(onlyCall.input)"
             reportFailure(message: message, file: file, line: line)
             return nil
         }
@@ -154,7 +157,7 @@ extension BlackBox {
         guard let firstCall = firstCall(signature: signature, file: file, line: line) else { return nil }
 
         guard check(repeat each expectedInput, against: firstCall.input) else {
-            reportFailure(message: "First call was to \(signature), but with different input (+) than expected (-):\n-\((repeat each expectedInput))\n+\(firstCall.input)", file: file, line: line)
+            reportFailure(message: "First call was to \(signature), but with different input (+) than expected (-):\n\n-\((repeat each expectedInput))\n+\(firstCall.input)", file: file, line: line)
             return nil
         }
 
@@ -199,7 +202,7 @@ extension BlackBox {
         guard let lastCall = lastCall(signature: signature, file: file, line: line) else { return nil }
 
         guard check(repeat each expectedInput, against: lastCall.input) else {
-            reportFailure(message: "Last call was to \(signature), but with different input (+) than expected (-):\n-\((repeat each expectedInput))\n+\(lastCall.input)", file: file, line: line)
+            reportFailure(message: "Last call was to \(signature), but with different input (+) than expected (-):\n\n-\((repeat each expectedInput))\n+\(lastCall.input)", file: file, line: line)
             return nil
         }
 
@@ -272,10 +275,10 @@ extension BlackBox {
         }
 
         guard let call = calls.first(where: { check(repeat each expectedInput, against: $0.input) }) else {
-            var message = "\(signature) was not called with expected input (-), but was called with other input (+) after previous call to \(previousCall.signature):\n-\((repeat each expectedInput))\n"
-            message += calls
+            let actualInputs = calls
                 .map { "+\($0.input)" }
                 .joined(separator: "\n")
+            let message = "\(signature) was not called with expected input (-), but was called with other input (+) after previous call to \(previousCall.signature):\n\n-\((repeat each expectedInput))\n\(actualInputs)"
             reportFailure(message: message, file: file, line: line)
             return nil
         }

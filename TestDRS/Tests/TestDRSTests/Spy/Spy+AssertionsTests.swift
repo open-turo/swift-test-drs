@@ -3,14 +3,25 @@ import XCTest
 
 final class SpyAssertionsTests: SpyTestCase {
 
+    private let file = #fileID.components(separatedBy: "/").last!
+    private var line = 0
+
     // MARK: - assertCallCount
 
     func testAssertCallCount_WithNoCalls() {
         assertCallCount(to: foo, withSignature: "foo()", equals: 0)
 
-        XCTExpectFailure {
-            assertCallCount(to: foo, withSignature: "foo()", equals: 1)
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertCallCount(to: foo, withSignature: "foo()", equals: 1)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Expected foo() to be called 1 times, but 0 calls were recorded with input type () and output type ()
+                """
+            }
+        )
     }
 
     func testAssertCallCount_WithMultipleCalls() {
@@ -20,20 +31,40 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertCallCount(to: foo, withSignature: "foo()", equals: 3)
 
-        XCTExpectFailure {
-            assertCallCount(to: foo, withSignature: "foo()", equals: 1)
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertCallCount(to: foo, withSignature: "foo()", equals: 1)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Expected foo() to be called 1 times, but 3 calls were recorded with input type () and output type ():
+
+                +()
+                +()
+                +()
+                """
+            }
+        )
     }
 
-    func testAssertCallCountWithInputType_WithNoCalls() {
+    func testAssertCallCount_WithParameter_WithNoCalls() {
         assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self, equals: 0)
 
-        XCTExpectFailure {
-            assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self, equals: 1)
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self, equals: 1)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Expected zab(paramOne:) to be called 1 times, but 0 calls were recorded with input type Bool and output type Bool
+                """
+            }
+        )
     }
 
-    func testAssertCallCountWithInputType_WithMultipleCalls() {
+    func testAssertCallCount_WithGenericParameter_WithMultipleCalls() {
         zab(paramOne: true)
         zab(paramOne: "Hello")
         zab(paramOne: "World")
@@ -45,27 +76,83 @@ final class SpyAssertionsTests: SpyTestCase {
         assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: String.self, equals: 2)
         assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: Int.self, equals: 3)
 
-        XCTExpectFailure {
-            assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self, equals: 4)
-        }
-        XCTExpectFailure {
-            assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: String.self, equals: 4)
-        }
-        XCTExpectFailure {
-            assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: Int.self, equals: 4)
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self, equals: 4)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Expected zab(paramOne:) to be called 4 times, but 1 calls were recorded with input type Bool and output type Bool:
+
+                +true
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: String.self, equals: 4)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Expected zab(paramOne:) to be called 4 times, but 2 calls were recorded with input type String and output type String:
+
+                +Hello
+                +World
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertCallCount(to: zab(paramOne:), withSignature: "zab(paramOne:)", taking: Int.self, equals: 4)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Expected zab(paramOne:) to be called 4 times, but 3 calls were recorded with input type Int and output type Int:
+
+                +1
+                +2
+                +3
+                """
+            }
+        )
     }
 
     // MARK: - assertWasCalled
 
     func testAssertWasCalled_WithoutCalling() {
-        XCTExpectFailure()
-        assertWasCalled(foo, withSignature: "foo()")
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalled(foo, withSignature: "foo()")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): No calls to foo() were recorded
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalled(foo, withSignature: "foo()", taking: Void.self)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): No calls to foo() were recorded
+                """
+            }
+        )
     }
 
     func testAssertWasCalled_WithNoParameters() {
         foo()
-        assertWasCalled(foo, withSignature: "foo()")
+        assertWasCalled(foo, withSignature: "foo()", taking: Void.self)
     }
 
     func testAssertWasCalled_WithDifferentParameterTypes() {
@@ -83,15 +170,77 @@ final class SpyAssertionsTests: SpyTestCase {
         assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 2)
         assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 3)
 
-        XCTExpectFailure {
-            _ = assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: false)
-        }
-        XCTExpectFailure {
-            _ = assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Goodbye")
-        }
-        XCTExpectFailure {
-            _ = assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 4)
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Double.self)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): No calls to zab(paramOne:) with input type Double and output type Double were recorded
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 1.0)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): No calls to zab(paramOne:) with input type Double and output type Double were recorded
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: false)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): zab(paramOne:) was not called with expected input (-), but was called with other input (+):
+
+                -false
+                +true
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Goodbye")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): zab(paramOne:) was not called with expected input (-), but was called with other input (+):
+
+                -Goodbye
+                +Hello
+                +World
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 4)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): zab(paramOne:) was not called with expected input (-), but was called with other input (+):
+
+                -4
+                +1
+                +2
+                +3
+                """
+            }
+        )
     }
 
     func testAssertWasCalled_WithMultipleParameters() {
@@ -101,12 +250,37 @@ final class SpyAssertionsTests: SpyTestCase {
         assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
         assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: false, Int?.none, String?.none)
 
-        XCTExpectFailure {
-            _ = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "Hello")
-        }
-        XCTExpectFailure {
-            _ = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, Int?.none, String?.none)
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "Hello")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): rab(paramOne:paramTwo:paramThree:) was not called with expected input (-), but was called with other input (+):
+
+                -(true, Optional(2), Optional("Hello"))
+                +(true, Optional(1), Optional("Hello"))
+                +(false, nil, nil)
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, Int?.none, String?.none)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): rab(paramOne:paramTwo:paramThree:) was not called with expected input (-), but was called with other input (+):
+
+                -(true, nil, nil)
+                +(true, Optional(1), Optional("Hello"))
+                +(false, nil, nil)
+                """
+            }
+        )
     }
 
     func testAssertWasCalled_WithPredicate() {
@@ -121,37 +295,71 @@ final class SpyAssertionsTests: SpyTestCase {
             call.input.1 == nil && call.input.2 == nil
         }
 
-        XCTExpectFailure {
-            _ = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)") { call in
-                guard let paramTwo = call.input.1 else { return false }
-                return paramTwo > 5
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)") { call in
+                    guard let paramTwo = call.input.1 else { return false }
+                    return paramTwo > 5
+                }
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): No calls to rab(paramOne:paramTwo:paramThree:) were recorded where the predicate returned true
+                """
             }
-        }
-        XCTExpectFailure {
-            _ = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)") { call in
-                guard let paramThree = call.input.2 else { return false }
-                return paramThree == "Hello World"
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)") { call in
+                    guard let paramThree = call.input.2 else { return false }
+                    return paramThree == "Hello World"
+                }
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): No calls to rab(paramOne:paramTwo:paramThree:) were recorded where the predicate returned true
+                """
             }
-        }
+        )
     }
 
     // MARK: - assertWasCalledExactlyOnce
 
     func testAssertWasCalledExactlyOnce_WithoutCalling() {
-        XCTExpectFailure {
-            _ = assertWasCalledExactlyOnce(foo, withSignature: "foo()")
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledExactlyOnce(foo, withSignature: "foo()")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Expected foo() to be called exactly once, but 0 calls were recorded
+                """
+            }
+        )
     }
 
     func testAssertWasCalledExactlyOnce_WithNoParameters() {
         foo()
+
         assertWasCalledExactlyOnce(foo, withSignature: "foo()")
 
         foo()
 
-        XCTExpectFailure {
-            _ = assertWasCalledExactlyOnce(foo, withSignature: "foo()")
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledExactlyOnce(foo, withSignature: "foo()")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Expected foo() to be called exactly once, but 2 calls were recorded
+                """
+            }
+        )
     }
 
     func testAssertWasCalledExactlyOnce_WithSingleParameter() {
@@ -159,9 +367,34 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalledExactlyOnce(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: true)
 
-        XCTExpectFailure {
-            _ = assertWasCalledExactlyOnce(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: false)
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledExactlyOnce(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: false)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): bar(paramOne:) was called exactly once, but with different input (+) than expected (-):
+
+                -false
+                +true
+                """
+            }
+        )
+
+        bar(paramOne: true)
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledExactlyOnce(bar(paramOne:), withSignature: "bar(paramOne:)")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Expected bar(paramOne:) to be called exactly once, but 2 calls were recorded
+                """
+            }
+        )
     }
 
     func testAssertWasCalledExactlyOnce_WithMultipleParameters() {
@@ -171,44 +404,101 @@ final class SpyAssertionsTests: SpyTestCase {
 
         rab(paramOne: true, paramTwo: 1, paramThree: "Hello")
 
-        XCTExpectFailure {
-            _ = assertWasCalledExactlyOnce(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledExactlyOnce(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Expected rab(paramOne:paramTwo:paramThree:) to be called exactly once, but 2 calls were recorded
+                """
+            }
+        )
     }
 
     func testAssertWasCalledExactlyOnce_WithMultipleCalls_WithDifferentParameterTypes() {
-//        zab(paramOne: true)
         zab(paramOne: "Hello World")
-
-        XCTExpectFailure {
-            _ = assertWasCalledExactlyOnce(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self)
-        }
-
-        XCTExpectFailure {
-            _ = assertWasCalledExactlyOnce(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true)
-        }
 
         let call = assertWasCalledExactlyOnce(zab(paramOne:), withSignature: "zab(paramOne:)", returning: String.self)
         XCTAssertEqual(call?.output, "Hello World")
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledExactlyOnce(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): zab(paramOne:) was called exactly once, but not with input type Bool and output type Bool
+                """
+            }
+        )
+
+        zab(paramOne: true)
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledExactlyOnce(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Expected zab(paramOne:) to be called exactly once, but 2 calls were recorded
+                """
+            }
+        )
+    }
+
+    func testAssertWasCalledExactlyOnce_WithDifferentOutputTypes() {
+        let _: StructA = zoo()
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledExactlyOnce(zoo, withSignature: "zoo()", returning: StructB.self)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): zoo() was called exactly once with the expected input, but not with the output type StructB
+                """
+            }
+        )
     }
 
     // MARK: - assertWasCalledFirst
 
     func testAssertWasCalledFirst_WithoutCalling() {
-        XCTExpectFailure {
-            _ = assertWasCalledFirst(foo, withSignature: "foo()")
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledFirst(foo, withSignature: "foo()")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): No calls to foo() were recorded
+                """
+            }
+        )
     }
 
     func testAssertWasCalledFirst_WithNoParameters() {
         foo()
         bar(paramOne: true)
 
-        assertWasCalledFirst(foo, withSignature: "foo()")
+        assertWasCalledFirst(foo, withSignature: "foo()", taking: Void.self)
 
-        XCTExpectFailure {
-            _ = assertWasCalledFirst(bar(paramOne:), withSignature: "bar(paramOne:)")
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledFirst(bar(paramOne:), withSignature: "bar(paramOne:)")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Expected bar(paramOne:) to be called first but foo() was called first
+                """
+            }
+        )
     }
 
     func testAssertWasCalledFirst_WithSingleParameter() {
@@ -217,9 +507,20 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalledFirst(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: true)
 
-        XCTExpectFailure {
-            _ = assertWasCalledFirst(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: false)
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledFirst(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: false)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): First call was to bar(paramOne:), but with different input (+) than expected (-):
+
+                -false
+                +true
+                """
+            }
+        )
     }
 
     func testAssertWasCalledFirst_WithMultipleParameters() {
@@ -229,12 +530,32 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalledFirst(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
 
-        XCTExpectFailure {
-            _ = assertWasCalledFirst(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "World")
-        }
-        XCTExpectFailure {
-            _ = assertWasCalledFirst(oof(paramOne:paramTwo:), withSignature: "oof(paramOne:paramTwo:)", expectedInput: false, 3)
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledFirst(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "World")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): First call was to rab(paramOne:paramTwo:paramThree:), but with different input (+) than expected (-):
+
+                -(true, Optional(2), Optional("World"))
+                +(true, Optional(1), Optional("Hello"))
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledFirst(oof(paramOne:paramTwo:), withSignature: "oof(paramOne:paramTwo:)", expectedInput: false, 3)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Expected oof(paramOne:paramTwo:) to be called first but rab(paramOne:paramTwo:paramThree:) was called first
+                """
+            }
+        )
     }
 
     func testAssertWasCalledFirst_WithDifferentParameterTypes() {
@@ -243,17 +564,64 @@ final class SpyAssertionsTests: SpyTestCase {
 
         assertWasCalledFirst(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true)
 
-        XCTExpectFailure {
-            _ = assertWasCalledFirst(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello")
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledFirst(zab(paramOne:), withSignature: "zab(paramOne:)", taking: String.self)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): First call was to zab(paramOne:), but not with input type String and output type String
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledFirst(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): First call was to zab(paramOne:), but with different input (+) than expected (-):
+
+                -Hello
+                +true
+                """
+            }
+        )
+    }
+
+    func testAssertWasCalledFirst_WithDifferentOutputTypes() {
+        let _: StructA = zoo()
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledFirst(zoo, withSignature: "zoo()", returning: StructB.self)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): First call was to zoo() with the expected input, but not with the output type StructB
+                """
+            }
+        )
     }
 
     // MARK: - assertWasCalledLast
 
     func testAssertWasCalledLast_WithoutCalling() {
-        XCTExpectFailure {
-            _ = assertWasCalledLast(foo, withSignature: "foo()")
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledLast(foo, withSignature: "foo()")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): No calls to foo() were recorded
+                """
+            }
+        )
     }
 
     func testAssertWasCalledLast_WithNoParameters() throws {
@@ -265,12 +633,29 @@ final class SpyAssertionsTests: SpyTestCase {
         let callToFoo = assertWasCalledLast(foo, withSignature: "foo()")
         assertWasCalledLast(foo, withSignature: "foo()", immediatelyAfter: callToBar)
 
-        XCTExpectFailure {
-            _ = assertWasCalledLast(bar(paramOne:), withSignature: "bar(paramOne:)")
-        }
-        XCTExpectFailure {
-            _ = assertWasCalledLast(foo, withSignature: "foo()", immediatelyAfter: callToFoo)
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledLast(bar(paramOne:), withSignature: "bar(paramOne:)")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Expected bar(paramOne:) to be called last but foo() was called last
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledLast(foo, withSignature: "foo()", taking: Void.self, immediatelyAfter: callToFoo)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): No calls were recorded after foo()
+                """
+            }
+        )
     }
 
     func testAssertWasCalledLast_WithSingleParameter() throws {
@@ -280,14 +665,35 @@ final class SpyAssertionsTests: SpyTestCase {
         let callToFoo = try XCTUnwrap(calls(to: "foo()").first)
 
         let callToBar = assertWasCalledLast(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: true)
+        assertWasCalledLast(bar(paramOne:), withSignature: "bar(paramOne:)", immediatelyAfter: callToFoo)
         assertWasCalledLast(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: true, immediatelyAfter: callToFoo)
 
-        XCTExpectFailure {
-            _ = assertWasCalledLast(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: false)
-        }
-        XCTExpectFailure {
-            _ = assertWasCalledLast(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: true, immediatelyAfter: callToBar)
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledLast(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: false)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Last call was to bar(paramOne:), but with different input (+) than expected (-):
+
+                -false
+                +true
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledLast(bar(paramOne:), withSignature: "bar(paramOne:)", expectedInput: true, immediatelyAfter: callToBar)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): No calls were recorded after bar(paramOne:)
+                """
+            }
+        )
     }
 
     func testAssertWasCalledLast_WithMultipleParameters() throws {
@@ -295,20 +701,50 @@ final class SpyAssertionsTests: SpyTestCase {
         rab(paramOne: true, paramTwo: 2, paramThree: "Hello")
         rab(paramOne: true, paramTwo: 3, paramThree: "World")
 
+        let callToOof = try XCTUnwrap(calls(to: "oof(paramOne:paramTwo:)").first)
         let firstCallToRab = try XCTUnwrap(calls(to: "rab(paramOne:paramTwo:paramThree:)").first)
 
         let lastCallToRab = assertWasCalledLast(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 3, "World")
         assertWasCalledLast(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 3, "World", immediatelyAfter: firstCallToRab)
 
-        XCTExpectFailure {
-            _ = assertWasCalledLast(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "Hello")
-        }
-        XCTExpectFailure {
-            _ = assertWasCalledLast(oof(paramOne:paramTwo:), withSignature: "oof(paramOne:paramTwo:)", expectedInput: false, 1)
-        }
-        XCTExpectFailure {
-            _ = assertWasCalledLast(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 3, "World", immediatelyAfter: lastCallToRab)
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledLast(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "Hello")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Last call was to rab(paramOne:paramTwo:paramThree:), but with different input (+) than expected (-):
+
+                -(true, Optional(2), Optional("Hello"))
+                +(true, Optional(3), Optional("World"))
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledLast(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", immediatelyAfter: callToOof)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Last call was not immediately after previous call to oof(paramOne:paramTwo:)
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledLast(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 3, "World", immediatelyAfter: callToOof)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Last call was not immediately after previous call to oof(paramOne:paramTwo:)
+                """
+            }
+        )
     }
 
     func testAssertWasCalledLast_WithDifferentParameterTypes() throws {
@@ -317,19 +753,54 @@ final class SpyAssertionsTests: SpyTestCase {
 
         let firstCallToZab = try XCTUnwrap(calls(to: "zab(paramOne:)").first)
 
-        let lastCallToZab = assertWasCalledLast(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello")
+        let lastCallToZab = assertWasCalledLast(zab(paramOne:), withSignature: "zab(paramOne:)", returning: String.self)
+        assertWasCalledLast(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello")
         assertWasCalledLast(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello", immediatelyAfter: firstCallToZab)
 
-        XCTExpectFailure {
-            _ = assertWasCalledLast(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true)
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledLast(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Double.self)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Last call was to zab(paramOne:), but not with input type Double and output type Double
+                """
+            }
+        )
 
-        XCTExpectFailure {
-            _ = assertWasCalledLast(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello", immediatelyAfter: lastCallToZab)
-        }
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledLast(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello", immediatelyAfter: lastCallToZab)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): No calls were recorded after zab(paramOne:)
+                """
+            }
+        )
+    }
+
+    func testAssertWasCalledLast_WithDifferentOutputTypes() {
+        let _: StructA = zoo()
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasCalledLast(zoo, withSignature: "zoo()", returning: StructB.self)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Last call was to zoo() with the expected input, but not with the output type StructB
+                """
+            }
+        )
     }
 
     // MARK: - assertWasCalled after previousCall
+
+    // TODO: Test for assertion failure messages and improve test coverage to 100%
 
     func testAssertWasCalledAfter_WithoutCallingAnything() {
         XCTExpectFailure {
@@ -410,6 +881,8 @@ final class SpyAssertionsTests: SpyTestCase {
     }
 
     // MARK: - assertWasCalled immediatelyAfter previousCall
+
+    // TODO: Test for assertion failure messages and improve test coverage to 100%
 
     func testAssertWasCalledImmediatelyAfter_WithoutCallingAnything() {
         XCTExpectFailure {
