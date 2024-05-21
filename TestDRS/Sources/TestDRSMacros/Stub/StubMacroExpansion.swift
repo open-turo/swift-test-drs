@@ -32,7 +32,7 @@ public struct SetStubReturningOutputMacro: ExpressionMacro {
 
         if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
             return """
-            \(base).setStub(for: \(memberAccess), withSignature: "\(memberAccess.declName.baseName)\(memberAccess.resolvedArguments)", returning: \(output))
+            \(base).setStub(for: \(memberAccess), withSignature: "\(memberAccess.declName.withArguments())", returning: \(output))
             """
         } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
             return """
@@ -73,7 +73,7 @@ public struct SetStubThrowingErrorMacro: ExpressionMacro {
 
         if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
             return """
-            \(base).setStub(for: \(memberAccess), withSignature: "\(memberAccess.declName.baseName)\(memberAccess.resolvedArguments)", throwing: \(error))
+            \(base).setStub(for: \(memberAccess), withSignature: "\(memberAccess.declName.withArguments())", throwing: \(error))
             """
         } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
             return """
@@ -114,7 +114,7 @@ public struct SetStubUsingClosureMacro: ExpressionMacro {
 
         if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
             return """
-            \(base).setDynamicStub(for: \(memberAccess), withSignature: "\(memberAccess.declName.baseName)\(memberAccess.resolvedArguments)")\(closure)
+            \(base).setDynamicStub(for: \(memberAccess), withSignature: "\(memberAccess.declName.withArguments())")\(closure)
             """
         } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
             return """
