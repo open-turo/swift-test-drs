@@ -172,4 +172,48 @@ final class SpyAssertionsTests: SpyTestCase {
         )
     }
 
+    // MARK: - assertWasCalled
+
+    func testAssertWasNotCalled_WithoutCalling() {
+        assertWasNotCalled(foo, withSignature: "foo()")
+        assertWasNotCalled(bar(paramOne:), withSignature: "bar(paramOne:)")
+    }
+
+    func testAssertWasNotCalled_WithCall() {
+        foo()
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasNotCalled(foo, withSignature: "foo()")
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): 1 calls to foo() with input type () and output type () were recorded
+                """
+            }
+        )
+    }
+
+    func testAssertWasNotCalled_WithDifferentInputAndOutputTypes() {
+        zab(paramOne: true)
+        zab(paramOne: 1)
+        zab(paramOne: 2)
+        zab(paramOne: 1.0)
+
+        assertWasNotCalled(zab(paramOne:), withSignature: "zab(paramOne:)", returning: String.self)
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                assertWasNotCalled(zab(paramOne:), withSignature: "zab(paramOne:)", returning: Int.self)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): 2 calls to zab(paramOne:) with input type Int and output type Int were recorded
+                """
+            }
+        )
+    }
+
 }

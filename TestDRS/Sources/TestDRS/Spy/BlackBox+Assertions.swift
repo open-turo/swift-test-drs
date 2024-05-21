@@ -72,7 +72,7 @@ extension BlackBox {
         let calls = callsMatching(signature: signature, taking: Input.self, returning: Output.self)
 
         if !calls.isEmpty {
-            let message = "\(calls.count) calls to \(signature) were recorded"
+            let message = "\(calls.count) calls to \(signature) with input type \(Input.self) and output type \(Output.self) were recorded"
             reportFailure(message: message, file: file, line: line)
         }
     }

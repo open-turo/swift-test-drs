@@ -28,8 +28,10 @@ final class WeatherServiceTests: XCTestCase {
 
         // TODO: Use assert macro
         networkClient.assertWasCalled(networkClient.get(url:), withSignature: "get(url:)", expectedInput: expectedURL)
+            .exactlyOnce()
         // TODO: Use assert macro
         dataParser.assertWasCalled(dataParser.parse(_:), withSignature: "parse(_:)", expectedInput: data, returning: Weather.self)
+            .exactlyOnce()
     }
 
     func testFetchingWeather_WithNetworkClientError() throws {
@@ -51,7 +53,7 @@ final class WeatherServiceTests: XCTestCase {
         }
 
         // TODO: Use assert macro
-        dataParser.assertCallCount(to: dataParser.parse(_:), withSignature: "parse(_:)", returning: Weather.self, equals: 0)
+        dataParser.assertWasNotCalled(dataParser.parse(_:), withSignature: "parse(_:)", returning: Weather.self)
     }
 
     func testFetchingWeather_WithDataParserError() throws {
