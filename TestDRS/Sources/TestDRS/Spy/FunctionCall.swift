@@ -23,11 +23,15 @@ public protocol FunctionCall: CustomDebugStringConvertible {
 
     /// The time at which the function was called.
     var time: Date { get }
+
+    /// The unique identifier for this call, assigned in ascending order. Can be used to compare calls when determining order.
+    var id: Int { get }
 }
 
 extension FunctionCall {
     public var debugDescription: String {
         """
+        ******* Function Call \(id) *******
         signature: \(signature)
         input: \(input)
         outputType: \(outputType)
@@ -58,5 +62,8 @@ public struct ConcreteFunctionCall<Input, Output>: FunctionCall {
 
     /// The time at which the function was called.
     public let time: Date
+
+    /// The unique identifier for this call, assigned in ascending order. Can be used to compare calls when determining order.
+    public let id: Int
 
 }

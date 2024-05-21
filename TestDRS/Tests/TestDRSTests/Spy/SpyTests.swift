@@ -9,7 +9,7 @@ import XCTest
 final class SpyTests: SpyTestCase {
 
     func testCallsToFunction_StartsEmpty() {
-        let calls = calls(to: "foo()")
+        let calls = blackBox.callsMatching(signature: "foo()")
         XCTAssertEqual(calls.count, 0)
     }
 
@@ -18,7 +18,7 @@ final class SpyTests: SpyTestCase {
         foo()
         foo()
 
-        let calls = calls(to: "foo()")
+        let calls = blackBox.callsMatching(signature: "foo()")
 
         XCTAssertEqual(calls.count, 3)
 
@@ -37,7 +37,7 @@ final class SpyTests: SpyTestCase {
         bar(paramOne: false)
         bar(paramOne: true)
 
-        let calls = calls(to: "bar(paramOne:)")
+        let calls = blackBox.callsMatching(signature: "bar(paramOne:)")
 
         XCTAssertEqual(calls.count, 3)
 
@@ -59,7 +59,7 @@ final class SpyTests: SpyTestCase {
         baz(paramOne: false)
         baz(paramOne: nil)
 
-        let calls = calls(to: "baz(paramOne:)")
+        let calls = blackBox.callsMatching(signature: "baz(paramOne:)")
 
         XCTAssertEqual(calls.count, 3)
 
@@ -81,7 +81,7 @@ final class SpyTests: SpyTestCase {
         oof(paramOne: false, paramTwo: 2)
         oof(paramOne: true, paramTwo: 3)
 
-        let calls = calls(to: "oof(paramOne:paramTwo:)")
+        let calls = blackBox.callsMatching(signature: "oof(paramOne:paramTwo:)")
 
         XCTAssertEqual(calls.count, 3)
 
@@ -109,7 +109,7 @@ final class SpyTests: SpyTestCase {
         rab(paramOne: false, paramTwo: 2, paramThree: "World")
         rab(paramOne: true, paramTwo: nil, paramThree: nil)
 
-        let calls = calls(to: "rab(paramOne:paramTwo:paramThree:)")
+        let calls = blackBox.callsMatching(signature: "rab(paramOne:paramTwo:paramThree:)")
 
         XCTAssertEqual(calls.count, 3)
 
@@ -140,21 +140,57 @@ final class SpyTests: SpyTestCase {
         zab(paramOne: "Hello")
         zab(paramOne: 1)
 
-        let calls = calls(to: "zab(paramOne:)")
+        let calls = blackBox.callsMatching(signature: "zab(paramOne:)")
 
         XCTAssertEqual(calls.count, 3)
 
+        XCTAssertEqual(calls[0].id, 1)
         XCTAssertEqual(calls[0].time, .functionCallTime(second: 0))
         XCTAssertEqual(calls[0].signature, "zab(paramOne:)")
         XCTAssertEqual(calls[0].input as? Bool, true)
 
+        XCTAssertEqual(calls[1].id, 2)
         XCTAssertEqual(calls[1].time, .functionCallTime(second: 1))
         XCTAssertEqual(calls[1].signature, "zab(paramOne:)")
         XCTAssertEqual(calls[1].input as? String, "Hello")
 
+        XCTAssertEqual(calls[2].id, 3)
         XCTAssertEqual(calls[2].time, .functionCallTime(second: 2))
         XCTAssertEqual(calls[2].signature, "zab(paramOne:)")
         XCTAssertEqual(calls[2].input as? Int, 1)
+    }
+
+    func testDebugDescription() {
+        foo()
+        bar(paramOne: true)
+        baz(paramOne: nil)
+        oof(paramOne: false, paramTwo: 7)
+
+        XCTAssertEqual(
+            blackBox.debugDescription.trimmingCharacters(in: .whitespacesAndNewlines),
+            """
+            ******* Function Call 1 *******
+            signature: foo()
+            input: ()
+            outputType: ()
+            time: 2018-06-15 0:00:00.000
+            \r******* Function Call 2 *******
+            signature: bar(paramOne:)
+            input: true
+            outputType: ()
+            time: 2018-06-15 0:00:01.000
+            \r******* Function Call 3 *******
+            signature: baz(paramOne:)
+            input: nil
+            outputType: ()
+            time: 2018-06-15 0:00:02.000
+            \r******* Function Call 4 *******
+            signature: oof(paramOne:paramTwo:)
+            input: (false, 7)
+            outputType: ()
+            time: 2018-06-15 0:00:03.000
+            """
+        )
     }
 
 }
