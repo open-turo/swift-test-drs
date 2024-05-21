@@ -54,13 +54,4 @@ public extension Spy {
         )
     }
 
-    /// Returns all instance function calls recorded within the `blackBox` that match the given signature.
-    func calls(to signature: String) -> [any FunctionCall] {
-        blackBox.callsMatching(signature: signature)
-    }
-
-    /// Returns all static function calls recorded within the `blackBox` that match the given signature.
-    static func calls(to signature: String) -> [any FunctionCall] {
-        blackBox.callsMatching(signature: signature)
-    }
 }
