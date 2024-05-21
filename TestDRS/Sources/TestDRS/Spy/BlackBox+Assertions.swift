@@ -29,7 +29,7 @@ extension BlackBox {
             reportFailure(message: message, file: file, line: line)
         }
 
-        return AssertWasCalledResult(calls: calls, blackBox: self)
+        return AssertWasCalledResult(matchingCalls: calls, blackBox: self)
     }
 
     func assertWasCalled<each Input, Output>(
@@ -58,7 +58,7 @@ extension BlackBox {
             reportFailure(message: message, file: file, line: line)
         }
 
-        return AssertWasCalledResult(calls: callsWithExpectedInput, blackBox: self)
+        return AssertWasCalledResult(matchingCalls: callsWithExpectedInput, blackBox: self)
     }
 
     // MARK: - assertWasNotCalled

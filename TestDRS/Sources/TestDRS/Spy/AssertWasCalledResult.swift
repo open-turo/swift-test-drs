@@ -23,8 +23,8 @@ public struct AssertWasCalledResult<Input, Output> {
         matchingCalls.last
     }
 
-    init(calls: [ConcreteFunctionCall<Input, Output>], blackBox: BlackBox) {
-        matchingCalls = calls
+    init(matchingCalls: [ConcreteFunctionCall<Input, Output>], blackBox: BlackBox) {
+        self.matchingCalls = matchingCalls
         self.blackBox = blackBox
     }
 
@@ -56,7 +56,7 @@ extension AssertWasCalledResult {
         guard matchingCalls.count == 1 else {
             let message = "Expected \(firstMatchingCall.signature) to be called exactly once as specified, but \(matchingCalls.count) calls were recorded"
             blackBox.reportFailure(message: message, file: file, line: line)
-            return AssertWasCalledResult(calls: [], blackBox: blackBox)
+            return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
         }
 
         return self
@@ -79,7 +79,7 @@ extension AssertWasCalledResult {
         guard matchingCalls.count == expectedCallCount else {
             let message = "Expected \(firstMatchingCall.signature) to be called as specified \(expectedCallCount) times, but \(matchingCalls.count) calls were recorded"
             blackBox.reportFailure(message: message, file: file, line: line)
-            return AssertWasCalledResult(calls: [], blackBox: blackBox)
+            return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
         }
 
         return self
@@ -100,7 +100,7 @@ extension AssertWasCalledResult {
         guard expectedCallCountRange.contains(matchingCalls.count) else {
             let message = "Expected \(firstMatchingCall.signature) to be called as specified within \(expectedCallCountRange) times, but \(matchingCalls.count) calls were recorded"
             blackBox.reportFailure(message: message, file: file, line: line)
-            return AssertWasCalledResult(calls: [], blackBox: blackBox)
+            return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
         }
 
         return self
@@ -125,7 +125,7 @@ extension AssertWasCalledResult {
             blackBox.reportFailure(message: message, file: file, line: line)
         }
 
-        return AssertWasCalledResult(calls: matchingCalls, blackBox: blackBox)
+        return AssertWasCalledResult(matchingCalls: matchingCalls, blackBox: blackBox)
     }
 
     /// Makes a further assertion that the function was called as specified in the given `position`.
@@ -167,10 +167,10 @@ extension AssertWasCalledResult {
             }
 
             blackBox.reportFailure(message: message, file: file, line: line)
-            return AssertWasCalledResult(calls: [], blackBox: blackBox)
+            return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
         }
 
-        return AssertWasCalledResult(calls: [firstMatchingCall], blackBox: blackBox)
+        return AssertWasCalledResult(matchingCalls: [firstMatchingCall], blackBox: blackBox)
     }
 
     private func assertWasCalledLast(file: StaticString, line: UInt) -> AssertWasCalledResult {
@@ -188,10 +188,10 @@ extension AssertWasCalledResult {
             }
 
             blackBox.reportFailure(message: message, file: file, line: line)
-            return AssertWasCalledResult(calls: [], blackBox: blackBox)
+            return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
         }
 
-        return AssertWasCalledResult(calls: [lastMatchingCall], blackBox: blackBox)
+        return AssertWasCalledResult(matchingCalls: [lastMatchingCall], blackBox: blackBox)
     }
 
     private func assertWasCalledAfter(_ previousCall: any FunctionCall, file: StaticString, line: UInt) -> AssertWasCalledResult {
@@ -202,10 +202,10 @@ extension AssertWasCalledResult {
         guard !callsAfter.isEmpty else {
             let message = "No calls to \(firstMatchingCall.signature) as specified were recorded after given call to \(previousCall.signature)"
             blackBox.reportFailure(message: message, file: file, line: line)
-            return AssertWasCalledResult(calls: [], blackBox: blackBox)
+            return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
         }
 
-        return AssertWasCalledResult(calls: callsAfter, blackBox: blackBox)
+        return AssertWasCalledResult(matchingCalls: callsAfter, blackBox: blackBox)
     }
 
     private func assertWasCalledImmediatelyAfter(_ previousCall: any FunctionCall, file: StaticString, line: UInt) -> AssertWasCalledResult {
@@ -227,10 +227,10 @@ extension AssertWasCalledResult {
             }
 
             blackBox.reportFailure(message: message, file: file, line: line)
-            return AssertWasCalledResult(calls: [], blackBox: blackBox)
+            return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
         }
 
-        return AssertWasCalledResult(calls: [callImmediatelyAfter], blackBox: blackBox)
+        return AssertWasCalledResult(matchingCalls: [callImmediatelyAfter], blackBox: blackBox)
     }
 
 }
