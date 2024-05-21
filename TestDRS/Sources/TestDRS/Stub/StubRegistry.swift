@@ -182,7 +182,7 @@ public final class StubRegistry {
 extension StubRegistry: CustomDebugStringConvertible {
 
     public var debugDescription: String {
-        "\n \n" +
+        "\n" +
             stubs.enumerated().map { index, stub -> String in
                 """
                 ******* Stub \(index + 1) *******
@@ -190,7 +190,7 @@ extension StubRegistry: CustomDebugStringConvertible {
                 \(stub.value.debugDescription)
                 """
             }
-            .joined(separator: "\n \n")
+            .joined(separator: "\n\r")
             + "\n "
     }
 

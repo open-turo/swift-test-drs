@@ -35,7 +35,8 @@ public final class BlackBox {
                     signature: signature,
                     input: input,
                     outputType: outputType,
-                    time: time
+                    time: time,
+                    id: self.storage.count + 1
                 )
             )
         }
@@ -52,15 +53,10 @@ public final class BlackBox {
     ///- Note: This method returns the function calls as an array of `[any FunctionCall]`, to instead retrieve an array of `[ConcreteFunctionCall<Input, Output>]` see `callsMatching(signature:after:taking:returning:)`.
     func callsMatching<Input>(
         signature: String,
-        after previousCall: (any FunctionCall)? = nil,
         taking inputType: Input.Type = Void.self
     ) -> [any FunctionCall] {
         storageQueue.sync {
-            if let previousCall {
-                guard let index = storage.firstIndex(of: previousCall) else { return [] }
-                return storage.dropFirst(index + 1).filter(signature: signature, inputType: inputType)
-            }
-            return storage.filter(signature: signature, inputType: inputType)
+            storage.filter(signature: signature, inputType: inputType)
         }
     }
 
@@ -68,22 +64,16 @@ public final class BlackBox {
     ///
     /// - Parameters:
     ///   - signature: The signature to match.
-    ///   - previousCall: If provided, only calls occuring after the `previousCall` will be returned, otherwise all matching calls will be returned. Defaults to `nil`.
     ///   - inputType: The input type to match.
     ///   - outputType: The output type to match.
     /// - Returns: An array of concrete function calls that match the given criteria.
     func callsMatching<Input, Output>(
         signature: String,
-        after previousCall: (any FunctionCall)? = nil,
         taking inputType: Input.Type,
         returning outputType: Output.Type
     ) -> [ConcreteFunctionCall<Input, Output>] {
         storageQueue.sync {
-            if let previousCall {
-                guard let index = storage.firstIndex(of: previousCall) else { return [] }
-                return storage.dropFirst(index + 1).filter(signature: signature).compactMap { $0 as? ConcreteFunctionCall<Input, Output> }
-            }
-            return storage.filter(signature: signature).compactMap {
+            storage.filter(signature: signature).compactMap {
                 $0 as? ConcreteFunctionCall<Input, Output>
             }
         }
@@ -113,20 +103,22 @@ public final class BlackBox {
             storage.last
         }
     }
+
+    /// The number of function calls recorded in the storage.
+    var callCount: Int {
+        storageQueue.sync {
+            storage.count
+        }
+    }
 }
 
 // MARK: CustomDebugStringConvertible
 extension BlackBox: CustomDebugStringConvertible {
     public var debugDescription: String {
         storageQueue.sync {
-            "\n \n" +
-                storage.enumerated().map { index, functionCall -> String in
-                    """
-                    ******* Function Call \(index + 1) *******
-                    \(functionCall)
-                    """
-                }
-                .joined(separator: "\n \n") // The empty newline is stripped without the space inbetween.
+            "\n" +
+                storage.map { String(reflecting: $0) }
+                .joined(separator: "\n\r")
                 + "\n "
         }
     }
