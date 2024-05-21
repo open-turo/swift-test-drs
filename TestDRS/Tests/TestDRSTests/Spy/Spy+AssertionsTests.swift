@@ -172,7 +172,7 @@ final class SpyAssertionsTests: SpyTestCase {
         )
     }
 
-    // MARK: - assertWasCalled
+    // MARK: - assertWasNotCalled
 
     func testAssertWasNotCalled_WithoutCalling() {
         assertWasNotCalled(foo, withSignature: "foo()")
