@@ -194,6 +194,11 @@ final class StubProvidingTests: XCTestCase {
         }
     }
 
+    func testStubbingStaticMethod() {
+        #stub(StubProvider.staticFoo, returning: 63)
+        XCTAssertEqual(StubProvider.staticFoo(), 63)
+    }
+
     func testDefaultInstanceStorage() {
         let instances = (0 ..< 100).map { $0 }
 
@@ -210,7 +215,6 @@ final class StubProvidingTests: XCTestCase {
 
 private struct StubProvider: StubProviding {
     let stubRegistry = StubRegistry()
-    static let stubRegistry = StubRegistry()
 
     func foo() {
         return stubOutput()
@@ -242,6 +246,10 @@ private struct StubProvider: StubProviding {
 
     func zoo() async throws -> Int {
         try throwingStubOutput()
+    }
+
+    static func staticFoo() -> Int {
+        stubOutput()
     }
 }
 
