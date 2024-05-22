@@ -194,6 +194,18 @@ final class StubProvidingTests: XCTestCase {
         }
     }
 
+    func testDefaultInstanceStorage() {
+        let instances = (0 ..< 100).map { $0 }
+
+        for (index, instance) in instances.enumerated() {
+            #stub(instance.bar, returning: index * index)
+        }
+
+        for (index, instance) in instances.enumerated() {
+            XCTAssertEqual(instance.bar(), index * index)
+        }
+    }
+
 }
 
 private struct StubProvider: StubProviding {
@@ -234,3 +246,10 @@ private struct StubProvider: StubProviding {
 }
 
 private struct StubProviderError: Error {}
+
+// MARK: - Int + StubProviding
+extension Int: StubProviding {
+    func bar() -> Int {
+        stubOutput()
+    }
+}

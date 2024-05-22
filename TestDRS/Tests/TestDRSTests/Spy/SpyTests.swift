@@ -193,4 +193,29 @@ final class SpyTests: SpyTestCase {
         )
     }
 
+    func testDefaultInstanceStorage() {
+        let instances = (0 ..< 100).map { $0 }
+
+        for (index, instance) in instances.enumerated() {
+            instance.foo(index)
+        }
+
+        for (index, instance) in instances.enumerated() {
+            #assertWasCalled(instance.foo(_:), with: index)
+                .exactlyOnce()
+        }
+    }
+
+}
+
+// MARK: - Int + Identifiable
+extension Int: Identifiable {
+    public var id: Int { self }
+}
+
+// MARK: - Int + Spy
+extension Int: Spy {
+    func foo(_ int: Int) {
+        recordCall(with: int)
+    }
 }
