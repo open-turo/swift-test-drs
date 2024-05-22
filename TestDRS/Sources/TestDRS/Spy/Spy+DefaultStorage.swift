@@ -7,8 +7,7 @@ import Foundation
 
 // These extensions provide default `BlackBox` storage for types conforming to `Spy`.
 // Swift does not allow generic types to have stored static properties, so a separate storage mechanism is needed.
-// Extending `Hashable` and `Identifiable` types to be a `Spy` is also enabled by providing a unique `BlackBox`
-// for each instance of a type conforming to one of those protocols.
+// Extending `Identifiable` types to be a `Spy` is also enabled by providing a unique `BlackBox` for each identifiable instance.
 
 public extension Spy {
 
@@ -19,23 +18,12 @@ public extension Spy {
 
 }
 
-public extension Spy where Self: Hashable {
-
-    /// The default `BlackBox` for instances of types that are `Hashable`, allows for extending a hashable type to be a `Spy`.
-    var blackBox: BlackBox {
-        BlackBox.blackBox(
-            for: StorageKey(type: Self.self, hashable: self)
-        )
-    }
-
-}
-
 public extension Spy where Self: Identifiable {
 
     /// The default `BlackBox` for instances of types that are `Identifiable`, allows for extending an identifiable type to be a `Spy`.
     var blackBox: BlackBox {
         BlackBox.blackBox(
-            for: StorageKey(type: Self.self, hashable: id)
+            for: StorageKey(type: Self.self, id: id)
         )
     }
 
@@ -61,11 +49,11 @@ private extension BlackBox {
 struct StorageKey: Hashable {
 
     let typeName: String
-    let hashable: AnyHashable?
+    let id: AnyHashable?
 
-    init<T>(type: T, hashable: AnyHashable? = nil) {
+    init<T>(type: T, id: AnyHashable? = nil) {
         typeName = "\(T.self)"
-        self.hashable = hashable
+        self.id = id
     }
 
 }
