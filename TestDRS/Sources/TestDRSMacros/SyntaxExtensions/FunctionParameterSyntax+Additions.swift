@@ -9,4 +9,9 @@ extension FunctionParameterSyntax {
     var internalName: TokenSyntax {
         secondName ?? firstName
     }
+
+    var label: String? {
+        guard firstName.tokenKind != .wildcard else { return nil }
+        return firstName.text
+    }
 }

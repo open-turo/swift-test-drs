@@ -137,17 +137,24 @@ public struct MockMacro: PeerMacro {
         forClass: Bool,
         shouldOverride: Bool
     ) -> MemberBlockItemListSyntax {
+        let mockTypes = members.filter { $0.decl.isTypeDeclaration }
+
         let mockProperties = members
             .compactMap { $0.decl.as(VariableDeclSyntax.self) }
             .filter { !$0.isPrivate && !($0.isStatic && shouldOverride) }
             .compactMap { mockProperty(for: $0, shouldAddOverrideModifier: shouldOverride) }
 
+        let mockInits: [InitializerDeclSyntax] = {
+            guard forClass, shouldOverride else { return [] }
+            return members
+                .compactMap { $0.decl.as(InitializerDeclSyntax.self) }
+                .map { mockInitOverride(for: $0) }
+        }()
+
         let mockMethods = members
             .compactMap { $0.decl.as(FunctionDeclSyntax.self) }
             .filter { !$0.isPrivate && !($0.isStatic && shouldOverride) }
             .compactMap { mockMethod(for: $0, isInClass: forClass, shouldAddOverrideModifier: shouldOverride) }
-
-        let mockTypes = members.filter { $0.decl.isTypeDeclaration }
 
         return MemberBlockItemListSyntax {
             mockTypes
@@ -161,6 +168,12 @@ public struct MockMacro: PeerMacro {
                 }
             }
             .with(\.leadingTrivia, .newlines(2))
+            MemberBlockItemListSyntax {
+                for mockInit in mockInits {
+                    mockInit
+                        .with(\.leadingTrivia, .newlines(2))
+                }
+            }
             MemberBlockItemListSyntax {
                 for mockMethod in mockMethods {
                     mockMethod
@@ -210,6 +223,56 @@ public struct MockMacro: PeerMacro {
             ),
             rightBrace: .rightBraceToken()
         )
+    }
+
+    private static func mockInitOverride(for initializer: InitializerDeclSyntax) -> InitializerDeclSyntax {
+        guard let initBody = initializer.body else { return initializer }
+
+        var mockInit = initializer.trimmed
+
+        let superCall = FunctionCallExprSyntax(callee: ExprSyntax("super.init")) {
+            for param in mockInit.signature.parameterClause.parameters {
+                LabeledExprSyntax(label: param.label, expression: ExprSyntax("\(param.internalName)"))
+            }
+        }
+
+        let internalParamNames = mockInit.signature.parameterClause.parameters.map { $0.internalName.tokenKind }
+
+        let assignmentStatements = initBody.statements.filter { statement in
+
+            if let infixOperatorStatement = statement.item.as(InfixOperatorExprSyntax.self),
+               infixOperatorStatement.operator.is(AssignmentExprSyntax.self),
+               let rightOperand = infixOperatorStatement.rightOperand.as(DeclReferenceExprSyntax.self),
+               internalParamNames.contains(rightOperand.baseName.tokenKind) {
+                return true
+            }
+
+            // For some reason in tests `self.x = x` is parsed as `InfixOperatorExprSyntax`
+            // but when expanding a real initializer it is parsed as a `SequenceExprSyntax` that looks like this:
+            // [MemberAccessExprSyntax, AssignmentExprSyntax, DeclReferenceExprSyntax]
+            if let sequence = statement.item.as(SequenceExprSyntax.self),
+               sequence.elements.count == 3,
+               sequence.elements.dropFirst().first?.is(AssignmentExprSyntax.self) == true,
+               let paramReference = sequence.elements.last?.as(DeclReferenceExprSyntax.self),
+               internalParamNames.contains(paramReference.baseName.tokenKind) {
+                return true
+            }
+
+            return false
+        }
+
+        mockInit.body = CodeBlockSyntax {
+            superCall
+            for statement in assignmentStatements {
+                statement.trimmed
+            }
+        }
+
+        if !mockInit.isOverride {
+            mockInit.modifiers += [DeclModifierSyntax(name: .keyword(.override))]
+        }
+
+        return mockInit
     }
 
     private static func mockMethod(
