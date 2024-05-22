@@ -189,6 +189,8 @@ extension MockMacroTests {
         init(x: String, y: Int) {
             self.x = x
             self.y = y
+            self.x = "This should not be in the mock"
+            self.y = 1_000_000
         }
 
         func foo() {
