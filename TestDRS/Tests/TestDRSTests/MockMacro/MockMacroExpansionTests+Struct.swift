@@ -78,8 +78,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 func foo() {
                     recordCall()
@@ -150,8 +148,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 var foo {
                     get {
@@ -236,8 +232,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 var foo: String {
                     get {
@@ -298,8 +292,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 var foo: String? {
                     get {
@@ -369,8 +361,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 var foo: String {
                     get {
@@ -444,8 +434,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 var foo: NestedStruct {
                     get {
@@ -504,8 +492,6 @@ extension MockMacroExpansionTests {
 
                     let blackBox = BlackBox()
                     let stubRegistry = StubRegistry()
-                    static let blackBox = BlackBox()
-                    static let stubRegistry = StubRegistry()
 
                     var nestedFoo: String {
                         get {
@@ -567,8 +553,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 var foo: T {
                     get {

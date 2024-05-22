@@ -38,8 +38,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 func foo() throws -> String {
                     recordCall(returning: String.self)
@@ -101,8 +99,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 var foo: String {
                     get {
@@ -163,8 +159,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 func foo<T>() -> T {
                     recordCall(returning: T.self)
@@ -198,8 +192,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 func foo<T>() -> T where T: Equatable {
                     recordCall(returning: T.self)
@@ -233,8 +225,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 func foo1() {
                     recordCall()
@@ -272,8 +262,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 var foo: T {
                     get {

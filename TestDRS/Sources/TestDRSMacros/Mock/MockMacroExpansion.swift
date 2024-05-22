@@ -154,8 +154,6 @@ public struct MockMacro: PeerMacro {
             DeclSyntax("let blackBox = BlackBox()")
                 .with(\.leadingTrivia, .newlines(2))
             DeclSyntax("let stubRegistry = StubRegistry()")
-            DeclSyntax("static let blackBox = BlackBox()")
-            DeclSyntax("static let stubRegistry = StubRegistry()")
             MemberBlockItemListSyntax {
                 for mockProperty in mockProperties {
                     mockProperty

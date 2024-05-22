@@ -78,8 +78,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 override func foo() {
                     recordCall()
@@ -156,8 +154,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 override var foo {
                     get {
@@ -230,8 +226,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 override var foo {
                     get {
@@ -276,8 +270,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 override var foo {
                     get {
@@ -342,8 +334,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 override var foo: String {
                     get {
@@ -400,8 +390,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 override var foo: String? {
                     get {
@@ -469,8 +457,6 @@ extension MockMacroExpansionTests {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
-                static let blackBox = BlackBox()
-                static let stubRegistry = StubRegistry()
 
                 override var foo: String {
                     get {
