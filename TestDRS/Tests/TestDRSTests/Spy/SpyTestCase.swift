@@ -9,7 +9,6 @@ import XCTest
 class SpyTestCase: XCTestCase, Spy {
 
     let blackBox = BlackBox()
-    static let blackBox = BlackBox()
 
     private var second = 0
 
@@ -54,6 +53,10 @@ class SpyTestCase: XCTestCase, Spy {
         defer { second += 1 }
         recordCall(at: .functionCallTime(second: second), returning: T.self)
         return T()
+    }
+
+    static func staticFoo() {
+        recordCall()
     }
 
 }

@@ -193,6 +193,15 @@ final class SpyTests: SpyTestCase {
         )
     }
 
+    func testCallsToStaticFunction() {
+        SpyTestCase.staticFoo()
+        SpyTestCase.staticFoo()
+        SpyTestCase.staticFoo()
+
+        #assertWasCalled(SpyTestCase.staticFoo)
+            .withCount(3)
+    }
+
     func testDefaultInstanceStorage() {
         let instances = (0 ..< 100).map { $0 }
 
