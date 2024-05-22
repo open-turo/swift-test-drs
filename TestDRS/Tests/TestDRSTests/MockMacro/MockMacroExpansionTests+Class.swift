@@ -479,5 +479,96 @@ extension MockMacroExpansionTests {
         }
     }
 
+    func testMockMacro_WithClass_WithInit() {
+        assertMacro {
+            """
+            @Mock
+            class SomeClass {
+                var x: String
+                var y: Int
+                var myZ: Bool
+
+                init(_ x: String, y: Int, andZ z: Bool) {
+                    self.x = x
+                    self.y = y
+                    myZ = z
+                    self.x = "Hello World"
+                    foo()
+                }
+
+                func foo() {}
+            }
+            """
+        } expansion: {
+            """
+            class SomeClass {
+                var x: String
+                var y: Int
+                var myZ: Bool
+
+                init(_ x: String, y: Int, andZ z: Bool) {
+                    self.x = x
+                    self.y = y
+                    myZ = z
+                    self.x = "Hello World"
+                    foo()
+                }
+
+                func foo() {}
+            }
+
+            #if DEBUG
+
+            final class MockSomeClass: SomeClass, Spy, StubProviding {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                override var x: String {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                override var y: Int {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                override var myZ: Bool {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                override init(_ x: String, y: Int, andZ z: Bool) {
+                    super.init(x, y: y, andZ: z)
+                    self.x = x
+                    self.y = y
+                    myZ = z
+                }
+
+                override func foo() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
+            """
+        }
+    }
+
 }
 #endif
