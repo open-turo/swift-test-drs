@@ -575,5 +575,89 @@ extension MockMacroExpansionTests {
         }
     }
 
+    func testMockMacro_WithStruct_WithInit() {
+        assertMacro {
+            """
+            @Mock
+            struct SomeStruct {
+                var x: String
+                var y: Int
+                var myZ: Bool
+
+                init(_ x: String, y: Int, andZ z: Bool) {
+                    self.x = x
+                    self.y = y
+                    myZ = z
+                    self.x = "Hello World"
+                    foo()
+                }
+
+                func foo() {}
+            }
+            """
+        } expansion: {
+            """
+            struct SomeStruct {
+                var x: String
+                var y: Int
+                var myZ: Bool
+
+                init(_ x: String, y: Int, andZ z: Bool) {
+                    self.x = x
+                    self.y = y
+                    myZ = z
+                    self.x = "Hello World"
+                    foo()
+                }
+
+                func foo() {}
+            }
+
+            #if DEBUG
+
+            struct MockSomeStruct: Spy, StubProviding {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                var x: String {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                var y: Int {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                var myZ: Bool {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                func foo() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
+            """
+        }
+    }
+
 }
 #endif
