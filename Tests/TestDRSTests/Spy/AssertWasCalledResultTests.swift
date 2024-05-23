@@ -56,7 +56,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to foo() were recorded
+                Assertion Failure at \(self.file):\(self.line): No calls to "foo()" were recorded
                 """
             }
         )
@@ -90,7 +90,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected rab(paramOne:paramTwo:paramThree:) to be called exactly once as specified, but 2 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): Expected "rab(paramOne:paramTwo:paramThree:)" to be called exactly once as specified, but 2 calls were recorded
                 """
             }
         )
@@ -110,7 +110,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to foo() were recorded
+                Assertion Failure at \(self.file):\(self.line): No calls to "foo()" were recorded
                 """
             }
         )
@@ -138,7 +138,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected foo() to be called as specified 1 times, but 3 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): Expected "foo()" to be called as specified 1 times, but 3 calls were recorded
                 """
             }
         )
@@ -164,7 +164,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected zab(paramOne:) to be called as specified 4 times, but 1 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): Expected "zab(paramOne:)" to be called as specified 4 times, but 1 calls were recorded
                 """
             }
         )
@@ -184,7 +184,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to foo() were recorded
+                Assertion Failure at \(self.file):\(self.line): No calls to "foo()" were recorded
                 """
             }
         )
@@ -224,7 +224,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected foo() to be called as specified within 0...2 times, but 3 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): Expected "foo()" to be called as specified within 0...2 times, but 3 calls were recorded
                 """
             }
         )
@@ -244,7 +244,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to bar(paramOne:) were recorded
+                Assertion Failure at \(self.file):\(self.line): No calls to "bar(paramOne:)" were recorded
                 """
             }
         )
@@ -277,7 +277,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): rab(paramOne:paramTwo:paramThree:) was not called as specified where the given predicate returned true
+                Assertion Failure at \(self.file):\(self.line): "rab(paramOne:paramTwo:paramThree:)" was not called as specified where the given predicate returned true
                 """
             }
         )
@@ -292,7 +292,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): rab(paramOne:paramTwo:paramThree:) was not called as specified where the given predicate returned true
+                Assertion Failure at \(self.file):\(self.line): "rab(paramOne:paramTwo:paramThree:)" was not called as specified where the given predicate returned true
                 """
             }
         )
@@ -312,7 +312,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to foo() were recorded
+                Assertion Failure at \(self.file):\(self.line): No calls to "foo()" were recorded
                 """
             }
         )
@@ -340,10 +340,10 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): First call was to rab(paramOne:paramTwo:paramThree:), but not as specified:
+                Assertion Failure at \(self.file):\(self.line): First call was to "rab(paramOne:paramTwo:paramThree:)", but not as specified:
 
                 ******* Function Call 1 *******
-                signature: rab(paramOne:paramTwo:paramThree:)
+                signature: "rab(paramOne:paramTwo:paramThree:)"
                 input: (true, Optional(1), Optional("Hello"))
                 outputType: ()
                 time: 2018-06-15 0:00:00.000
@@ -359,7 +359,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected oof(paramOne:paramTwo:) to be called first, but rab(paramOne:paramTwo:paramThree:) was called first
+                Assertion Failure at \(self.file):\(self.line): Expected "oof(paramOne:paramTwo:)" to be called first, but "rab(paramOne:paramTwo:paramThree:)" was called first
                 """
             }
         )
@@ -379,7 +379,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to foo() were recorded
+                Assertion Failure at \(self.file):\(self.line): No calls to "foo()" were recorded
                 """
             }
         )
@@ -407,10 +407,10 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Last call was to rab(paramOne:paramTwo:paramThree:), but not as specified:
+                Assertion Failure at \(self.file):\(self.line): Last call was to "rab(paramOne:paramTwo:paramThree:)", but not as specified:
 
                 ******* Function Call 3 *******
-                signature: rab(paramOne:paramTwo:paramThree:)
+                signature: "rab(paramOne:paramTwo:paramThree:)"
                 input: (true, Optional(3), Optional("World"))
                 outputType: ()
                 time: 2018-06-15 0:00:02.000
@@ -426,7 +426,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected oof(paramOne:paramTwo:) to be called last, but rab(paramOne:paramTwo:paramThree:) was called last
+                Assertion Failure at \(self.file):\(self.line): Expected "oof(paramOne:paramTwo:)" to be called last, but "rab(paramOne:paramTwo:paramThree:)" was called last
                 """
             }
         )
@@ -464,7 +464,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): zab(paramOne:) was not called with expected input (-), but was called with other input (+):
+                Assertion Failure at \(self.file):\(self.line): "zab(paramOne:)" was not called with expected input (-), but was called with other input (+):
 
                 -false
                 +true
@@ -480,7 +480,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to zab(paramOne:) as specified were recorded after given call to baz(paramOne:)
+                Assertion Failure at \(self.file):\(self.line): No calls to "zab(paramOne:)" as specified were recorded after given call to "baz(paramOne:)"
                 """
             }
         )
@@ -514,7 +514,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): rab(paramOne:paramTwo:paramThree:) was not called with expected input (-), but was called with other input (+):
+                Assertion Failure at \(self.file):\(self.line): "rab(paramOne:paramTwo:paramThree:)" was not called with expected input (-), but was called with other input (+):
 
                 -(false, Optional(2), Optional("Hello"))
                 +(true, Optional(2), Optional("Hello"))
@@ -530,10 +530,10 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): oof(paramOne:paramTwo:) was called immediately after given call to oof(paramOne:paramTwo:), but not as specified:
+                Assertion Failure at \(self.file):\(self.line): "oof(paramOne:paramTwo:)" was called immediately after given call to "oof(paramOne:paramTwo:)", but not as specified:
 
                 ******* Function Call 2 *******
-                signature: oof(paramOne:paramTwo:)
+                signature: "oof(paramOne:paramTwo:)"
                 input: (false, 3)
                 outputType: ()
                 time: 2018-06-15 0:00:01.000
@@ -549,7 +549,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): rab(paramOne:paramTwo:paramThree:) was called immediately after given call to oof(paramOne:paramTwo:)
+                Assertion Failure at \(self.file):\(self.line): "rab(paramOne:paramTwo:paramThree:)" was called immediately after given call to "oof(paramOne:paramTwo:)"
                 """
             }
         )
@@ -562,7 +562,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls were recorded after given call to rab(paramOne:paramTwo:paramThree:)
+                Assertion Failure at \(self.file):\(self.line): No calls were recorded after given call to "rab(paramOne:paramTwo:paramThree:)"
                 """
             }
         )

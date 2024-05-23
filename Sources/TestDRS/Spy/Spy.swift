@@ -23,7 +23,7 @@ public extension Spy {
         with input: Input = Void(),
         at time: Date = Date(),
         returning outputType: Output.Type = Void.self,
-        signature: String = #function
+        signature: FunctionSignature = #function
     ) {
         blackBox.recordCall(
             with: input,
@@ -44,7 +44,7 @@ public extension Spy {
         with input: Input = Void(),
         at time: Date = Date(),
         returning outputType: Output.Type = Void.self,
-        signature: String = #function
+        signature: FunctionSignature = #function
     ) {
         blackBox.recordCall(
             with: input,

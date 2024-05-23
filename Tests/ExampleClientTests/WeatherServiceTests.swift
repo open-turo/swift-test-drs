@@ -26,10 +26,10 @@ final class WeatherServiceTests: XCTestCase {
         XCTAssertEqual(weather.temperature, 72)
         XCTAssertEqual(weather.description, "Sunny")
 
-        #assertWasCalled(networkClient.get(url:), with: expectedURL)
+        #assertWasCalled(networkClient.get, with: expectedURL)
             .exactlyOnce()
 
-        #assertWasCalled(dataParser.parse(_:), with: data, returning: Weather.self)
+        #assertWasCalled(dataParser.parse, with: data, returning: Weather.self)
             .exactlyOnce()
     }
 
@@ -39,8 +39,8 @@ final class WeatherServiceTests: XCTestCase {
         let dataParser = MockDataParserStruct()
         let weatherService = WeatherServiceStruct(networkClient: networkClient, dataParser: dataParser)
 
-        #stub(networkClient.get(url:), throwing: NetworkClientError.serverError)
-        #stub(dataParser.parse(_:), returning: Weather(temperature: 72, description: "Sunny"))
+        #stub(networkClient.get, throwing: NetworkClientError.serverError)
+        #stub(dataParser.parse, returning: Weather(temperature: 72, description: "Sunny"))
 
         do {
             _ = try weatherService.fetchWeather(for: "charleston")
@@ -51,7 +51,7 @@ final class WeatherServiceTests: XCTestCase {
             XCTFail("Expected a NetworkClientError")
         }
 
-        #assertWasNotCalled(dataParser.parse(_:), returning: Weather.self)
+        #assertWasNotCalled(dataParser.parse, returning: Weather.self)
     }
 
     func testFetchingWeather_WithDataParserError() throws {
@@ -62,8 +62,8 @@ final class WeatherServiceTests: XCTestCase {
 
         let data = try XCTUnwrap("Hello World".data(using: .utf8))
 
-        #stub(networkClient.get(url:), returning: data)
-        #stub(dataParser.parse(_:), using: { _ -> Weather in
+        #stub(networkClient.get, returning: data)
+        #stub(dataParser.parse, using: { _ -> Weather in
             throw DataParsingError.errorParsingData
         })
 

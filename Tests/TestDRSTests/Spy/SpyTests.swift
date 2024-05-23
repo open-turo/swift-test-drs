@@ -170,22 +170,22 @@ final class SpyTests: SpyTestCase {
             blackBox.debugDescription.trimmingCharacters(in: .whitespacesAndNewlines),
             """
             ******* Function Call 1 *******
-            signature: foo()
+            signature: "foo()"
             input: ()
             outputType: ()
             time: 2018-06-15 0:00:00.000
             \r******* Function Call 2 *******
-            signature: bar(paramOne:)
+            signature: "bar(paramOne:)"
             input: true
             outputType: ()
             time: 2018-06-15 0:00:01.000
             \r******* Function Call 3 *******
-            signature: baz(paramOne:)
+            signature: "baz(paramOne:)"
             input: nil
             outputType: ()
             time: 2018-06-15 0:00:02.000
             \r******* Function Call 4 *******
-            signature: oof(paramOne:paramTwo:)
+            signature: "oof(paramOne:paramTwo:)"
             input: (false, 7)
             outputType: ()
             time: 2018-06-15 0:00:03.000

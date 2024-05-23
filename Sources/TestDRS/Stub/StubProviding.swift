@@ -47,7 +47,7 @@ public extension StubProviding {
     ///   If that is the case, use `setDynamicStub(for:withSignature:using:)` and specify the input to the closure explicitly.
     func setStub<Input, Output>(
         for function: (Input) async throws -> Output,
-        withSignature signature: String,
+        withSignature signature: FunctionSignature,
         returning output: Output
     ) {
         stubRegistry.register(output: output, for: function, withSignature: signature)
@@ -65,7 +65,7 @@ public extension StubProviding {
     ///   If that is the case, use `setDynamicStub(for:withSignature:using:)` and specify the input to the closure explicitly.
     func setStub<Input, Output>(
         for function: (Input) async throws -> Output,
-        withSignature signature: String,
+        withSignature signature: FunctionSignature,
         throwing error: Error
     ) {
         stubRegistry.register(error: error, for: function, withSignature: signature)
@@ -80,7 +80,7 @@ public extension StubProviding {
     ///   - closure: A closure that takes in the function's input and returns the desired output when the function is called.
     func setDynamicStub<Input, Output>(
         for function: (Input) async throws -> Output,
-        withSignature signature: String,
+        withSignature signature: FunctionSignature,
         using closure: @escaping (Input) throws -> Output
     ) {
         stubRegistry.register(closure: closure, forSignature: signature)
@@ -123,7 +123,7 @@ public extension StubProviding {
     /// - Precondition: A corresponding stub must be set prior to calling this function. Otherwise, a fatal error will be thrown.
     func stubOutput<Input, Output>(
         for input: Input = Void(),
-        signature: String = #function
+        signature: FunctionSignature = #function
     ) -> Output {
         stubRegistry.stubOutput(for: input, signature: signature, in: Self.self)
     }
@@ -137,7 +137,7 @@ public extension StubProviding {
     /// - Throws: Any error that has been set to be thrown for this function.
     func throwingStubOutput<Input, Output>(
         for input: Input = Void(),
-        signature: String = #function
+        signature: FunctionSignature = #function
     ) throws -> Output {
         try stubRegistry.throwingStubOutput(for: input, signature: signature, in: Self.self)
     }
@@ -164,7 +164,7 @@ public extension StubProviding {
     ///   If that is the case, use `setDynamicStub(for:withSignature:using:)` and specify the input to the closure explicitly.
     static func setStub<Input, Output>(
         for function: (Input) async throws -> Output,
-        withSignature signature: String,
+        withSignature signature: FunctionSignature,
         returning output: Output
     ) {
         stubRegistry.register(output: output, for: function, withSignature: signature)
@@ -182,7 +182,7 @@ public extension StubProviding {
     ///   If that is the case, use `setDynamicStub(for:withSignature:using:)` and specify the input to the closure explicitly.
     static func setStub<Input, Output>(
         for function: (Input) async throws -> Output,
-        withSignature signature: String,
+        withSignature signature: FunctionSignature,
         throwing error: Error
     ) {
         stubRegistry.register(error: error, for: function, withSignature: signature)
@@ -197,7 +197,7 @@ public extension StubProviding {
     ///   - closure: A closure that takes in the function's input and returns the desired output when the function is called.
     static func setDynamicStub<Input, Output>(
         for function: (Input) async throws -> Output,
-        withSignature signature: String,
+        withSignature signature: FunctionSignature,
         using closure: @escaping (Input) throws -> Output
     ) {
         stubRegistry.register(closure: closure, forSignature: signature)
@@ -240,7 +240,7 @@ public extension StubProviding {
     /// - Precondition: A corresponding stub must be set prior to calling this function. Otherwise, a fatal error will be thrown.
     static func stubOutput<Input, Output>(
         for input: Input = Void(),
-        signature: String = #function
+        signature: FunctionSignature = #function
     ) -> Output {
         stubRegistry.stubOutput(for: input, signature: signature, in: Self.self)
     }
@@ -254,7 +254,7 @@ public extension StubProviding {
     /// - Throws: Any error that has been set to be thrown for this function.
     static func throwingStubOutput<Input, Output>(
         for input: Input = Void(),
-        signature: String = #function
+        signature: FunctionSignature = #function
     ) throws -> Output {
         try stubRegistry.throwingStubOutput(for: input, signature: signature, in: Self.self)
     }

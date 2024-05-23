@@ -13,7 +13,7 @@ extension BlackBox {
 
     func assertWasCalled<Input, Output>(
         _ function: (Input) async throws -> Output,
-        signature: String,
+        signature: FunctionSignature,
         file: StaticString,
         line: UInt
     ) -> AssertWasCalledResult<Input, Output> {
@@ -34,7 +34,7 @@ extension BlackBox {
 
     func assertWasCalled<each Input, Output>(
         _ function: (repeat each Input) async throws -> Output,
-        signature: String,
+        signature: FunctionSignature,
         expectedInput: repeat each Input,
         file: StaticString,
         line: UInt
@@ -65,7 +65,7 @@ extension BlackBox {
 
     func assertWasNotCalled<Input, Output>(
         _ function: (Input) async throws -> Output,
-        signature: String,
+        signature: FunctionSignature,
         file: StaticString,
         line: UInt
     ) {
