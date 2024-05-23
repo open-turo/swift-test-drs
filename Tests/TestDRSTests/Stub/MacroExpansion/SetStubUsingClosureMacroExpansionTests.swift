@@ -28,7 +28,7 @@ final class SetStubUsingClosureMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.setDynamicStub(for: mock.foo, withSignature: "foo()") {
+            mock.setDynamicStub(for: mock.foo, withSignature: "foo") {
                 "Hello World"
             }
             """

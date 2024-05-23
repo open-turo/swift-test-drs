@@ -13,7 +13,7 @@ public protocol FunctionCall: CustomDebugStringConvertible, Identifiable {
     associatedtype Output
 
     /// The signature of the function, that is the string that is captured by `#function`, eg. `foo(bar:)`.
-    var signature: String { get }
+    var signature: FunctionSignature { get }
 
     /// The type of the function's input parameter(s) (or `Void` if it does not take any parameters). If a function takes more than one parameter, this will be a tuple with the parameters in the order they appear in the signature.
     var input: Input { get }
@@ -53,7 +53,7 @@ private enum FunctionCallUtilities {
 public struct ConcreteFunctionCall<Input, Output>: FunctionCall {
 
     /// The signature of the function, that is the string that is captured by `#function`, eg. `foo(bar:)`.
-    public let signature: String
+    public let signature: FunctionSignature
 
     /// The type of the function's input parameter(s) (or `Void` if it does not take any parameters). If a function takes more than one parameter, this will be a tuple with the parameters in the order they appear in the signature.
     public let input: Input

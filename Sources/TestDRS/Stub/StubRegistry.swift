@@ -21,7 +21,7 @@ public final class StubRegistry {
     func register<Input, Output>(
         output: Output,
         for function: (Input) async throws -> Output,
-        withSignature signature: String
+        withSignature signature: FunctionSignature
     ) {
         let identifier = StubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
         stubs[identifier] = .output(output)
@@ -36,7 +36,7 @@ public final class StubRegistry {
     func register<Input, Output>(
         error: Error,
         for function: (Input) async throws -> Output,
-        withSignature signature: String
+        withSignature signature: FunctionSignature
     ) {
         let identifier = StubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
         stubs[identifier] = .error(error)
@@ -49,7 +49,7 @@ public final class StubRegistry {
     ///   - signature: The signature of the function.
     func register<Input, Output>(
         closure: @escaping (Input) throws -> Output,
-        forSignature signature: String
+        forSignature signature: FunctionSignature
     ) {
         let identifier = StubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
         stubs[identifier] = .closure(closure)
@@ -63,7 +63,7 @@ public final class StubRegistry {
         value: Output,
         for propertyName: String
     ) {
-        let identifier = StubIdentifier(signature: propertyName, inputType: Void.self, outputType: Output.self)
+        let identifier = StubIdentifier(signature: FunctionSignature(text: propertyName), inputType: Void.self, outputType: Output.self)
         stubs[identifier] = .output(value)
     }
 
@@ -78,7 +78,7 @@ public final class StubRegistry {
     /// - Precondition: A corresponding stub must be set prior to calling this function. Otherwise, a fatal error will be thrown.
     func stubOutput<Input, Output>(
         for input: Input,
-        signature: String,
+        signature: FunctionSignature,
         in stubProvidingType: StubProviding.Type
     ) -> Output {
         do {
@@ -107,7 +107,7 @@ public final class StubRegistry {
     /// - Throws: Any error that has been set to be thrown for this function.
     func throwingStubOutput<Input, Output>(
         for input: Input,
-        signature: String,
+        signature: FunctionSignature,
         in stubProvidingType: StubProviding.Type
     ) throws -> Output {
         do {
@@ -131,10 +131,14 @@ public final class StubRegistry {
     ///   - signature: The signature of the function.
     /// - Returns: The output value for the given input and function signature.
     /// - Throws: `StubError.noStub` if no stub is registered for the given input and function signature, or any error thrown by the registered closure.
-    private func getOutput<Input, Output>(for input: Input, withSignature signature: String) throws -> Output {
+    private func getOutput<Input, Output>(for input: Input, withSignature signature: FunctionSignature) throws -> Output {
         let identifier = StubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
 
-        guard let stub = stubs[identifier] else {
+        // Stubs could be set with either the full signature like `foo(paramOne:)`
+        // or if there is no ambiguity, they could be set with an abbreviated signature like `foo`.
+        // When we go to retrieve them, we should have the full signature since it is captured by #function.
+        // So first we try to retrieve using the full signature provided, and then using the abbreviated version.
+        guard let stub = stubs[identifier] ?? stubs[identifier.abbreviatedIdentifier] else {
             if let void = Void() as? Output {
                 return void
             }
@@ -160,7 +164,7 @@ public final class StubRegistry {
     private func report<Input, Output>(
         _ stubError: StubRegistry.StubError,
         in stubProvidingType: StubProviding.Type,
-        signature: String,
+        signature: FunctionSignature,
         input: Input.Type,
         output: Output.Type
     ) {
@@ -199,14 +203,25 @@ extension StubRegistry: CustomDebugStringConvertible {
 extension StubRegistry {
 
     fileprivate struct StubIdentifier: Hashable {
-        let signature: String
+        let signature: FunctionSignature
         let inputType: String
         let outputType: String
 
-        init(signature: String, inputType: Any.Type, outputType: Any.Type) {
+        init(signature: FunctionSignature, inputType: Any.Type, outputType: Any.Type) {
             self.signature = signature
             self.inputType = String(describing: inputType.self)
             self.outputType = String(describing: outputType.self)
+        }
+
+        private init(signature: FunctionSignature, inputType: String, outputType: String) {
+            self.signature = signature
+            self.inputType = inputType
+            self.outputType = outputType
+        }
+
+        var abbreviatedIdentifier: StubIdentifier {
+            let abbreviatedSignature = FunctionSignature(text: String(signature.name))
+            return StubIdentifier(signature: abbreviatedSignature, inputType: inputType, outputType: outputType)
         }
     }
 

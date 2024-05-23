@@ -24,7 +24,7 @@ final class SetStubThrowingErrorMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.setStub(for: mock.foo, withSignature: "foo()", throwing: MyError.someError)
+            mock.setStub(for: mock.foo, withSignature: "foo", throwing: MyError.someError)
             """
         }
     }

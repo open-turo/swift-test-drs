@@ -41,6 +41,25 @@ final class MockMacroTests: XCTestCase {
         XCTAssertEqual(oofOutput, "Wow")
     }
 
+    func testMockProtocolMethods_UsingAbbreviatedFunctionSignatures() {
+        let mockProtocol = MockSomeProtocol()
+
+        #stub(mockProtocol.baz, returning: "World")
+        #stub(MockSomeProtocol.oof, returning: "Wow")
+
+        mockProtocol.bar(paramOne: 89)
+        let bazOutput = mockProtocol.baz(paramOne: true, paramTwo: "Hello")
+
+        #assertWasCalled(mockProtocol.bar, with: 89)
+            .exactlyOnce()
+
+        #assertWasCalled(mockProtocol.baz, with: true, "Hello")
+            .exactlyOnce()
+            .happening(.last)
+
+        XCTAssertEqual(bazOutput, "World")
+    }
+
     func testMockProtocolProperties() {
         let mockProtocol = MockSomeProtocol()
 

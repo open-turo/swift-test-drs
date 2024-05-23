@@ -24,7 +24,7 @@ final class SetStubReturningOutputMacroTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.setStub(for: mock.foo, withSignature: "foo()", returning: "Hello World")
+            mock.setStub(for: mock.foo, withSignature: "foo", returning: "Hello World")
             """
         }
     }
