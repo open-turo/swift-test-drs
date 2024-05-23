@@ -6,8 +6,8 @@ xcuserdata
 */.build/
 
 # SPM
-*/.swiftpm/configuration/registries.json
-*/.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+.swiftpm/configuration/registries.json
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 
 # AppCode
 .idea/
