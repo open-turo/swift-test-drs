@@ -8,6 +8,10 @@ import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
+public enum MockMacroOption: String {
+    case observableObject
+}
+
 public struct MockMacro: PeerMacro {
 
     private static let spyProtocolName = "Spy"
@@ -18,14 +22,21 @@ public struct MockMacro: PeerMacro {
         providingPeersOf declaration: some DeclSyntaxProtocol,
         in context: some MacroExpansionContext
     ) throws -> [SwiftSyntax.DeclSyntax] {
+        let options: [MockMacroOption] = {
+            guard let arguments = node.arguments?.as(LabeledExprListSyntax.self) else { return [] }
+            return arguments.compactMap {
+                MockMacroOption(rawValue: String($0.expression.trimmedDescription.dropFirst()))
+            }
+        }()
+
         let mockDeclaration: DeclSyntax
 
         if let protocolDeclaration = declaration.as(ProtocolDeclSyntax.self) {
-            mockDeclaration = DeclSyntax(try mockClassDeclaration(from: protocolDeclaration))
+            mockDeclaration = DeclSyntax(try mockClassDeclaration(from: protocolDeclaration, options: options))
         } else if let classDeclaration = declaration.as(ClassDeclSyntax.self) {
-            mockDeclaration = DeclSyntax(try mockSubclassDeclaration(from: classDeclaration))
+            mockDeclaration = DeclSyntax(try mockSubclassDeclaration(from: classDeclaration, options: options))
         } else if let structDeclaration = declaration.as(StructDeclSyntax.self) {
-            mockDeclaration = DeclSyntax(try mockStruct(from: structDeclaration))
+            mockDeclaration = DeclSyntax(try mockStruct(from: structDeclaration, options: options))
         } else {
             context.diagnose(
                 Diagnostic(
@@ -47,7 +58,7 @@ public struct MockMacro: PeerMacro {
         ]
     }
 
-    private static func mockClassDeclaration(from protocolDeclaration: ProtocolDeclSyntax) throws -> ClassDeclSyntax {
+    private static func mockClassDeclaration(from protocolDeclaration: ProtocolDeclSyntax, options: [MockMacroOption]) throws -> ClassDeclSyntax {
         let protocolName = protocolDeclaration.name.trimmed.text
 
         // Check if the protocol is marked with @objc, if so, the mock class will need to inherit from NSObject
@@ -60,7 +71,8 @@ public struct MockMacro: PeerMacro {
                     .compactMap { $0 }
             ),
             members: protocolDeclaration.memberBlock.members,
-            isSubclass: false
+            isSubclass: false,
+            options: options
         )
 
         if let associatedTypeClause = protocolDeclaration.primaryAssociatedTypeClause {
@@ -76,37 +88,39 @@ public struct MockMacro: PeerMacro {
         }
         classDeclaration.modifiers += protocolDeclaration.modifiers
         classDeclaration.attributes = protocolDeclaration.attributes
-            .filter { $0.trimmedDescription != "@Mock" }
+            .filter { $0.trimmedDescription.prefix(5) != "@Mock" }
 
         return classDeclaration
     }
 
-    private static func mockSubclassDeclaration(from classDeclaration: ClassDeclSyntax) throws -> ClassDeclSyntax {
+    private static func mockSubclassDeclaration(from classDeclaration: ClassDeclSyntax, options: [MockMacroOption]) throws -> ClassDeclSyntax {
         let className = classDeclaration.name.trimmed.text
 
         return try mockClass(
             named: className,
             inheritanceClause: .emptyClause.appending([className, spyProtocolName, stubProvidingProtocolName]),
             members: classDeclaration.memberBlock.members,
-            isSubclass: true
+            isSubclass: true,
+            options: options
         )
     }
 
-    private static func mockStruct(from structDeclaration: StructDeclSyntax) throws -> StructDeclSyntax {
+    private static func mockStruct(from structDeclaration: StructDeclSyntax, options: [MockMacroOption]) throws -> StructDeclSyntax {
         var mockStructDeclaration = structDeclaration.trimmed
         mockStructDeclaration.memberBlock.rightBrace.leadingTrivia = []
 
         mockStructDeclaration.memberBlock.members = mockMembers(
             from: structDeclaration.memberBlock.members,
             forClass: false,
-            shouldOverride: false
+            shouldOverride: false,
+            options: options
         )
         mockStructDeclaration.name = mockTypeName(from: structDeclaration.name.trimmedDescription)
         mockStructDeclaration.inheritanceClause = (structDeclaration.inheritanceClause ?? .emptyClause).appending([spyProtocolName, stubProvidingProtocolName])
 
         mockStructDeclaration.modifiers = structDeclaration.modifiers
         mockStructDeclaration.attributes = structDeclaration.attributes
-            .filter { $0.trimmedDescription != "@Mock" }
+            .filter { $0.trimmedDescription.prefix(5) != "@Mock" }
 
         return mockStructDeclaration
     }
@@ -115,7 +129,8 @@ public struct MockMacro: PeerMacro {
         named typeName: String,
         inheritanceClause: InheritanceClauseSyntax? = nil,
         members: MemberBlockItemListSyntax,
-        isSubclass: Bool = false
+        isSubclass: Bool = false,
+        options: [MockMacroOption]
     ) throws -> ClassDeclSyntax {
         return ClassDeclSyntax(
             modifiers: DeclModifierListSyntax(
@@ -124,7 +139,7 @@ public struct MockMacro: PeerMacro {
             name: mockTypeName(from: typeName),
             inheritanceClause: inheritanceClause
         ) {
-            mockMembers(from: members, forClass: true, shouldOverride: isSubclass)
+            mockMembers(from: members, forClass: true, shouldOverride: isSubclass, options: options)
         }
     }
 
@@ -135,14 +150,15 @@ public struct MockMacro: PeerMacro {
     private static func mockMembers(
         from members: MemberBlockItemListSyntax,
         forClass: Bool,
-        shouldOverride: Bool
+        shouldOverride: Bool,
+        options: [MockMacroOption]
     ) -> MemberBlockItemListSyntax {
         let mockTypes = members.filter { $0.decl.isTypeDeclaration }
 
         let mockProperties = members
             .compactMap { $0.decl.as(VariableDeclSyntax.self) }
             .filter { !$0.isPrivate && !($0.isStatic && shouldOverride) }
-            .compactMap { mockProperty(for: $0, shouldAddOverrideModifier: shouldOverride) }
+            .compactMap { mockProperty(for: $0, shouldAddOverrideModifier: shouldOverride, options: options) }
 
         let mockInits: [InitializerDeclSyntax] = {
             guard forClass, shouldOverride else { return [] }
@@ -184,7 +200,7 @@ public struct MockMacro: PeerMacro {
         }
     }
 
-    private static func mockProperty(for property: VariableDeclSyntax, shouldAddOverrideModifier: Bool) -> VariableDeclSyntax {
+    private static func mockProperty(for property: VariableDeclSyntax, shouldAddOverrideModifier: Bool, options: [MockMacroOption]) -> VariableDeclSyntax {
         var mockProperty = property.trimmed
 
         if shouldAddOverrideModifier && !mockProperty.isOverride {
@@ -199,18 +215,27 @@ public struct MockMacro: PeerMacro {
             for binding in mockProperty.bindings {
                 binding
                     .with(\.initializer, nil)
-                    .with(\.accessorBlock, (mockPropertyAccessor(isStatic: mockProperty.isStatic || mockProperty.isClassMember)))
+                    .with(
+                        \.accessorBlock,
+                        mockPropertyAccessor(
+                            isStatic: mockProperty.isStatic || mockProperty.isClassMember,
+                            options: options
+                        )
+                    )
             }
         }
 
         return mockProperty
     }
 
-    private static func mockPropertyAccessor(isStatic: Bool) -> AccessorBlockSyntax {
+    private static func mockPropertyAccessor(isStatic: Bool, options: [MockMacroOption]) -> AccessorBlockSyntax {
         let getter = AccessorDeclSyntax(accessorSpecifier: .keyword(.get)) {
             "stubOutput()"
         }
         let setter = AccessorDeclSyntax(accessorSpecifier: .keyword(.set)) {
+            if options.contains(.observableObject) {
+                "objectWillChange.send()"
+            }
             "setStub(value: newValue)"
         }
         return AccessorBlockSyntax(

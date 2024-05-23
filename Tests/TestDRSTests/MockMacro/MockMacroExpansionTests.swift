@@ -65,6 +65,43 @@ final class MockMacroExpansionTests: XCTestCase {
         }
     }
 
+    func testSomething() {
+        assertMacro {
+            """
+            @Mock(options: .observableObject)
+            class MyViewModel: ObservableObject {
+                var someText: String = "Hello"
+            }
+            """
+        } expansion: {
+            """
+            class MyViewModel: ObservableObject {
+                var someText: String = "Hello"
+            }
+
+            #if DEBUG
+
+            final class MockMyViewModel: MyViewModel, Spy, StubProviding {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                override var someText: String {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        objectWillChange.send()
+                        setStub(value: newValue)
+                    }
+                }
+            }
+
+            #endif
+            """
+        }
+    }
+
 }
 
 #endif
