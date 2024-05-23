@@ -27,7 +27,7 @@ public final class BlackBox {
         with input: Input,
         at time: Date,
         returning outputType: Output.Type,
-        signature: String
+        signature: FunctionSignature
     ) {
         storageQueue.async {
             self.storage.append(
@@ -52,7 +52,7 @@ public final class BlackBox {
     ///
     ///- Note: This method returns the function calls as an array of `[any FunctionCall]`, to instead retrieve an array of `[ConcreteFunctionCall<Input, Output>]` see `callsMatching(signature:after:taking:returning:)`.
     func callsMatching<Input>(
-        signature: String,
+        signature: FunctionSignature,
         taking inputType: Input.Type = Void.self
     ) -> [any FunctionCall] {
         storageQueue.sync {
@@ -68,7 +68,7 @@ public final class BlackBox {
     ///   - outputType: The output type to match.
     /// - Returns: An array of concrete function calls that match the given criteria.
     func callsMatching<Input, Output>(
-        signature: String,
+        signature: FunctionSignature,
         taking inputType: Input.Type,
         returning outputType: Output.Type
     ) -> [ConcreteFunctionCall<Input, Output>] {
@@ -129,9 +129,9 @@ private extension Sequence<any FunctionCall> {
     ///
     /// - Parameter signature: The signature to match.
     /// - Returns: An array of function calls that match the given signature.
-    func filter(signature: String) -> [any FunctionCall] {
+    func filter(signature: FunctionSignature) -> [any FunctionCall] {
         return filter { call in
-            call.signature == signature
+            call.signature ~= signature
         }
     }
 
@@ -141,9 +141,9 @@ private extension Sequence<any FunctionCall> {
     ///   - signature: The signature to match.
     ///   - inputType: The input type to match.
     /// - Returns: An array of function calls that match the given signature and input type.
-    func filter<Input>(signature: String, inputType: Input.Type) -> [any FunctionCall] {
+    func filter<Input>(signature: FunctionSignature, inputType: Input.Type) -> [any FunctionCall] {
         return filter { call in
-            call.signature == signature && (inputType == Void.self || call.input is Input)
+            call.signature ~= signature && (inputType == Void.self || call.input is Input)
         }
     }
 }
@@ -154,7 +154,7 @@ private extension [any FunctionCall] {
     /// - Parameter call: The function call to find.
     /// - Returns: The index of the first occurrence of the given function call, or `nil` if not found.
     func firstIndex(of call: any FunctionCall) -> Int? {
-        firstIndex(where: { $0.signature == call.signature && $0.time == call.time })
+        firstIndex(where: { $0.signature ~= call.signature && $0.time == call.time })
     }
 }
 

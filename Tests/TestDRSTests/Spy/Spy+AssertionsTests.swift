@@ -21,7 +21,7 @@ final class SpyAssertionsTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to foo() were recorded
+                Assertion Failure at \(self.file):\(self.line): No calls to "foo()" were recorded
                 """
             }
         )
@@ -33,7 +33,7 @@ final class SpyAssertionsTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to foo() were recorded
+                Assertion Failure at \(self.file):\(self.line): No calls to "foo()" were recorded
                 """
             }
         )
@@ -66,7 +66,7 @@ final class SpyAssertionsTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to zab(paramOne:) with input type Double and output type Double were recorded
+                Assertion Failure at \(self.file):\(self.line): No calls to "zab(paramOne:)" with input type Double and output type Double were recorded
                 """
             }
         )
@@ -78,7 +78,7 @@ final class SpyAssertionsTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to zab(paramOne:) with input type Double and output type Double were recorded
+                Assertion Failure at \(self.file):\(self.line): No calls to "zab(paramOne:)" with input type Double and output type Double were recorded
                 """
             }
         )
@@ -90,7 +90,7 @@ final class SpyAssertionsTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): zab(paramOne:) was not called with expected input (-), but was called with other input (+):
+                Assertion Failure at \(self.file):\(self.line): "zab(paramOne:)" was not called with expected input (-), but was called with other input (+):
 
                 -false
                 +true
@@ -105,7 +105,7 @@ final class SpyAssertionsTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): zab(paramOne:) was not called with expected input (-), but was called with other input (+):
+                Assertion Failure at \(self.file):\(self.line): "zab(paramOne:)" was not called with expected input (-), but was called with other input (+):
 
                 -Goodbye
                 +Hello
@@ -121,7 +121,7 @@ final class SpyAssertionsTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): zab(paramOne:) was not called with expected input (-), but was called with other input (+):
+                Assertion Failure at \(self.file):\(self.line): "zab(paramOne:)" was not called with expected input (-), but was called with other input (+):
 
                 -4
                 +1
@@ -146,7 +146,7 @@ final class SpyAssertionsTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): rab(paramOne:paramTwo:paramThree:) was not called with expected input (-), but was called with other input (+):
+                Assertion Failure at \(self.file):\(self.line): "rab(paramOne:paramTwo:paramThree:)" was not called with expected input (-), but was called with other input (+):
 
                 -(true, Optional(2), Optional("Hello"))
                 +(true, Optional(1), Optional("Hello"))
@@ -162,7 +162,7 @@ final class SpyAssertionsTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): rab(paramOne:paramTwo:paramThree:) was not called with expected input (-), but was called with other input (+):
+                Assertion Failure at \(self.file):\(self.line): "rab(paramOne:paramTwo:paramThree:)" was not called with expected input (-), but was called with other input (+):
 
                 -(true, nil, nil)
                 +(true, Optional(1), Optional("Hello"))
@@ -189,7 +189,7 @@ final class SpyAssertionsTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): 1 calls to foo() with input type () and output type () were recorded
+                Assertion Failure at \(self.file):\(self.line): 1 calls to "foo()" with input type () and output type () were recorded
                 """
             }
         )
@@ -210,7 +210,7 @@ final class SpyAssertionsTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): 2 calls to zab(paramOne:) with input type Int and output type Int were recorded
+                Assertion Failure at \(self.file):\(self.line): 2 calls to "zab(paramOne:)" with input type Int and output type Int were recorded
                 """
             }
         )

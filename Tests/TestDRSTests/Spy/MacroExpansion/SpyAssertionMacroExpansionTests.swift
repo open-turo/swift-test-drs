@@ -29,7 +29,7 @@ final class SpyAssertionMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            assertWasCalled(foo, withSignature: "foo()")
+            assertWasCalled(foo, withSignature: "foo")
             """
         }
     }
@@ -41,7 +41,7 @@ final class SpyAssertionMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.assertWasCalled(mock.foo, withSignature: "foo()")
+            mock.assertWasCalled(mock.foo, withSignature: "foo")
             """
         }
     }
@@ -53,7 +53,7 @@ final class SpyAssertionMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            base.mock.assertWasCalled(base.mock.foo, withSignature: "foo()")
+            base.mock.assertWasCalled(base.mock.foo, withSignature: "foo")
             """
         }
     }
@@ -122,7 +122,7 @@ final class SpyAssertionMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            Mock.assertStaticFunctionWasCalled(Mock.foo, withSignature: "foo()")
+            Mock.assertStaticFunctionWasCalled(Mock.foo, withSignature: "foo")
             """
         }
     }
@@ -152,7 +152,7 @@ final class SpyAssertionMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.assertWasNotCalled(mock.foo, withSignature: "foo()")
+            mock.assertWasNotCalled(mock.foo, withSignature: "foo")
             """
         }
     }
@@ -164,7 +164,7 @@ final class SpyAssertionMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            Mock.assertStaticFunctionWasNotCalled(Mock.foo, withSignature: "foo()")
+            Mock.assertStaticFunctionWasNotCalled(Mock.foo, withSignature: "foo")
             """
         }
     }

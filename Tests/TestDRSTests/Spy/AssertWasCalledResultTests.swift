@@ -118,7 +118,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to foo() were recorded
+                Assertion Failure at \(self.file):\(self.line): No calls to "foo()" were recorded
                 """
             }
         )
@@ -152,7 +152,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected rab(paramOne:paramTwo:paramThree:) to be called exactly once as specified, but 2 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): Expected "rab(paramOne:paramTwo:paramThree:)" to be called exactly once as specified, but 2 calls were recorded
                 """
             }
         )
@@ -172,7 +172,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to foo() were recorded
+                Assertion Failure at \(self.file):\(self.line): No calls to "foo()" were recorded
                 """
             }
         )
@@ -200,7 +200,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected foo() to be called as specified 1 times, but 3 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): Expected "foo()" to be called as specified 1 times, but 3 calls were recorded
                 """
             }
         )
@@ -226,7 +226,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected zab(paramOne:) to be called as specified 4 times, but 1 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): Expected "zab(paramOne:)" to be called as specified 4 times, but 1 calls were recorded
                 """
             }
         )
@@ -246,7 +246,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to foo() were recorded
+                Assertion Failure at \(self.file):\(self.line): No calls to "foo()" were recorded
                 """
             }
         )
@@ -286,7 +286,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected foo() to be called as specified within 0...2 times, but 3 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): Expected "foo()" to be called as specified within 0...2 times, but 3 calls were recorded
                 """
             }
         )
