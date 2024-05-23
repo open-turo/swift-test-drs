@@ -27,7 +27,7 @@ public extension Spy {
     @discardableResult
     func assertWasCalled<Input, Output>(
         _ function: (Input) async throws -> Output,
-        withSignature signature: String,
+        withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
         file: StaticString = #file,
@@ -51,7 +51,7 @@ public extension Spy {
     @discardableResult
     func assertWasCalled<each Input, Output>(
         _ function: (repeat each Input) async throws -> Output,
-        withSignature signature: String,
+        withSignature signature: FunctionSignature,
         expectedInput: repeat each Input,
         returning: Output.Type? = nil,
         file: StaticString = #file,
@@ -73,7 +73,7 @@ public extension Spy {
     ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the assertion is being made.
     func assertWasNotCalled<Input, Output>(
         _ function: (Input) async throws -> Output,
-        withSignature signature: String,
+        withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
         file: StaticString = #file,
@@ -106,7 +106,7 @@ public extension Spy {
     @discardableResult
     static func assertStaticFunctionWasCalled<Input, Output>(
         _ function: (Input) async throws -> Output,
-        withSignature signature: String,
+        withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
         file: StaticString = #file,
@@ -131,7 +131,7 @@ public extension Spy {
     @discardableResult
     static func assertStaticFunctionWasCalled<each Input, Output>(
         _ function: (repeat each Input) async throws -> Output,
-        withSignature signature: String,
+        withSignature signature: FunctionSignature,
         expectedInput: repeat each Input,
         returning: Output.Type? = nil,
         file: StaticString = #file,
@@ -154,7 +154,7 @@ public extension Spy {
     ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the assertion is being made.
     static func assertStaticFunctionWasNotCalled<Input, Output>(
         _ function: (Input) async throws -> Output,
-        withSignature signature: String,
+        withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
         file: StaticString = #file,

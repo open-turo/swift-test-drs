@@ -136,7 +136,7 @@ extension SpyAssertionMacro {
 
             LabeledExprSyntax(
                 label: "withSignature",
-                expression: ExprSyntax(stringLiteral: "\"\(function.withArguments())\"")
+                expression: ExprSyntax(stringLiteral: "\"\(function)\"")
             )
             .with(\.leadingTrivia, leadingTrivia)
 
