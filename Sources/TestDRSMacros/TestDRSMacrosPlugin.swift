@@ -17,5 +17,6 @@ struct TestDRSMacrosPlugin: CompilerPlugin {
         SetStubUsingClosureMacro.self,
         AssertWasCalledMacro.self,
         AssertWasNotCalledMacro.self,
+        InvariantMacro.self
     ]
 }

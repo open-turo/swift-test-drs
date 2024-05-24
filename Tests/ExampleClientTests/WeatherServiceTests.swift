@@ -79,7 +79,11 @@ final class WeatherServiceTests: XCTestCase {
 
 }
 
-@Mock(options: .observableObject)
-class MyViewModel: ObservableObject {
-    var someText: String = "Hello"
-}
+//@Mock(options: .observableObject)
+//class MyViewModel: ObservableObject {
+//    var someText: String = "Hello"
+//
+//    init() {
+//        #invariant(someText == "Hello")
+//    }
+//}
