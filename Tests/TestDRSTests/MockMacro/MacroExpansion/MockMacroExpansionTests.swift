@@ -12,7 +12,7 @@ import XCTest
 final class MockMacroExpansionTests: XCTestCase {
 
     override func invokeTest() {
-        withMacroTesting(macros: ["Mock": MockMacro.self]) {
+        withMacroTesting(macros: ["Mock": MockMacro.self, "MockProperty": MockPropertyMacro.self]) {
             super.invokeTest()
         }
     }

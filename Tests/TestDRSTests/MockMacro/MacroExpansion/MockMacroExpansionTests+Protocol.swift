@@ -108,7 +108,6 @@ extension MockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-
                 static var bar: Int {
                     get {
                         stubOutput()
@@ -117,7 +116,6 @@ extension MockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-
                 static var baz: Bool {
                     get {
                         stubOutput()

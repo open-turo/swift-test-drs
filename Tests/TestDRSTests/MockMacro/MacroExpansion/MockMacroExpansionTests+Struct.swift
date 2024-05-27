@@ -157,7 +157,6 @@ extension MockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-
                 static var bar {
                     get {
                         stubOutput()
@@ -166,7 +165,6 @@ extension MockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-
                 static var baz: Bool {
                     get {
                         stubOutput()
@@ -241,7 +239,6 @@ extension MockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-
                 var bar: String {
                     get {
                         stubOutput()
@@ -250,7 +247,6 @@ extension MockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-
                 var baz: String {
                     get {
                         stubOutput()
@@ -301,7 +297,6 @@ extension MockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-
                 var bar: Int! {
                     get {
                         stubOutput()
@@ -628,7 +623,6 @@ extension MockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-
                 var y: Int {
                     get {
                         stubOutput()
@@ -637,7 +631,6 @@ extension MockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-
                 var myZ: Bool {
                     get {
                         stubOutput()
@@ -652,6 +645,96 @@ extension MockMacroExpansionTests {
                     return stubOutput()
                 }
 
+            }
+
+            #endif
+            """
+        }
+    }
+
+    /// Even though properties x, y, and z expand to not have the type specified, in use the compiler will still properly infer their types.
+    /// The user will see the properties like `@MockProperty` var x = "Hello World" when viewing the macro expansion.
+    func testMockMacro_WithStruct_WithStoredProperties() {
+        assertMacro {
+            """
+            @Mock
+            struct SomeStruct {
+                let a: String = "Hello World"
+                var b: [Int] = [1, 2, 3]
+                var c: [String: Bool] = ["YES": true, "NO": false]
+
+                let x = "Hello World"
+                var y = [1, 2, 3]
+                var z = ["YES": true, "NO": false]
+            }
+            """
+        } expansion: {
+            """
+            struct SomeStruct {
+                let a: String = "Hello World"
+                var b: [Int] = [1, 2, 3]
+                var c: [String: Bool] = ["YES": true, "NO": false]
+
+                let x = "Hello World"
+                var y = [1, 2, 3]
+                var z = ["YES": true, "NO": false]
+            }
+
+            #if DEBUG
+
+            struct MockSomeStruct: Spy, StubProviding {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                var a: String {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var b: [Int] {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var c: [String: Bool] {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var x {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var y {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var z {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
             }
 
             #endif
