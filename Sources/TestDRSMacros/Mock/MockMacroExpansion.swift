@@ -164,7 +164,6 @@ public struct MockMacro: PeerMacro {
             MemberBlockItemListSyntax {
                 for mockProperty in mockProperties {
                     mockProperty
-                        .with(\.leadingTrivia, .newlines(2))
                 }
             }
             .with(\.leadingTrivia, .newlines(2))
@@ -193,36 +192,21 @@ public struct MockMacro: PeerMacro {
             )
         }
 
+        var attributes = AttributeListSyntax { "@MockProperty" }
+        attributes += mockProperty.attributes
+        mockProperty.attributes = attributes
+
         mockProperty.bindingSpecifier = .keyword(.var)
 
         mockProperty.bindings = PatternBindingListSyntax {
             for binding in mockProperty.bindings {
                 binding
-                    .with(\.initializer, nil)
-                    .with(\.accessorBlock, (mockPropertyAccessor(isStatic: mockProperty.isStatic || mockProperty.isClassMember)))
+                    .withoutInitializerIfPossible()
+                    .with(\.accessorBlock, nil)
             }
         }
 
         return mockProperty
-    }
-
-    private static func mockPropertyAccessor(isStatic: Bool) -> AccessorBlockSyntax {
-        let getter = AccessorDeclSyntax(accessorSpecifier: .keyword(.get)) {
-            "stubValue()"
-        }
-        let setter = AccessorDeclSyntax(accessorSpecifier: .keyword(.set)) {
-            "setStub(value: newValue)"
-        }
-        return AccessorBlockSyntax(
-            leftBrace: .leftBraceToken(),
-            accessors: .accessors(
-                AccessorDeclListSyntax {
-                    getter
-                    setter
-                }
-            ),
-            rightBrace: .rightBraceToken()
-        )
     }
 
     private static func mockInitOverride(for initializer: InitializerDeclSyntax) -> InitializerDeclSyntax {
@@ -331,5 +315,11 @@ public struct MockMacro: PeerMacro {
                 )
             }
         }
+    }
+}
+
+private extension PatternBindingSyntax {
+    func withoutInitializerIfPossible() -> PatternBindingSyntax {
+        typeAnnotation == nil ? self : with(\.initializer, nil)
     }
 }
