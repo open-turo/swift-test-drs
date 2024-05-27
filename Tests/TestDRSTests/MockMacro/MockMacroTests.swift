@@ -159,7 +159,7 @@ extension MockMacroTests {
     protocol SomeProtocol {
         var x: String { get }
         var y: Int { get set }
-        static var z: Bool { get set }
+        static var z: Bool { get }
 
         func foo()
         func bar(paramOne: Int)
@@ -170,6 +170,8 @@ extension MockMacroTests {
 
     @Mock
     struct SomeStruct: SomeProtocol {
+
+        private var a = "This should not be mocked"
 
         var x: String { "No" }
         var y: Int
@@ -198,11 +200,13 @@ extension MockMacroTests {
     }
 
     @Mock
-    class SomeClass: SomeProtocol {
+    class SomeClass: NSObject, SomeProtocol {
 
-        var x: String
-        var y: Int
-        static var z: Bool = true
+        private var a = "This should not be mocked"
+
+        @objc var x = "x"
+        var y = 123
+        class var z: Bool { true }
 
         init(x: String, y: Int) {
             self.x = x
