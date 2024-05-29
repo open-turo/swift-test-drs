@@ -46,8 +46,8 @@ extension AssertWasCalledResult {
     @discardableResult
     public func exactlyOnce(file: StaticString = #file, line: UInt = #line) -> Self {
         guard matchingCalls.count == 1 else {
-            if let firstMatchingCall = matchingCalls.first {
-                let message = "Expected \(firstMatchingCall.signature) to be called exactly once as specified, but \(matchingCalls.count) calls were recorded"
+            if let signature = matchingCalls.first?.signature {
+                let message = "Expected \(signature) to be called exactly once as specified, but \(matchingCalls.count) calls were recorded"
                 blackBox.reportFailure(message: message, file: file, line: line)
             }
             return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
@@ -69,8 +69,8 @@ extension AssertWasCalledResult {
         precondition(expectedCallCount > 0, "Use assertWasNotCalled to assert a call count of 0")
 
         guard matchingCalls.count == expectedCallCount else {
-            if let firstMatchingCall = matchingCalls.first {
-                let message = "Expected \(firstMatchingCall.signature) to be called as specified \(expectedCallCount) times, but \(matchingCalls.count) calls were recorded"
+            if let signature = matchingCalls.first?.signature {
+                let message = "Expected \(signature) to be called as specified \(expectedCallCount) times, but \(matchingCalls.count) calls were recorded"
                 blackBox.reportFailure(message: message, file: file, line: line)
             }
             return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
@@ -90,8 +90,8 @@ extension AssertWasCalledResult {
     @discardableResult
     public func withinRange<R: RangeExpression<Int>>(_ expectedCallCountRange: R, file: StaticString = #file, line: UInt = #line) -> Self {
         guard expectedCallCountRange.contains(matchingCalls.count) else {
-            if let firstMatchingCall = matchingCalls.first {
-                let message = "Expected \(firstMatchingCall.signature) to be called as specified within \(expectedCallCountRange) times, but \(matchingCalls.count) calls were recorded"
+            if let signature = matchingCalls.first?.signature {
+                let message = "Expected \(signature) to be called as specified within \(expectedCallCountRange) times, but \(matchingCalls.count) calls were recorded"
                 blackBox.reportFailure(message: message, file: file, line: line)
             }
             return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
@@ -112,8 +112,8 @@ extension AssertWasCalledResult {
     public func `where`(_ predicate: (ConcreteFunctionCall<Input, Output>) -> Bool, file: StaticString = #file, line: UInt = #line) -> Self {
         let filteredCalls = matchingCalls.filter(predicate)
 
-        if filteredCalls.isEmpty, let firstMatchingCall = matchingCalls.first {
-            let message = "\(firstMatchingCall.signature) was not called as specified where the given predicate returned true"
+        if filteredCalls.isEmpty, let signature = matchingCalls.first?.signature {
+            let message = "\(signature) was not called as specified where the given predicate returned true"
             blackBox.reportFailure(message: message, file: file, line: line)
         }
 
@@ -190,8 +190,8 @@ extension AssertWasCalledResult {
         let callsAfter = matchingCalls.filter { $0.time > previousCall.time }
 
         guard !callsAfter.isEmpty else {
-            if let firstMatchingCall = matchingCalls.first {
-                let message = "No calls to \(firstMatchingCall.signature) as specified were recorded after given call to \(previousCall.signature)"
+            if let signature = matchingCalls.first?.signature {
+                let message = "No calls to \(signature) as specified were recorded after given call to \(previousCall.signature)"
                 blackBox.reportFailure(message: message, file: file, line: line)
             }
             return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
@@ -208,11 +208,11 @@ extension AssertWasCalledResult {
         }
 
         guard let matchingCall = matchingCalls.first(where: { $0.id == callAfterPreviousCall.id }) else {
-            if let firstMatchingCall = matchingCalls.first {
+            if let signature = matchingCalls.first?.signature {
                 let message: String
 
-                if callAfterPreviousCall.signature == firstMatchingCall.signature {
-                    message = "\(firstMatchingCall.signature) was called immediately after given call to \(previousCall.signature), but not as specified:\n\n\(callAfterPreviousCall)"
+                if callAfterPreviousCall.signature == signature {
+                    message = "\(signature) was called immediately after given call to \(previousCall.signature), but not as specified:\n\n\(callAfterPreviousCall)"
                 } else {
                     message = "\(callAfterPreviousCall.signature) was called immediately after given call to \(previousCall.signature)"
                 }
