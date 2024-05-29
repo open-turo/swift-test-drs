@@ -17,7 +17,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
         do {
             XCTExpectFailure()
             _ = try assertWasCalled(foo, withSignature: "foo()")
-                .getCall()
+                .firstMatchingCall
             XCTFail("Expected AssertWasCalledResultError")
         } catch let error as AssertWasCalledResultError {
             switch error {
@@ -37,7 +37,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             zab(paramOne:),
             withSignature: "zab(paramOne:)",
             returning: String.self
-        ).getCall()
+        ).firstMatchingCall
 
         XCTAssertEqual(callToZab.input, "Hello")
     }
