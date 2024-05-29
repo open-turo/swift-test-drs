@@ -11,29 +11,23 @@ enum AssertWasCalledResultError: Error {
 
 public struct AssertWasCalledResult<Input, Output> {
 
-    let matchingCalls: [ConcreteFunctionCall<Input, Output>]
+    public let matchingCalls: [ConcreteFunctionCall<Input, Output>]
+
+    /// Gets the first matching call if it exists, or throws an `AssertWasCalledResultError` if no calls are present in this result.
+    public var firstMatchingCall: ConcreteFunctionCall<Input, Output> {
+        get throws {
+            guard let firstMatchingCall = matchingCalls.first else {
+                throw AssertWasCalledResultError.noCalls
+            }
+            return firstMatchingCall
+        }
+    }
 
     private let blackBox: BlackBox
-
-    private var firstMatchingCall: ConcreteFunctionCall<Input, Output>? {
-        matchingCalls.first
-    }
-
-    private var lastMatchingCall: ConcreteFunctionCall<Input, Output>? {
-        matchingCalls.last
-    }
 
     init(matchingCalls: [ConcreteFunctionCall<Input, Output>], blackBox: BlackBox) {
         self.matchingCalls = matchingCalls
         self.blackBox = blackBox
-    }
-
-    /// Gets the first matching call if it exists, or throws an `AssertWasCalledResultError` if no calls are present in this result.
-    func getCall() throws -> ConcreteFunctionCall<Input, Output> {
-        guard let firstMatchingCall else {
-            throw AssertWasCalledResultError.noCalls
-        }
-        return firstMatchingCall
     }
 
 }
@@ -50,12 +44,12 @@ extension AssertWasCalledResult {
     ///
     /// - Returns: An `AssertWasCalledResult` containing either the matching call if it was called exactly once, or an empty array if the function was not called or was called multiple times as specified.
     @discardableResult
-    public func exactlyOnce(file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult {
-        guard let firstMatchingCall else { return self } // Failure already reported
-
+    public func exactlyOnce(file: StaticString = #file, line: UInt = #line) -> Self {
         guard matchingCalls.count == 1 else {
-            let message = "Expected \(firstMatchingCall.signature) to be called exactly once as specified, but \(matchingCalls.count) calls were recorded"
-            blackBox.reportFailure(message: message, file: file, line: line)
+            if let firstMatchingCall = matchingCalls.first {
+                let message = "Expected \(firstMatchingCall.signature) to be called exactly once as specified, but \(matchingCalls.count) calls were recorded"
+                blackBox.reportFailure(message: message, file: file, line: line)
+            }
             return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
         }
 
@@ -71,14 +65,14 @@ extension AssertWasCalledResult {
     ///
     /// - Returns: An `AssertWasCalledResult` containing either the matching calls if they were called the expected number of times, or an empty array if the function was not called or was called a different number of times as specified.
     @discardableResult
-    public func withCount(_ expectedCallCount: Int, file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult {
-        assert(expectedCallCount > 0, "Use assertWasNotCalled to assert a call count of 0")
-
-        guard let firstMatchingCall else { return self } // Failure already reported
+    public func withCount(_ expectedCallCount: Int, file: StaticString = #file, line: UInt = #line) -> Self {
+        precondition(expectedCallCount > 0, "Use assertWasNotCalled to assert a call count of 0")
 
         guard matchingCalls.count == expectedCallCount else {
-            let message = "Expected \(firstMatchingCall.signature) to be called as specified \(expectedCallCount) times, but \(matchingCalls.count) calls were recorded"
-            blackBox.reportFailure(message: message, file: file, line: line)
+            if let firstMatchingCall = matchingCalls.first {
+                let message = "Expected \(firstMatchingCall.signature) to be called as specified \(expectedCallCount) times, but \(matchingCalls.count) calls were recorded"
+                blackBox.reportFailure(message: message, file: file, line: line)
+            }
             return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
         }
 
@@ -94,12 +88,12 @@ extension AssertWasCalledResult {
     ///
     /// - Returns: An `AssertWasCalledResult` containing either the matching calls if they were called within the expected range of times, or an empty array if the function was not called or was called a number of times outside the specified range.
     @discardableResult
-    public func withinRange<R: RangeExpression<Int>>(_ expectedCallCountRange: R, file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult {
-        guard let firstMatchingCall else { return self } // Failure already reported
-
+    public func withinRange<R: RangeExpression<Int>>(_ expectedCallCountRange: R, file: StaticString = #file, line: UInt = #line) -> Self {
         guard expectedCallCountRange.contains(matchingCalls.count) else {
-            let message = "Expected \(firstMatchingCall.signature) to be called as specified within \(expectedCallCountRange) times, but \(matchingCalls.count) calls were recorded"
-            blackBox.reportFailure(message: message, file: file, line: line)
+            if let firstMatchingCall = matchingCalls.first {
+                let message = "Expected \(firstMatchingCall.signature) to be called as specified within \(expectedCallCountRange) times, but \(matchingCalls.count) calls were recorded"
+                blackBox.reportFailure(message: message, file: file, line: line)
+            }
             return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
         }
 
@@ -115,17 +109,15 @@ extension AssertWasCalledResult {
     ///
     /// - Returns: An `AssertWasCalledResult` containing either the matching calls if they satisfy the `predicate`, or an empty array if no calls satisfy the `predicate`.
     @discardableResult
-    public func `where`(_ predicate: (ConcreteFunctionCall<Input, Output>) -> Bool, file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult {
-        guard let firstMatchingCall else { return self } // Failure already reported
+    public func `where`(_ predicate: (ConcreteFunctionCall<Input, Output>) -> Bool, file: StaticString = #file, line: UInt = #line) -> Self {
+        let filteredCalls = matchingCalls.filter(predicate)
 
-        let matchingCalls = matchingCalls.filter(predicate)
-
-        if matchingCalls.isEmpty {
+        if filteredCalls.isEmpty, let firstMatchingCall = matchingCalls.first {
             let message = "\(firstMatchingCall.signature) was not called as specified where the given predicate returned true"
             blackBox.reportFailure(message: message, file: file, line: line)
         }
 
-        return AssertWasCalledResult(matchingCalls: matchingCalls, blackBox: blackBox)
+        return AssertWasCalledResult(matchingCalls: filteredCalls, blackBox: blackBox)
     }
 
     /// Makes a further assertion that the function was called as specified in the given `position`.
@@ -137,23 +129,23 @@ extension AssertWasCalledResult {
     ///
     /// - Returns: An `AssertWasCalledResult` containing either the matching call(s) if it happened at the specified `position`, or an empty array if no calls happened at the specified `position`.
     @discardableResult
-    public func happening(_ position: FunctionCallPosition, file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult {
+    public func happening(_ position: FunctionCallPosition, file: StaticString = #file, line: UInt = #line) -> Self {
         switch position {
         case .first:
             assertWasCalledFirst(file: file, line: line)
         case .last:
             assertWasCalledLast(file: file, line: line)
-        case .after(previousCall: let previousCall):
+        case .after(let previousCall):
             assertWasCalledAfter(previousCall, file: file, line: line)
-        case .immediatelyAfter(previousCall: let previousCall):
+        case .immediatelyAfter(let previousCall):
             assertWasCalledImmediatelyAfter(previousCall, file: file, line: line)
         }
     }
 
     // MARK: - Private Assertion Helpers
 
-    private func assertWasCalledFirst(file: StaticString, line: UInt) -> AssertWasCalledResult {
-        guard let firstMatchingCall,
+    private func assertWasCalledFirst(file: StaticString, line: UInt) -> Self {
+        guard let firstMatchingCall = matchingCalls.first,
               let firstCallOverall = blackBox.firstCall
         else { return self } // Failure already reported
 
@@ -173,8 +165,8 @@ extension AssertWasCalledResult {
         return AssertWasCalledResult(matchingCalls: [firstMatchingCall], blackBox: blackBox)
     }
 
-    private func assertWasCalledLast(file: StaticString, line: UInt) -> AssertWasCalledResult {
-        guard let lastMatchingCall,
+    private func assertWasCalledLast(file: StaticString, line: UInt) -> Self {
+        guard let lastMatchingCall = matchingCalls.last,
               let lastCallOverall = blackBox.lastCall
         else { return self } // Failure already reported
 
@@ -194,43 +186,44 @@ extension AssertWasCalledResult {
         return AssertWasCalledResult(matchingCalls: [lastMatchingCall], blackBox: blackBox)
     }
 
-    private func assertWasCalledAfter(_ previousCall: any FunctionCall, file: StaticString, line: UInt) -> AssertWasCalledResult {
-        guard let firstMatchingCall else { return self } // Failure already reported
-
-        let callsAfter = matchingCalls.filter { $0.id > previousCall.id }
+    private func assertWasCalledAfter(_ previousCall: any FunctionCall, file: StaticString, line: UInt) -> Self {
+        let callsAfter = matchingCalls.filter { $0.time > previousCall.time }
 
         guard !callsAfter.isEmpty else {
-            let message = "No calls to \(firstMatchingCall.signature) as specified were recorded after given call to \(previousCall.signature)"
-            blackBox.reportFailure(message: message, file: file, line: line)
+            if let firstMatchingCall = matchingCalls.first {
+                let message = "No calls to \(firstMatchingCall.signature) as specified were recorded after given call to \(previousCall.signature)"
+                blackBox.reportFailure(message: message, file: file, line: line)
+            }
             return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
         }
 
         return AssertWasCalledResult(matchingCalls: callsAfter, blackBox: blackBox)
     }
 
-    private func assertWasCalledImmediatelyAfter(_ previousCall: any FunctionCall, file: StaticString, line: UInt) -> AssertWasCalledResult {
-        guard let firstMatchingCall else {
-            return self
-        } // Failure already reported
+    private func assertWasCalledImmediatelyAfter(_ previousCall: any FunctionCall, file: StaticString, line: UInt) -> Self {
+        guard let callAfterPreviousCall = blackBox.callAfter(previousCall) else {
+            let message = "No calls were recorded after given call to \(previousCall.signature)"
+            blackBox.reportFailure(message: message, file: file, line: line)
+            return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
+        }
 
-        guard let callImmediatelyAfter = matchingCalls.first(where: { $0.id == previousCall.id + 1 }) else {
-            let message: String
+        guard let matchingCall = matchingCalls.first(where: { $0.id == callAfterPreviousCall.id }) else {
+            if let firstMatchingCall = matchingCalls.first {
+                let message: String
 
-            if let callAfterPreviousCall = blackBox.callAfter(previousCall) {
                 if callAfterPreviousCall.signature == firstMatchingCall.signature {
                     message = "\(firstMatchingCall.signature) was called immediately after given call to \(previousCall.signature), but not as specified:\n\n\(callAfterPreviousCall)"
                 } else {
                     message = "\(callAfterPreviousCall.signature) was called immediately after given call to \(previousCall.signature)"
                 }
-            } else {
-                message = "No calls were recorded after given call to \(previousCall.signature)"
+
+                blackBox.reportFailure(message: message, file: file, line: line)
             }
 
-            blackBox.reportFailure(message: message, file: file, line: line)
             return AssertWasCalledResult(matchingCalls: [], blackBox: blackBox)
         }
 
-        return AssertWasCalledResult(matchingCalls: [callImmediatelyAfter], blackBox: blackBox)
+        return AssertWasCalledResult(matchingCalls: [matchingCall], blackBox: blackBox)
     }
 
 }

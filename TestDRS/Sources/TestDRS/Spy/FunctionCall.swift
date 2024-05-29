@@ -8,7 +8,7 @@ import Foundation
 /// `FunctionCall` is a protocol that represents a function call in a generic way.
 /// Captures the `Input` and `Output` type information while allowing us to store an array of function calls as an `[any FunctionCall]`.
 /// - SeeAlso: `ConcreteFunctionCall` which is the concrete version of a function call.
-public protocol FunctionCall: CustomDebugStringConvertible {
+public protocol FunctionCall: CustomDebugStringConvertible, Identifiable {
     associatedtype Input
     associatedtype Output
 
@@ -24,7 +24,7 @@ public protocol FunctionCall: CustomDebugStringConvertible {
     /// The time at which the function was called.
     var time: Date { get }
 
-    /// The unique identifier for this call, assigned in ascending order. Can be used to compare calls when determining order.
+    /// The unique identifier for this call.
     var id: Int { get }
 }
 
@@ -40,6 +40,7 @@ extension FunctionCall {
     }
 }
 
+// TODO: Move me
 private enum FunctionCallUtilities {
     static let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -63,7 +64,7 @@ public struct ConcreteFunctionCall<Input, Output>: FunctionCall {
     /// The time at which the function was called.
     public let time: Date
 
-    /// The unique identifier for this call, assigned in ascending order. Can be used to compare calls when determining order.
+    /// The unique identifier for this call.
     public let id: Int
 
 }
