@@ -13,7 +13,7 @@ enum AssertWasCalledResultError: Error {
 public struct AssertWasCalledResult<ResultMatching: AssertionResultMatching, Input, Output> {
 
     private typealias SingleResult = AssertWasCalledResult<MatchingSingle, Input, Output>
-    private typealias MultipleResult = AssertWasCalledResult<MatchingMultiple, Input, Output>
+    private typealias SpecificAmountResult = AssertWasCalledResult<MatchingSpecificAmount, Input, Output>
 
     private let _matchingCalls: [ConcreteFunctionCall<Input, Output>]
     private let blackBox: BlackBox
@@ -52,7 +52,7 @@ extension AssertWasCalledResult where ResultMatching == MatchingSingle {
 
 }
 
-extension AssertWasCalledResult where ResultMatching == MatchingMultiple {
+extension AssertWasCalledResult where ResultMatching: AssertionResultMatchingMultiple {
 
     /// The matching calls or `nil` if no calls were made that satisfy the assertion.
     public var matchingCalls: [ConcreteFunctionCall<Input, Output>] {
@@ -72,7 +72,7 @@ extension AssertWasCalledResult where ResultMatching == MatchingMultiple {
 // MARK: - Assertions
 
 /// Assertions starting with any number of calls.
-extension AssertWasCalledResult {
+extension AssertWasCalledResult where ResultMatching: AssertionResultPositionMatchable {
 
     /// Makes a further assertion that the specified call was the first to have been recorded by the `Spy`.
     ///
@@ -83,7 +83,7 @@ extension AssertWasCalledResult {
     /// - Returns: An `AssertWasCalledResult` containing either the first call recorded by the `Spy`, or `nil` if the function was not called first as specified.
     @discardableResult
     public func happeningFirst(file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult<MatchingSingle, Input, Output> {
-        happening(.first, file: file, line: line)
+        assertWasCalled(happening: .first, file: file, line: line)
     }
 
     /// Makes a further assertion that the specified call was the last to have been recorded by the `Spy`.
@@ -95,7 +95,7 @@ extension AssertWasCalledResult {
     /// - Returns: An `AssertWasCalledResult` containing either the last call recorded by the `Spy`, or `nil` if the function was not called last as specified.
     @discardableResult
     public func happeningLast(file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult<MatchingSingle, Input, Output> {
-        happening(.last, file: file, line: line)
+        assertWasCalled(happening: .last, file: file, line: line)
     }
 
     /// Makes a further assertion that the specified call happened immediatly after the given call.
@@ -138,7 +138,7 @@ extension AssertWasCalledResult {
 /// Assertions starting with a single call.
 extension AssertWasCalledResult where ResultMatching == MatchingSingle {
 
-    /// Makes a further assertion that the specified call ocurreed in a manner that satisfies the provided `predicate`.
+    /// Makes a further assertion that the specified call occurred in a manner that satisfies the provided `predicate`.
     ///
     /// - Parameters:
     ///   - predicate: A closure that takes a `ConcreteFunctionCall<Input, Output>` and returns a Boolean value indicating whether the function call satisfies the conditions defined by the closure.
@@ -148,7 +148,7 @@ extension AssertWasCalledResult where ResultMatching == MatchingSingle {
     /// - Returns: An `AssertWasCalledResult` containing either the matching call if it satisfies the `predicate`, or `nil` if it does not satisfy the `predicate`.
     @discardableResult
     public func `where`(_ predicate: (ConcreteFunctionCall<Input, Output>) -> Bool, file: StaticString = #file, line: UInt = #line) -> Self {
-        _where(predicate, file: file, line: line)
+        assertWasCalled(where: predicate, file: file, line: line)
     }
 
     /// Makes a further assertion that the specified call happened after the given call.
@@ -161,14 +161,14 @@ extension AssertWasCalledResult where ResultMatching == MatchingSingle {
     /// - Returns: An `AssertWasCalledResult` containing the matching call, or `nil` if the function was not called as specified after the `previousCall`.
     @discardableResult
     public func happening(after previousCall: any FunctionCall, file: StaticString = #file, line: UInt = #line) -> Self {
-        _happening(after: previousCall, file: file, line: line)
+        assertWasCalled(after: previousCall, file: file, line: line)
     }
+
 }
 
-/// Assertions starting with a multiple calls.
-extension AssertWasCalledResult where ResultMatching == MatchingMultiple {
+extension AssertWasCalledResult where ResultMatching == MatchingAnyAmount {
 
-    /// Makes a further assertion that the speficied call ocurred at least once in a manner that satisfies the provided `predicate`.
+    /// Makes a further assertion that the speficied call occurred at least once in a manner that satisfies the provided `predicate`.
     ///
     /// - Parameters:
     ///   - predicate: A closure that takes a `ConcreteFunctionCall<Input, Output>` and returns a Boolean value indicating whether the function call satisfies the conditions defined by the closure.
@@ -178,7 +178,7 @@ extension AssertWasCalledResult where ResultMatching == MatchingMultiple {
     /// - Returns: An `AssertWasCalledResult` containing either the matching calls that satisfy the `predicate`, or an empty array if no calls satisfy the `predicate`.
     @discardableResult
     public func `where`(_ predicate: (ConcreteFunctionCall<Input, Output>) -> Bool, file: StaticString = #file, line: UInt = #line) -> Self {
-        _where(predicate, file: file, line: line)
+        assertWasCalled(where: predicate, file: file, line: line)
     }
 
     /// Makes a further assertion that the specified call happened at least once after the given call.
@@ -191,16 +191,16 @@ extension AssertWasCalledResult where ResultMatching == MatchingMultiple {
     /// - Returns: An `AssertWasCalledResult` containing the matching calls, or an empty array if the function was not called as specified after the `previousCall`.
     @discardableResult
     public func happening(after previousCall: any FunctionCall, file: StaticString = #file, line: UInt = #line) -> Self {
-        _happening(after: previousCall, file: file, line: line)
+        assertWasCalled(after: previousCall, file: file, line: line)
     }
 
-    /// Makes a further assertion that the specified call ocurred exactly once.
+    /// Makes a further assertion that the specified call occurred exactly once.
     ///
     /// - Parameters:
     ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the assertion is being made.
     ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the assertion is being made.
     ///
-    /// - Returns: An `AssertWasCalledResult` containing either the matching call if it ocurred exactly once, or an empty array if the call occurred zero or multiple times.
+    /// - Returns: An `AssertWasCalledResult` containing either the matching call if it occurred exactly once, or an empty array if the call occurred zero or multiple times.
     @discardableResult
     public func exactlyOnce(file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult<MatchingSingle, Input, Output> {
         guard matchingCalls.count == 1, let firstMatchingCall = matchingCalls.first else {
@@ -221,9 +221,9 @@ extension AssertWasCalledResult where ResultMatching == MatchingMultiple {
     ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the assertion is being made.
     ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the assertion is being made.
     ///
-    /// - Returns: An `AssertWasCalledResult` containing either the matching calls if ocurring the expected number of times, or an empty array if the call ocurred a different number of times than specified.
+    /// - Returns: An `AssertWasCalledResult` containing either the matching calls if occurring the expected number of times, or an empty array if the call occurred a different number of times than specified.
     @discardableResult
-    public func withCount(_ expectedCallCount: Int, file: StaticString = #file, line: UInt = #line) -> Self {
+    public func withCount(_ expectedCallCount: Int, file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult<MatchingSpecificAmount, Input, Output> {
         precondition(expectedCallCount > 0, "Use assertWasNotCalled to assert a call count of 0")
 
         guard matchingCalls.count == expectedCallCount else {
@@ -231,10 +231,10 @@ extension AssertWasCalledResult where ResultMatching == MatchingMultiple {
                 let message = "Expected \(signature) to be called as specified \(expectedCallCount) times, but \(matchingCalls.count) calls were recorded"
                 blackBox.reportFailure(message: message, file: file, line: line)
             }
-            return Self.noMatch(blackbox: blackBox)
+            return SpecificAmountResult.noMatch(blackbox: blackBox)
         }
 
-        return self
+        return SpecificAmountResult(matchingCalls: matchingCalls, blackBox: blackBox)
     }
 
     /// Makes a further assertion that the specified call occurred a number of times within a given range.
@@ -244,18 +244,18 @@ extension AssertWasCalledResult where ResultMatching == MatchingMultiple {
     ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the assertion is being made.
     ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the assertion is being made.
     ///
-    /// - Returns: An `AssertWasCalledResult` containing either the matching calls if ocurring within the expected range of times, or an empty array if the call occurred a number of times outside the specified range.
+    /// - Returns: An `AssertWasCalledResult` containing either the matching calls if occurring within the expected range of times, or an empty array if the call occurred a number of times outside the specified range.
     @discardableResult
-    public func withinRange<R: RangeExpression<Int>>(_ expectedCallCountRange: R, file: StaticString = #file, line: UInt = #line) -> Self {
+    public func withinRange<R: RangeExpression<Int>>(_ expectedCallCountRange: R, file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult<MatchingSpecificAmount, Input, Output> {
         guard expectedCallCountRange.contains(matchingCalls.count) else {
             if let signature = matchingCalls.first?.signature {
                 let message = "Expected \(signature) to be called as specified within \(expectedCallCountRange) times, but \(matchingCalls.count) calls were recorded"
                 blackBox.reportFailure(message: message, file: file, line: line)
             }
-            return Self.noMatch(blackbox: blackBox)
+            return SpecificAmountResult.noMatch(blackbox: blackBox)
         }
 
-        return self
+        return SpecificAmountResult(matchingCalls: matchingCalls, blackBox: blackBox)
     }
 
 }
@@ -269,7 +269,7 @@ extension AssertWasCalledResult {
         case last
     }
 
-    private func happening(_ firstOrLast: FirstOrLast, file: StaticString, line: UInt) -> AssertWasCalledResult<MatchingSingle, Input, Output> {
+    private func assertWasCalled(happening firstOrLast: FirstOrLast, file: StaticString, line: UInt) -> AssertWasCalledResult<MatchingSingle, Input, Output> {
         guard let firstOrLastMatchingCall = firstOrLast == .first ? _matchingCalls.first : _matchingCalls.last,
               let firstOrLastCallOverall = firstOrLast == .first ? blackBox.firstCall : blackBox.lastCall
         else { return SingleResult.noMatch(blackbox: blackBox) }
@@ -290,8 +290,7 @@ extension AssertWasCalledResult {
         return SingleResult(matchingCall: firstOrLastMatchingCall, blackBox: blackBox)
     }
 
-    /// Shared private implementation of `happening(after:file:line:)`, allows for different documentation for `SingleResultMatching` vs `MultipleResultMatching`.
-    private func _happening(after previousCall: any FunctionCall, file: StaticString, line: UInt) -> Self {
+    private func assertWasCalled(after previousCall: any FunctionCall, file: StaticString, line: UInt) -> Self {
         let callsAfter = _matchingCalls.filter { $0.time > previousCall.time }
 
         guard !callsAfter.isEmpty else {
@@ -305,8 +304,7 @@ extension AssertWasCalledResult {
         return Self(matchingCalls: callsAfter, blackBox: blackBox)
     }
 
-    /// Shared private implementation of `where(_:file:line:)`, allows for different documentation for `SingleResultMatching` vs `MultipleResultMatching`.
-    private func _where(_ predicate: (ConcreteFunctionCall<Input, Output>) -> Bool, file: StaticString, line: UInt) -> Self {
+    private func assertWasCalled(where predicate: (ConcreteFunctionCall<Input, Output>) -> Bool, file: StaticString, line: UInt) -> Self {
         let filteredCalls = _matchingCalls.filter(predicate)
 
         if filteredCalls.isEmpty, let signature = _matchingCalls.first?.signature {
