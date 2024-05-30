@@ -18,7 +18,7 @@ public protocol AssertionResultPositionMatchable {}
 public enum MatchingSingle: AssertionResultMatching, AssertionResultPositionMatchable {}
 
 /// Matches a certain number of calls from zero to infinity.
-public enum MatchingSpecificAmount: AssertionResultMatchingMultiple {}
+public enum MatchingSomeAmount: AssertionResultMatchingMultiple {}
 
 /// Matches any number of calls from zero to infinity.
 public enum MatchingAnyAmount: AssertionResultMatchingMultiple, AssertionResultPositionMatchable {}
