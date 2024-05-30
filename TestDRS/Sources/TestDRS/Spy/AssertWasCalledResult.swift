@@ -10,10 +10,24 @@ enum AssertWasCalledResultError: Error {
     case noCalls
 }
 
+/// `AssertWasCalledResult` is a struct that encapsulates the result of an `#assertWasCalled` assertion.
+/// It contains any calls that match the assertion and provides methods for further refining the match.
+///
+/// The primary use of `AssertWasCalledResult` is to make additional assertions on a function call. For example,
+/// given a function `foo()`, you could assert that it was called exactly once, and was also the last call recorded
+/// by a `Spy` like so:
+///
+/// ```
+/// #assertWasCalled(foo)
+///    .exactlyOnce()
+///    .happening(.last)
+/// ```
+///
+/// Each of these methods returns a new `AssertWasCalledResult` instance, allowing for method chaining to create complex assertions.
 public struct AssertWasCalledResult<ResultMatching: AssertionResultMatching, Input, Output> {
 
     private typealias SingleResult = AssertWasCalledResult<MatchingSingle, Input, Output>
-    private typealias SpecificAmountResult = AssertWasCalledResult<MatchingSpecificAmount, Input, Output>
+    private typealias SomeAmountResult = AssertWasCalledResult<MatchingSomeAmount, Input, Output>
 
     private let _matchingCalls: [ConcreteFunctionCall<Input, Output>]
     private let blackBox: BlackBox
@@ -23,9 +37,6 @@ public struct AssertWasCalledResult<ResultMatching: AssertionResultMatching, Inp
         self.blackBox = blackBox
     }
 
-    private static func noMatch(blackbox: BlackBox) -> Self {
-        Self(matchingCalls: [], blackBox: blackbox)
-    }
 }
 
 // MARK: - Matching Calls
@@ -223,7 +234,7 @@ extension AssertWasCalledResult where ResultMatching == MatchingAnyAmount {
     ///
     /// - Returns: An `AssertWasCalledResult` containing either the matching calls if occurring the expected number of times, or an empty array if the call occurred a different number of times than specified.
     @discardableResult
-    public func withCount(_ expectedCallCount: Int, file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult<MatchingSpecificAmount, Input, Output> {
+    public func withCount(_ expectedCallCount: Int, file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult<MatchingSomeAmount, Input, Output> {
         precondition(expectedCallCount > 0, "Use assertWasNotCalled to assert a call count of 0")
 
         guard matchingCalls.count == expectedCallCount else {
@@ -231,10 +242,10 @@ extension AssertWasCalledResult where ResultMatching == MatchingAnyAmount {
                 let message = "Expected \(signature) to be called as specified \(expectedCallCount) times, but \(matchingCalls.count) calls were recorded"
                 blackBox.reportFailure(message: message, file: file, line: line)
             }
-            return SpecificAmountResult.noMatch(blackbox: blackBox)
+            return SomeAmountResult.noMatch(blackbox: blackBox)
         }
 
-        return SpecificAmountResult(matchingCalls: matchingCalls, blackBox: blackBox)
+        return SomeAmountResult(matchingCalls: matchingCalls, blackBox: blackBox)
     }
 
     /// Makes a further assertion that the specified call occurred a number of times within a given range.
@@ -246,16 +257,16 @@ extension AssertWasCalledResult where ResultMatching == MatchingAnyAmount {
     ///
     /// - Returns: An `AssertWasCalledResult` containing either the matching calls if occurring within the expected range of times, or an empty array if the call occurred a number of times outside the specified range.
     @discardableResult
-    public func withinRange<R: RangeExpression<Int>>(_ expectedCallCountRange: R, file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult<MatchingSpecificAmount, Input, Output> {
+    public func withinRange<R: RangeExpression<Int>>(_ expectedCallCountRange: R, file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult<MatchingSomeAmount, Input, Output> {
         guard expectedCallCountRange.contains(matchingCalls.count) else {
             if let signature = matchingCalls.first?.signature {
                 let message = "Expected \(signature) to be called as specified within \(expectedCallCountRange) times, but \(matchingCalls.count) calls were recorded"
                 blackBox.reportFailure(message: message, file: file, line: line)
             }
-            return SpecificAmountResult.noMatch(blackbox: blackBox)
+            return SomeAmountResult.noMatch(blackbox: blackBox)
         }
 
-        return SpecificAmountResult(matchingCalls: matchingCalls, blackBox: blackBox)
+        return SomeAmountResult(matchingCalls: matchingCalls, blackBox: blackBox)
     }
 
 }
@@ -263,6 +274,10 @@ extension AssertWasCalledResult where ResultMatching == MatchingAnyAmount {
 // MARK: - Private Assertion Helpers
 
 extension AssertWasCalledResult {
+
+    private static func noMatch(blackbox: BlackBox) -> Self {
+        Self(matchingCalls: [], blackBox: blackbox)
+    }
 
     private enum FirstOrLast: String {
         case first
