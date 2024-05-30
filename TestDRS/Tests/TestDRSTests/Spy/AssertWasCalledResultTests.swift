@@ -11,13 +11,14 @@ final class AssertWasCalledResultTests: SpyTestCase {
     private let file = #fileID.components(separatedBy: "/").last!
     private var line = 0
 
-    // MARK: - getCall()
+    // MARK: - getMatchingCall() {
 
-    func testGetCall_ThrowsErrorWhenNoCalls() {
+    func testGetMatchingCall_ThrowsErrorWhenNoCalls() throws {
         do {
             XCTExpectFailure()
             _ = try assertWasCalled(foo, withSignature: "foo()")
-                .firstMatchingCall
+                .exactlyOnce()
+                .getMatchingCall()
             XCTFail("Expected AssertWasCalledResultError")
         } catch let error as AssertWasCalledResultError {
             switch error {
@@ -29,7 +30,37 @@ final class AssertWasCalledResultTests: SpyTestCase {
         }
     }
 
-    func testGetCall_GetsFirstMatchingCall() throws {
+    func testGetMatchingCall_GetstMatchingCall() throws {
+        zab(paramOne: "Hello")
+        let callToZab = try assertWasCalled(
+            zab(paramOne:),
+            withSignature: "zab(paramOne:)",
+            returning: String.self
+        ).exactlyOnce()
+            .getMatchingCall()
+
+        XCTAssertEqual(callToZab.input, "Hello")
+    }
+
+    // MARK: - getFirstMatchingCall()
+
+    func testGetFirstMatchingCall_ThrowsErrorWhenNoCalls() throws {
+        do {
+            XCTExpectFailure()
+            _ = try assertWasCalled(foo, withSignature: "foo()")
+                .getFirstMatchingCall()
+            XCTFail("Expected AssertWasCalledResultError")
+        } catch let error as AssertWasCalledResultError {
+            switch error {
+            case .noCalls:
+                break // Expected error
+            }
+        } catch {
+            XCTFail("Expected AssertWasCalledResultError")
+        }
+    }
+
+    func testGetFirstMatchingCall_GetsFirstMatchingCall() throws {
         zab(paramOne: "Hello")
         zab(paramOne: "World")
 
@@ -37,7 +68,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             zab(paramOne:),
             withSignature: "zab(paramOne:)",
             returning: String.self
-        ).firstMatchingCall
+        ).getFirstMatchingCall()
 
         XCTAssertEqual(callToZab.input, "Hello")
     }
@@ -48,11 +79,11 @@ final class AssertWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                let callsToFoo = assertWasCalled(foo, withSignature: "foo()")
+                let callToFoo = assertWasCalled(foo, withSignature: "foo()")
                     .exactlyOnce()
-                    .matchingCalls
+                    .matchingCall
 
-                XCTAssertTrue(callsToFoo.isEmpty)
+                XCTAssertNil(callToFoo)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -65,14 +96,14 @@ final class AssertWasCalledResultTests: SpyTestCase {
     func testExactlyOnce_WithSingleCall() {
         rab(paramOne: true, paramTwo: 1, paramThree: "Hello")
 
-        let callsToRab = assertWasCalled(
+        let callToRab = assertWasCalled(
             rab(paramOne:paramTwo:paramThree:),
             withSignature: "rab(paramOne:paramTwo:paramThree:)",
             expectedInput: true, 1, "Hello"
         ).exactlyOnce()
-            .matchingCalls
+            .matchingCall
 
-        XCTAssertEqual(callsToRab.count, 1)
+        XCTAssertNotNil(callToRab)
     }
 
     func testExactlyOnce_WithMultipleCalls() {
@@ -82,11 +113,11 @@ final class AssertWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callsToRab = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
+                let callToRab = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
                     .exactlyOnce()
-                    .matchingCalls
+                    .matchingCall
 
-                XCTAssertTrue(callsToRab.isEmpty)
+                XCTAssertNil(callToRab)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -236,11 +267,11 @@ final class AssertWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                let callsToFoo = assertWasCalled(bar(paramOne:), withSignature: "bar(paramOne:)").where { call in
+                let callsToBar = assertWasCalled(bar(paramOne:), withSignature: "bar(paramOne:)").where { call in
                     call.input == false
                 }.matchingCalls
 
-                XCTAssertTrue(callsToFoo.isEmpty)
+                XCTAssertTrue(callsToBar.isEmpty)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -248,6 +279,16 @@ final class AssertWasCalledResultTests: SpyTestCase {
                 """
             }
         )
+    }
+
+    func testWherePredicate_WithSingleCall() {
+        rab(paramOne: false, paramTwo: nil, paramThree: "Hello World")
+
+        assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)")
+            .exactlyOnce()
+            .where { call in
+                call.input.2?.prefix(5) == "Hello"
+            }
     }
 
     func testWherePredicate_WithMultipleCalls() {
@@ -298,17 +339,17 @@ final class AssertWasCalledResultTests: SpyTestCase {
         )
     }
 
-    // MARK: - happening(.first)
+    // MARK: - happeningFirst()
 
     func testHappeningFirst_WithoutAnyCalls() {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                let callsToFoo = assertWasCalled(foo, withSignature: "foo()")
-                    .happening(.first)
-                    .matchingCalls
+                let callToFoo = assertWasCalled(foo, withSignature: "foo()")
+                    .happeningFirst()
+                    .matchingCall
 
-                XCTAssertTrue(callsToFoo.isEmpty)
+                XCTAssertNil(callToFoo)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -323,20 +364,20 @@ final class AssertWasCalledResultTests: SpyTestCase {
         rab(paramOne: true, paramTwo: 2, paramThree: "World")
         oof(paramOne: false, paramTwo: 3)
 
-        let callsToRab = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
-            .happening(.first)
-            .matchingCalls
+        let callToRab = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
+            .happeningFirst()
+            .matchingCall
 
-        XCTAssertEqual(callsToRab.count, 1)
+        XCTAssertNotNil(callToRab)
 
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callsToRab = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "World")
-                    .happening(.first)
-                    .matchingCalls
+                let callToRab = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "World")
+                    .happeningFirst()
+                    .matchingCall
 
-                XCTAssertTrue(callsToRab.isEmpty)
+                XCTAssertNil(callToRab)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -355,7 +396,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             failingBlock: {
                 line = #line + 2
                 assertWasCalled(oof(paramOne:paramTwo:), withSignature: "oof(paramOne:paramTwo:)", expectedInput: false, 3)
-                    .happening(.first)
+                    .happeningFirst()
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -365,17 +406,17 @@ final class AssertWasCalledResultTests: SpyTestCase {
         )
     }
 
-    // MARK: - happening(.last)
+    // MARK: - happeningLast()
 
     func testHappeningLast_WithoutAnyCalls() {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                let callsToFoo = assertWasCalled(foo, withSignature: "foo()", taking: Void.self)
-                    .happening(.last)
-                    .matchingCalls
+                let callToFoo = assertWasCalled(foo, withSignature: "foo()", taking: Void.self)
+                    .happeningLast()
+                    .matchingCall
 
-                XCTAssertTrue(callsToFoo.isEmpty)
+                XCTAssertNil(callToFoo)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -390,20 +431,19 @@ final class AssertWasCalledResultTests: SpyTestCase {
         rab(paramOne: true, paramTwo: 2, paramThree: "Hello")
         rab(paramOne: true, paramTwo: 3, paramThree: "World")
 
-        let callsToRab = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 3, "World")
-            .happening(.last)
-            .matchingCalls
+        let callToRab = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 3, "World")
+            .happeningLast()
 
-        XCTAssertEqual(callsToRab.count, 1)
+        XCTAssertNotNil(callToRab)
 
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callsToRab = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "Hello")
-                    .happening(.last)
-                    .matchingCalls
+                let callToRab = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "Hello")
+                    .happeningLast()
+                    .matchingCall
 
-                XCTAssertTrue(callsToRab.isEmpty)
+                XCTAssertNil(callToRab)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -422,7 +462,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             failingBlock: {
                 line = #line + 2
                 assertWasCalled(oof(paramOne:paramTwo:), withSignature: "oof(paramOne:paramTwo:)")
-                    .happening(.last)
+                    .happeningLast()
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -432,7 +472,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
         )
     }
 
-    // MARK: - happening(.after(previousCall:))
+//     MARK: - happening(after:)
 
     func testHappeningAfter() throws {
         baz(paramOne: false)
@@ -444,11 +484,11 @@ final class AssertWasCalledResultTests: SpyTestCase {
         let lastCallToBaz = try XCTUnwrap(blackBox.callsMatching(signature: "baz(paramOne:)").last)
 
         assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true)
-            .happening(.after(firstCallToBaz))
+            .happening(after: firstCallToBaz)
         assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello")
-            .happening(.after(firstCallToBaz))
+            .happening(after: firstCallToBaz)
         let callsToZab = assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello")
-            .happening(.after(lastCallToBaz))
+            .happening(after: lastCallToBaz)
             .matchingCalls
 
         XCTAssertEqual(callsToZab.count, 1)
@@ -457,7 +497,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             failingBlock: {
                 line = #line + 1
                 let callsToZab = assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: false)
-                    .happening(.after(firstCallToBaz))
+                    .happening(after: firstCallToBaz)
                     .matchingCalls
 
                 XCTAssertTrue(callsToZab.isEmpty)
@@ -476,7 +516,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             failingBlock: {
                 line = #line + 2
                 assertWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true)
-                    .happening(.after(lastCallToBaz))
+                    .happening(after: lastCallToBaz)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -484,6 +524,17 @@ final class AssertWasCalledResultTests: SpyTestCase {
                 """
             }
         )
+    }
+
+    func testHappeningAfter_ChainedOnHappeningLast() throws {
+        foo()
+        rab(paramOne: false, paramTwo: nil, paramThree: "Hello World")
+
+        let callToFoo = try XCTUnwrap(blackBox.callsMatching(signature: "foo()").first)
+
+        assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)")
+            .happeningLast()
+            .happening(after: callToFoo)
     }
 
     // MARK: - happening(.immediatelyAfter(previousCall:))
@@ -497,20 +548,20 @@ final class AssertWasCalledResultTests: SpyTestCase {
         let lastCallToOof = try XCTUnwrap(blackBox.callsMatching(signature: "oof(paramOne:paramTwo:)").last)
         let callToRab = try XCTUnwrap(blackBox.callsMatching(signature: "rab(paramOne:paramTwo:paramThree:)").first)
 
-        let callsToRab = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "Hello")
-            .happening(.immediatelyAfter(lastCallToOof))
-            .matchingCalls
+        let matchingCall = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "Hello")
+            .happening(immediatelyAfter: lastCallToOof)
+            .matchingCall
 
-        XCTAssertEqual(callsToRab.count, 1)
+        XCTAssertNotNil(matchingCall)
 
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                let callsToRab = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: false, 2, "Hello")
-                    .happening(.immediatelyAfter(lastCallToOof))
-                    .matchingCalls
+                let callToRab = assertWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: false, 2, "Hello")
+                    .happening(immediatelyAfter: lastCallToOof)
+                    .matchingCall
 
-                XCTAssertTrue(callsToRab.isEmpty)
+                XCTAssertNil(callToRab)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -526,7 +577,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             failingBlock: {
                 line = #line + 2
                 assertWasCalled(oof(paramOne:paramTwo:), withSignature: "oof(paramOne:paramTwo:)", expectedInput: false, 1)
-                    .happening(.immediatelyAfter(firstCallToOof))
+                    .happening(immediatelyAfter: firstCallToOof)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -545,7 +596,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             failingBlock: {
                 line = #line + 2
                 assertWasCalled(oof(paramOne:paramTwo:), withSignature: "oof(paramOne:paramTwo:)")
-                    .happening(.immediatelyAfter(lastCallToOof))
+                    .happening(immediatelyAfter: lastCallToOof)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -558,7 +609,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             failingBlock: {
                 line = #line + 2
                 assertWasCalled(oof(paramOne:paramTwo:), withSignature: "oof(paramOne:paramTwo:)")
-                    .happening(.immediatelyAfter(callToRab))
+                    .happening(immediatelyAfter: callToRab)
             },
             issueMatcher: { issue in
                 issue.description == """

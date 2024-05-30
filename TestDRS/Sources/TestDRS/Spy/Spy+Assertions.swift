@@ -32,7 +32,7 @@ public extension Spy {
         returning outputType: Output.Type? = nil,
         file: StaticString = #file,
         line: UInt = #line
-    ) -> AssertWasCalledResult<Input, Output> {
+    ) -> AssertWasCalledResult<MatchingMultiple, Input, Output> {
         blackBox.assertWasCalled(function, signature: signature, file: file, line: line)
     }
 
@@ -56,7 +56,7 @@ public extension Spy {
         returning: Output.Type? = nil,
         file: StaticString = #file,
         line: UInt = #line
-    ) -> AssertWasCalledResult<(repeat each Input), Output> where repeat each Input: Equatable {
+    ) -> AssertWasCalledResult<MatchingMultiple, (repeat each Input), Output> where repeat each Input: Equatable {
         blackBox.assertWasCalled(function, signature: signature, expectedInput: repeat each expectedInput, file: file, line: line)
     }
 
@@ -111,7 +111,7 @@ public extension Spy {
         returning outputType: Output.Type? = nil,
         file: StaticString = #file,
         line: UInt = #line
-    ) -> AssertWasCalledResult<Input, Output> {
+    ) -> AssertWasCalledResult<MatchingMultiple, Input, Output> {
         blackBox.assertWasCalled(function, signature: signature, file: file, line: line)
     }
 
@@ -135,7 +135,7 @@ public extension Spy {
         returning: Output.Type? = nil,
         file: StaticString = #file,
         line: UInt = #line
-    ) -> AssertWasCalledResult<(repeat each Input), Output> where repeat each Input: Equatable {
+    ) -> AssertWasCalledResult<MatchingMultiple, (repeat each Input), Output> where repeat each Input: Equatable {
         blackBox.assertWasCalled(function, signature: signature, expectedInput: repeat each expectedInput, file: file, line: line)
     }
 
