@@ -16,7 +16,7 @@ extension BlackBox {
         signature: String,
         file: StaticString,
         line: UInt
-    ) -> AssertWasCalledResult<MatchingMultiple, Input, Output> {
+    ) -> AssertWasCalledResult<MatchingAnyAmount, Input, Output> {
         let calls = callsMatching(signature: signature, taking: Input.self, returning: Output.self)
 
         if calls.isEmpty {
@@ -38,7 +38,7 @@ extension BlackBox {
         expectedInput: repeat each Input,
         file: StaticString,
         line: UInt
-    ) -> AssertWasCalledResult<MatchingMultiple, (repeat each Input), Output> where repeat each Input: Equatable {
+    ) -> AssertWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> where repeat each Input: Equatable {
         let calls = callsMatching(signature: signature, taking: (repeat each Input).self, returning: Output.self)
         let callsWithExpectedInput = calls.filter { check(repeat each expectedInput, against: $0.input) }
 
