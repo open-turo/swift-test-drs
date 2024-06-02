@@ -11,14 +11,11 @@ public protocol AssertionResultMatching {}
 /// An assertion result that supports matching more than one call.
 public protocol AssertionResultMatchingMultiple: AssertionResultMatching {}
 
-/// An assertion result that supports matching based on call position.
-public protocol AssertionResultPositionMatchable {}
-
 /// Matches either zero or one calls.
-public enum MatchingSingle: AssertionResultMatching, AssertionResultPositionMatchable {}
+public enum MatchingSingle: AssertionResultMatching {}
 
 /// Matches a certain number of calls from zero to infinity.
 public enum MatchingSomeAmount: AssertionResultMatchingMultiple {}
 
 /// Matches any number of calls from zero to infinity.
-public enum MatchingAnyAmount: AssertionResultMatchingMultiple, AssertionResultPositionMatchable {}
+public enum MatchingAnyAmount: AssertionResultMatchingMultiple {}
