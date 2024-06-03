@@ -158,7 +158,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
         )
     }
 
-    // MARK: - occurringTimes(_:)
+    // MARK: - occurring(times:)
 
     func testOccurringTimes_WithoutAnyCalls() {
         XCTExpectFailure(
@@ -232,7 +232,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
         )
     }
 
-    // MARK: - occurringWithin(_:)
+    // MARK: - occurringWithin(times:)
 
     func testOccurringTimesWithin_WithoutAnyCalls() {
         XCTExpectFailure(
