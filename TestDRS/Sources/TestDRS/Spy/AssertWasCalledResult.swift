@@ -12,7 +12,7 @@ enum AssertWasCalledResultError: Error {
 
 /// `AssertWasCalledResult` is a struct that encapsulates the result of an `#assertWasCalled` assertion.
 /// It contains any calls that match the assertion and provides methods for asserting the number of times the given call was recorded.
-public struct AssertWasCalledResult<ResultMatching: AssertionResultMatching, Input, Output> {
+public struct AssertWasCalledResult<AmountMatching: FunctionCallAmountMatching, Input, Output> {
 
     private let _matchingCalls: [ConcreteFunctionCall<Input, Output>]
     private let blackBox: BlackBox
@@ -26,7 +26,7 @@ public struct AssertWasCalledResult<ResultMatching: AssertionResultMatching, Inp
 
 // MARK: - Matching Calls
 
-extension AssertWasCalledResult where ResultMatching == MatchingSingle {
+extension AssertWasCalledResult where AmountMatching == MatchingSingle {
 
     /// The matching call or `nil` if no calls were made that match the assertion.
     public var matchingCall: ConcreteFunctionCall<Input, Output>? {
@@ -43,7 +43,7 @@ extension AssertWasCalledResult where ResultMatching == MatchingSingle {
 
 }
 
-extension AssertWasCalledResult where ResultMatching: AssertionResultMatchingMultiple {
+extension AssertWasCalledResult where AmountMatching: MatchingMultiple {
 
     /// The matching calls or an empty array  if no calls were made that satisfy the assertion.
     public var matchingCalls: [ConcreteFunctionCall<Input, Output>] {
@@ -70,7 +70,7 @@ extension AssertWasCalledResult where ResultMatching: AssertionResultMatchingMul
 
 // MARK: - Assertions
 
-extension AssertWasCalledResult where ResultMatching == MatchingAnyAmount {
+extension AssertWasCalledResult where AmountMatching == MatchingAnyAmount {
 
     /// Makes a further assertion that the specified call occurred exactly once.
     ///
