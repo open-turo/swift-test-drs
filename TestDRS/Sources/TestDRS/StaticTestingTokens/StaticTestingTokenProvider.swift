@@ -62,7 +62,7 @@ extension Spy {
     ///
     /// Example usage within a the set up method of a test case (run before each individual test):
     /// ```
-    /// var staticTestingTokens: [StaticTestingToken] = []
+    /// private var staticTestingTokens: [StaticTestingToken] = []
     ///
     /// override func setUp() {
     ///     MyType.generateStaticTestingToken()
@@ -97,7 +97,7 @@ extension Mock {
     ///
     /// Example usage within a the set up method of a test case (run before each individual test):
     /// ```
-    /// var staticTestingTokens: [StaticTestingToken] = []
+    /// private var staticTestingTokens: [StaticTestingToken] = []
     ///
     /// override func setUp() {
     ///     MyType.generateStaticTestingToken()
