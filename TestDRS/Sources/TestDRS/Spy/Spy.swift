@@ -6,9 +6,8 @@
 import Foundation
 
 /// A protocol to enable spying on function calls.
-public protocol Spy {
+public protocol Spy: StaticTestingTokenProvider {
     var blackBox: BlackBox { get }
-    static var blackBox: BlackBox { get }
 }
 
 public extension Spy {
@@ -46,7 +45,7 @@ public extension Spy {
         returning outputType: Output.Type = Void.self,
         signature: String = #function
     ) {
-        blackBox.recordCall(
+        getStaticBlackBox().recordCall(
             with: input,
             at: time,
             returning: outputType,

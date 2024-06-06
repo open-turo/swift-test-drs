@@ -5,31 +5,27 @@
 
 import Foundation
 
-public extension Spy {
+extension Spy {
 
-    /// The default static `BlackBox` for a type.
-    /// Allows for a generic type to be a `Spy` since generic types can't have stored static properties.
-    static var blackBox: BlackBox {
-        BlackBox.blackBox(for: Self.self)
+    static func register(staticBlackBox: BlackBox) {
+        BlackBox.register(staticStorage: staticBlackBox, for: Self.self)
     }
 
-}
-
-private extension BlackBox {
-
-    static func blackBox<T>(for type: T.Type) -> BlackBox {
-        let key = String(describing: type)
-
-        if let blackBox = blackBoxStorage[key] {
+    static func getStaticBlackBox(file: StaticString? = nil, line: UInt? = nil) -> BlackBox {
+        guard let blackBox = BlackBox.staticStorage(for: Self.self) else {
+            let blackBox = BlackBox()
+            blackBox.reportFailure(message: "You must generate a static testing token using `\(Self.self).generateStaticTestingToken()` and hold on to it for the duration of the test in order to utilize Spy functionality with static members of \(Self.self).", file: file, line: line)
             return blackBox
         }
-
-        let blackBox = BlackBox()
-        blackBoxStorage[key] = blackBox
 
         return blackBox
     }
 
-    static var blackBoxStorage: [String: BlackBox] = [:]
+}
+
+// MARK: - BlackBox + StaticStorageRegistering
+extension BlackBox: StaticStorageRegistering {
+
+    static var staticStorageRegistry: [String: WeakWrapper<BlackBox>] = [:]
 
 }

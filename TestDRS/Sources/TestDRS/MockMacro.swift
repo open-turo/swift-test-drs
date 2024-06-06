@@ -24,7 +24,7 @@
 /// ```
 /// #if DEBUG
 ///
-/// class MockMyType: MyType, Spy, StubProviding {
+/// class MockMyType: MyType, Mock {
 ///     func myMethod() {
 ///         // Implementation for stubbing and spying
 ///     }

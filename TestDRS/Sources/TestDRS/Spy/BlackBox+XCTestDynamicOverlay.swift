@@ -14,8 +14,12 @@ extension BlackBox {
     ///   - message: The custom failure message.
     ///   - file: The file where the failure occurred.
     ///   - line: The line number where the failure occurred.
-    func reportFailure(message: String, file: StaticString, line: UInt) {
-        XCTFail(message, file: file, line: line)
+    func reportFailure(message: String, file: StaticString?, line: UInt?) {
+        if let file, let line {
+            XCTFail(message, file: file, line: line)
+        } else {
+            XCTFail(message)
+        }
     }
 
 }

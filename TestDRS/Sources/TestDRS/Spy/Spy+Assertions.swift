@@ -112,7 +112,8 @@ public extension Spy {
         file: StaticString = #file,
         line: UInt = #line
     ) -> AssertWasCalledResult<MatchingAnyAmount, Input, Output> {
-        blackBox.assertWasCalled(function, signature: signature, file: file, line: line)
+        getStaticBlackBox(file: file, line: line)
+            .assertWasCalled(function, signature: signature, file: file, line: line)
     }
 
     /// Asserts that the given function was called with the expected input.
@@ -136,7 +137,8 @@ public extension Spy {
         file: StaticString = #file,
         line: UInt = #line
     ) -> AssertWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> where repeat each Input: Equatable {
-        blackBox.assertWasCalled(function, signature: signature, expectedInput: repeat each expectedInput, file: file, line: line)
+        getStaticBlackBox(file: file, line: line)
+            .assertWasCalled(function, signature: signature, expectedInput: repeat each expectedInput, file: file, line: line)
     }
 
     /// Asserts that the given function was not called.
@@ -158,7 +160,8 @@ public extension Spy {
         file: StaticString = #file,
         line: UInt = #line
     ) {
-        blackBox.assertWasNotCalled(function, signature: signature, file: file, line: line)
+        getStaticBlackBox(file: file, line: line)
+            .assertWasNotCalled(function, signature: signature, file: file, line: line)
     }
 
 }

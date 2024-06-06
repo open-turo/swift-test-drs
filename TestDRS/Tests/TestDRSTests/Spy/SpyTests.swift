@@ -8,6 +8,14 @@ import XCTest
 
 final class SpyTests: SpyTestCase {
 
+    private let tokenStore = StaticTestingTokenStore()
+
+    override func setUp() {
+        SpyTestCase.generateStaticTestingToken()
+            .store(in: tokenStore)
+        super.setUp()
+    }
+
     func testCallsToFunction_StartsEmpty() {
         let calls = blackBox.callsMatching(signature: "foo()")
         XCTAssertEqual(calls.count, 0)
@@ -200,6 +208,17 @@ final class SpyTests: SpyTestCase {
 
         #assertWasCalled(SpyTestCase.staticFoo)
             .withCount(3)
+    }
+
+    func testCallsToStaticFunction2() {
+        let token = SpyTestCase.generateStaticTestingToken()
+        SpyTestCase.staticFoo()
+        SpyTestCase.staticFoo()
+        SpyTestCase.staticFoo()
+
+        #assertWasCalled(SpyTestCase.staticFoo)
+            .withCount(3)
+        token.invalidate()
     }
 
 }
