@@ -11,11 +11,11 @@ final class SpyTests: SpyTestCase {
     private let file = #fileID.components(separatedBy: "/").last!
     private var line = 0
 
-    private let tokenStore = StaticTestingTokenStore()
+    private var staticTestingTokens: [StaticTestingToken] = []
 
     override func setUp() {
         SpyTestCase.generateStaticTestingToken()
-            .store(in: tokenStore)
+            .store(in: &staticTestingTokens)
         super.setUp()
     }
 

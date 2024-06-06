@@ -10,11 +10,11 @@ final class StubProvidingTests: XCTestCase {
 
     private let stubProvider = StubProvider()
 
-    private let tokenStore = StaticTestingTokenStore()
+    private var staticTestingTokens: [StaticTestingToken] = []
 
     override func setUp() {
         StubProvider.generateStaticTestingToken()
-            .store(in: tokenStore)
+            .store(in: &staticTestingTokens)
         super.setUp()
     }
 
