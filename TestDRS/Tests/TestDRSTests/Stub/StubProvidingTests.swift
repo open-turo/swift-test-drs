@@ -210,9 +210,9 @@ final class StubProvidingTests: XCTestCase {
 
     func testStubbingStaticFunction2() {
         let token = StubProvider.generateStaticTestingToken()
-        #stub(StubProvider.staticFoo, returning: 63)
+        #stub(StubProvider.staticFoo, returning: 36)
 
-        XCTAssertEqual(StubProvider.staticFoo(), 63)
+        XCTAssertEqual(StubProvider.staticFoo(), 36)
 
         token.invalidate()
     }

@@ -8,6 +8,9 @@ import XCTest
 
 final class SpyTests: SpyTestCase {
 
+    private let file = #fileID.components(separatedBy: "/").last!
+    private var line = 0
+
     private let tokenStore = StaticTestingTokenStore()
 
     override func setUp() {
@@ -201,24 +204,56 @@ final class SpyTests: SpyTestCase {
         )
     }
 
-    func testCallsToStaticFunction() {
+    func testCallsToStaticFunction_UsingTokenFromSetUp() {
         SpyTestCase.staticFoo()
         SpyTestCase.staticFoo()
         SpyTestCase.staticFoo()
 
         #assertWasCalled(SpyTestCase.staticFoo)
-            .withCount(3)
+            .occurring(times: 3)
     }
 
-    func testCallsToStaticFunction2() {
+    func testCallsToStaticFunction_GeneratingLocalToken() {
         let token = SpyTestCase.generateStaticTestingToken()
         SpyTestCase.staticFoo()
         SpyTestCase.staticFoo()
-        SpyTestCase.staticFoo()
 
         #assertWasCalled(SpyTestCase.staticFoo)
-            .withCount(3)
+            .occurring(times: 2)
+
         token.invalidate()
+    }
+
+    func testCallsToStaticFunction_AfterInvalidatingToken() {
+        let token = SpyTestCase.generateStaticTestingToken()
+        token.invalidate()
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                SpyTestCase.staticFoo()
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): You must generate a static testing token using `SpyTestCase.generateStaticTestingToken()` and hold on to it for the duration of the test in order to utilize Spy functionality with static members of SpyTestCase.
+                """
+            }
+        )
+
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                #assertWasCalled(SpyTestCase.staticFoo)
+                    .occurring(times: 3)
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): No calls to staticFoo() were recorded
+                """ || issue.description == """
+                Assertion Failure at \(self.file):\(self.line): You must generate a static testing token using `SpyTestCase.generateStaticTestingToken()` and hold on to it for the duration of the test in order to utilize Spy functionality with static members of SpyTestCase.
+                """
+            }
+        )
     }
 
 }
