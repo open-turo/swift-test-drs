@@ -7,29 +7,23 @@ import Foundation
 
 public extension StubProviding {
 
-    /// The default static `StubRegistry` for a type.
-    /// Allows for a generic type to be `StubProviding` since generic types can't have stored static properties.
-    static var stubRegistry: StubRegistry {
-        StubRegistry.stubRegistry(for: Self.self)
+    static func register(staticStubRegistry: StubRegistry) {
+        StubRegistry.register(staticStorage: staticStubRegistry, for: Self.self)
     }
 
-}
-
-private extension StubRegistry {
-
-    static func stubRegistry<T>(for type: T.Type) -> StubRegistry {
-        let key = String(describing: type)
-
-        if let stubRegistry = stubRegistryStorage[key] {
-            return stubRegistry
+    static func getStaticStubRegistry() -> StubRegistry {
+        guard let stubRegistry = StubRegistry.staticStorage(for: Self.self) else {
+            fatalError("You must generate a static testing token using `\(Self.self).generateStaticTestingToken()` and hold on to it for the duration of the test in order to utilize StubProviding functionality with static members of \(Self.self).")
         }
-
-        let stubRegistry = StubRegistry()
-        stubRegistryStorage[key] = stubRegistry
 
         return stubRegistry
     }
 
-    private static var stubRegistryStorage: [String: StubRegistry] = [:]
+}
+
+// MARK: - StubRegistry + StaticStorageRegistering
+extension StubRegistry: StaticStorageRegistering {
+
+    static var staticStorageRegistry: [String: WeakWrapper<StubRegistry>] = [:]
 
 }

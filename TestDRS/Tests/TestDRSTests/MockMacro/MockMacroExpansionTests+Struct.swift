@@ -74,7 +74,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            struct MockSomeStruct: ProtocolOne, ProtocolTwo, Spy, StubProviding {
+            struct MockSomeStruct: ProtocolOne, ProtocolTwo, Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -144,7 +144,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            struct MockSomeStruct: Spy, StubProviding {
+            struct MockSomeStruct: Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -228,7 +228,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            struct MockSomeStruct: Spy, StubProviding {
+            struct MockSomeStruct: Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -288,7 +288,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            struct MockSomeStruct: Spy, StubProviding {
+            struct MockSomeStruct: Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -357,7 +357,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            struct MockSomeStruct: Spy, StubProviding {
+            struct MockSomeStruct: Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
@@ -423,7 +423,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            struct MockSomeStruct: Spy, StubProviding {
+            struct MockSomeStruct: Mock {
 
                 struct NestedStruct {
                     let nestedFoo: String
@@ -488,7 +488,7 @@ extension MockMacroExpansionTests {
 
                 #if DEBUG
 
-                struct MockNestedStruct: Spy, StubProviding {
+                struct MockNestedStruct: Mock {
 
                     let blackBox = BlackBox()
                     let stubRegistry = StubRegistry()
@@ -549,7 +549,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            struct MockSomeStruct<T> : Spy, StubProviding {
+            struct MockSomeStruct<T> : Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()

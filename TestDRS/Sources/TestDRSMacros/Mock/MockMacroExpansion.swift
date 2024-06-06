@@ -10,8 +10,7 @@ import SwiftSyntaxMacros
 
 public struct MockMacro: PeerMacro {
 
-    private static let spyProtocolName = "Spy"
-    private static let stubProvidingProtocolName = "StubProviding"
+    private static let mockProtocolName = "Mock"
 
     public static func expansion(
         of node: SwiftSyntax.AttributeSyntax,
@@ -56,7 +55,7 @@ public struct MockMacro: PeerMacro {
         var classDeclaration = try mockClass(
             named: protocolName,
             inheritanceClause: .emptyClause.appending(
-                [nsObject, protocolName, spyProtocolName, stubProvidingProtocolName]
+                [nsObject, protocolName, mockProtocolName]
                     .compactMap { $0 }
             ),
             members: protocolDeclaration.memberBlock.members,
@@ -86,7 +85,7 @@ public struct MockMacro: PeerMacro {
 
         return try mockClass(
             named: className,
-            inheritanceClause: .emptyClause.appending([className, spyProtocolName, stubProvidingProtocolName]),
+            inheritanceClause: .emptyClause.appending([className, mockProtocolName]),
             members: classDeclaration.memberBlock.members,
             isSubclass: true
         )
@@ -102,7 +101,7 @@ public struct MockMacro: PeerMacro {
             shouldOverride: false
         )
         mockStructDeclaration.name = mockTypeName(from: structDeclaration.name.trimmedDescription)
-        mockStructDeclaration.inheritanceClause = (structDeclaration.inheritanceClause ?? .emptyClause).appending([spyProtocolName, stubProvidingProtocolName])
+        mockStructDeclaration.inheritanceClause = (structDeclaration.inheritanceClause ?? .emptyClause).appending([mockProtocolName])
 
         mockStructDeclaration.modifiers = structDeclaration.modifiers
         mockStructDeclaration.attributes = structDeclaration.attributes

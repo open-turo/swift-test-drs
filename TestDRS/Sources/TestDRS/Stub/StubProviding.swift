@@ -24,9 +24,8 @@ import Foundation
 /// myClass.setStub(for: myClass.foo, withSignature: "foo()", returning: 42)
 /// print(myClass.foo())  // Prints "42"
 /// ```
-public protocol StubProviding {
+public protocol StubProviding: StaticTestingTokenProvider {
     var stubRegistry: StubRegistry { get }
-    static var stubRegistry: StubRegistry { get }
 }
 
 // MARK: - Instance methods
@@ -167,7 +166,7 @@ public extension StubProviding {
         withSignature signature: String,
         returning output: Output
     ) {
-        stubRegistry.register(output: output, for: function, withSignature: signature)
+        getStaticStubRegistry().register(output: output, for: function, withSignature: signature)
     }
 
     /// Sets a stub for a given function to throw a provided error.
@@ -185,7 +184,7 @@ public extension StubProviding {
         withSignature signature: String,
         throwing error: Error
     ) {
-        stubRegistry.register(error: error, for: function, withSignature: signature)
+        getStaticStubRegistry().register(error: error, for: function, withSignature: signature)
     }
 
     /// Sets a stub for a given function using a closure to dynamically determine the output.
@@ -200,7 +199,7 @@ public extension StubProviding {
         withSignature signature: String,
         using closure: @escaping (Input) throws -> Output
     ) {
-        stubRegistry.register(closure: closure, forSignature: signature)
+        getStaticStubRegistry().register(closure: closure, forSignature: signature)
     }
 
     /// Sets a stub for a given property to return a provided output.
@@ -212,7 +211,7 @@ public extension StubProviding {
         value: Output,
         forPropertyNamed propertyName: String
     ) {
-        stubRegistry.register(value: value, for: propertyName)
+        getStaticStubRegistry().register(value: value, for: propertyName)
     }
 
     /// Sets a stub for a given property to return a provided output.
@@ -225,7 +224,7 @@ public extension StubProviding {
         value: Output,
         forPropertyNamed propertyName: StaticString = #function
     ) {
-        stubRegistry.register(value: value, for: String(describing: propertyName))
+        getStaticStubRegistry().register(value: value, for: String(describing: propertyName))
     }
 
     // MARK: - Get
@@ -242,7 +241,7 @@ public extension StubProviding {
         for input: Input = Void(),
         signature: String = #function
     ) -> Output {
-        stubRegistry.stubOutput(for: input, signature: signature, in: Self.self)
+        getStaticStubRegistry().stubOutput(for: input, signature: signature, in: Self.self)
     }
 
     /// Retrieves the stubbed output for the calling function based on the given input and expected output type, allowing for potential throwing of errors.
@@ -256,7 +255,7 @@ public extension StubProviding {
         for input: Input = Void(),
         signature: String = #function
     ) throws -> Output {
-        try stubRegistry.throwingStubOutput(for: input, signature: signature, in: Self.self)
+        try getStaticStubRegistry().throwingStubOutput(for: input, signature: signature, in: Self.self)
     }
 
 }
