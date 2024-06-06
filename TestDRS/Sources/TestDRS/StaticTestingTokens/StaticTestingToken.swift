@@ -24,11 +24,11 @@ import Foundation
 ///
 /// Example usage within a the set up method of a test case (run before each individual test):
 /// ```
-/// let tokenStore = StaticTestingTokenStore()
+/// var staticTestingTokens: [StaticTestingToken] = []
 ///
 /// override func setUp() {
 ///     MyType.generateStaticTestingToken()
-///        .store(in: tokenStore)
+///        .store(in: &staticTestingTokens)
 ///     super.setUp()
 /// }
 /// ```
@@ -37,6 +37,14 @@ public protocol StaticTestingToken {
     /// Tokens are also automatically invalidated when you no longer maintain a reference to them,
     /// or when you generate a new token for a given type.
     func invalidate()
+}
+
+extension StaticTestingToken {
+    /// Stores this token in the specified collection.
+    /// - Parameter collection: The collection in which to store this ``StaticTestingToken``.
+    func store<C>(in collection: inout C) where C: RangeReplaceableCollection, C.Element == StaticTestingToken {
+        collection.append(self)
+    }
 }
 
 // MARK: - BlackBox + StaticTestingToken

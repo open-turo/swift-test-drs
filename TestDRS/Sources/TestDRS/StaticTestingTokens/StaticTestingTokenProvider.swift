@@ -28,11 +28,11 @@ extension StubProviding {
     ///
     /// Example usage within a the set up method of a test case (run before each individual test):
     /// ```
-    /// private let tokenStore = StaticTestingTokenStore()
+    /// private var staticTestingTokens: [StaticTestingToken] = []
     ///
     /// override func setUp() {
     ///     MyType.generateStaticTestingToken()
-    ///        .store(in: tokenStore)
+    ///        .store(in: &staticTestingTokens)
     ///     super.setUp()
     /// }
     /// ```
@@ -62,11 +62,11 @@ extension Spy {
     ///
     /// Example usage within a the set up method of a test case (run before each individual test):
     /// ```
-    /// let tokenStore = StaticTestingTokenStore()
+    /// var staticTestingTokens: [StaticTestingToken] = []
     ///
     /// override func setUp() {
     ///     MyType.generateStaticTestingToken()
-    ///        .store(in: tokenStore)
+    ///        .store(in: &staticTestingTokens)
     ///     super.setUp()
     /// }
     /// ```
@@ -97,11 +97,11 @@ extension Mock {
     ///
     /// Example usage within a the set up method of a test case (run before each individual test):
     /// ```
-    /// let tokenStore = StaticTestingTokenStore()
+    /// var staticTestingTokens: [StaticTestingToken] = []
     ///
     /// override func setUp() {
     ///     MyType.generateStaticTestingToken()
-    ///        .store(in: tokenStore)
+    ///        .store(in: &staticTestingTokens)
     ///     super.setUp()
     /// }
     /// ```
