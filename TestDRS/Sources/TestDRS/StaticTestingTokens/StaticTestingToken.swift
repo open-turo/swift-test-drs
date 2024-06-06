@@ -7,6 +7,7 @@ import Foundation
 
 /// An opaque token that represents the state of static members for a particular test.
 /// It should be held onto for the duration of a test that tests static members of a ``Mock``, ``Spy``, or ``StubProviding`` type.
+/// Tokens are automatically invalidated when you no longer maintain a reference to them.
 ///
 /// Testing static members can be challenging because they maintain their state across tests.
 /// This can lead to side effects where the outcome of one test affects another, leading to flaky tests that pass or fail unpredictably.
@@ -32,6 +33,9 @@ import Foundation
 /// }
 /// ```
 public protocol StaticTestingToken {
+    /// Manually invalidates a token.
+    /// Tokens are also automatically invalidated when you no longer maintain a reference to them,
+    /// or when you generate a new token for a given type.
     func invalidate()
 }
 
