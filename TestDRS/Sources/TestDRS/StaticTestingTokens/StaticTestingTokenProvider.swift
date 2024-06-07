@@ -26,7 +26,7 @@ extension StubProviding {
     /// }
     /// ```
     ///
-    /// Example usage within a the set up method of a test case (run before each individual test):
+    /// Example usage with set up and tear down methods:
     /// ```
     /// private var staticTestingTokens: [StaticTestingToken] = []
     ///
@@ -34,6 +34,11 @@ extension StubProviding {
     ///     MyType.generateStaticTestingToken()
     ///        .store(in: &staticTestingTokens)
     ///     super.setUp()
+    /// }
+    ///
+    /// override func tearDown() {
+    ///     staticTestingTokens = []
+    ///     super.tearDown()
     /// }
     /// ```
     public static func generateStaticTestingToken() -> StaticTestingToken {
@@ -60,7 +65,7 @@ extension Spy {
     /// }
     /// ```
     ///
-    /// Example usage within a the set up method of a test case (run before each individual test):
+    /// Example usage with set up and tear down methods:
     /// ```
     /// private var staticTestingTokens: [StaticTestingToken] = []
     ///
@@ -68,6 +73,11 @@ extension Spy {
     ///     MyType.generateStaticTestingToken()
     ///        .store(in: &staticTestingTokens)
     ///     super.setUp()
+    /// }
+    ///
+    /// override func tearDown() {
+    ///     staticTestingTokens = []
+    ///     super.tearDown()
     /// }
     /// ```
     public static func generateStaticTestingToken() -> StaticTestingToken {
@@ -95,7 +105,7 @@ extension Mock {
     /// }
     /// ```
     ///
-    /// Example usage within a the set up method of a test case (run before each individual test):
+    /// Example usage with set up and tear down methods:
     /// ```
     /// private var staticTestingTokens: [StaticTestingToken] = []
     ///
@@ -103,6 +113,11 @@ extension Mock {
     ///     MyType.generateStaticTestingToken()
     ///        .store(in: &staticTestingTokens)
     ///     super.setUp()
+    /// }
+    ///
+    /// override func tearDown() {
+    ///     staticTestingTokens = []
+    ///     super.tearDown()
     /// }
     /// ```
     public static func generateStaticTestingToken() -> StaticTestingToken {

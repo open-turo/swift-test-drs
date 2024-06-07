@@ -19,6 +19,11 @@ final class SpyTests: SpyTestCase {
         super.setUp()
     }
 
+    override func tearDown() {
+        staticTestingTokens = []
+        super.tearDown()
+    }
+
     func testCallsToFunction_StartsEmpty() {
         let calls = blackBox.callsMatching(signature: "foo()")
         XCTAssertEqual(calls.count, 0)

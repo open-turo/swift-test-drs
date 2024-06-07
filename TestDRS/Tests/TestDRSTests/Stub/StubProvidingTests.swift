@@ -18,6 +18,11 @@ final class StubProvidingTests: XCTestCase {
         super.setUp()
     }
 
+    override func tearDown() {
+        staticTestingTokens = []
+        super.tearDown()
+    }
+
     func testCallingMethodReturningVoid_WithoutStubbing() {
         // Methods returning void should not need to be stubbed
         return stubProvider.foo()
