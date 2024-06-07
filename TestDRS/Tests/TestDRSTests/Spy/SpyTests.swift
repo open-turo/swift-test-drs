@@ -11,17 +11,10 @@ final class SpyTests: SpyTestCase {
     private let file = #fileID.components(separatedBy: "/").last!
     private var line = 0
 
-    private var staticTestingTokens: [StaticTestingToken] = []
-
-    override func setUp() {
-        SpyTestCase.generateStaticTestingToken()
-            .store(in: &staticTestingTokens)
-        super.setUp()
-    }
-
-    override func tearDown() {
-        staticTestingTokens = []
-        super.tearDown()
+    override func invokeTest() {
+        withStaticTestingContext(testing: [SpyTestCase.self]) {
+            super.invokeTest()
+        }
     }
 
     func testCallsToFunction_StartsEmpty() {
@@ -209,7 +202,7 @@ final class SpyTests: SpyTestCase {
         )
     }
 
-    func testCallsToStaticFunction_UsingTokenFromSetUp() {
+    func testCallsToStaticFunction_OverridingInvokeTest() {
         SpyTestCase.staticFoo()
         SpyTestCase.staticFoo()
         SpyTestCase.staticFoo()
@@ -218,29 +211,52 @@ final class SpyTests: SpyTestCase {
             .occurring(times: 3)
     }
 
-    func testCallsToStaticFunction_GeneratingLocalToken() {
-        let token = SpyTestCase.generateStaticTestingToken()
-        SpyTestCase.staticFoo()
-        SpyTestCase.staticFoo()
+    func testCallsToStaticFunction_WithLocalContext() {
+        withStaticTestingContext(testing: [MySpy.self]) {
+            SpyTestCase.staticFoo()
+            SpyTestCase.staticFoo()
+            MySpy.staticFoo()
 
-        #assertWasCalled(SpyTestCase.staticFoo)
-            .occurring(times: 2)
-
-        token.invalidate()
+            #assertWasCalled(SpyTestCase.staticFoo)
+                .occurring(times: 2)
+            #assertWasCalled(MySpy.staticFoo)
+                .exactlyOnce()
+        }
     }
 
-    func testCallsToStaticFunction_AfterInvalidatingToken() {
-        let token = SpyTestCase.generateStaticTestingToken()
-        token.invalidate()
+    func testCallsToStaticFunction_WithLocalContext_UsingTypeAlreadyRegisteredInInvokeTest() {
+        // This is convoluted, and I don't expect developers to do this, but we want to make sure it works as expected.
+        SpyTestCase.staticFoo()
 
+        withStaticTestingContext(testing: [SpyTestCase.self]) {
+            SpyTestCase.staticFoo()
+            SpyTestCase.staticFoo()
+            SpyTestCase.staticFoo()
+            SpyTestCase.staticFoo()
+
+            #assertWasCalled(SpyTestCase.staticFoo)
+                .occurring(times: 4)
+        }
+
+        #assertWasCalled(SpyTestCase.staticFoo)
+            .exactlyOnce()
+    }
+
+    func testCallsToStaticFunction_WithoutStaticTestingContext() {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                SpyTestCase.staticFoo()
+                MySpy.staticFoo()
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): You must generate a static testing token using `SpyTestCase.generateStaticTestingToken()` and hold on to it for the duration of the test in order to utilize Spy functionality with static members of SpyTestCase.
+                Assertion Failure at \(self.file):\(self.line): MySpy was not registered with the current StaticTestingContext. You can register it by wrapping invokeTest in an XCTestCase subclass like so:
+
+                override func invokeTest() {
+                    withStaticTestingContext(testing: [MySpy.self]) {
+                        super.invokeTest()
+                    }
+                }
                 """
             }
         )
@@ -248,17 +264,31 @@ final class SpyTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                #assertWasCalled(SpyTestCase.staticFoo)
+                #assertWasCalled(MySpy.staticFoo)
                     .occurring(times: 3)
             },
             issueMatcher: { issue in
                 issue.description == """
                 Assertion Failure at \(self.file):\(self.line): No calls to staticFoo() were recorded
                 """ || issue.description == """
-                Assertion Failure at \(self.file):\(self.line): You must generate a static testing token using `SpyTestCase.generateStaticTestingToken()` and hold on to it for the duration of the test in order to utilize Spy functionality with static members of SpyTestCase.
+                Assertion Failure at \(self.file):\(self.line): MySpy was not registered with the current StaticTestingContext. You can register it by wrapping invokeTest in an XCTestCase subclass like so:
+
+                override func invokeTest() {
+                    withStaticTestingContext(testing: [MySpy.self]) {
+                        super.invokeTest()
+                    }
+                }
                 """
             }
         )
     }
 
+}
+
+private struct MySpy: Spy {
+    let blackBox = BlackBox()
+
+    static func staticFoo() {
+        recordCall()
+    }
 }

@@ -6,4 +6,4 @@
 import Foundation
 
 /// A type that both stubs the implementation of its members and spies on their access.
-public protocol Mock: StubProviding, Spy {}
+public protocol Mock: StubProviding, Spy, StaticTestable {}

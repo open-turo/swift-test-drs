@@ -5,25 +5,22 @@
 
 import Foundation
 
-public extension StubProviding {
-
-    static func register(staticStubRegistry: StubRegistry) {
-        StubRegistry.register(staticStorage: staticStubRegistry, for: Self.self)
-    }
+extension StubProviding {
 
     static func getStaticStubRegistry() -> StubRegistry {
-        guard let stubRegistry = StubRegistry.staticStorage(for: Self.self) else {
-            fatalError("You must generate a static testing token using `\(Self.self).generateStaticTestingToken()` and hold on to it for the duration of the test in order to utilize StubProviding functionality with static members of \(Self.self).")
+        guard let stubRegistry = StaticTestingContext.current.stubRegistry(for: Self.self) else {
+            fatalError("""
+            \(Self.self) was not registered with the current StaticTestingContext. You can register it by wrapping invokeTest in an XCTestCase subclass like so:
+
+            override func invokeTest() {
+                withStaticTestingContext(testing: [\(Self.self).self]) {
+                    super.invokeTest()
+                }
+            }
+            """)
         }
 
         return stubRegistry
     }
-
-}
-
-// MARK: - StubRegistry + StaticStorageRegistering
-extension StubRegistry: StaticStorageRegistering {
-
-    static var staticStorageRegistry: [String: WeakWrapper<StubRegistry>] = [:]
 
 }

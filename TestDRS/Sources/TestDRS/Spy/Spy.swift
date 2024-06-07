@@ -6,7 +6,7 @@
 import Foundation
 
 /// A protocol to enable spying on function calls.
-public protocol Spy: StaticTestingTokenProvider {
+public protocol Spy: StaticTestable {
     var blackBox: BlackBox { get }
 }
 

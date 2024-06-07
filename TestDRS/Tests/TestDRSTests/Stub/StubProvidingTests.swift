@@ -10,17 +10,10 @@ final class StubProvidingTests: XCTestCase {
 
     private let stubProvider = StubProvider()
 
-    private var staticTestingTokens: [StaticTestingToken] = []
-
-    override func setUp() {
-        StubProvider.generateStaticTestingToken()
-            .store(in: &staticTestingTokens)
-        super.setUp()
-    }
-
-    override func tearDown() {
-        staticTestingTokens = []
-        super.tearDown()
+    override func invokeTest() {
+        withStaticTestingContext(testing: [StubProvider.self]) {
+            super.invokeTest()
+        }
     }
 
     func testCallingMethodReturningVoid_WithoutStubbing() {
@@ -214,12 +207,9 @@ final class StubProvidingTests: XCTestCase {
     }
 
     func testStubbingStaticFunction2() {
-        let token = StubProvider.generateStaticTestingToken()
         #stub(StubProvider.staticFoo, returning: 36)
 
         XCTAssertEqual(StubProvider.staticFoo(), 36)
-
-        token.invalidate()
     }
 
 }
