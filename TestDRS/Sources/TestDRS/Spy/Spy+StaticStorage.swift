@@ -7,25 +7,26 @@ import Foundation
 
 extension Spy {
 
-    static func register(staticBlackBox: BlackBox) {
-        BlackBox.register(staticStorage: staticBlackBox, for: Self.self)
-    }
-
     static func getStaticBlackBox(file: StaticString? = nil, line: UInt? = nil) -> BlackBox {
-        guard let blackBox = BlackBox.staticStorage(for: Self.self) else {
+        guard let blackBox = StaticTestingContext.current.blackBox(for: Self.self) else {
             let blackBox = BlackBox()
-            blackBox.reportFailure(message: "You must generate a static testing token using `\(Self.self).generateStaticTestingToken()` and hold on to it for the duration of the test in order to utilize Spy functionality with static members of \(Self.self).", file: file, line: line)
+            blackBox.reportFailure(
+                message: """
+                \(Self.self) was not registered with the current StaticTestingContext. You can register it by wrapping invokeTest in an XCTestCase subclass like so:
+
+                override func invokeTest() {
+                    withStaticTestingContext(testing: [\(Self.self).self]) {
+                        super.invokeTest()
+                    }
+                }
+                """,
+                file: file,
+                line: line
+            )
             return blackBox
         }
 
         return blackBox
     }
-
-}
-
-// MARK: - BlackBox + StaticStorageRegistering
-extension BlackBox: StaticStorageRegistering {
-
-    static var staticStorageRegistry: [String: WeakWrapper<BlackBox>] = [:]
 
 }

@@ -24,7 +24,7 @@ import Foundation
 /// myClass.setStub(for: myClass.foo, withSignature: "foo()", returning: 42)
 /// print(myClass.foo())  // Prints "42"
 /// ```
-public protocol StubProviding: StaticTestingTokenProvider {
+public protocol StubProviding: StaticTestable {
     var stubRegistry: StubRegistry { get }
 }
 
