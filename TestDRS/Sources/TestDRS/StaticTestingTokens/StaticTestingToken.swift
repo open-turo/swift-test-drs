@@ -22,7 +22,7 @@ import Foundation
 /// }
 /// ```
 ///
-/// Example usage within a the set up method of a test case (run before each individual test):
+/// Example usage with set up and tear down methods:
 /// ```
 /// private var staticTestingTokens: [StaticTestingToken] = []
 ///
@@ -30,6 +30,11 @@ import Foundation
 ///     MyType.generateStaticTestingToken()
 ///        .store(in: &staticTestingTokens)
 ///     super.setUp()
+/// }
+///
+/// override func tearDown() {
+///     staticTestingTokens = []
+///     super.tearDown()
 /// }
 /// ```
 public protocol StaticTestingToken {
