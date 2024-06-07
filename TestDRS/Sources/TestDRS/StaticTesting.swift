@@ -18,9 +18,9 @@ import Foundation
 /// class MyTests: XCTestCase {
 ///
 ///   override func invokeTest() {
-///     withStaticTestingContext(testing: [MyType.self]) {
-///       super.invokeTest()
-///     }
+///       withStaticTestingContext(testing: [MyType.self]) {
+///           super.invokeTest()
+///       }
 ///   }
 ///
 /// }
