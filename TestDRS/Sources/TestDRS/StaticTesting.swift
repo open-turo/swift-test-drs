@@ -26,15 +26,19 @@ import Foundation
 /// }
 /// ```
 ///
+/// - Note: `withStaticTestingContext` employs a task-local variable to maintain the current static testing context. This ensures thread-safety within the Swift Concurrency model.
+/// However, detached `Task`s and non-Swift Concurrency code won't have access to this context. Consequently, static calls within these contexts cannot be tested.
+///
 /// - Parameters:
-///   - types: The `StaticTestable` types to register with the static testing context. Eg. A ``Mock``, ``Spy`` or ``StubProviding`` type.
+///   - testableTypes: The `StaticTestable` types to register with the static testing context. Eg. A ``Mock``, ``Spy`` or ``StubProviding`` type.
 ///   - operation: The operation to run with the static testing context configured to test the given types.
-public func withStaticTestingContext<R>(testing types: [StaticTestable.Type], operation: () throws -> R) rethrows {
-    var context = StaticTestingContext.current
+@discardableResult
+public func withStaticTestingContext<R>(testing testableTypes: [StaticTestable.Type], operation: () throws -> R) rethrows -> R {
+    var context = StaticTestingContext()
 
-    types.forEach { $0.register(with: &context) }
+    testableTypes.forEach { $0.register(with: &context) }
 
-    try StaticTestingContext.$current.withValue(context) {
+    return try StaticTestingContext.$current.withValue(context) {
         try operation()
     }
 }
@@ -65,7 +69,7 @@ extension StaticTestable where Self: Mock {
 }
 
 public struct StaticTestingContext {
-    @TaskLocal static var current = Self()
+    @TaskLocal static var current: StaticTestingContext?
 
     var blackBoxes: [String: BlackBox] = [:]
     var stubRegistries: [String: StubRegistry] = [:]

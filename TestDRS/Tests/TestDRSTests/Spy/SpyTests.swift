@@ -202,7 +202,7 @@ final class SpyTests: SpyTestCase {
         )
     }
 
-    func testCallsToStaticFunction_OverridingInvokeTest() {
+    func testCallsToStaticFunction() {
         SpyTestCase.staticFoo()
         SpyTestCase.staticFoo()
         SpyTestCase.staticFoo()
@@ -211,8 +211,26 @@ final class SpyTests: SpyTestCase {
             .occurring(times: 3)
     }
 
+    func testCallsToStaticFunction_WithinTask() async {
+        let exp = XCTestExpectation(description: "Wait for task")
+
+        SpyTestCase.staticFoo()
+
+        Task {
+            SpyTestCase.staticFoo()
+            exp.fulfill()
+        }
+
+        SpyTestCase.staticFoo()
+
+        await fulfillment(of: [exp], timeout: 5)
+
+        #assertWasCalled(SpyTestCase.staticFoo)
+            .occurring(times: 3)
+    }
+
     func testCallsToStaticFunction_WithLocalContext() {
-        withStaticTestingContext(testing: [MySpy.self]) {
+        withStaticTestingContext(testing: [MySpy.self, SpyTestCase.self]) {
             SpyTestCase.staticFoo()
             SpyTestCase.staticFoo()
             MySpy.staticFoo()
@@ -242,7 +260,7 @@ final class SpyTests: SpyTestCase {
             .exactlyOnce()
     }
 
-    func testCallsToStaticFunction_WithoutStaticTestingContext() {
+    func testCallsToStaticFunction_WithoutRegisteringTypeInStaticTestingContext() {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
@@ -250,13 +268,7 @@ final class SpyTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): MySpy was not registered with the current StaticTestingContext. You can register it by wrapping invokeTest in an XCTestCase subclass like so:
-
-                override func invokeTest() {
-                    withStaticTestingContext(testing: [MySpy.self]) {
-                        super.invokeTest()
-                    }
-                }
+                Assertion Failure at \(self.file):\(self.line): MySpy was not registered with the current StaticTestingContext. Did you forget to include it in the testable types when calling withStaticTestingContext?
                 """
             }
         )
@@ -271,7 +283,28 @@ final class SpyTests: SpyTestCase {
                 issue.description == """
                 Assertion Failure at \(self.file):\(self.line): No calls to staticFoo() were recorded
                 """ || issue.description == """
-                Assertion Failure at \(self.file):\(self.line): MySpy was not registered with the current StaticTestingContext. You can register it by wrapping invokeTest in an XCTestCase subclass like so:
+                Assertion Failure at \(self.file):\(self.line): MySpy was not registered with the current StaticTestingContext. Did you forget to include it in the testable types when calling withStaticTestingContext?
+                """
+            }
+        )
+    }
+
+}
+
+final class NoContextStaticSpyTests: SpyTestCase {
+
+    private let file = #fileID.components(separatedBy: "/").last!
+    private var line = 0
+
+    func testCallsToStaticFunction_WithoutStaticTestingContext() {
+        XCTExpectFailure(
+            failingBlock: {
+                line = #line + 1
+                MySpy.staticFoo()
+            },
+            issueMatcher: { issue in
+                issue.description == """
+                Assertion Failure at \(self.file):\(self.line): Unable to resolve the current StaticTestingContext. You can create one in an XCTestCase subclass by wrapping invokeTest like so:
 
                 override func invokeTest() {
                     withStaticTestingContext(testing: [MySpy.self]) {
