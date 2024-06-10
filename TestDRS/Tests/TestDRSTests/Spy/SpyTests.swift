@@ -242,7 +242,7 @@ final class SpyTests: SpyTestCase {
         }
     }
 
-    func testCallsToStaticFunction_WithLocalContext_UsingTypeAlreadyRegisteredInInvokeTest() {
+    func testCallsToStaticFunction_WithCallsOutsideNestedLocalContext() {
         // This is convoluted, and I don't expect developers to do this, but we want to make sure it works as expected.
         SpyTestCase.staticFoo()
 
