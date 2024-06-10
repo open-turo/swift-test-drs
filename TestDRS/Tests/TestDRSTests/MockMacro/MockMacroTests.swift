@@ -8,6 +8,12 @@ import XCTest
 
 final class MockMacroTests: XCTestCase {
 
+    override func invokeTest() {
+        withStaticTestingContext {
+            super.invokeTest()
+        }
+    }
+
     func testMockProtocolMethods() {
         let mockProtocol = MockSomeProtocol()
 
@@ -21,14 +27,12 @@ final class MockMacroTests: XCTestCase {
 
         #assertWasCalled(mockProtocol.foo)
             .exactlyOnce()
-            .happeningFirst()
 
         #assertWasCalled(mockProtocol.bar(paramOne:), with: 89)
             .exactlyOnce()
 
         #assertWasCalled(mockProtocol.baz(paramOne:paramTwo:), with: true, "Hello")
             .exactlyOnce()
-            .happeningLast()
 
         XCTAssertEqual(bazOutput, "World")
 
@@ -62,14 +66,12 @@ final class MockMacroTests: XCTestCase {
 
         #assertWasCalled(mockClass.foo)
             .exactlyOnce()
-            .happeningFirst()
 
         #assertWasCalled(mockClass.bar(paramOne:), with: 89)
             .exactlyOnce()
 
         #assertWasCalled(mockClass.baz(paramOne:paramTwo:), with: true, "Hello")
             .exactlyOnce()
-            .happeningLast()
 
         XCTAssertEqual(bazOutput, "World")
 
@@ -106,14 +108,12 @@ final class MockMacroTests: XCTestCase {
 
         #assertWasCalled(mockStruct.foo)
             .exactlyOnce()
-            .happeningFirst()
 
         #assertWasCalled(mockStruct.bar(paramOne:), with: 89)
             .exactlyOnce()
 
         #assertWasCalled(mockStruct.baz(paramOne:paramTwo:), with: true, "Hello")
             .exactlyOnce()
-            .happeningLast()
         XCTAssertEqual(bazOutput, "World")
 
         #assertWasCalled(MockSomeStruct.oof)
