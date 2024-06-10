@@ -140,19 +140,20 @@ public struct MockMacro: PeerMacro {
 
         let mockProperties = members
             .compactMap { $0.decl.as(VariableDeclSyntax.self) }
-            .filter { !$0.isPrivate && !($0.isStatic && shouldOverride) }
+            .filter { !$0.isPrivate && !$0.isFinal && !($0.isStatic && shouldOverride) }
             .compactMap { mockProperty(for: $0, shouldAddOverrideModifier: shouldOverride) }
 
         let mockInits: [InitializerDeclSyntax] = {
             guard forClass, shouldOverride else { return [] }
             return members
                 .compactMap { $0.decl.as(InitializerDeclSyntax.self) }
+                .filter { !$0.isPrivate }
                 .map { mockInitOverride(for: $0) }
         }()
 
         let mockMethods = members
             .compactMap { $0.decl.as(FunctionDeclSyntax.self) }
-            .filter { !$0.isPrivate && !($0.isStatic && shouldOverride) }
+            .filter { !$0.isPrivate && !$0.isFinal && !($0.isStatic && shouldOverride) }
             .compactMap { mockMethod(for: $0, isInClass: forClass, shouldAddOverrideModifier: shouldOverride) }
 
         return MemberBlockItemListSyntax {
@@ -246,8 +247,8 @@ public struct MockMacro: PeerMacro {
                 return true
             }
 
-            // For some reason in tests `self.x = x` is parsed as `InfixOperatorExprSyntax`
-            // but when expanding a real initializer it is parsed as a `SequenceExprSyntax` that looks like this:
+            // For some reason in macro expansion tests `self.x = x` is parsed as `InfixOperatorExprSyntax`
+            // but when expanding in the compiler it is parsed as a `SequenceExprSyntax` that looks like this:
             // [MemberAccessExprSyntax, AssignmentExprSyntax, DeclReferenceExprSyntax]
             if let sequence = statement.item.as(SequenceExprSyntax.self),
                sequence.elements.count == 3,

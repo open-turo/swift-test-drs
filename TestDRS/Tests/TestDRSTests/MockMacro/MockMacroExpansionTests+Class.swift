@@ -570,5 +570,140 @@ extension MockMacroExpansionTests {
         }
     }
 
+    func testMockMacro_WithClass_DoesNotMockPrivateInit() {
+        assertMacro {
+            """
+            @Mock
+            class SomeClass {
+                var x: String
+                var y: Int
+                var z: Bool
+
+                init(x: String, y: Int, z: Bool) {
+                    self.x = x
+                    self.y = y
+                    self.z = z
+                }
+
+                private init() {
+                    x = "Hello World"
+                    y = 27
+                    z = true
+                }
+
+            }
+            """
+        } expansion: {
+            """
+            class SomeClass {
+                var x: String
+                var y: Int
+                var z: Bool
+
+                init(x: String, y: Int, z: Bool) {
+                    self.x = x
+                    self.y = y
+                    self.z = z
+                }
+
+                private init() {
+                    x = "Hello World"
+                    y = 27
+                    z = true
+                }
+
+            }
+
+            #if DEBUG
+
+            final class MockSomeClass: SomeClass, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                override var x: String {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                override var y: Int {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                override var z: Bool {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                override init(x: String, y: Int, z: Bool) {
+                    super.init(x: x, y: y, z: z)
+                    self.x = x
+                    self.y = y
+                    self.z = z
+                }
+            }
+
+            #endif
+            """
+        }
+    }
+
+    func testMockMacro_WithClass_WithFinalMembers() {
+        assertMacro(record: true) {
+            """
+            @Mock
+            class SomeClass {
+                var x = "Hello World"
+                final let y = 7
+                final var z: Bool = true
+
+                final func foo() {}
+            }
+            """
+        } expansion: {
+            """
+            class SomeClass {
+                var x = "Hello World"
+                final let y = 7
+                final var z: Bool = true
+
+                final func foo() {}
+            }
+
+            #if DEBUG
+
+            final class MockSomeClass: SomeClass, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                override var x {
+                    get {
+                        stubOutput()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+            }
+
+            #endif
+            """
+        }
+    }
+
 }
 #endif
