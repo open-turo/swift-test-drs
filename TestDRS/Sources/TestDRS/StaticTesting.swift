@@ -18,7 +18,7 @@ import Foundation
 /// class MyTests: XCTestCase {
 ///
 ///   override func invokeTest() {
-///       withStaticTestingContext(testing: [MyType.self]) {
+///       withStaticTestingContext {
 ///           super.invokeTest()
 ///       }
 ///   }
@@ -30,13 +30,10 @@ import Foundation
 /// However, detached `Task`s and non-Swift Concurrency code won't have access to this context. Consequently, static calls within these contexts cannot be tested.
 ///
 /// - Parameters:
-///   - testableTypes: The `StaticTestable` types to register with the static testing context. Eg. A ``Mock``, ``Spy`` or ``StubProviding`` type.
 ///   - operation: The operation to run with the static testing context configured to test the given types.
 @discardableResult
-public func withStaticTestingContext<R>(testing testableTypes: [StaticTestable.Type], operation: () throws -> R) rethrows -> R {
+public func withStaticTestingContext<R>(operation: () throws -> R) rethrows -> R {
     var context = StaticTestingContext()
-
-    testableTypes.forEach { $0.register(with: &context) }
 
     return try StaticTestingContext.$current.withValue(context) {
         try operation()
@@ -68,29 +65,43 @@ extension StaticTestable where Self: Mock {
     }
 }
 
-public struct StaticTestingContext {
+public class StaticTestingContext {
     @TaskLocal static var current: StaticTestingContext?
 
     var blackBoxes: [String: BlackBox] = [:]
     var stubRegistries: [String: StubRegistry] = [:]
 
-    mutating func registerBlackBox<T>(for type: T.Type) {
+    func registerBlackBox<T>(for type: T.Type) {
         let key = String(describing: type)
         blackBoxes[key] = BlackBox()
     }
 
-    func blackBox<T>(for type: T.Type) -> BlackBox? {
+    func blackBox<T>(for type: T.Type) -> BlackBox {
         let key = String(describing: type)
-        return blackBoxes[key]
+
+        if let blackBox = blackBoxes[key] {
+            return blackBox
+        }
+
+        let blackBox = BlackBox()
+        blackBoxes[key] = blackBox
+        return blackBox
     }
 
-    mutating func registerStubRegistry<T>(for type: T.Type) {
+    func registerStubRegistry<T>(for type: T.Type) {
         let key = String(describing: type)
         stubRegistries[key] = StubRegistry()
     }
 
-    func stubRegistry<T>(for type: T.Type) -> StubRegistry? {
+    func stubRegistry<T>(for type: T.Type) -> StubRegistry {
         let key = String(describing: type)
-        return stubRegistries[key]
+
+        if let stubRegistry = stubRegistries[key] {
+            return stubRegistry
+        }
+
+        let stubRegistry = StubRegistry()
+        stubRegistries[key] = stubRegistry
+        return stubRegistry
     }
 }

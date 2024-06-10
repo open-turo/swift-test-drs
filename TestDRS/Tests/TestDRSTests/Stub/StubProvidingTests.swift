@@ -11,7 +11,7 @@ final class StubProvidingTests: XCTestCase {
     private let stubProvider = StubProvider()
 
     override func invokeTest() {
-        withStaticTestingContext(testing: [StubProvider.self]) {
+        withStaticTestingContext {
             super.invokeTest()
         }
     }
