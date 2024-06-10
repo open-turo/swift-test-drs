@@ -615,7 +615,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            struct MockSomeStruct: Spy, StubProviding {
+            struct MockSomeStruct: Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()

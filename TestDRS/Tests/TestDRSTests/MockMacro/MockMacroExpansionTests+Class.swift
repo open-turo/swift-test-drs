@@ -519,7 +519,7 @@ extension MockMacroExpansionTests {
 
             #if DEBUG
 
-            final class MockSomeClass: SomeClass, Spy, StubProviding {
+            final class MockSomeClass: SomeClass, Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
