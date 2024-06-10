@@ -13,18 +13,14 @@ extension StubProviding {
             Unable to resolve the current StaticTestingContext. You can create one in an XCTestCase subclass by wrapping invokeTest like so:
 
             override func invokeTest() {
-                withStaticTestingContext(testing: [\(Self.self).self]) {
+                withStaticTestingContext {
                     super.invokeTest()
                 }
             }
             """)
         }
 
-        guard let stubRegistry = context.stubRegistry(for: Self.self) else {
-            fatalError("\(Self.self) was not registered with the current StaticTestingContext. Did you forget to include it in the testable types when calling withStaticTestingContext?")
-        }
-
-        return stubRegistry
+        return context.stubRegistry(for: Self.self)
     }
 
 }
