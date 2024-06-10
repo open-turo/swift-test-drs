@@ -23,4 +23,8 @@ extension WithModifiersSyntax {
         modifiers.containsKeyword(.class)
     }
 
+    var isFinal: Bool {
+        modifiers.containsKeyword(.final)
+    }
+
 }

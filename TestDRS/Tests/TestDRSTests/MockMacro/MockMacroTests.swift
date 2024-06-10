@@ -209,6 +209,10 @@ extension MockMacroTests {
             fatalError("Unimplemented")
         }
 
+        final func rab() {
+            fatalError("Unimplemented")
+        }
+
     }
 
 }

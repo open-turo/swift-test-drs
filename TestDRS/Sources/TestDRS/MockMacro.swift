@@ -10,7 +10,8 @@
 /// The mock type will conform to the `StubProviding` and `Spy` protocols. This allows you to stub out each method and assert that methods were called in your tests.
 /// Classes will be mocked using a subclass, while protocols and structs will be mocked using a separate class.
 /// Private members are not included in the generated mock type.
-/// Static members of a class will not be included in the generated mock type as they cannot be overridden.
+///
+/// Mocked classes will override all internal, public and open instance and class members, including methods, properties, and initializers. Overridden initializers will set stubs in the mock for properties that are passed in. Static members of a class will not be included in the generated mock type as they cannot be overridden.
 ///
 /// Usage:
 /// ```
