@@ -12,12 +12,10 @@ extension Spy {
             let blackBox = BlackBox()
             blackBox.reportFailure(
                 message: """
-                Unable to resolve the current StaticTestingContext. You can create one in an XCTestCase subclass by wrapping invokeTest like so:
+                Unable to resolve the current StaticTestingContext. You can create one by wrapping your test with a call to withStaticTestingContext:
 
-                override func invokeTest() {
-                    withStaticTestingContext {
-                        super.invokeTest()
-                    }
+                withStaticTestingContext {
+                    // Test some static member
                 }
                 """,
                 file: file,

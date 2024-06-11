@@ -11,7 +11,20 @@ import Foundation
 /// This can lead to side effects where the outcome of one test affects another, leading to flaky tests that pass or fail unpredictably.
 /// Using `withStaticTestingContext` ensures that each test starts with a clean slate and does not have a dependency on any other test.
 ///
-/// The most convenient way to use `withStaticTestingContext` is to wrap `invokeTest` in an `XCTestCase` subclass so that a new static testing context
+/// When using `XCTest`, you can wrap the contents of your test like so:
+///
+/// ```swift
+/// class MyTests: XCTestCase {
+///
+///   func myTest() {
+///       withStaticTestingContext {
+///           // Test some static member
+///       }
+///   }
+///
+/// }
+/// ```
+/// If all of the tests in a test case will be testing static members, you can wrap `invokeTest` so that a new static testing context
 /// is created for every test method:
 ///
 /// ```swift
