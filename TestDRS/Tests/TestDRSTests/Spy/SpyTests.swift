@@ -275,12 +275,10 @@ final class NoContextStaticSpyTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Unable to resolve the current StaticTestingContext. You can create one in an XCTestCase subclass by wrapping invokeTest like so:
+                Assertion Failure at \(self.file):\(self.line): Unable to resolve the current StaticTestingContext. You can create one by wrapping your test with a call to withStaticTestingContext:
 
-                override func invokeTest() {
-                    withStaticTestingContext {
-                        super.invokeTest()
-                    }
+                withStaticTestingContext {
+                    // Test some static member
                 }
                 """
             }
