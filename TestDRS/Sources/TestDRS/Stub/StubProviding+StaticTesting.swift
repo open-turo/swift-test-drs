@@ -10,12 +10,10 @@ extension StubProviding {
     static func getStaticStubRegistry() -> StubRegistry {
         guard let context = StaticTestingContext.current else {
             fatalError("""
-            Unable to resolve the current StaticTestingContext. You can create one in an XCTestCase subclass by wrapping invokeTest like so:
+            Unable to resolve the current StaticTestingContext. You can create one by wrapping your test with a call to withStaticTestingContext:
 
-            override func invokeTest() {
-                withStaticTestingContext {
-                    super.invokeTest()
-                }
+            withStaticTestingContext {
+              // Test some static member
             }
             """)
         }
