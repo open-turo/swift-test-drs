@@ -33,9 +33,7 @@ import Foundation
 ///   - operation: The operation to run with the static testing context configured to test the given types.
 @discardableResult
 public func withStaticTestingContext<R>(operation: () throws -> R) rethrows -> R {
-    var context = StaticTestingContext()
-
-    return try StaticTestingContext.$current.withValue(context) {
+    try StaticTestingContext.$current.withValue(StaticTestingContext()) {
         try operation()
     }
 }
@@ -65,43 +63,54 @@ extension StaticTestable where Self: Mock {
     }
 }
 
-public class StaticTestingContext {
+public class StaticTestingContext: @unchecked Sendable {
+
     @TaskLocal static var current: StaticTestingContext?
 
-    var blackBoxes: [String: BlackBox] = [:]
-    var stubRegistries: [String: StubRegistry] = [:]
+    /// Used to make the `StaticTestingContext` thread-safe.
+    private let storageQueue = DispatchQueue(label: "StaticTestingContextQueue")
+
+    private var blackBoxes: [String: BlackBox] = [:]
+    private var stubRegistries: [String: StubRegistry] = [:]
 
     func registerBlackBox<T>(for type: T.Type) {
-        let key = String(describing: type)
-        blackBoxes[key] = BlackBox()
+        storageQueue.sync {
+            let key = String(describing: type)
+            blackBoxes[key] = BlackBox()
+        }
     }
 
     func blackBox<T>(for type: T.Type) -> BlackBox {
-        let key = String(describing: type)
+        storageQueue.sync {
+            let key = String(describing: type)
+            if let blackBox = blackBoxes[key] {
+                return blackBox
+            }
 
-        if let blackBox = blackBoxes[key] {
+            let blackBox = BlackBox()
+            blackBoxes[key] = blackBox
             return blackBox
         }
-
-        let blackBox = BlackBox()
-        blackBoxes[key] = blackBox
-        return blackBox
     }
 
     func registerStubRegistry<T>(for type: T.Type) {
-        let key = String(describing: type)
-        stubRegistries[key] = StubRegistry()
+        storageQueue.sync {
+            let key = String(describing: type)
+            stubRegistries[key] = StubRegistry()
+        }
     }
 
     func stubRegistry<T>(for type: T.Type) -> StubRegistry {
-        let key = String(describing: type)
+        storageQueue.sync {
+            let key = String(describing: type)
+            if let stubRegistry = stubRegistries[key] {
+                return stubRegistry
+            }
 
-        if let stubRegistry = stubRegistries[key] {
+            let stubRegistry = StubRegistry()
+            stubRegistries[key] = stubRegistry
             return stubRegistry
         }
-
-        let stubRegistry = StubRegistry()
-        stubRegistries[key] = stubRegistry
-        return stubRegistry
     }
+
 }
