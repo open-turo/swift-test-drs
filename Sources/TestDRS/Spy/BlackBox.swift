@@ -118,8 +118,8 @@ extension BlackBox: CustomDebugStringConvertible {
         storageQueue.sync {
             "\n" +
                 storage.map { String(reflecting: $0) }
-                .joined(separator: "\n\r")
-                + "\n "
+                .joined(separator: .emptyLine)
+                + .emptyLine
         }
     }
 }

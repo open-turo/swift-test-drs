@@ -90,8 +90,8 @@ public extension StubProviding {
     /// - Parameters:
     ///   - value: The value to return.
     ///   - propertyName: The name of the property to stub as a `String`.
-    func setStub<Output>(
-        value: Output,
+    func setStub(
+        value: Any,
         forPropertyNamed propertyName: String
     ) {
         stubRegistry.register(value: value, for: propertyName)
@@ -103,8 +103,8 @@ public extension StubProviding {
     /// - Parameters:
     ///   - value: The value to return.
     ///   - propertyName: **Do not pass in this argument**, it will automatically capture the name of the calling property.
-    func setStub<Output>(
-        value: Output,
+    func setStub(
+        value: Any,
         forPropertyNamed propertyName: StaticString = #function
     ) {
         stubRegistry.register(value: value, for: String(describing: propertyName))
@@ -139,6 +139,10 @@ public extension StubProviding {
         signature: FunctionSignature = #function
     ) throws -> Output {
         try stubRegistry.throwingStubOutput(for: input, signature: signature, in: Self.self)
+    }
+
+    func stubValue<Output>(for propertyName: String = #function) -> Output {
+        stubRegistry.stubValue(for: propertyName, in: Self.self)
     }
 
 }
@@ -256,6 +260,10 @@ public extension StubProviding {
         signature: FunctionSignature = #function
     ) throws -> Output {
         try getStaticStubRegistry().throwingStubOutput(for: input, signature: signature, in: Self.self)
+    }
+
+    static func stubValue<Output>(for propertyName: String = #function) -> Output {
+        getStaticStubRegistry().stubValue(for: propertyName, in: Self.self)
     }
 
 }
