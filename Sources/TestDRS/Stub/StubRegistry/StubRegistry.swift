@@ -3,14 +3,17 @@
 // Copyright © 2024 Turo Open Source. All rights reserved.
 //
 
-/// Handles registering and retrieving stubs for functions, meant to be used with the `StubProviding` protocol.
+/// Handles registering and retrieving stubs for members, meant to be used with the `StubProviding` protocol.
 public final class StubRegistry {
 
-    var isEmpty: Bool { stubs.isEmpty }
+    private var functionStubs: [FunctionStubIdentifierType: Stub] = [:]
+    private var propertyStubs: [String: Stub] = [:]
 
-    private var stubs: [StubIdentifier: Stub] = [:]
+    private var isEmpty: Bool { functionStubs.isEmpty }
 
     public init() {}
+
+    // MARK: - Registering Function Stubs
 
     /// Registers an output value for a given function signature.
     ///
@@ -23,8 +26,8 @@ public final class StubRegistry {
         for function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature
     ) {
-        let identifier = StubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
-        stubs[identifier] = .output(output)
+        let identifier = FunctionStubIdentifierType(signature: signature, inputType: Input.self, outputType: Output.self)
+        functionStubs[identifier] = .output(output)
     }
 
     /// Registers an error for a given function signature.
@@ -38,8 +41,8 @@ public final class StubRegistry {
         for function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature
     ) {
-        let identifier = StubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
-        stubs[identifier] = .error(error)
+        let identifier = FunctionStubIdentifierType(signature: signature, inputType: Input.self, outputType: Output.self)
+        functionStubs[identifier] = .error(error)
     }
 
     /// Registers a closure for a given function signature.
@@ -51,21 +54,21 @@ public final class StubRegistry {
         closure: @escaping (Input) throws -> Output,
         forSignature signature: FunctionSignature
     ) {
-        let identifier = StubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
-        stubs[identifier] = .closure(closure)
+        let identifier = FunctionStubIdentifierType(signature: signature, inputType: Input.self, outputType: Output.self)
+        functionStubs[identifier] = .closure(closure)
     }
+
+    // MARK: - Registering Property Stubs
 
     /// Registers a value to return for a given property name.
     /// - Parameters:
     ///   - value: The value to return for the given property.
     ///   - propertyName: The name of the property that is being stubbed.
-    func register<Output>(
-        value: Output,
-        for propertyName: String
-    ) {
-        let identifier = StubIdentifier(signature: FunctionSignature(text: propertyName), inputType: Void.self, outputType: Output.self)
-        stubs[identifier] = .output(value)
+    func register(value: Any, for propertyName: String) {
+        propertyStubs[propertyName] = .output(value)
     }
+
+    // MARK: - Retrieving Function Stub Outputs
 
     /// Retrieves the stubbed output for the calling function based on the given input and expected output type.
     ///
@@ -89,8 +92,8 @@ public final class StubRegistry {
                     stubError,
                     in: stubProvidingType,
                     signature: signature,
-                    input: Input.self,
-                    output: Output.self
+                    inputType: Input.self,
+                    outputType: Output.self
                 )
             }
             fatalError("Unexpected error getting stub for \(signature)")
@@ -117,10 +120,10 @@ public final class StubRegistry {
                 stubError,
                 in: stubProvidingType,
                 signature: signature,
-                input: Input.self,
-                output: Output.self
+                inputType: Input.self,
+                outputType: Output.self
             )
-            throw stubError
+            fatalError("Unexpected error getting stub for \(signature)")
         }
     }
 
@@ -132,41 +135,68 @@ public final class StubRegistry {
     /// - Returns: The output value for the given input and function signature.
     /// - Throws: `StubError.noStub` if no stub is registered for the given input and function signature, or any error thrown by the registered closure.
     private func getOutput<Input, Output>(for input: Input, withSignature signature: FunctionSignature) throws -> Output {
-        let identifier = StubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
+        let identifier = FunctionStubIdentifierType(signature: signature, inputType: Input.self, outputType: Output.self)
 
         // Stubs could be set with either the full signature like `foo(paramOne:)`
         // or if there is no ambiguity, they could be set with an abbreviated signature like `foo`.
         // When we go to retrieve them, we should have the full signature since it is captured by #function.
         // So first we try to retrieve using the full signature provided, and then using the abbreviated version.
-        guard let stub = stubs[identifier] ?? stubs[identifier.abbreviatedIdentifier] else {
+        guard let stub = functionStubs[identifier] ?? functionStubs[identifier.abbreviatedIdentifier] else {
             if let void = Void() as? Output {
                 return void
             }
             throw StubError.noStub
         }
 
-        switch stub {
-        case .output(let output):
-            guard let output = output as? Output else {
-                throw StubError.incorrectOutputType
+        return try stub.evaluate(with: input)
+    }
+
+    // MARK: - Retrieving Property Stub Values
+
+    /// Retrieves the stubbed output for the calling function based on the given input and expected output type.
+    ///
+    /// - Parameters:
+    ///   - input: The input to the calling function.
+    ///   - signature: **Do not pass in this argument**, it will automatically capture the signature of the calling function.
+    ///   - stubProvidingType: The type where the stub is being retrieved.
+    /// - Returns: The stubbed output for the calling function.
+    ///
+    /// - Precondition: A corresponding stub must be set prior to calling this function. Otherwise, a fatal error will be thrown.
+    func stubValue<Value>(
+        for propertyName: String,
+        in stubProvidingType: StubProviding.Type
+    ) -> Value {
+        do {
+            return try getValue(for: propertyName)
+        } catch {
+            if let stubError = error as? StubRegistry.StubError {
+                report(
+                    stubError,
+                    in: stubProvidingType,
+                    propertyName: propertyName,
+                    valueType: Value.self
+                )
             }
-            return output
-        case .error(let error):
-            throw error
-        case .closure(let closure):
-            guard let closure = closure as? (Input) throws -> Output else {
-                throw StubError.incorrectClosureType
-            }
-            return try closure(input)
+            fatalError("Unexpected error getting stub for \(propertyName)")
         }
     }
+
+    private func getValue<Output>(for propertyName: String) throws -> Output {
+        guard let stub = propertyStubs[propertyName] else {
+            throw StubError.noStub
+        }
+
+        return try stub.evaluate()
+    }
+
+    // MARK: - Error Reporting
 
     private func report<Input, Output>(
         _ stubError: StubRegistry.StubError,
         in stubProvidingType: StubProviding.Type,
         signature: FunctionSignature,
-        input: Input.Type,
-        output: Output.Type
+        inputType: Input.Type,
+        outputType: Output.Type
     ) {
         switch stubError {
         case .noStub:
@@ -180,87 +210,58 @@ public final class StubRegistry {
         }
     }
 
+    private func report<Value>(
+        _ stubError: StubRegistry.StubError,
+        in stubProvidingType: StubProviding.Type,
+        propertyName: String,
+        valueType: Value.Type
+    ) {
+        switch stubError {
+        case .noStub:
+            if isEmpty {
+                fatalError("No stubs were set for this \(stubProvidingType)")
+            } else {
+                fatalError("No stub was found for \(propertyName) with value type \(Value.self):\(debugDescription)")
+            }
+        case .incorrectOutputType, .incorrectClosureType:
+            fatalError("This should not happen, there must be an issue in TestDRS within the `StubProviding` protocol and/or the `StubRegistry`.")
+        }
+    }
+
 }
 
 // MARK: CustomDebugStringConvertible
 extension StubRegistry: CustomDebugStringConvertible {
 
     public var debugDescription: String {
-        "\n" +
-            stubs.enumerated().map { index, stub -> String in
+        let propertyStubDescriptions = propertyStubs
+            .sorted(by: { $0.key < $1.key })
+            .map { stub -> String in
                 """
-                ******* Stub \(index + 1) *******
-                \(stub.key.debugDescription)
-                \(stub.value.debugDescription)
+                ******* Property Stub *******
+                \(String(reflecting: stub.key))
+                \(String(reflecting: stub.value))
                 """
             }
-            .joined(separator: "\n\r")
-            + "\n "
+            .joined(separator: .emptyLine)
+
+        let functionStubDescriptions = functionStubs
+            .sorted(by: { $0.key.signature.name < $1.key.signature.name })
+            .map { stub -> String in
+                """
+                ******* Function Stub *******
+                \(String(reflecting: stub.key))
+                \(String(reflecting: stub.value))
+                """
+            }
+            .joined(separator: .emptyLine)
+
+        return "\n" + propertyStubDescriptions + .emptyLine + functionStubDescriptions + .emptyLine
     }
 
 }
 
-extension StubRegistry {
-
-    fileprivate struct StubIdentifier: Hashable {
-        let signature: FunctionSignature
-        let inputType: String
-        let outputType: String
-
-        init(signature: FunctionSignature, inputType: Any.Type, outputType: Any.Type) {
-            self.signature = signature
-            self.inputType = String(describing: inputType.self)
-            self.outputType = String(describing: outputType.self)
-        }
-
-        private init(signature: FunctionSignature, inputType: String, outputType: String) {
-            self.signature = signature
-            self.inputType = inputType
-            self.outputType = outputType
-        }
-
-        var abbreviatedIdentifier: StubIdentifier {
-            let abbreviatedSignature = FunctionSignature(text: String(signature.name))
-            return StubIdentifier(signature: abbreviatedSignature, inputType: inputType, outputType: outputType)
-        }
-    }
-
-    fileprivate enum Stub {
-        case output(Any)
-        case error(Error)
-        case closure(Any)
-    }
-
-    enum StubError: Error {
-        /// There was no stub registered for the function when attempting to retrieve a stub.
-        case noStub
-        /// This would indicate an issue with the `StubProviding` protocol or the `StubRegistry`.
-        case incorrectOutputType
-        /// This would indicate an issue with the `StubProviding` protocol or the `StubRegistry`.
-        case incorrectClosureType
-    }
-
-}
-
-extension StubRegistry.StubIdentifier {
-    public var debugDescription: String {
-        """
-        signature: \(signature)
-        inputType: \(inputType)
-        outputType: \(outputType)
-        """
-    }
-}
-
-extension StubRegistry.Stub {
-    public var debugDescription: String {
-        switch self {
-        case .output(let output):
-            "stubbed output: \(output)"
-        case .error(let error):
-            "stubbed error: \(error)"
-        case .closure:
-            "stubbed using a closure"
-        }
-    }
+extension String {
+    // Used to separate output in the console, the space is needed so that the newline isn't stripped.
+    static let emptyLine = "\n \n"
 }

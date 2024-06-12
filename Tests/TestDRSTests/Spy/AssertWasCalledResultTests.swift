@@ -302,7 +302,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected foo() to be called as specified up to 2 times, but 3 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): Expected "foo()" to be called as specified up to 2 times, but 3 calls were recorded
                 """
             }
         )
@@ -318,7 +318,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected foo() to be called as specified fewer than 3 times, but 3 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): Expected "foo()" to be called as specified fewer than 3 times, but 3 calls were recorded
                 """
             }
         )
@@ -334,7 +334,7 @@ final class AssertWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected foo() to be called as specified at least 4 times, but 3 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): Expected "foo()" to be called as specified at least 4 times, but 3 calls were recorded
                 """
             }
         )

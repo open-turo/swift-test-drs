@@ -8,7 +8,7 @@ import XCTest
 
 final class StubProvidingTests: XCTestCase {
 
-    private let stubProvider = StubProvider()
+    private var stubProvider = StubProvider()
 
     override func invokeTest() {
         withStaticTestingContext {
@@ -212,10 +212,76 @@ final class StubProvidingTests: XCTestCase {
         XCTAssertEqual(StubProvider.staticFoo(), 36)
     }
 
+    func testStubbingValues() {
+        stubProvider.x = 63
+        stubProvider.y = "Hello World"
+
+        XCTAssertEqual(stubProvider.x, 63)
+        XCTAssertEqual(stubProvider.y, "Hello World")
+    }
+
+    func testDebugDescrption() {
+        stubProvider.x = 63
+        stubProvider.y = "Hello World"
+        stubProvider.setStub(for: stubProvider.foo, withSignature: "foo()", returning: 7)
+        stubProvider.setDynamicStub(for: stubProvider.bar(paramOne:), withSignature: "bar(paramOne:)") { paramOne in
+            paramOne ? "Hello World" : "Goodbye World"
+        }
+
+        // Avoid removal of trailing whitespace
+        let space = " "
+
+        XCTAssertEqual(
+            stubProvider.stubRegistry.debugDescription,
+            """
+
+            ******* Property Stub *******
+            "x"
+            stubbed output: 63
+            \(space)
+            ******* Property Stub *******
+            "y"
+            stubbed output: Hello World
+            \(space)
+            ******* Function Stub *******
+            signature: "bar(paramOne:)"
+            inputType: Bool
+            outputType: String
+            stubbed using a closure
+            \(space)
+            ******* Function Stub *******
+            signature: "foo()"
+            inputType: ()
+            outputType: Int
+            stubbed output: 7
+            \(space)
+
+            """
+        )
+    }
+
 }
 
 private struct StubProvider: StubProviding {
     let stubRegistry = StubRegistry()
+
+    var x: Int {
+        get {
+            stubValue()
+        }
+        set {
+            setStub(value: newValue)
+        }
+    }
+
+    var y: String {
+        get {
+            stubValue()
+        }
+        set {
+            setStub(value: newValue)
+        }
+    }
 
     func foo() {
         return stubOutput()
