@@ -12,7 +12,7 @@ import XCTest
 final class MockPropertyMacroExpansionTests: XCTestCase {
 
     override func invokeTest() {
-        withMacroTesting(macros: ["MockProperty": MockPropertyMacro.self]) {
+        withMacroTesting(macros: ["__MockProperty": MockPropertyMacro.self]) {
             super.invokeTest()
         }
     }
@@ -20,7 +20,7 @@ final class MockPropertyMacroExpansionTests: XCTestCase {
     func testPropertyWithoutInitializer() {
         assertMacro {
             """
-            @MockProperty
+            @__MockProperty
             var foo: String
             """
         } expansion: {
@@ -41,7 +41,7 @@ final class MockPropertyMacroExpansionTests: XCTestCase {
     func testPropertyWithInitializer() {
         assertMacro {
             """
-            @MockProperty
+            @__MockProperty
             var foo = "Hello World"
             """
         } expansion: {
@@ -61,7 +61,7 @@ final class MockPropertyMacroExpansionTests: XCTestCase {
     func testPropertyWithInitializerAndTypeAnnotation() {
         assertMacro {
             """
-            @MockProperty
+            @__MockProperty
             var foo: String = "Hello World"
             """
         } expansion: {
@@ -81,15 +81,15 @@ final class MockPropertyMacroExpansionTests: XCTestCase {
     func testPropertyWithGetter() {
         assertMacro {
             """
-            @MockProperty
+            @__MockProperty
             var foo: String {
                 "Hello World"
             }
             """
         } diagnostics: {
             """
-            @MockProperty
-            ╰─ 🛑 @MockProperty can only be applied to variables without an existing accessor block
+            @__MockProperty
+            ╰─ 🛑 @__MockProperty can only be applied to variables without an existing accessor block
             var foo: String {
                 "Hello World"
             }
@@ -100,7 +100,7 @@ final class MockPropertyMacroExpansionTests: XCTestCase {
     func testPropertyWithGetterAndSetter() {
         assertMacro {
             """
-            @MockProperty
+            @__MockProperty
             var foo: String {
                 get {
                     _foo
@@ -112,8 +112,8 @@ final class MockPropertyMacroExpansionTests: XCTestCase {
             """
         } diagnostics: {
             """
-            @MockProperty
-            ╰─ 🛑 @MockProperty can only be applied to variables without an existing accessor block
+            @__MockProperty
+            ╰─ 🛑 @__MockProperty can only be applied to variables without an existing accessor block
             var foo: String {
                 get {
                     _foo
@@ -129,13 +129,13 @@ final class MockPropertyMacroExpansionTests: XCTestCase {
     func testImmutableProperty() {
         assertMacro {
             """
-            @MockProperty
+            @__MockProperty
             let foo: String = "Hello World"
             """
         } diagnostics: {
             """
-            @MockProperty
-            ╰─ 🛑 @MockProperty can only be applied to mutable variable declarations
+            @__MockProperty
+            ╰─ 🛑 @__MockProperty can only be applied to mutable variable declarations
             let foo: String = "Hello World"
             """
         }
