@@ -15,7 +15,7 @@
 ///
 /// Usage:
 /// ```
-/// @Mock
+/// @AddMock
 /// protocol MyType {
 ///     func myMethod()
 /// }
@@ -38,4 +38,4 @@
 /// This ensures that mock types are not included in production code.
 /// The generated mock type is intended for use in unit tests, during development, in SwiftUI previews, etc.
 @attached(peer, names: prefixed(Mock))
-public macro Mock() = #externalMacro(module: "TestDRSMacros", type: "MockMacro")
+public macro AddMock() = #externalMacro(module: "TestDRSMacros", type: "AddMockMacro")

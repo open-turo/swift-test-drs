@@ -8,7 +8,7 @@ import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
-public struct MockMacro: PeerMacro {
+public struct AddMockMacro: PeerMacro {
 
     private static let mockProtocolName = "Mock"
 
@@ -29,7 +29,7 @@ public struct MockMacro: PeerMacro {
             context.diagnose(
                 Diagnostic(
                     node: Syntax(node),
-                    message: MockExpansionDiagnostic.invalidType
+                    message: AddMockExpansionDiagnostic.invalidType
                 )
             )
             return []
@@ -75,7 +75,7 @@ public struct MockMacro: PeerMacro {
         }
         classDeclaration.modifiers += protocolDeclaration.modifiers
         classDeclaration.attributes = protocolDeclaration.attributes
-            .filter { $0.trimmedDescription != "@Mock" }
+            .filter { $0.trimmedDescription != "@AddMock" }
 
         return classDeclaration
     }
@@ -105,7 +105,7 @@ public struct MockMacro: PeerMacro {
 
         mockStructDeclaration.modifiers = structDeclaration.modifiers
         mockStructDeclaration.attributes = structDeclaration.attributes
-            .filter { $0.trimmedDescription != "@Mock" }
+            .filter { $0.trimmedDescription != "@AddMock" }
 
         return mockStructDeclaration
     }
