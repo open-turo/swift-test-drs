@@ -27,7 +27,7 @@ final class MockPropertyMacroExpansionTests: XCTestCase {
             """
             var foo: String {
                 get {
-                    stubOutput()
+                    stubValue()
                 }
                 set {
                     setStub(value: newValue)
@@ -48,7 +48,7 @@ final class MockPropertyMacroExpansionTests: XCTestCase {
             """
             var foo {
                 get {
-                    stubOutput()
+                    stubValue()
                 }
                 set {
                     setStub(value: newValue)
@@ -68,7 +68,7 @@ final class MockPropertyMacroExpansionTests: XCTestCase {
             """
             var foo: String {
                 get {
-                    stubOutput()
+                    stubValue()
                 }
                 set {
                     setStub(value: newValue)

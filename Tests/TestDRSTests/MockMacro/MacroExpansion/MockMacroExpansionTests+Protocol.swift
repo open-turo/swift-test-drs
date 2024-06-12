@@ -102,7 +102,7 @@ extension MockMacroExpansionTests {
 
                 var foo: String {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -110,7 +110,7 @@ extension MockMacroExpansionTests {
                 }
                 static var bar: Int {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -118,7 +118,7 @@ extension MockMacroExpansionTests {
                 }
                 static var baz: Bool {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -263,7 +263,7 @@ extension MockMacroExpansionTests {
 
                 var foo: T {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)

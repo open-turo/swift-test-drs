@@ -157,7 +157,7 @@ extension MockMacroExpansionTests {
 
                 override var foo {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -165,7 +165,7 @@ extension MockMacroExpansionTests {
                 }
                 class override var bar: Int {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -173,7 +173,7 @@ extension MockMacroExpansionTests {
                 }
                 class override var baz: Bool {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -227,7 +227,7 @@ extension MockMacroExpansionTests {
 
                 override var foo {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -271,7 +271,7 @@ extension MockMacroExpansionTests {
 
                 override var foo {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -335,7 +335,7 @@ extension MockMacroExpansionTests {
 
                 override var foo: String {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -343,7 +343,7 @@ extension MockMacroExpansionTests {
                 }
                 override var bar: String {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -351,7 +351,7 @@ extension MockMacroExpansionTests {
                 }
                 override var baz: String {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -389,7 +389,7 @@ extension MockMacroExpansionTests {
 
                 override var foo: String? {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -397,7 +397,7 @@ extension MockMacroExpansionTests {
                 }
                 override var bar: Int! {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -455,7 +455,7 @@ extension MockMacroExpansionTests {
 
                 override var foo: String {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -521,7 +521,7 @@ extension MockMacroExpansionTests {
 
                 override var x: String {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -529,7 +529,7 @@ extension MockMacroExpansionTests {
                 }
                 override var y: Int {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -537,7 +537,7 @@ extension MockMacroExpansionTests {
                 }
                 override var myZ: Bool {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -616,25 +616,23 @@ extension MockMacroExpansionTests {
 
                 override var x: String {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
                     }
                 }
-
                 override var y: Int {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
                     }
                 }
-
                 override var z: Bool {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
@@ -655,7 +653,7 @@ extension MockMacroExpansionTests {
     }
 
     func testMockMacro_WithClass_WithFinalMembers() {
-        assertMacro(record: true) {
+        assertMacro {
             """
             @Mock
             class SomeClass {
@@ -685,7 +683,7 @@ extension MockMacroExpansionTests {
 
                 override var x {
                     get {
-                        stubOutput()
+                        stubValue()
                     }
                     set {
                         setStub(value: newValue)
