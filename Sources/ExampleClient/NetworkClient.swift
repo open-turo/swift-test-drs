@@ -6,12 +6,12 @@
 import Foundation
 import TestDRS
 
-@Mock
+@AddMock
 protocol NetworkClientProtocol {
     func get(url: URL) throws -> Data
 }
 
-@Mock
+@AddMock
 struct NetworkClientStruct: NetworkClientProtocol {
     func get(url: URL) throws -> Data {
         fatalError()
@@ -19,7 +19,7 @@ struct NetworkClientStruct: NetworkClientProtocol {
     }
 }
 
-@Mock
+@AddMock
 class NetworkClientClass: NetworkClientProtocol {
     func get(url: URL) throws -> Data {
         fatalError()
