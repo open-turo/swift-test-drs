@@ -653,7 +653,7 @@ extension MockMacroExpansionTests {
     }
 
     /// Even though properties x, y, and z expand to not have the type specified, in use the compiler will still properly infer their types.
-    /// The user will see the properties like `@MockProperty` var x = "Hello World" when viewing the macro expansion.
+    /// The user will see the properties like `@__MockProperty` var x = "Hello World" when viewing the macro expansion.
     func testMockMacro_WithStruct_WithStoredProperties() {
         assertMacro {
             """
