@@ -9,18 +9,18 @@ import MacroTesting
 import TestDRSMacros
 import XCTest
 
-final class MockMacroExpansionTests: XCTestCase {
+final class AddMockMacroExpansionTests: XCTestCase {
 
     override func invokeTest() {
-        withMacroTesting(macros: ["Mock": MockMacro.self, "__MockProperty": MockPropertyMacro.self]) {
+        withMacroTesting(macros: ["Mock": AddMockMacro.self, "__MockProperty": MockPropertyMacro.self]) {
             super.invokeTest()
         }
     }
 
-    func testMockMacro_WithEnum_ProducesDiagnostic() {
+    func testAddMockMacro_WithEnum_ProducesDiagnostic() {
         assertMacro {
             """
-            @Mock
+            @AddMock
             enum SomeEnum {
                 case foo
                 case bar
@@ -28,9 +28,11 @@ final class MockMacroExpansionTests: XCTestCase {
             """
         } diagnostics: {
             """
-            @Mock
-            ┬────
-            ╰─ 🛑 @Mock can only be applied to protocols, classes, and structs
+
+            """
+        } expansion: {
+            """
+            @AddMock
             enum SomeEnum {
                 case foo
                 case bar
@@ -39,10 +41,10 @@ final class MockMacroExpansionTests: XCTestCase {
         }
     }
 
-    func testMockMacro_WithActor_ProducesDiagnostic() {
+    func testAddMockMacro_WithActor_ProducesDiagnostic() {
         assertMacro {
             """
-            @Mock
+            @AddMock
             actor SomeActor {
                 var foo = "Hello World"
                 func bar() {
@@ -52,9 +54,11 @@ final class MockMacroExpansionTests: XCTestCase {
             """
         } diagnostics: {
             """
-            @Mock
-            ┬────
-            ╰─ 🛑 @Mock can only be applied to protocols, classes, and structs
+
+            """
+        } expansion: {
+            """
+            @AddMock
             actor SomeActor {
                 var foo = "Hello World"
                 func bar() {

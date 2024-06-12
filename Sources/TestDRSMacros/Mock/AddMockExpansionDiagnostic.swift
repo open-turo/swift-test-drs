@@ -5,14 +5,14 @@
 
 import SwiftDiagnostics
 
-enum MockExpansionDiagnostic: String, DiagnosticMessage {
+enum AddMockExpansionDiagnostic: String, DiagnosticMessage {
 
     case invalidType
 
     var message: String {
         switch self {
         case .invalidType:
-            "@Mock can only be applied to protocols, classes, and structs"
+            "@AddMock can only be applied to protocols, classes, and structs"
         }
     }
 

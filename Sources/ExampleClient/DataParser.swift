@@ -6,12 +6,12 @@
 import Foundation
 import TestDRS
 
-@Mock
+@AddMock
 protocol DataParserProtocol {
     func parse<T: Decodable>(_ data: Data) throws -> T
 }
 
-@Mock
+@AddMock
 struct DataParserStruct: DataParserProtocol {
     func parse<T: Decodable>(_ data: Data) throws -> T {
         fatalError()
@@ -19,7 +19,7 @@ struct DataParserStruct: DataParserProtocol {
     }
 }
 
-@Mock
+@AddMock
 class DataParserClass: DataParserProtocol {
     func parse<T: Decodable>(_ data: Data) throws -> T {
         fatalError()

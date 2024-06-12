@@ -6,7 +6,7 @@
 import TestDRS
 import XCTest
 
-final class MockMacroTests: XCTestCase {
+final class AddMockMacroTests: XCTestCase {
 
     override func invokeTest() {
         withStaticTestingContext {
@@ -153,9 +153,9 @@ final class MockMacroTests: XCTestCase {
 
 }
 
-extension MockMacroTests {
+extension AddMockMacroTests {
 
-    @Mock
+    @AddMock
     protocol SomeProtocol {
         var x: String { get }
         var y: Int { get set }
@@ -168,7 +168,7 @@ extension MockMacroTests {
         static func oof() -> String
     }
 
-    @Mock
+    @AddMock
     struct SomeStruct: SomeProtocol {
 
         private var a = "This should not be mocked"
@@ -199,7 +199,7 @@ extension MockMacroTests {
 
     }
 
-    @Mock
+    @AddMock
     class SomeClass: NSObject, SomeProtocol {
 
         private var a = "This should not be mocked"
