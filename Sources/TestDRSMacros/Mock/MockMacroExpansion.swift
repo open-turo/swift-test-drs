@@ -192,7 +192,7 @@ public struct MockMacro: PeerMacro {
             )
         }
 
-        var attributes = AttributeListSyntax { "@MockProperty" }
+        var attributes = AttributeListSyntax { "@__MockProperty" }
         attributes += mockProperty.attributes
         mockProperty.attributes = attributes
 
