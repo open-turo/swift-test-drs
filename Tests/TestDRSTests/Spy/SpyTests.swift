@@ -175,29 +175,38 @@ final class SpyTests: SpyTestCase {
         baz(paramOne: nil)
         oof(paramOne: false, paramTwo: 7)
 
+        // Avoid removal of trailing whitespace
+        let space = " "
+
         XCTAssertEqual(
-            blackBox.debugDescription.trimmingCharacters(in: .whitespacesAndNewlines),
+            blackBox.debugDescription,
             """
+
             ******* Function Call 1 *******
             signature: "foo()"
             input: ()
             outputType: ()
             time: 2018-06-15 0:00:00.000
-            \r******* Function Call 2 *******
+            \(space)
+            ******* Function Call 2 *******
             signature: "bar(paramOne:)"
             input: true
             outputType: ()
             time: 2018-06-15 0:00:01.000
-            \r******* Function Call 3 *******
+            \(space)
+            ******* Function Call 3 *******
             signature: "baz(paramOne:)"
             input: nil
             outputType: ()
             time: 2018-06-15 0:00:02.000
-            \r******* Function Call 4 *******
+            \(space)
+            ******* Function Call 4 *******
             signature: "oof(paramOne:paramTwo:)"
             input: (false, 7)
             outputType: ()
             time: 2018-06-15 0:00:03.000
+            \(space)
+
             """
         )
     }

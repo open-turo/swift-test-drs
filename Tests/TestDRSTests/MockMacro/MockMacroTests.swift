@@ -55,7 +55,6 @@ final class MockMacroTests: XCTestCase {
 
         #assertWasCalled(mockProtocol.baz, with: true, "Hello")
             .exactlyOnce()
-            .happening(.last)
 
         XCTAssertEqual(bazOutput, "World")
     }

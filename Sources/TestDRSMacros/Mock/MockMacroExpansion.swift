@@ -208,7 +208,7 @@ public struct MockMacro: PeerMacro {
 
     private static func mockPropertyAccessor(isStatic: Bool) -> AccessorBlockSyntax {
         let getter = AccessorDeclSyntax(accessorSpecifier: .keyword(.get)) {
-            "stubOutput()"
+            "stubValue()"
         }
         let setter = AccessorDeclSyntax(accessorSpecifier: .keyword(.set)) {
             "setStub(value: newValue)"
