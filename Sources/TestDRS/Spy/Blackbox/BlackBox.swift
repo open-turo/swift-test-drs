@@ -29,7 +29,7 @@ public final class BlackBox {
         returning outputType: Output.Type,
         signature: FunctionSignature
     ) {
-        storageQueue.async {
+        storageQueue.sync {
             self.storage.append(
                 ConcreteFunctionCall(
                     signature: signature,

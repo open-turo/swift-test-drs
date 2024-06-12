@@ -34,10 +34,14 @@ let package = Package(
         ),
 
         // Library that exposes TestDRS macros as part of its API
-        .target(name: "TestDRS", dependencies: [
-            "TestDRSMacros",
-            .product(name: "XCTestDynamicOverlay", package: "xctest-dynamic-overlay")
-        ]),
+        .target(
+            name: "TestDRS",
+            dependencies: [
+                "TestDRSMacros",
+                .product(name: "XCTestDynamicOverlay", package: "xctest-dynamic-overlay"),
+            ],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
+        ),
 
         // An example client used to try out TestDRS
         .executableTarget(name: "ExampleClient", dependencies: ["TestDRS"]),
@@ -50,7 +54,8 @@ let package = Package(
                 .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
                 "TestDRS",
                 "TestDRSMacros",
-            ]
+            ],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),
 
         // Example unit tests to try out TestDRS
@@ -59,7 +64,8 @@ let package = Package(
             dependencies: [
                 "ExampleClient",
                 "TestDRS"
-            ]
+            ],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),
     ]
 )
