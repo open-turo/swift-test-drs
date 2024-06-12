@@ -42,7 +42,7 @@ public struct MockPropertyMacro: AccessorMacro {
 
         return [
             AccessorDeclSyntax(accessorSpecifier: .keyword(.get)) {
-                "stubOutput()"
+                "stubValue()"
             },
             AccessorDeclSyntax(accessorSpecifier: .keyword(.set)) {
                 "setStub(value: newValue)"
