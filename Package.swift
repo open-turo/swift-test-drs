@@ -13,10 +13,6 @@ let package = Package(
             name: "TestDRS",
             targets: ["TestDRS"]
         ),
-        .executable(
-            name: "ExampleClient",
-            targets: ["ExampleClient"]
-        ),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-syntax.git", from: "510.0.2"),
@@ -43,9 +39,6 @@ let package = Package(
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),
 
-        // An example client used to try out TestDRS
-        .executableTarget(name: "ExampleClient", dependencies: ["TestDRS"]),
-
         // Unit tests for TestDRS
         .testTarget(
             name: "TestDRSTests",
@@ -54,16 +47,6 @@ let package = Package(
                 .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
                 "TestDRS",
                 "TestDRSMacros",
-            ],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
-        ),
-
-        // Example unit tests to try out TestDRS
-        .testTarget(
-            name: "ExampleClientTests",
-            dependencies: [
-                "ExampleClient",
-                "TestDRS"
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),
