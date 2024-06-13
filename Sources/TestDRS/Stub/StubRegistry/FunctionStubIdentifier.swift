@@ -5,10 +5,10 @@
 
 import Foundation
 
-// MARK: - StubRegistry.FunctionStubIdentifierType
+// MARK: - StubRegistry.FunctionStubIdentifier
 extension StubRegistry {
 
-    struct FunctionStubIdentifierType: Hashable {
+    struct FunctionStubIdentifier: Hashable {
         let signature: FunctionSignature
         let inputType: String
         let outputType: String
@@ -25,16 +25,16 @@ extension StubRegistry {
             self.outputType = outputType
         }
 
-        var abbreviatedIdentifier: FunctionStubIdentifierType {
+        var abbreviatedIdentifier: FunctionStubIdentifier {
             let abbreviatedSignature = FunctionSignature(text: String(signature.name))
-            return FunctionStubIdentifierType(signature: abbreviatedSignature, inputType: inputType, outputType: outputType)
+            return FunctionStubIdentifier(signature: abbreviatedSignature, inputType: inputType, outputType: outputType)
         }
     }
 
 }
 
-// MARK: - StubRegistry.FunctionStubIdentifierType + CustomDebugStringConvertible
-extension StubRegistry.FunctionStubIdentifierType: CustomDebugStringConvertible {
+// MARK: - StubRegistry.FunctionStubIdentifier + CustomDebugStringConvertible
+extension StubRegistry.FunctionStubIdentifier: CustomDebugStringConvertible {
     public var debugDescription: String {
         """
         signature: \(signature)
