@@ -3,7 +3,7 @@
 // Copyright © 2024 Turo Open Source. All rights reserved.
 //
 
-@testable import Expectations
+@testable import TestDRSExpectations
 import XCTest
 
 final class ExpectWasCalledResultTests: SpyTestCase {

@@ -9,16 +9,12 @@ let package = Package(
     platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)],
     products: [
         .library(
-            name: "TestDRS",
-            targets: ["Mocking", "Expectations"]
+            name: "TestDRSExpectations",
+            targets: ["TestDRSExpectations"]
         ),
         .library(
             name: "TestDRSMocking",
-            targets: ["Mocking"]
-        ),
-        .executable(
-            name: "ExampleClient",
-            targets: ["ExampleClient"]
+            targets: ["TestDRSMocking"]
         ),
     ],
     dependencies: [
@@ -52,7 +48,7 @@ let package = Package(
         ),
 
         .target(
-            name: "Mocking",
+            name: "TestDRSMocking",
             dependencies: [
                 "TestDRSCore",
                 "MockingMacros",
@@ -61,7 +57,7 @@ let package = Package(
         ),
 
         .target(
-            name: "Expectations",
+            name: "TestDRSExpectations",
             dependencies: [
                 "TestDRSCore",
                 "ExpectationMacros",
@@ -104,36 +100,20 @@ let package = Package(
         ),
 
         .testTarget(
-            name: "MockingTests",
+            name: "TestDRSMockingTests",
             dependencies: [
                 "TestDRSCore",
-                "Mocking",
-                "Expectations",
+                "TestDRSMocking",
+                "TestDRSExpectations",
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),
 
         .testTarget(
-            name: "ExpectationsTests",
+            name: "TestDRSExpectationsTests",
             dependencies: [
                 "TestDRSCore",
-                "Expectations",
-            ],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
-        ),
-
-        // An example client used to try out TestDRS
-        // TODO: Move this out of TestDRS package
-
-        .executableTarget(name: "ExampleClient", dependencies: ["TestDRSCore", "Mocking"]),
-
-        .testTarget(
-            name: "ExampleClientTests",
-            dependencies: [
-                "ExampleClient",
-                "TestDRSCore",
-                "Mocking",
-                "Expectations",
+                "TestDRSExpectations",
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),

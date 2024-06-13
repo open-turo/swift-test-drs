@@ -3,9 +3,9 @@
 // Copyright © 2024 Turo Open Source. All rights reserved.
 //
 
-import Expectations
-import Mocking
 import TestDRSCore
+import TestDRSExpectations
+import TestDRSMocking
 import XCTest
 
 final class AddMockMacroTests: XCTestCase {

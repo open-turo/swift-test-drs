@@ -3,8 +3,8 @@
 // Copyright © 2024 Turo Open Source. All rights reserved.
 //
 
-import Expectations
 import TestDRSCore
+import TestDRSExpectations
 import XCTest
 
 final class StaticTestingContextTests: SpyTestCase {

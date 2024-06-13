@@ -77,9 +77,12 @@ public final class BlackBox: @unchecked Sendable {
         returning outputType: Output.Type
     ) -> [ConcreteFunctionCall<Input, Output>] {
         storageQueue.sync {
-            storage.filter(signature: signature).compactMap {
-                $0 as? ConcreteFunctionCall<Input, Output>
+            let calls = storage.filter(signature: signature).compactMap {
+                let call = $0 as? ConcreteFunctionCall<Input, Output>
+                return call
             }
+
+            return calls
         }
     }
 
