@@ -14,6 +14,7 @@ final class AddMockMacroTests: XCTestCase {
         }
     }
 
+    @MainActor
     func testMockProtocolMethods() {
         let mockProtocol = MockSomeProtocol()
 
@@ -41,6 +42,7 @@ final class AddMockMacroTests: XCTestCase {
         XCTAssertEqual(oofOutput, "Wow")
     }
 
+    @MainActor
     func testMockProtocolMethods_UsingAbbreviatedFunctionSignatures() {
         let mockProtocol = MockSomeProtocol()
 
@@ -59,6 +61,7 @@ final class AddMockMacroTests: XCTestCase {
         XCTAssertEqual(bazOutput, "World")
     }
 
+    @MainActor
     func testMockProtocolProperties() {
         let mockProtocol = MockSomeProtocol()
 
@@ -71,6 +74,7 @@ final class AddMockMacroTests: XCTestCase {
         XCTAssertEqual(MockSomeProtocol.z, true)
     }
 
+    @MainActor
     func testMockClassMethods() {
         let mockClass = MockSomeClass(x: "Hello World", y: 89)
 
@@ -98,6 +102,7 @@ final class AddMockMacroTests: XCTestCase {
         XCTAssertEqual(oofOutput, "Wow")
     }
 
+    @MainActor
     func testMockClassProperties() {
         let mockClass = MockSomeClass(x: "Hello World", y: 89)
 
@@ -113,6 +118,7 @@ final class AddMockMacroTests: XCTestCase {
         XCTAssertEqual(MockSomeClass.z, false)
     }
 
+    @MainActor
     func testMockStructMethods() {
         let mockStruct = MockSomeStruct()
 
@@ -139,6 +145,7 @@ final class AddMockMacroTests: XCTestCase {
         XCTAssertEqual(oofOutput, "Wow")
     }
 
+    @MainActor
     func testMockStructProperties() {
         var mockStruct = MockSomeStruct()
 
@@ -155,7 +162,7 @@ final class AddMockMacroTests: XCTestCase {
 
 extension AddMockMacroTests {
 
-    @AddMock
+    @MainActor @AddMock
     protocol SomeProtocol {
         var x: String { get }
         var y: Int { get set }
@@ -168,7 +175,7 @@ extension AddMockMacroTests {
         static func oof() -> String
     }
 
-    @AddMock
+    @MainActor @AddMock
     struct SomeStruct: SomeProtocol {
 
         private var a = "This should not be mocked"
