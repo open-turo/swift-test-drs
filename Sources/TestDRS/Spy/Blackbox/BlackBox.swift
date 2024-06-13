@@ -6,7 +6,7 @@
 import Foundation
 
 /// A mechanism to record and look up function calls for testing purposes.
-public final class BlackBox {
+public final class BlackBox: @unchecked Sendable {
 
     /// Used to make the `BlackBox` thread-safe.
     private let storageQueue = DispatchQueue(label: "BlackBoxStorageQueue")
@@ -29,7 +29,7 @@ public final class BlackBox {
         returning outputType: Output.Type,
         signature: FunctionSignature
     ) {
-        storageQueue.async {
+        storageQueue.sync {
             self.storage.append(
                 ConcreteFunctionCall(
                     signature: signature,
