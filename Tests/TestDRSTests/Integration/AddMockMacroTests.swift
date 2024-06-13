@@ -26,18 +26,18 @@ final class AddMockMacroTests: XCTestCase {
         let bazOutput = mockProtocol.baz(paramOne: true, paramTwo: "Hello")
         let oofOutput = MockSomeProtocol.oof()
 
-        #assertWasCalled(mockProtocol.foo)
+        #expectWasCalled(mockProtocol.foo)
             .exactlyOnce()
 
-        #assertWasCalled(mockProtocol.bar(paramOne:), with: 89)
+        #expectWasCalled(mockProtocol.bar(paramOne:), with: 89)
             .exactlyOnce()
 
-        #assertWasCalled(mockProtocol.baz(paramOne:paramTwo:), with: true, "Hello")
+        #expectWasCalled(mockProtocol.baz(paramOne:paramTwo:), with: true, "Hello")
             .exactlyOnce()
 
         XCTAssertEqual(bazOutput, "World")
 
-        #assertWasCalled(MockSomeProtocol.oof)
+        #expectWasCalled(MockSomeProtocol.oof)
             .exactlyOnce()
         XCTAssertEqual(oofOutput, "Wow")
     }
@@ -52,10 +52,10 @@ final class AddMockMacroTests: XCTestCase {
         mockProtocol.bar(paramOne: 89)
         let bazOutput = mockProtocol.baz(paramOne: true, paramTwo: "Hello")
 
-        #assertWasCalled(mockProtocol.bar, with: 89)
+        #expectWasCalled(mockProtocol.bar, with: 89)
             .exactlyOnce()
 
-        #assertWasCalled(mockProtocol.baz, with: true, "Hello")
+        #expectWasCalled(mockProtocol.baz, with: true, "Hello")
             .exactlyOnce()
 
         XCTAssertEqual(bazOutput, "World")
@@ -86,18 +86,18 @@ final class AddMockMacroTests: XCTestCase {
         let bazOutput = mockClass.baz(paramOne: true, paramTwo: "Hello")
         let oofOutput = MockSomeClass.oof()
 
-        #assertWasCalled(mockClass.foo)
+        #expectWasCalled(mockClass.foo)
             .exactlyOnce()
 
-        #assertWasCalled(mockClass.bar(paramOne:), with: 89)
+        #expectWasCalled(mockClass.bar(paramOne:), with: 89)
             .exactlyOnce()
 
-        #assertWasCalled(mockClass.baz(paramOne:paramTwo:), with: true, "Hello")
+        #expectWasCalled(mockClass.baz(paramOne:paramTwo:), with: true, "Hello")
             .exactlyOnce()
 
         XCTAssertEqual(bazOutput, "World")
 
-        #assertWasCalled(MockSomeClass.oof)
+        #expectWasCalled(MockSomeClass.oof)
             .exactlyOnce()
         XCTAssertEqual(oofOutput, "Wow")
     }
@@ -130,17 +130,17 @@ final class AddMockMacroTests: XCTestCase {
         let bazOutput = mockStruct.baz(paramOne: true, paramTwo: "Hello")
         let oofOutput = MockSomeStruct.oof()
 
-        #assertWasCalled(mockStruct.foo)
+        #expectWasCalled(mockStruct.foo)
             .exactlyOnce()
 
-        #assertWasCalled(mockStruct.bar(paramOne:), with: 89)
+        #expectWasCalled(mockStruct.bar(paramOne:), with: 89)
             .exactlyOnce()
 
-        #assertWasCalled(mockStruct.baz(paramOne:paramTwo:), with: true, "Hello")
+        #expectWasCalled(mockStruct.baz(paramOne:paramTwo:), with: true, "Hello")
             .exactlyOnce()
         XCTAssertEqual(bazOutput, "World")
 
-        #assertWasCalled(MockSomeStruct.oof)
+        #expectWasCalled(MockSomeStruct.oof)
             .exactlyOnce()
         XCTAssertEqual(oofOutput, "Wow")
     }

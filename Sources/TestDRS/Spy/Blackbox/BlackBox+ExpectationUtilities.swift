@@ -5,7 +5,7 @@
 
 import Foundation
 
-/// Extension for `BlackBox` that provides assertion utilities.
+/// Extension for `BlackBox` that provides expectation utilities.
 extension BlackBox {
 
     /// Checks if the expected input matches the actual input.

@@ -8,7 +8,6 @@ let package = Package(
     name: "TestDRS",
     platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "TestDRS",
             targets: ["TestDRS"]
@@ -20,7 +19,6 @@ let package = Package(
         .package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", .upToNextMajor(from: "1.1.2"))
     ],
     targets: [
-        // TestDRS macros target
         .macro(
             name: "TestDRSMacros",
             dependencies: [
@@ -29,7 +27,6 @@ let package = Package(
             ]
         ),
 
-        // Library that exposes TestDRS macros as part of its API
         .target(
             name: "TestDRS",
             dependencies: [
@@ -39,13 +36,20 @@ let package = Package(
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),
 
-        // Unit tests for TestDRS
         .testTarget(
             name: "TestDRSTests",
             dependencies: [
+                "TestDRS",
+                "TestDRSMacros",
+            ],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
+        ),
+
+        .testTarget(
+            name: "TestDRSMacrosTests",
+            dependencies: [
                 .product(name: "MacroTesting", package: "swift-macro-testing"),
                 .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
-                "TestDRS",
                 "TestDRSMacros",
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
