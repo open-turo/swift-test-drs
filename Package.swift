@@ -8,10 +8,13 @@ let package = Package(
     name: "TestDRS",
     platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "TestDRS",
-            targets: ["TestDRS"]
+            targets: ["Mocking", "Expectations"]
+        ),
+        .library(
+            name: "TestDRSMocking",
+            targets: ["Mocking"]
         ),
         .executable(
             name: "ExampleClient",
@@ -21,49 +24,126 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-syntax.git", from: "510.0.2"),
         .package(url: "https://github.com/pointfreeco/swift-macro-testing", .upToNextMajor(from: "0.4.0")),
-        .package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", .upToNextMajor(from: "1.1.2"))
     ],
     targets: [
-        // TestDRS macros target
+        // Macros
+
         .macro(
-            name: "TestDRSMacros",
+            name: "MockingMacros",
             dependencies: [
                 .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
-                .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
+                .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
             ]
         ),
 
-        // Library that exposes TestDRS macros as part of its API
-        .target(
-            name: "TestDRS",
+        .macro(
+            name: "ExpectationMacros",
             dependencies: [
-                "TestDRSMacros",
-                .product(name: "XCTestDynamicOverlay", package: "xctest-dynamic-overlay"),
+                .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
+                .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
+            ]
+        ),
+
+        // Modules
+
+        .target(
+            name: "TestDRSCore",
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
+        ),
+
+        .target(
+            name: "Mocking",
+            dependencies: [
+                "TestDRSCore",
+                "MockingMacros",
+            ],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
+        ),
+
+        .target(
+            name: "Expectations",
+            dependencies: [
+                "TestDRSCore",
+                "ExpectationMacros",
+            ],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
+        ),
+
+        .target(
+            name: "SharedTesting",
+            dependencies: [
+                "TestDRSCore",
+            ],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
+        ),
+
+        // Macro Tests
+
+        .testTarget(
+            name: "MockingMacrosTests",
+            dependencies: [
+                .product(name: "MacroTesting", package: "swift-macro-testing"),
+                .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
+                "TestDRSCore",
+                "MockingMacros",
+            ],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
+        ),
+
+        .testTarget(
+            name: "ExpectationMacrosTests",
+            dependencies: [
+                .product(name: "MacroTesting", package: "swift-macro-testing"),
+                .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
+                "TestDRSCore",
+                "ExpectationMacros",
+            ],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
+        ),
+
+        // Module Tests
+
+        .testTarget(
+            name: "TestDRSCoreTests",
+            dependencies: [
+                "SharedTesting",
+                "TestDRSCore",
+            ],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
+        ),
+
+        .testTarget(
+            name: "MockingTests",
+            dependencies: [
+                "TestDRSCore",
+                "Mocking",
+                "Expectations",
+            ],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
+        ),
+
+        .testTarget(
+            name: "ExpectationsTests",
+            dependencies: [
+                "SharedTesting",
+                "TestDRSCore",
+                "Expectations",
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),
 
         // An example client used to try out TestDRS
-        .executableTarget(name: "ExampleClient", dependencies: ["TestDRS"]),
+        // TODO: Move this out of TestDRS package
 
-        // Unit tests for TestDRS
-        .testTarget(
-            name: "TestDRSTests",
-            dependencies: [
-                .product(name: "MacroTesting", package: "swift-macro-testing"),
-                .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
-                "TestDRS",
-                "TestDRSMacros",
-            ],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
-        ),
+        .executableTarget(name: "ExampleClient", dependencies: ["TestDRSCore", "Mocking"]),
 
-        // Example unit tests to try out TestDRS
         .testTarget(
             name: "ExampleClientTests",
             dependencies: [
                 "ExampleClient",
-                "TestDRS"
+                "TestDRSCore",
+                "Mocking",
+                "Expectations",
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),

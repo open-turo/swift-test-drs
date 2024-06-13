@@ -4,7 +4,8 @@
 //
 
 @testable import ExampleClient
-import TestDRS
+import Expectations
+import Mocking
 import XCTest
 
 final class WeatherServiceTests: XCTestCase {

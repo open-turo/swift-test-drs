@@ -4,7 +4,8 @@
 //
 
 import Foundation
-import TestDRS
+import Mocking
+import TestDRSCore
 
 @AddMock
 protocol DataParserProtocol {
