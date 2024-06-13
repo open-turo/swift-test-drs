@@ -5,14 +5,14 @@
 
 import Foundation
 
-enum AssertWasCalledResultError: Error {
-    /// No calls were made that match the assertion.
+enum ExpectWasCalledResultError: Error {
+    /// No calls were made that match the expectation.
     case noCalls
 }
 
-/// `AssertWasCalledResult` is a struct that encapsulates the result of an `#assertWasCalled` assertion.
-/// It contains any calls that match the assertion and provides methods for asserting the number of times the given call was recorded.
-public struct AssertWasCalledResult<AmountMatching: FunctionCallAmountMatching, Input, Output> {
+/// `ExpectWasCalledResult` is a struct that encapsulates the result of an `#expectWasCalled` expectation.
+/// It contains any calls that match the expectation and provides methods for expecting the number of times the given call was recorded.
+public struct ExpectWasCalledResult<AmountMatching: FunctionCallAmountMatching, Input, Output> {
 
     private let _matchingCalls: [ConcreteFunctionCall<Input, Output>]
     private let blackBox: BlackBox
@@ -26,61 +26,61 @@ public struct AssertWasCalledResult<AmountMatching: FunctionCallAmountMatching, 
 
 // MARK: - Matching Calls
 
-extension AssertWasCalledResult where AmountMatching == MatchingSingle {
+extension ExpectWasCalledResult where AmountMatching == MatchingSingle {
 
-    /// The matching call or `nil` if no calls were made that match the assertion.
+    /// The matching call or `nil` if no calls were made that match the expectation.
     public var matchingCall: ConcreteFunctionCall<Input, Output>? {
         _matchingCalls.first
     }
 
-    /// Gets the matching call if it exists, or throws an `AssertWasCalledResultError` if no calls were made that match the assertion.
+    /// Gets the matching call if it exists, or throws an `ExpectWasCalledResultError` if no calls were made that match the expectation.
     public func getMatchingCall() throws -> ConcreteFunctionCall<Input, Output> {
         guard let firstMatchingCall = _matchingCalls.first else {
-            throw AssertWasCalledResultError.noCalls
+            throw ExpectWasCalledResultError.noCalls
         }
         return firstMatchingCall
     }
 
 }
 
-extension AssertWasCalledResult where AmountMatching: MatchingMultiple {
+extension ExpectWasCalledResult where AmountMatching: MatchingMultiple {
 
-    /// The matching calls or an empty array  if no calls were made that satisfy the assertion.
+    /// The matching calls or an empty array  if no calls were made that satisfy the expectation.
     public var matchingCalls: [ConcreteFunctionCall<Input, Output>] {
         _matchingCalls
     }
 
-    /// Gets the first matching call if it exists, or throws an `AssertWasCalledResultError` if no calls were made that match the assertion.
+    /// Gets the first matching call if it exists, or throws an `ExpectWasCalledResultError` if no calls were made that match the expectation.
     public func getFirstMatchingCall() throws -> ConcreteFunctionCall<Input, Output> {
         guard let firstMatchingCall = matchingCalls.first else {
-            throw AssertWasCalledResultError.noCalls
+            throw ExpectWasCalledResultError.noCalls
         }
         return firstMatchingCall
     }
 
-    /// Gets the last matching call if it exists, or throws an `AssertWasCalledResultError` if no calls were made that match the assertion.
+    /// Gets the last matching call if it exists, or throws an `ExpectWasCalledResultError` if no calls were made that match the expectation.
     public func getLastMatchingCall() throws -> ConcreteFunctionCall<Input, Output> {
         guard let lastMatchingCall = matchingCalls.last else {
-            throw AssertWasCalledResultError.noCalls
+            throw ExpectWasCalledResultError.noCalls
         }
         return lastMatchingCall
     }
 
 }
 
-// MARK: - Assertions
+// MARK: - Expectations
 
-extension AssertWasCalledResult where AmountMatching == MatchingAnyAmount {
+extension ExpectWasCalledResult where AmountMatching == MatchingAnyAmount {
 
-    /// Makes a further assertion that the specified call occurred exactly once.
+    /// Makes a further expectation that the specified call occurred exactly once.
     ///
     /// - Parameters:
-    ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the assertion is being made.
-    ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the assertion is being made.
+    ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the expectation is being made.
+    ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the expectation is being made.
     ///
-    /// - Returns: A copy of this result as an `AssertWasCalledResult<MatchingSingle, Input, Output>`.
+    /// - Returns: A copy of this result as an `ExpectWasCalledResult<MatchingSingle, Input, Output>`.
     @discardableResult
-    public func exactlyOnce(file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult<MatchingSingle, Input, Output> {
+    public func exactlyOnce(file: StaticString = #file, line: UInt = #line) -> ExpectWasCalledResult<MatchingSingle, Input, Output> {
         if matchingCalls.count != 1,
            let signature = _matchingCalls.first?.signature {
             let message = "Expected \(signature) to be called exactly once as specified, but \(matchingCalls.count) calls were recorded"
@@ -90,17 +90,17 @@ extension AssertWasCalledResult where AmountMatching == MatchingAnyAmount {
         return .init(matchingCalls: _matchingCalls, blackBox: blackBox)
     }
 
-    /// Makes a further assertion that the specified call occurred a specific number of times.
+    /// Makes a further expectation that the specified call occurred a specific number of times.
     ///
     /// - Parameters:
     ///   - expectedCallCount: The expected number of times the function should have been called.
-    ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the assertion is being made.
-    ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the assertion is being made.
+    ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the expectation is being made.
+    ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the expectation is being made.
     ///
-    /// - Returns: A copy of this result as an `AssertWasCalledResult<MatchingSomeAmount, Input, Output>`.
+    /// - Returns: A copy of this result as an `ExpectWasCalledResult<MatchingSomeAmount, Input, Output>`.
     @discardableResult
-    public func occurring(times expectedCallCount: Int, file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult<MatchingSomeAmount, Input, Output> {
-        precondition(expectedCallCount > 0, "Use assertWasNotCalled to assert a call count of 0")
+    public func occurring(times expectedCallCount: Int, file: StaticString = #file, line: UInt = #line) -> ExpectWasCalledResult<MatchingSomeAmount, Input, Output> {
+        precondition(expectedCallCount > 0, "Use expectWasNotCalled to expect a call count of 0")
 
         if matchingCalls.count != expectedCallCount,
            let signature = _matchingCalls.first?.signature {
@@ -111,16 +111,16 @@ extension AssertWasCalledResult where AmountMatching == MatchingAnyAmount {
         return .init(matchingCalls: _matchingCalls, blackBox: blackBox)
     }
 
-    /// Makes a further assertion that the specified call occurred a number of times within a given range.
+    /// Makes a further expectation that the specified call occurred a number of times within a given range.
     ///
     /// - Parameters:
     ///   - expectedCallCountRange: The expected range within which the function should have been called.
-    ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the assertion is being made.
-    ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the assertion is being made.
+    ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the expectation is being made.
+    ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the expectation is being made.
     ///
-    /// - Returns: A copy of this result as an `AssertWasCalledResult<MatchingSomeAmount, Input, Output>`.
+    /// - Returns: A copy of this result as an `ExpectWasCalledResult<MatchingSomeAmount, Input, Output>`.
     @discardableResult
-    public func occurringWithin<R: RangeExpression<Int>>(times expectedCallCountRange: R, file: StaticString = #file, line: UInt = #line) -> AssertWasCalledResult<MatchingSomeAmount, Input, Output> {
+    public func occurringWithin<R: RangeExpression<Int>>(times expectedCallCountRange: R, file: StaticString = #file, line: UInt = #line) -> ExpectWasCalledResult<MatchingSomeAmount, Input, Output> {
         if !expectedCallCountRange.contains(matchingCalls.count),
            let signature = _matchingCalls.first?.signature {
             let message = "Expected \(signature) to be called as specified \(expectedCallCountRange.expandedDescription) times, but \(matchingCalls.count) calls were recorded"

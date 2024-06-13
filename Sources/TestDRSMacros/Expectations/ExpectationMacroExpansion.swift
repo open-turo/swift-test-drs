@@ -9,24 +9,24 @@ import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
-protocol SpyAssertionMacro: ExpressionMacro {
-    static var instanceAssertionName: String { get }
-    static var staticAssertionName: String { get }
+protocol ExpectationMacro: ExpressionMacro {
+    static var instanceExpectationName: String { get }
+    static var staticExpectationName: String { get }
 }
 
-public struct AssertWasCalledMacro: SpyAssertionMacro {
-    static let instanceAssertionName = "assertWasCalled"
-    // TODO: There seems to a bug in macro expansion that necessitates static assertions having a different name,
+public struct ExpectWasCalledMacro: ExpectationMacro {
+    static let instanceExpectationName = "expectWasCalled"
+    // TODO: There seems to a bug in macro expansion that necessitates static expectations having a different name,
     // we should see if it is possible to use the same name at some point.
-    static let staticAssertionName = "assertStaticFunctionWasCalled"
+    static let staticExpectationName = "expectStaticFunctionWasCalled"
 }
 
-public struct AssertWasNotCalledMacro: SpyAssertionMacro {
-    static let instanceAssertionName = "assertWasNotCalled"
-    static let staticAssertionName = "assertStaticFunctionWasNotCalled"
+public struct ExpectWasNotCalledMacro: ExpectationMacro {
+    static let instanceExpectationName = "expectWasNotCalled"
+    static let staticExpectationName = "expectStaticFunctionWasNotCalled"
 }
 
-extension SpyAssertionMacro {
+extension ExpectationMacro {
 
     public static func expansion(
         of node: some FreestandingMacroExpansionSyntax,
@@ -43,26 +43,26 @@ extension SpyAssertionMacro {
             return argument.trimmed
         }
 
-        guard let assertionSyntax = assertWasCalledSyntax(
+        guard let expectationSyntax = expectWasCalledSyntax(
             from: function,
-            forAssertion: Self.self,
+            forExpectation: Self.self,
             additionalArguments: additionalArguments
         ) else {
             context.diagnose(
                 Diagnostic(
                     node: Syntax(node),
-                    message: SpyAssertionExpansionDiagnostic(issue: .unableToResolveFunction, macro: Self.self)
+                    message: ExpectationExpansionDiagnostic(issue: .unableToResolveFunction, macro: Self.self)
                 )
             )
             return ""
         }
 
-        return assertionSyntax
+        return expectationSyntax
     }
 
-    static func assertWasCalledSyntax(
+    static func expectWasCalledSyntax(
         from expression: ExprSyntax,
-        forAssertion assertion: SpyAssertionMacro.Type,
+        forExpectation expectation: ExpectationMacro.Type,
         fileAndLine: (ExprSyntax, ExprSyntax)? = nil,
         additionalArguments: [LabeledExprSyntax] = []
     ) -> ExprSyntax? {
@@ -78,10 +78,10 @@ extension SpyAssertionMacro {
         // or: mock.bar(paramOne:)
         if let memberAccess = expression.as(MemberAccessExprSyntax.self) {
             return ExprSyntax(
-                assertionFunctionCall(
+                expectationFunctionCall(
                     memberAccess: memberAccess,
                     function: memberAccess.declName,
-                    forAssertion: assertion,
+                    forExpectation: expectation,
                     arguments: arguments
                 )
             )
@@ -92,9 +92,9 @@ extension SpyAssertionMacro {
         // or: foo(paramOne:)
         if let reference = expression.as(DeclReferenceExprSyntax.self) {
             return ExprSyntax(
-                assertionFunctionCall(
+                expectationFunctionCall(
                     function: reference,
-                    forAssertion: assertion,
+                    forExpectation: expectation,
                     arguments: arguments
                 )
             )
@@ -103,10 +103,10 @@ extension SpyAssertionMacro {
         return nil
     }
 
-    private static func assertionFunctionCall(
+    private static func expectationFunctionCall(
         memberAccess: MemberAccessExprSyntax? = nil,
         function: DeclReferenceExprSyntax,
-        forAssertion assertion: SpyAssertionMacro.Type,
+        forExpectation expectation: ExpectationMacro.Type,
         arguments: [LabeledExprSyntax]
     ) -> FunctionCallExprSyntax {
         let leadingTrivia: Trivia = arguments.isEmpty ? [] : .newline
@@ -118,16 +118,16 @@ extension SpyAssertionMacro {
             memberAccessOrFunction = ExprSyntax(memberAccess)
 
             if "\(memberAccess)".first?.isUppercase == true {
-                memberAccess.declName.baseName = .identifier(assertion.staticAssertionName)
+                memberAccess.declName.baseName = .identifier(expectation.staticExpectationName)
             } else {
-                memberAccess.declName.baseName = .identifier(assertion.instanceAssertionName)
+                memberAccess.declName.baseName = .identifier(expectation.instanceExpectationName)
             }
 
             memberAccess.declName.argumentNames = nil
             callee = ExprSyntax(memberAccess)
         } else {
             memberAccessOrFunction = ExprSyntax(function)
-            callee = ExprSyntax(stringLiteral: assertion.instanceAssertionName)
+            callee = ExprSyntax(stringLiteral: expectation.instanceExpectationName)
         }
 
         return FunctionCallExprSyntax(callee: callee) {

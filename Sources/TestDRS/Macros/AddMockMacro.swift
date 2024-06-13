@@ -7,7 +7,7 @@
 ///
 /// The generated mock type includes methods that mimic the original type's interface, allowing you to control its behavior in tests.
 /// For a given type `MyType`, the generated mock type will be named `MockMyType`.
-/// The mock type will conform to the `StubProviding` and `Spy` protocols. This allows you to stub out each method and assert that methods were called in your tests.
+/// The mock type will conform to the `StubProviding` and `Spy` protocols. This allows you to stub out each method and expect that methods were called in your tests.
 /// Classes will be mocked using a subclass, while protocols and structs will be mocked using a separate class.
 /// Private members are not included in the generated mock type.
 ///

@@ -7,7 +7,7 @@ import Foundation
 import SwiftDiagnostics
 import SwiftSyntaxMacros
 
-struct SpyAssertionExpansionDiagnostic: DiagnosticMessage {
+struct ExpectationExpansionDiagnostic: DiagnosticMessage {
 
     let issue: Issue
     let macro: ExpressionMacro.Type
@@ -27,8 +27,8 @@ struct SpyAssertionExpansionDiagnostic: DiagnosticMessage {
 
 }
 
-// MARK: SpyAssertionExpansionDiagnostic.Issue
-extension SpyAssertionExpansionDiagnostic {
+// MARK: ExpectationExpansionDiagnostic.Issue
+extension ExpectationExpansionDiagnostic {
 
     enum Issue: String {
         case unableToResolveFunction
