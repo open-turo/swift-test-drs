@@ -11,7 +11,7 @@ import SwiftSyntaxMacros
 @main
 struct ExpectationMacrosPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
-        AssertWasCalledMacro.self,
-        AssertWasNotCalledMacro.self,
+        ExpectWasCalledMacro.self,
+        ExpectWasNotCalledMacro.self,
     ]
 }

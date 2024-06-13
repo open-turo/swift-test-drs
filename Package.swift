@@ -69,14 +69,6 @@ let package = Package(
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),
 
-        .target(
-            name: "SharedTesting",
-            dependencies: [
-                "TestDRSCore",
-            ],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
-        ),
-
         // Macro Tests
 
         .testTarget(
@@ -106,7 +98,6 @@ let package = Package(
         .testTarget(
             name: "TestDRSCoreTests",
             dependencies: [
-                "SharedTesting",
                 "TestDRSCore",
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
@@ -125,7 +116,6 @@ let package = Package(
         .testTarget(
             name: "ExpectationsTests",
             dependencies: [
-                "SharedTesting",
                 "TestDRSCore",
                 "Expectations",
             ],

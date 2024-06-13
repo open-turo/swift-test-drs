@@ -27,10 +27,10 @@ final class WeatherServiceTests: XCTestCase {
         XCTAssertEqual(weather.temperature, 72)
         XCTAssertEqual(weather.description, "Sunny")
 
-        #assertWasCalled(networkClient.get, with: expectedURL)
+        #expectWasCalled(networkClient.get, with: expectedURL)
             .exactlyOnce()
 
-        #assertWasCalled(dataParser.parse, with: data, returning: Weather.self)
+        #expectWasCalled(dataParser.parse, with: data, returning: Weather.self)
             .exactlyOnce()
     }
 
@@ -52,7 +52,7 @@ final class WeatherServiceTests: XCTestCase {
             XCTFail("Expected a NetworkClientError")
         }
 
-        #assertWasNotCalled(dataParser.parse, returning: Weather.self)
+        #expectWasNotCalled(dataParser.parse, returning: Weather.self)
     }
 
     func testFetchingWeather_WithDataParserError() throws {

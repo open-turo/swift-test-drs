@@ -3,7 +3,6 @@
 // Copyright © 2024 Turo Open Source. All rights reserved.
 //
 
-import SharedTesting
 @_spi(Internal) import TestDRSCore
 import XCTest
 

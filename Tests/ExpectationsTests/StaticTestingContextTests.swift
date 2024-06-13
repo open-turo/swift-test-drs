@@ -4,7 +4,6 @@
 //
 
 import Expectations
-import SharedTesting
 import TestDRSCore
 import XCTest
 
@@ -21,7 +20,7 @@ final class StaticTestingContextTests: SpyTestCase {
         SpyTestCase.staticFoo()
         SpyTestCase.staticFoo()
 
-        #assertWasCalled(SpyTestCase.staticFoo)
+        #expectWasCalled(SpyTestCase.staticFoo)
             .occurring(times: 3)
     }
 
@@ -39,7 +38,7 @@ final class StaticTestingContextTests: SpyTestCase {
 
         await fulfillment(of: [exp], timeout: 5)
 
-        #assertWasCalled(SpyTestCase.staticFoo)
+        #expectWasCalled(SpyTestCase.staticFoo)
             .occurring(times: 3)
     }
 
@@ -48,7 +47,7 @@ final class StaticTestingContextTests: SpyTestCase {
             SpyTestCase.staticFoo()
             SpyTestCase.staticFoo()
 
-            #assertWasCalled(SpyTestCase.staticFoo)
+            #expectWasCalled(SpyTestCase.staticFoo)
                 .occurring(times: 2)
         }
     }
@@ -63,11 +62,11 @@ final class StaticTestingContextTests: SpyTestCase {
             SpyTestCase.staticFoo()
             SpyTestCase.staticFoo()
 
-            #assertWasCalled(SpyTestCase.staticFoo)
+            #expectWasCalled(SpyTestCase.staticFoo)
                 .occurring(times: 4)
         }
 
-        #assertWasCalled(SpyTestCase.staticFoo)
+        #expectWasCalled(SpyTestCase.staticFoo)
             .exactlyOnce()
     }
 

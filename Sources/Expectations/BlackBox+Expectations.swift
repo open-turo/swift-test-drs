@@ -10,14 +10,14 @@ import Foundation
 
 extension BlackBox {
 
-    // MARK: - assertWasCalled
+    // MARK: - expectWasCalled
 
-    func assertWasCalled<Input, Output>(
+    func expectWasCalled<Input, Output>(
         _ function: (Input) async throws -> Output,
         signature: FunctionSignature,
         file: StaticString,
         line: UInt
-    ) -> AssertWasCalledResult<MatchingAnyAmount, Input, Output> {
+    ) -> ExpectWasCalledResult<MatchingAnyAmount, Input, Output> {
         let calls = callsMatching(signature: signature, taking: Input.self, returning: Output.self)
 
         if calls.isEmpty {
@@ -30,16 +30,16 @@ extension BlackBox {
             reportFailure(message: message, file: file, line: line)
         }
 
-        return AssertWasCalledResult(matchingCalls: calls, blackBox: self)
+        return ExpectWasCalledResult(matchingCalls: calls, blackBox: self)
     }
 
-    func assertWasCalled<each Input, Output>(
+    func expectWasCalled<each Input, Output>(
         _ function: (repeat each Input) async throws -> Output,
         signature: FunctionSignature,
         expectedInput: repeat each Input,
         file: StaticString,
         line: UInt
-    ) -> AssertWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> where repeat each Input: Equatable {
+    ) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> where repeat each Input: Equatable {
         let calls = callsMatching(signature: signature, taking: (repeat each Input).self, returning: Output.self)
         let callsWithExpectedInput = calls.filter { check(repeat each expectedInput, against: $0.input) }
 
@@ -59,12 +59,12 @@ extension BlackBox {
             reportFailure(message: message, file: file, line: line)
         }
 
-        return AssertWasCalledResult(matchingCalls: callsWithExpectedInput, blackBox: self)
+        return ExpectWasCalledResult(matchingCalls: callsWithExpectedInput, blackBox: self)
     }
 
-    // MARK: - assertWasNotCalled
+    // MARK: - expectWasNotCalled
 
-    func assertWasNotCalled<Input, Output>(
+    func expectWasNotCalled<Input, Output>(
         _ function: (Input) async throws -> Output,
         signature: FunctionSignature,
         file: StaticString,

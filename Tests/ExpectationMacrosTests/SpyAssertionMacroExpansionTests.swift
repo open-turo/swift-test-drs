@@ -9,87 +9,87 @@
 import MacroTesting
 import XCTest
 
-final class SpyAssertionMacroExpansionTests: XCTestCase {
+final class SpyExpectationMacroExpansionTests: XCTestCase {
 
     override func invokeTest() {
         withMacroTesting(macros: [
-            "assertWasCalled": AssertWasCalledMacro.self,
-            "assertWasNotCalled": AssertWasNotCalledMacro.self
+            "expectWasCalled": ExpectWasCalledMacro.self,
+            "expectWasNotCalled": ExpectWasNotCalledMacro.self
         ]) {
             super.invokeTest()
         }
     }
 
-    // MARK: - #assertWasCalled
+    // MARK: - #expectWasCalled
 
-    func testAssertWasCalledMacro_WithNoMemberAccess() {
+    func testExpectWasCalledMacro_WithNoMemberAccess() {
         assertMacro {
             """
-            #assertWasCalled(foo)
+            #expectWasCalled(foo)
             """
         } expansion: {
             """
-            assertWasCalled(foo, withSignature: "foo")
+            expectWasCalled(foo, withSignature: "foo")
             """
         }
     }
 
-    func testAssertWasCalledMacro_WithMemberAccess() {
+    func testExpectWasCalledMacro_WithMemberAccess() {
         assertMacro {
             """
-            #assertWasCalled(mock.foo)
+            #expectWasCalled(mock.foo)
             """
         } expansion: {
             """
-            mock.assertWasCalled(mock.foo, withSignature: "foo")
+            mock.expectWasCalled(mock.foo, withSignature: "foo")
             """
         }
     }
 
-    func testAssertWasCalledMacro_WithNestedMemberAccess() {
+    func testExpectWasCalledMacro_WithNestedMemberAccess() {
         assertMacro {
             """
-            #assertWasCalled(base.mock.foo)
+            #expectWasCalled(base.mock.foo)
             """
         } expansion: {
             """
-            base.mock.assertWasCalled(base.mock.foo, withSignature: "foo")
+            base.mock.expectWasCalled(base.mock.foo, withSignature: "foo")
             """
         }
     }
 
-    func testAssertWasCalledMacro_WithSingleArgument() {
+    func testExpectWasCalledMacro_WithSingleArgument() {
         assertMacro {
             """
-            #assertWasCalled(mock.foo(paramOne:))
+            #expectWasCalled(mock.foo(paramOne:))
             """
         } expansion: {
             """
-            mock.assertWasCalled(mock.foo(paramOne:), withSignature: "foo(paramOne:)")
+            mock.expectWasCalled(mock.foo(paramOne:), withSignature: "foo(paramOne:)")
             """
         }
     }
 
-    func testAssertWasCalledMacro__WithMultipleArguments() {
+    func testExpectWasCalledMacro__WithMultipleArguments() {
         assertMacro {
             """
-            #assertWasCalled(mock.foo(_:paramTwo:))
+            #expectWasCalled(mock.foo(_:paramTwo:))
             """
         } expansion: {
             """
-            mock.assertWasCalled(mock.foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)")
+            mock.expectWasCalled(mock.foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)")
             """
         }
     }
 
-    func testAssertWasCalledMacro_WithExpectedInput() {
+    func testExpectWasCalledMacro_WithExpectedInput() {
         assertMacro {
             """
-            #assertWasCalled(mock.foo(paramOne:), with: "Hello World")
+            #expectWasCalled(mock.foo(paramOne:), with: "Hello World")
             """
         } expansion: {
             """
-            mock.assertWasCalled(
+            mock.expectWasCalled(
                 mock.foo(paramOne:),
                 withSignature: "foo(paramOne:)",
                 expectedInput: "Hello World"
@@ -98,14 +98,14 @@ final class SpyAssertionMacroExpansionTests: XCTestCase {
         }
     }
 
-    func testAssertWasCalledMacro_WithExpectedInputAndOutputType() {
+    func testExpectWasCalledMacro_WithExpectedInputAndOutputType() {
         assertMacro {
             """
-            #assertWasCalled(mock.foo(paramOne:), with: "Hello World", returning: String.self)
+            #expectWasCalled(mock.foo(paramOne:), with: "Hello World", returning: String.self)
             """
         } expansion: {
             """
-            mock.assertWasCalled(
+            mock.expectWasCalled(
                 mock.foo(paramOne:),
                 withSignature: "foo(paramOne:)",
                 expectedInput: "Hello World",
@@ -115,26 +115,26 @@ final class SpyAssertionMacroExpansionTests: XCTestCase {
         }
     }
 
-    func testAssertWasCalledMacro_WithStaticFunction() {
+    func testExpectWasCalledMacro_WithStaticFunction() {
         assertMacro {
             """
-            #assertWasCalled(Mock.foo)
+            #expectWasCalled(Mock.foo)
             """
         } expansion: {
             """
-            Mock.assertStaticFunctionWasCalled(Mock.foo, withSignature: "foo")
+            Mock.expectStaticFunctionWasCalled(Mock.foo, withSignature: "foo")
             """
         }
     }
 
-    func testAssertWasCalledMacro_WithStaticFunction_WithExpectedInput() {
+    func testExpectWasCalledMacro_WithStaticFunction_WithExpectedInput() {
         assertMacro {
             """
-            #assertWasCalled(Mock.foo(paramOne:), with: "Hello World")
+            #expectWasCalled(Mock.foo(paramOne:), with: "Hello World")
             """
         } expansion: {
             """
-            Mock.assertStaticFunctionWasCalled(
+            Mock.expectStaticFunctionWasCalled(
                 Mock.foo(paramOne:),
                 withSignature: "foo(paramOne:)",
                 expectedInput: "Hello World"
@@ -143,28 +143,28 @@ final class SpyAssertionMacroExpansionTests: XCTestCase {
         }
     }
 
-    // MARK: - #assertWasNotCalled
+    // MARK: - #expectWasNotCalled
 
-    func testAssertWasNotCalledMacro() {
+    func testExpectWasNotCalledMacro() {
         assertMacro {
             """
-            #assertWasNotCalled(mock.foo)
+            #expectWasNotCalled(mock.foo)
             """
         } expansion: {
             """
-            mock.assertWasNotCalled(mock.foo, withSignature: "foo")
+            mock.expectWasNotCalled(mock.foo, withSignature: "foo")
             """
         }
     }
 
-    func testAssertWasNotCalledMacro_WithStaticFunction() {
+    func testExpectWasNotCalledMacro_WithStaticFunction() {
         assertMacro {
             """
-            #assertWasNotCalled(Mock.foo)
+            #expectWasNotCalled(Mock.foo)
             """
         } expansion: {
             """
-            Mock.assertStaticFunctionWasNotCalled(Mock.foo, withSignature: "foo")
+            Mock.expectStaticFunctionWasNotCalled(Mock.foo, withSignature: "foo")
             """
         }
     }
