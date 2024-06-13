@@ -3,7 +3,7 @@
 // Copyright © 2024 Turo Open Source. All rights reserved.
 //
 
-@_spi(Internal) import TestDRSCore
+@_spi(Internal) import TestDRSMocking
 
 /// Creates a `StaticTestingContext` for testing the given `StaticTestable` types during the duration of the operation.
 ///

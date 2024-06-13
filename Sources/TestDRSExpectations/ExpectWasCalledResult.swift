@@ -3,7 +3,7 @@
 // Copyright © 2024 Turo Open Source. All rights reserved.
 //
 
-import TestDRSCore
+import TestDRSMocking
 
 enum ExpectWasCalledResultError: Error {
     /// No calls were made that match the expectation.

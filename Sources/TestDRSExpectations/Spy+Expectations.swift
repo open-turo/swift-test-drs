@@ -3,7 +3,7 @@
 // Copyright © 2024 Turo Open Source. All rights reserved.
 //
 
-@_spi(Internal) import TestDRSCore
+@_spi(Internal) import TestDRSMocking
 
 // swiftformat:disable spaceAroundOperators
 

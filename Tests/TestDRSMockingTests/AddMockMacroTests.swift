@@ -3,7 +3,6 @@
 // Copyright © 2024 Turo Open Source. All rights reserved.
 //
 
-import TestDRSCore
 import TestDRSExpectations
 import TestDRSMocking
 import XCTest

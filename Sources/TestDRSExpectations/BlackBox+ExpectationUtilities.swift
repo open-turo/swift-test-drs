@@ -3,7 +3,7 @@
 // Copyright © 2024 Turo Open Source. All rights reserved.
 //
 
-import TestDRSCore
+import TestDRSMocking
 
 /// Extension for `BlackBox` that provides expectation utilities.
 extension BlackBox {

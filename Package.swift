@@ -43,14 +43,8 @@ let package = Package(
         // Modules
 
         .target(
-            name: "TestDRSCore",
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
-        ),
-
-        .target(
             name: "TestDRSMocking",
             dependencies: [
-                "TestDRSCore",
                 "MockingMacros",
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
@@ -59,7 +53,7 @@ let package = Package(
         .target(
             name: "TestDRSExpectations",
             dependencies: [
-                "TestDRSCore",
+                "TestDRSMocking",
                 "ExpectationMacros",
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
@@ -72,7 +66,6 @@ let package = Package(
             dependencies: [
                 .product(name: "MacroTesting", package: "swift-macro-testing"),
                 .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
-                "TestDRSCore",
                 "MockingMacros",
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
@@ -83,7 +76,6 @@ let package = Package(
             dependencies: [
                 .product(name: "MacroTesting", package: "swift-macro-testing"),
                 .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
-                "TestDRSCore",
                 "ExpectationMacros",
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
@@ -92,17 +84,8 @@ let package = Package(
         // Module Tests
 
         .testTarget(
-            name: "TestDRSCoreTests",
-            dependencies: [
-                "TestDRSCore",
-            ],
-            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
-        ),
-
-        .testTarget(
             name: "TestDRSMockingTests",
             dependencies: [
-                "TestDRSCore",
                 "TestDRSMocking",
                 "TestDRSExpectations",
             ],
@@ -112,7 +95,7 @@ let package = Package(
         .testTarget(
             name: "TestDRSExpectationsTests",
             dependencies: [
-                "TestDRSCore",
+                "TestDRSMocking",
                 "TestDRSExpectations",
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]

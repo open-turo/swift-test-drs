@@ -4,7 +4,7 @@
 //
 
 import Foundation
-import TestDRSCore
+import TestDRSMocking
 import XCTest
 
 extension BlackBox {

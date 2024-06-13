@@ -4,7 +4,7 @@
 //
 
 import Foundation
-@_spi(Internal) import TestDRSCore
+@_spi(Internal) import TestDRSMocking
 
 // swiftformat:disable spaceAroundOperators
 
