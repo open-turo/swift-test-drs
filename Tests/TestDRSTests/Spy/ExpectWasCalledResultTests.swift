@@ -16,7 +16,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
     func testGetMatchingCall_ThrowsErrorWhenNoCalls() throws {
         do {
             XCTExpectFailure()
-            _ = try expectWasCalled(foo, withSignature: "foo()")
+            _ = try expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
                 .exactlyOnce()
                 .getMatchingCall()
             XCTFail("Expected ExpectWasCalledResultError")
@@ -35,7 +35,8 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         let callToZab = try expectWasCalled(
             zab(paramOne:),
             withSignature: "zab(paramOne:)",
-            returning: String.self
+            returning: String.self,
+            reportFailure: xctReportFailure
         ).exactlyOnce()
             .getMatchingCall()
 
@@ -47,7 +48,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
     func testGetFirstMatchingCall_ThrowsErrorWhenNoCalls() throws {
         do {
             XCTExpectFailure()
-            _ = try expectWasCalled(foo, withSignature: "foo()")
+            _ = try expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
                 .getFirstMatchingCall()
             XCTFail("Expected ExpectWasCalledResultError")
         } catch let error as ExpectWasCalledResultError {
@@ -67,7 +68,8 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         let callToZab = try expectWasCalled(
             zab(paramOne:),
             withSignature: "zab(paramOne:)",
-            returning: String.self
+            returning: String.self,
+            reportFailure: xctReportFailure
         ).getFirstMatchingCall()
 
         XCTAssertEqual(callToZab.input, "Hello")
@@ -78,7 +80,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
     func testGetLastMatchingCall_ThrowsErrorWhenNoCalls() throws {
         do {
             XCTExpectFailure()
-            _ = try expectWasCalled(foo, withSignature: "foo()")
+            _ = try expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
                 .getLastMatchingCall()
             XCTFail("Expected ExpectWasCalledResultError")
         } catch let error as ExpectWasCalledResultError {
@@ -98,7 +100,8 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         let callToZab = try expectWasCalled(
             zab(paramOne:),
             withSignature: "zab(paramOne:)",
-            returning: String.self
+            returning: String.self,
+            reportFailure: xctReportFailure
         ).getLastMatchingCall()
 
         XCTAssertEqual(callToZab.input, "World")
@@ -110,7 +113,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                let callToFoo = expectWasCalled(foo, withSignature: "foo()")
+                let callToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
                     .exactlyOnce()
                     .matchingCall
 
@@ -118,7 +121,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to "foo()" were recorded
+                Assertion Failure at \(self.file):\(self.line): failed - No calls to "foo()" were recorded
                 """
             }
         )
@@ -130,7 +133,8 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         let callToRab = expectWasCalled(
             rab(paramOne:paramTwo:paramThree:),
             withSignature: "rab(paramOne:paramTwo:paramThree:)",
-            expectedInput: true, 1, "Hello"
+            expectedInput: true, 1, "Hello",
+            reportFailure: xctReportFailure
         ).exactlyOnce()
             .matchingCall
 
@@ -144,7 +148,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callToRab = expectWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
+                let callToRab = expectWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello", reportFailure: xctReportFailure)
                     .exactlyOnce()
                     .matchingCall
 
@@ -152,7 +156,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected "rab(paramOne:paramTwo:paramThree:)" to be called exactly once as specified, but 2 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): failed - Expected "rab(paramOne:paramTwo:paramThree:)" to be called exactly once as specified, but 2 calls were recorded
                 """
             }
         )
@@ -164,7 +168,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
+                let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
                     .occurring(times: 1)
                     .matchingCalls
 
@@ -172,7 +176,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to "foo()" were recorded
+                Assertion Failure at \(self.file):\(self.line): failed - No calls to "foo()" were recorded
                 """
             }
         )
@@ -183,7 +187,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         foo()
         foo()
 
-        let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
+        let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
             .occurring(times: 3)
             .matchingCalls
 
@@ -192,7 +196,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
+                let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
                     .occurring(times: 1)
                     .matchingCalls
 
@@ -200,7 +204,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected "foo()" to be called as specified 1 times, but 3 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): failed - Expected "foo()" to be called as specified 1 times, but 3 calls were recorded
                 """
             }
         )
@@ -214,19 +218,19 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         zab(paramOne: 2)
         zab(paramOne: 3)
 
-        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self).occurring(times: 1)
-        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: String.self).occurring(times: 2)
-        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Int.self).occurring(times: 3)
+        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self, reportFailure: xctReportFailure).occurring(times: 1)
+        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: String.self, reportFailure: xctReportFailure).occurring(times: 2)
+        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Int.self, reportFailure: xctReportFailure).occurring(times: 3)
 
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self)
+                expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self, reportFailure: xctReportFailure)
                     .occurring(times: 4)
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected "zab(paramOne:)" to be called as specified 4 times, but 1 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): failed - Expected "zab(paramOne:)" to be called as specified 4 times, but 1 calls were recorded
                 """
             }
         )
@@ -238,7 +242,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
+                let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
                     .occurringWithin(times: 0 ... 5)
                     .matchingCalls
 
@@ -246,7 +250,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): No calls to "foo()" were recorded
+                Assertion Failure at \(self.file):\(self.line): failed - No calls to "foo()" were recorded
                 """
             }
         )
@@ -257,19 +261,19 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         foo()
         foo()
 
-        expectWasCalled(foo, withSignature: "foo()")
+        expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
             .occurringWithin(times: 2 ... 3)
 
-        expectWasCalled(foo, withSignature: "foo()")
+        expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
             .occurringWithin(times: 3...)
 
-        expectWasCalled(foo, withSignature: "foo()")
+        expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
             .occurringWithin(times: ...3)
 
-        expectWasCalled(foo, withSignature: "foo()")
+        expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
             .occurringWithin(times: ..<4)
 
-        let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
+        let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
             .occurringWithin(times: 2 ..< 4)
             .matchingCalls
 
@@ -278,7 +282,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
+                let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
                     .occurringWithin(times: 0 ... 2)
                     .matchingCalls
 
@@ -286,7 +290,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected "foo()" to be called as specified within 0...2 times, but 3 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): failed - Expected "foo()" to be called as specified within 0...2 times, but 3 calls were recorded
                 """
             }
         )
@@ -294,7 +298,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
+                let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
                     .occurringWithin(times: ...2)
                     .matchingCalls
 
@@ -302,7 +306,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected "foo()" to be called as specified up to 2 times, but 3 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): failed - Expected "foo()" to be called as specified up to 2 times, but 3 calls were recorded
                 """
             }
         )
@@ -310,7 +314,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
+                let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
                     .occurringWithin(times: ..<3)
                     .matchingCalls
 
@@ -318,7 +322,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected "foo()" to be called as specified fewer than 3 times, but 3 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): failed - Expected "foo()" to be called as specified fewer than 3 times, but 3 calls were recorded
                 """
             }
         )
@@ -326,7 +330,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
+                let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
                     .occurringWithin(times: 4...)
                     .matchingCalls
 
@@ -334,7 +338,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Expected "foo()" to be called as specified at least 4 times, but 3 calls were recorded
+                Assertion Failure at \(self.file):\(self.line): failed - Expected "foo()" to be called as specified at least 4 times, but 3 calls were recorded
                 """
             }
         )

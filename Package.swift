@@ -6,7 +6,7 @@ import PackageDescription
 
 let package = Package(
     name: "TestDRS",
-    platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)],
+    platforms: [.macOS(.v10_15), .iOS(.v16), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)],
     products: [
         .library(
             name: "TestDRS",
@@ -16,7 +16,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-syntax.git", from: "510.0.2"),
         .package(url: "https://github.com/pointfreeco/swift-macro-testing", .upToNextMajor(from: "0.4.0")),
-        .package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", .upToNextMajor(from: "1.1.2"))
+        .package(url: "https://github.com/apple/swift-testing.git", from: "0.7.0"),
     ],
     targets: [
         .macro(
@@ -31,7 +31,6 @@ let package = Package(
             name: "TestDRS",
             dependencies: [
                 "TestDRSMacros",
-                .product(name: "XCTestDynamicOverlay", package: "xctest-dynamic-overlay"),
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),
@@ -39,6 +38,7 @@ let package = Package(
         .testTarget(
             name: "TestDRSTests",
             dependencies: [
+                .product(name: "Testing", package: "swift-testing"),
                 "TestDRS",
                 "TestDRSMacros",
             ],

@@ -7,21 +7,23 @@ import Foundation
 
 extension Spy {
 
-    static func getStaticBlackBox(file: StaticString? = nil, line: UInt? = nil) -> BlackBox {
+    static func getStaticBlackBox(locationAndReportFailure: (SourceLocation, ReportFailure)? = nil) -> BlackBox {
         guard let context = StaticTestingContext.current else {
-            let blackBox = BlackBox()
-            blackBox.reportFailure(
-                message: """
-                Unable to resolve the current StaticTestingContext. You can create one by wrapping your test with a call to withStaticTestingContext:
+            let message = """
+            Unable to resolve the current StaticTestingContext. You can create one by wrapping your test with a call to withStaticTestingContext:
 
-                withStaticTestingContext {
-                    // Test some static member
-                }
-                """,
-                file: file,
-                line: line
-            )
-            return blackBox
+            withStaticTestingContext {
+                // Test some static member
+            }
+            """
+
+            if let (location, reportFailure) = locationAndReportFailure {
+                reportFailure(message, location)
+            } else {
+                assertionFailure(message)
+            }
+
+            return BlackBox()
         }
 
         return context.blackBox(for: Self.self)

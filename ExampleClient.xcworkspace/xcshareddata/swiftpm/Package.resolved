@@ -1,4 +1,5 @@
 {
+  "originHash" : "daa449108ac7332be85c58d9ac5526907b27cff5fc84ca2bfd8722c1e99fc754",
   "pins" : [
     {
       "identity" : "swift-macro-testing",
@@ -23,19 +24,19 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-syntax.git",
       "state" : {
-        "revision" : "303e5c5c36d6a558407d364878df131c3546fad8",
-        "version" : "510.0.2"
+        "branch" : "main",
+        "revision" : "52f0fb13d3c81a62522417c116f70c60ecccfded"
       }
     },
     {
-      "identity" : "xctest-dynamic-overlay",
+      "identity" : "swift-testing",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
+      "location" : "https://github.com/apple/swift-testing.git",
       "state" : {
-        "revision" : "6f30bdba373bbd7fbfe241dddd732651f2fbd1e2",
-        "version" : "1.1.2"
+        "revision" : "69d59cfc76e5daf498ca61f5af409f594768eef9",
+        "version" : "0.10.0"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

@@ -1,53 +1,55 @@
 //
-// Created on 5/17/24.
+// Created on 6/18/24.
 // Copyright © 2024 Turo Open Source. All rights reserved.
 //
 
-// MARK: - expectWasCalled
+public typealias AssertWasCalledResult = ExpectWasCalledResult
 
-/// Expects that the given function was called. __Intended for use with Swift `Testing`. For use with `XCTest`, see `assertWasCalled`.__
+// MARK: - assertWasCalled
+
+/// Asserts that the given function was called. __Intended for use with `XCTest`. For use with Swift `Testing`, see `expectWasCalled`.__
 ///
 /// - Parameters:
-///   - function: A reference to the function to expect was called.
+///   - function: A reference to the function to assert was called.
 ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
 ///   - outputType: An optional  phantom parameter used to derive the output type of the `function` passed in.
 /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
 @freestanding(expression)
 @discardableResult
-public macro expectWasCalled<Input, Output>(
+public macro assertWasCalled<Input, Output>(
     _ function: (Input) async throws -> Output,
     taking inputType: Input.Type? = nil,
     returning outputType: Output.Type? = nil
-) -> ExpectWasCalledResult<MatchingAnyAmount, Input, Output> = #externalMacro(module: "TestDRSMacros", type: "ExpectWasCalledMacro")
+) -> AssertWasCalledResult<MatchingAnyAmount, Input, Output> = #externalMacro(module: "TestDRSMacros", type: "AssertWasCalledMacro")
 
 
-/// Expects that the given function was called with the expected input. __Intended for use with Swift `Testing`. For use with `XCTest`, see `assertWasCalled`.__
+/// Asserts that the given function was called with the expected input. __Intended for use with `XCTest`. For use with Swift `Testing`, see `expectWasCalled`.__
 ///
 /// - Parameters:
-///   - function: A reference to the function to expect was called.
+///   - function: A reference to the function to assert was called.
 ///   - expectedInput: The expected input parameter(s) for the function.
 ///   - outputType: An optional phantom parameter used to derive the output type of the `function` passed in.
 /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
 @freestanding(expression)
 @discardableResult
-public macro expectWasCalled<each Input, Output>(
+public macro assertWasCalled<each Input, Output>(
     _ function: (repeat each Input) async throws -> Output,
     with expectedInput: repeat each Input,
     returning outputType: Output.Type? = nil
-) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> = #externalMacro(module: "TestDRSMacros", type: "ExpectWasCalledMacro") where repeat each Input: Equatable
+) -> AssertWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> = #externalMacro(module: "TestDRSMacros", type: "AssertWasCalledMacro") where repeat each Input: Equatable
 
-// MARK: - expectWasNotCalled
+// MARK: - assertWasNotCalled
 
-/// Expects that the given function was not called. __Intended for use with Swift `Testing`. For use with `XCTest`, see `assertWasNotCalled`.__
+/// Asserts that the given function was not called. __Intended for use with `XCTest`. For use with Swift `Testing`, see `expectWasNotCalled`.__
 ///
 /// - Parameters:
-///   - function: A reference to the function to expect was not called.
+///   - function: A reference to the function to assert was not called.
 ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
 ///   - outputType: An optional  phantom parameter used to derive the output type of the `function` passed in.
 @freestanding(expression)
 @discardableResult
-public macro expectWasNotCalled<Input, Output>(
+public macro assertWasNotCalled<Input, Output>(
     _ function: (Input) async throws -> Output,
     taking inputType: Input.Type? = nil,
     returning outputType: Output.Type? = nil
-) = #externalMacro(module: "TestDRSMacros", type: "ExpectWasNotCalledMacro")
+) = #externalMacro(module: "TestDRSMacros", type: "AssertWasNotCalledMacro")

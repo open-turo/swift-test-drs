@@ -21,8 +21,7 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
     ///   - outputType: An optional  phantom parameter used to derive the output type of the `function` passed in.
-    ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the expectation is being made.
-    ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the expectation is being made.
+    ///   - reportFailure: A function that handles reporting any test failures.
     /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
     @discardableResult
     func expectWasCalled<Input, Output>(
@@ -30,10 +29,19 @@ public extension Spy {
         withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
-        file: StaticString = #file,
-        line: UInt = #line
+        reportFailure: @escaping ReportFailure,
+        fileID: StaticString = #fileID,
+        filePath: StaticString = #filePath,
+        line: UInt = #line,
+        column: UInt = #column
     ) -> ExpectWasCalledResult<MatchingAnyAmount, Input, Output> {
-        blackBox.expectWasCalled(function, signature: signature, file: file, line: line)
+        let location = SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
+        return blackBox.expectWasCalled(
+            function,
+            signature: signature,
+            location: location,
+            reportFailure: reportFailure
+        )
     }
 
     /// Expects that the given function was called with the expected input.
@@ -45,8 +53,7 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - expectedInput: The expected input parameter(s) for the function.
     ///   - outputType: An optional phantom parameter used to derive the output type of the `function` passed in.
-    ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the expectation is being made.
-    ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the expectation is being made.
+    ///   - reportFailure: A function that handles reporting any test failures.
     /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
     @discardableResult
     func expectWasCalled<each Input, Output>(
@@ -54,10 +61,20 @@ public extension Spy {
         withSignature signature: FunctionSignature,
         expectedInput: repeat each Input,
         returning: Output.Type? = nil,
-        file: StaticString = #file,
-        line: UInt = #line
+        reportFailure: @escaping ReportFailure,
+        fileID: StaticString = #fileID,
+        filePath: StaticString = #filePath,
+        line: UInt = #line,
+        column: UInt = #column
     ) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> where repeat each Input: Equatable {
-        blackBox.expectWasCalled(function, signature: signature, expectedInput: repeat each expectedInput, file: file, line: line)
+        let location = SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
+        return blackBox.expectWasCalled(
+            function,
+            signature: signature,
+            expectedInput: repeat each expectedInput,
+            location: location,
+            reportFailure: reportFailure
+        )
     }
 
     /// Expects that the given function was not called.
@@ -69,17 +86,25 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
     ///   - outputType: An optional  phantom parameter used to derive the output type of the `function` passed in.
-    ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the expectation is being made.
-    ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the expectation is being made.
+    ///   - reportFailure: A function that handles reporting any test failures.
     func expectWasNotCalled<Input, Output>(
         _ function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
-        file: StaticString = #file,
-        line: UInt = #line
+        reportFailure: @escaping ReportFailure,
+        fileID: StaticString = #fileID,
+        filePath: StaticString = #filePath,
+        line: UInt = #line,
+        column: UInt = #column
     ) {
-        blackBox.expectWasNotCalled(function, signature: signature, file: file, line: line)
+        let location = SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
+        blackBox.expectWasNotCalled(
+            function,
+            signature: signature,
+            location: location,
+            reportFailure: reportFailure
+        )
     }
 
 }
@@ -100,8 +125,7 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
     ///   - outputType: An optional  phantom parameter used to derive the output type of the `function` passed in.
-    ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the expectation is being made.
-    ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the expectation is being made.
+    ///   - reportFailure: A function that handles reporting any test failures.
     /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
     @discardableResult
     static func expectStaticFunctionWasCalled<Input, Output>(
@@ -109,11 +133,20 @@ public extension Spy {
         withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
-        file: StaticString = #file,
-        line: UInt = #line
+        reportFailure: @escaping ReportFailure,
+        fileID: StaticString = #fileID,
+        filePath: StaticString = #filePath,
+        line: UInt = #line,
+        column: UInt = #column
     ) -> ExpectWasCalledResult<MatchingAnyAmount, Input, Output> {
-        getStaticBlackBox(file: file, line: line)
-            .expectWasCalled(function, signature: signature, file: file, line: line)
+        let location = SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
+        return getStaticBlackBox(locationAndReportFailure: (location, reportFailure))
+            .expectWasCalled(
+                function,
+                signature: signature,
+                location: location,
+                reportFailure: reportFailure
+            )
     }
 
     /// Expects that the given function was called with the expected input.
@@ -125,8 +158,7 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - expectedInput: The expected input parameter(s) for the function.
     ///   - outputType: An optional phantom parameter used to derive the output type of the `function` passed in.
-    ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the expectation is being made.
-    ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the expectation is being made.
+    ///   - reportFailure: A function that handles reporting any test failures.
     /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
     @discardableResult
     static func expectStaticFunctionWasCalled<each Input, Output>(
@@ -134,11 +166,21 @@ public extension Spy {
         withSignature signature: FunctionSignature,
         expectedInput: repeat each Input,
         returning: Output.Type? = nil,
-        file: StaticString = #file,
-        line: UInt = #line
+        reportFailure: @escaping ReportFailure,
+        fileID: StaticString = #fileID,
+        filePath: StaticString = #filePath,
+        line: UInt = #line,
+        column: UInt = #column
     ) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> where repeat each Input: Equatable {
-        getStaticBlackBox(file: file, line: line)
-            .expectWasCalled(function, signature: signature, expectedInput: repeat each expectedInput, file: file, line: line)
+        let location = SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
+        return getStaticBlackBox(locationAndReportFailure: (location, reportFailure))
+            .expectWasCalled(
+                function,
+                signature: signature,
+                expectedInput: repeat each expectedInput,
+                location: location,
+                reportFailure: reportFailure
+            )
     }
 
     /// Expects that the given function was not called.
@@ -150,18 +192,26 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
     ///   - outputType: An optional  phantom parameter used to derive the output type of the `function` passed in.
-    ///   - file: **Do not pass in this argument**, it will automatically capture the file path where the expectation is being made.
-    ///   - line: **Do not pass in this argument**, it will automatically capture the line number where the expectation is being made.
+    ///   - reportFailure: A function that handles reporting any test failures.
     static func expectStaticFunctionWasNotCalled<Input, Output>(
         _ function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
-        file: StaticString = #file,
-        line: UInt = #line
+        reportFailure: @escaping ReportFailure,
+        fileID: StaticString = #fileID,
+        filePath: StaticString = #filePath,
+        line: UInt = #line,
+        column: UInt = #column
     ) {
-        getStaticBlackBox(file: file, line: line)
-            .expectWasNotCalled(function, signature: signature, file: file, line: line)
+        let location = SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
+        return getStaticBlackBox(locationAndReportFailure: (location, reportFailure))
+            .expectWasNotCalled(
+                function,
+                signature: signature,
+                location: location,
+                reportFailure: reportFailure
+            )
     }
 
 }

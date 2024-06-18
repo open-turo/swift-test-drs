@@ -11,14 +11,15 @@
 		04272B652C1BA55F0022DB2F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04272B642C1BA55F0022DB2F /* ContentView.swift */; };
 		04272B672C1BA5600022DB2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04272B662C1BA5600022DB2F /* Assets.xcassets */; };
 		04272B6A2C1BA5600022DB2F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04272B692C1BA5600022DB2F /* Preview Assets.xcassets */; };
-		04272B742C1BA5610022DB2F /* ExampleClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04272B732C1BA5610022DB2F /* ExampleClientTests.swift */; };
-		044411B42C1BA6160031FF8C /* TestDRS in Frameworks */ = {isa = PBXBuildFile; productRef = 044411B32C1BA6160031FF8C /* TestDRS */; };
+		0432FCA92C20B39D0013690F /* FailureReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0432FCA82C20B39D0013690F /* FailureReporter.swift */; };
 		044411B62C1BA61E0031FF8C /* TestDRS in Frameworks */ = {isa = PBXBuildFile; productRef = 044411B52C1BA61E0031FF8C /* TestDRS */; };
 		044411BB2C1BA6370031FF8C /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044411B82C1BA6370031FF8C /* NetworkClient.swift */; };
 		044411BC2C1BA6370031FF8C /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044411BA2C1BA6370031FF8C /* WeatherService.swift */; };
 		044411BD2C1BA6370031FF8C /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044411B92C1BA6370031FF8C /* Weather.swift */; };
 		044411BE2C1BA6370031FF8C /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044411B72C1BA6370031FF8C /* DataParser.swift */; };
 		044411C02C1BA6400031FF8C /* WeatherServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044411BF2C1BA6400031FF8C /* WeatherServiceTests.swift */; };
+		044411C22C1BAD8B0031FF8C /* WeatherServiceSwiftTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044411C12C1BAD8B0031FF8C /* WeatherServiceSwiftTesting.swift */; };
+		044411C82C2090B30031FF8C /* TestDRS in Frameworks */ = {isa = PBXBuildFile; productRef = 044411C72C2090B30031FF8C /* TestDRS */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,12 +39,14 @@
 		04272B662C1BA5600022DB2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04272B692C1BA5600022DB2F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		04272B6F2C1BA5610022DB2F /* ExampleClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		04272B732C1BA5610022DB2F /* ExampleClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleClientTests.swift; sourceTree = "<group>"; };
+		0432FCA82C20B39D0013690F /* FailureReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureReporter.swift; sourceTree = "<group>"; };
 		044411B72C1BA6370031FF8C /* DataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
 		044411B82C1BA6370031FF8C /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		044411B92C1BA6370031FF8C /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		044411BA2C1BA6370031FF8C /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		044411BF2C1BA6400031FF8C /* WeatherServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServiceTests.swift; sourceTree = "<group>"; };
+		044411C12C1BAD8B0031FF8C /* WeatherServiceSwiftTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServiceSwiftTesting.swift; sourceTree = "<group>"; };
+		044411C32C1BBD730031FF8C /* Testing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Testing.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/Testing.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				044411B42C1BA6160031FF8C /* TestDRS in Frameworks */,
+				044411C82C2090B30031FF8C /* TestDRS in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,7 +115,8 @@
 			isa = PBXGroup;
 			children = (
 				044411BF2C1BA6400031FF8C /* WeatherServiceTests.swift */,
-				04272B732C1BA5610022DB2F /* ExampleClientTests.swift */,
+				0432FCA82C20B39D0013690F /* FailureReporter.swift */,
+				044411C12C1BAD8B0031FF8C /* WeatherServiceSwiftTesting.swift */,
 			);
 			path = ExampleClientTests;
 			sourceTree = "<group>";
@@ -120,6 +124,7 @@
 		044411B22C1BA6160031FF8C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				044411C32C1BBD730031FF8C /* Testing.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -141,7 +146,7 @@
 			);
 			name = ExampleClient;
 			packageProductDependencies = (
-				044411B32C1BA6160031FF8C /* TestDRS */,
+				044411C72C2090B30031FF8C /* TestDRS */,
 			);
 			productName = ExampleClient;
 			productReference = 04272B5F2C1BA55F0022DB2F /* ExampleClient.app */;
@@ -243,8 +248,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0432FCA92C20B39D0013690F /* FailureReporter.swift in Sources */,
 				044411C02C1BA6400031FF8C /* WeatherServiceTests.swift in Sources */,
-				04272B742C1BA5610022DB2F /* ExampleClientTests.swift in Sources */,
+				044411C22C1BAD8B0031FF8C /* WeatherServiceSwiftTesting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,7 +408,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.TestDRS.ExampleClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -431,7 +437,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.TestDRS.ExampleClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -507,11 +513,11 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		044411B32C1BA6160031FF8C /* TestDRS */ = {
+		044411B52C1BA61E0031FF8C /* TestDRS */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TestDRS;
 		};
-		044411B52C1BA61E0031FF8C /* TestDRS */ = {
+		044411C72C2090B30031FF8C /* TestDRS */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TestDRS;
 		};

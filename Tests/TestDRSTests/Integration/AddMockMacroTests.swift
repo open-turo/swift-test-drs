@@ -8,6 +8,10 @@ import XCTest
 
 final class AddMockMacroTests: XCTestCase {
 
+    typealias MockSomeProtocol = AddMockMacroTestTypes.MockSomeProtocol
+    typealias MockSomeStruct = AddMockMacroTestTypes.MockSomeStruct
+    typealias MockSomeClass = AddMockMacroTestTypes.MockSomeClass
+
     override func invokeTest() {
         withStaticTestingContext {
             super.invokeTest()
@@ -26,18 +30,18 @@ final class AddMockMacroTests: XCTestCase {
         let bazOutput = mockProtocol.baz(paramOne: true, paramTwo: "Hello")
         let oofOutput = MockSomeProtocol.oof()
 
-        #expectWasCalled(mockProtocol.foo)
+        #assertWasCalled(mockProtocol.foo)
             .exactlyOnce()
 
-        #expectWasCalled(mockProtocol.bar(paramOne:), with: 89)
+        #assertWasCalled(mockProtocol.bar(paramOne:), with: 89)
             .exactlyOnce()
 
-        #expectWasCalled(mockProtocol.baz(paramOne:paramTwo:), with: true, "Hello")
+        #assertWasCalled(mockProtocol.baz(paramOne:paramTwo:), with: true, "Hello")
             .exactlyOnce()
 
         XCTAssertEqual(bazOutput, "World")
 
-        #expectWasCalled(MockSomeProtocol.oof)
+        #assertWasCalled(MockSomeProtocol.oof)
             .exactlyOnce()
         XCTAssertEqual(oofOutput, "Wow")
     }
@@ -52,10 +56,10 @@ final class AddMockMacroTests: XCTestCase {
         mockProtocol.bar(paramOne: 89)
         let bazOutput = mockProtocol.baz(paramOne: true, paramTwo: "Hello")
 
-        #expectWasCalled(mockProtocol.bar, with: 89)
+        #assertWasCalled(mockProtocol.bar, with: 89)
             .exactlyOnce()
 
-        #expectWasCalled(mockProtocol.baz, with: true, "Hello")
+        #assertWasCalled(mockProtocol.baz, with: true, "Hello")
             .exactlyOnce()
 
         XCTAssertEqual(bazOutput, "World")
@@ -86,18 +90,18 @@ final class AddMockMacroTests: XCTestCase {
         let bazOutput = mockClass.baz(paramOne: true, paramTwo: "Hello")
         let oofOutput = MockSomeClass.oof()
 
-        #expectWasCalled(mockClass.foo)
+        #assertWasCalled(mockClass.foo)
             .exactlyOnce()
 
-        #expectWasCalled(mockClass.bar(paramOne:), with: 89)
+        #assertWasCalled(mockClass.bar(paramOne:), with: 89)
             .exactlyOnce()
 
-        #expectWasCalled(mockClass.baz(paramOne:paramTwo:), with: true, "Hello")
+        #assertWasCalled(mockClass.baz(paramOne:paramTwo:), with: true, "Hello")
             .exactlyOnce()
 
         XCTAssertEqual(bazOutput, "World")
 
-        #expectWasCalled(MockSomeClass.oof)
+        #assertWasCalled(MockSomeClass.oof)
             .exactlyOnce()
         XCTAssertEqual(oofOutput, "Wow")
     }
@@ -130,17 +134,17 @@ final class AddMockMacroTests: XCTestCase {
         let bazOutput = mockStruct.baz(paramOne: true, paramTwo: "Hello")
         let oofOutput = MockSomeStruct.oof()
 
-        #expectWasCalled(mockStruct.foo)
+        #assertWasCalled(mockStruct.foo)
             .exactlyOnce()
 
-        #expectWasCalled(mockStruct.bar(paramOne:), with: 89)
+        #assertWasCalled(mockStruct.bar(paramOne:), with: 89)
             .exactlyOnce()
 
-        #expectWasCalled(mockStruct.baz(paramOne:paramTwo:), with: true, "Hello")
+        #assertWasCalled(mockStruct.baz(paramOne:paramTwo:), with: true, "Hello")
             .exactlyOnce()
         XCTAssertEqual(bazOutput, "World")
 
-        #expectWasCalled(MockSomeStruct.oof)
+        #assertWasCalled(MockSomeStruct.oof)
             .exactlyOnce()
         XCTAssertEqual(oofOutput, "Wow")
     }
@@ -156,92 +160,6 @@ final class AddMockMacroTests: XCTestCase {
         XCTAssertEqual(mockStruct.x, "Hello World")
         XCTAssertEqual(mockStruct.y, 89)
         XCTAssertEqual(MockSomeStruct.z, true)
-    }
-
-}
-
-extension AddMockMacroTests {
-
-    @MainActor @AddMock
-    protocol SomeProtocol {
-        var x: String { get }
-        var y: Int { get set }
-        static var z: Bool { get }
-
-        func foo()
-        func bar(paramOne: Int)
-        func baz<T>(paramOne: Bool, paramTwo: T) -> T
-
-        static func oof() -> String
-    }
-
-    @MainActor @AddMock
-    struct SomeStruct: SomeProtocol {
-
-        private var a = "This should not be mocked"
-
-        var x: String { "No" }
-        var y: Int
-        static var z: Bool = true
-
-        init(y: Int) {
-            self.y = y
-        }
-
-        func foo() {
-            fatalError("Unimplemented")
-        }
-
-        func bar(paramOne: Int) {
-            fatalError("Unimplemented")
-        }
-
-        func baz<T>(paramOne: Bool, paramTwo: T) -> T {
-            fatalError("Unimplemented")
-        }
-
-        static func oof() -> String {
-            fatalError("Unimplemented")
-        }
-
-    }
-
-    @AddMock
-    class SomeClass: NSObject, SomeProtocol {
-
-        private var a = "This should not be mocked"
-
-        @objc var x = "x"
-        var y = 123
-        class var z: Bool { true }
-
-        init(x: String, y: Int) {
-            self.x = x
-            self.y = y
-            self.x = "This should not be in the mock"
-            self.y = 1_000_000
-        }
-
-        func foo() {
-            fatalError("Unimplemented")
-        }
-
-        func bar(paramOne: Int) {
-            fatalError("Unimplemented")
-        }
-
-        func baz<T>(paramOne: Bool, paramTwo: T) -> T {
-            fatalError("Unimplemented")
-        }
-
-        class func oof() -> String {
-            fatalError("Unimplemented")
-        }
-
-        final func rab() {
-            fatalError("Unimplemented")
-        }
-
     }
 
 }
