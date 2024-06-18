@@ -12,6 +12,29 @@ import SwiftSyntaxMacros
 protocol ExpectationMacro: ExpressionMacro {
     static var instanceExpectationName: String { get }
     static var staticExpectationName: String { get }
+    static var reportFailure: ExprSyntax { get }
+}
+
+extension ExpectationMacro {
+
+    /// Swift Testing
+    static var stReportFailure: ExprSyntax {
+        ExprSyntax(stringLiteral: """
+            { message, location in
+                Issue.record(
+                    Comment(rawValue: message),
+                    fileID: location.fileID,
+                    filePath: location.filePath,
+                    line: location.line,
+                    column: location.column
+                )
+            }
+            """
+        )
+    }
+
+    /// XCTest
+    static var xctReportFailure: ExprSyntax { ExprSyntax(stringLiteral: "{ message, location in XCTFail(message, file: location.xctFile, line: location.xctLine) }") }
 }
 
 public struct ExpectWasCalledMacro: ExpectationMacro {
@@ -19,11 +42,25 @@ public struct ExpectWasCalledMacro: ExpectationMacro {
     // TODO: There seems to a bug in macro expansion that necessitates static expectations having a different name,
     // we should see if it is possible to use the same name at some point.
     static let staticExpectationName = "expectStaticFunctionWasCalled"
+    static let reportFailure: ExprSyntax = stReportFailure
 }
 
 public struct ExpectWasNotCalledMacro: ExpectationMacro {
     static let instanceExpectationName = "expectWasNotCalled"
     static let staticExpectationName = "expectStaticFunctionWasNotCalled"
+    static let reportFailure: ExprSyntax = stReportFailure
+}
+
+public struct AssertWasCalledMacro: ExpectationMacro {
+    static let instanceExpectationName = "expectWasCalled"
+    static let staticExpectationName = "expectStaticFunctionWasCalled"
+    static let reportFailure: ExprSyntax = xctReportFailure
+}
+
+public struct AssertWasNotCalledMacro: ExpectationMacro {
+    static let instanceExpectationName = "expectWasNotCalled"
+    static let staticExpectationName = "expectStaticFunctionWasNotCalled"
+    static let reportFailure: ExprSyntax = xctReportFailure
 }
 
 extension ExpectationMacro {
@@ -63,15 +100,11 @@ extension ExpectationMacro {
     static func expectWasCalledSyntax(
         from expression: ExprSyntax,
         forExpectation expectation: ExpectationMacro.Type,
-        fileAndLine: (ExprSyntax, ExprSyntax)? = nil,
         additionalArguments: [LabeledExprSyntax] = []
     ) -> ExprSyntax? {
         var arguments = additionalArguments
 
-        if let (file, line) = fileAndLine {
-            arguments.append(LabeledExprSyntax(label: "file", expression: file))
-            arguments.append(LabeledExprSyntax(label: "line", expression: line))
-        }
+        arguments.append(LabeledExprSyntax(label: "reportFailure", expression: reportFailure))
 
         // Functions with a base are parsed as MemberAccessExprSyntax
         // Eg. mock.foo

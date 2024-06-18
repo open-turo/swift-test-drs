@@ -216,7 +216,7 @@ final class SpyTests: SpyTestCase {
         SpyTestCase.staticFoo()
         SpyTestCase.staticFoo()
 
-        #expectWasCalled(SpyTestCase.staticFoo)
+        #assertWasCalled(SpyTestCase.staticFoo)
             .occurring(times: 3)
     }
 
@@ -234,7 +234,7 @@ final class SpyTests: SpyTestCase {
 
         await fulfillment(of: [exp], timeout: 5)
 
-        #expectWasCalled(SpyTestCase.staticFoo)
+        #assertWasCalled(SpyTestCase.staticFoo)
             .occurring(times: 3)
     }
 
@@ -244,9 +244,9 @@ final class SpyTests: SpyTestCase {
             SpyTestCase.staticFoo()
             MySpy.staticFoo()
 
-            #expectWasCalled(SpyTestCase.staticFoo)
+            #assertWasCalled(SpyTestCase.staticFoo)
                 .occurring(times: 2)
-            #expectWasCalled(MySpy.staticFoo)
+            #assertWasCalled(MySpy.staticFoo)
                 .exactlyOnce()
         }
     }
@@ -261,37 +261,12 @@ final class SpyTests: SpyTestCase {
             SpyTestCase.staticFoo()
             SpyTestCase.staticFoo()
 
-            #expectWasCalled(SpyTestCase.staticFoo)
+            #assertWasCalled(SpyTestCase.staticFoo)
                 .occurring(times: 4)
         }
 
-        #expectWasCalled(SpyTestCase.staticFoo)
+        #assertWasCalled(SpyTestCase.staticFoo)
             .exactlyOnce()
-    }
-
-}
-
-final class NoContextStaticSpyTests: SpyTestCase {
-
-    private let file = #fileID.components(separatedBy: "/").last!
-    private var line = 0
-
-    func testCallsToStaticFunction_WithoutStaticTestingContext() {
-        XCTExpectFailure(
-            failingBlock: {
-                line = #line + 1
-                MySpy.staticFoo()
-            },
-            issueMatcher: { issue in
-                issue.description == """
-                Assertion Failure at \(self.file):\(self.line): Unable to resolve the current StaticTestingContext. You can create one by wrapping your test with a call to withStaticTestingContext:
-
-                withStaticTestingContext {
-                    // Test some static member
-                }
-                """
-            }
-        )
     }
 
 }
