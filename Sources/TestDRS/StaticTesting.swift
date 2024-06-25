@@ -83,19 +83,19 @@ public class StaticTestingContext: @unchecked Sendable {
     /// Used to make the `StaticTestingContext` thread-safe.
     private let storageQueue = DispatchQueue(label: "StaticTestingContextQueue")
 
-    private var blackBoxes: [String: BlackBox] = [:]
-    private var stubRegistries: [String: StubRegistry] = [:]
+    private var blackBoxes: [ObjectIdentifier: BlackBox] = [:]
+    private var stubRegistries: [ObjectIdentifier: StubRegistry] = [:]
 
     func registerBlackBox<T>(for type: T.Type) {
         storageQueue.sync {
-            let key = String(describing: type)
+            let key = ObjectIdentifier(type)
             blackBoxes[key] = BlackBox()
         }
     }
 
     func blackBox<T>(for type: T.Type) -> BlackBox {
         storageQueue.sync {
-            let key = String(describing: type)
+            let key = ObjectIdentifier(type)
             if let blackBox = blackBoxes[key] {
                 return blackBox
             }
@@ -108,14 +108,14 @@ public class StaticTestingContext: @unchecked Sendable {
 
     func registerStubRegistry<T>(for type: T.Type) {
         storageQueue.sync {
-            let key = String(describing: type)
+            let key = ObjectIdentifier(type)
             stubRegistries[key] = StubRegistry()
         }
     }
 
     func stubRegistry<T>(for type: T.Type) -> StubRegistry {
         storageQueue.sync {
-            let key = String(describing: type)
+            let key = ObjectIdentifier(type)
             if let stubRegistry = stubRegistries[key] {
                 return stubRegistry
             }
