@@ -14,9 +14,9 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-syntax.git", from: "510.0.2"),
+        .package(url: "https://github.com/apple/swift-syntax.git", branch: "release/6.0"),
         .package(url: "https://github.com/pointfreeco/swift-macro-testing", .upToNextMajor(from: "0.4.0")),
-        .package(url: "https://github.com/apple/swift-testing.git", from: "0.7.0"),
+        .package(url: "https://github.com/apple/swift-testing.git", from: "0.10.0"),
     ],
     targets: [
         .macro(
