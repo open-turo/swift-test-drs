@@ -24,7 +24,7 @@ extension FunctionDeclSyntax {
     }
 
     var isThrowing: Bool {
-        signature.effectSpecifiers?.throwsSpecifier != nil
+        signature.effectSpecifiers?.throwsClause?.throwsSpecifier != nil
     }
 
     var hasParameters: Bool { !signature.parameterClause.parameters.isEmpty }
