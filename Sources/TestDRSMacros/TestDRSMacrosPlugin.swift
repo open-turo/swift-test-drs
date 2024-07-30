@@ -17,8 +17,6 @@ struct TestDRSMacrosPlugin: CompilerPlugin {
         SetStubThrowingErrorMacro.self,
         SetStubUsingClosureMacro.self,
         ExpectWasCalledMacro.self,
-        ExpectWasNotCalledMacro.self,
-        AssertWasCalledMacro.self,
-        AssertWasNotCalledMacro.self
+        ExpectWasNotCalledMacro.self
     ]
 }

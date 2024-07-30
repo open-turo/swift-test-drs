@@ -13,109 +13,95 @@ final class XCTestExpectationMacroExpansionTests: XCTestCase {
 
     override func invokeTest() {
         withMacroTesting(macros: [
-            "assertWasCalled": AssertWasCalledMacro.self,
-            "assertWasNotCalled": AssertWasNotCalledMacro.self
+            "expectWasCalled": ExpectWasCalledMacro.self,
+            "expectWasNotCalled": ExpectWasNotCalledMacro.self
         ]) {
             super.invokeTest()
         }
     }
 
-    // MARK: - #assertWasCalled
+    // MARK: - #expectWasCalled
 
-    func testAssertWasCalledMacro_WithNoMemberAccess() {
+    func testExpectWasCalledMacro_WithNoMemberAccess() {
         assertMacro {
             """
-            #assertWasCalled(foo)
+            #expectWasCalled(foo)
             """
         } expansion: {
             """
-            expectWasCalled(
-                foo,
-                withSignature: "foo",
-                reportFailure: { message, location in
-                    XCTFail(message, file: location.xctFile, line: location.xctLine)
-                }
-            )
+            expectWasCalled(foo, withSignature: "foo")
             """
         }
     }
 
-    func testAssertWasCalledMacro_WithMemberAccess() {
+    func testExpectWasCalledMacro_WithMemberAccess() {
         assertMacro {
             """
-            #assertWasCalled(mock.foo)
+            #expectWasCalled(mock.foo)
             """
         } expansion: {
             """
-            mock.expectWasCalled(
-                mock.foo,
-                withSignature: "foo",
-                reportFailure: { message, location in
-                    XCTFail(message, file: location.xctFile, line: location.xctLine)
-                }
-            )
+            mock.expectWasCalled(mock.foo, withSignature: "foo")
             """
         }
     }
 
-    func testAssertWasCalledMacro_WithNestedMemberAccess() {
+    func testExpectWasCalledMacro_WithNestedMemberAccess() {
         assertMacro {
             """
-            #assertWasCalled(base.mock.foo)
+            #expectWasCalled(base.mock.foo)
             """
         } expansion: {
             """
-            base.mock.expectWasCalled(
-                base.mock.foo,
-                withSignature: "foo",
-                reportFailure: { message, location in
-                    XCTFail(message, file: location.xctFile, line: location.xctLine)
-                }
-            )
+            base.mock.expectWasCalled(base.mock.foo, withSignature: "foo")
             """
         }
     }
 
-    func testAssertWasCalledMacro_WithSingleArgument() {
+    func testExpectWasCalledMacro_WithSingleArgument() {
         assertMacro {
             """
-            #assertWasCalled(mock.foo(paramOne:))
+            #expectWasCalled(mock.foo(paramOne:))
+            """
+        } expansion: {
+            """
+            mock.expectWasCalled(mock.foo(paramOne:), withSignature: "foo(paramOne:)")
+            """
+        }
+    }
+
+    func testExpectWasCalledMacro__WithMultipleArguments() {
+        assertMacro {
+            """
+            #expectWasCalled(mock.foo(_:paramTwo:))
+            """
+        } expansion: {
+            """
+            mock.expectWasCalled(mock.foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)")
+            """
+        }
+    }
+
+    func testExpectWasCalledMacro_WithExpectedInput() {
+        assertMacro {
+            """
+            #expectWasCalled(mock.foo(paramOne:), with: "Hello World")
             """
         } expansion: {
             """
             mock.expectWasCalled(
                 mock.foo(paramOne:),
                 withSignature: "foo(paramOne:)",
-                reportFailure: { message, location in
-                    XCTFail(message, file: location.xctFile, line: location.xctLine)
-                }
+                expectedInput: "Hello World"
             )
             """
         }
     }
 
-    func testAssertWasCalledMacro__WithMultipleArguments() {
+    func testExpectWasCalledMacro_WithExpectedInputAndOutputType() {
         assertMacro {
             """
-            #assertWasCalled(mock.foo(_:paramTwo:))
-            """
-        } expansion: {
-            """
-            mock.expectWasCalled(
-                mock.foo(_:paramTwo:),
-                withSignature: "foo(_:paramTwo:)",
-                reportFailure: { message, location in
-                    XCTFail(message, file: location.xctFile, line: location.xctLine)
-                }
-            )
-            """
-        }
-    }
-
-    func testAssertWasCalledMacro_WithExpectedInput() {
-        assertMacro {
-            """
-            #assertWasCalled(mock.foo(paramOne:), with: "Hello World")
+            #expectWasCalled(mock.foo(paramOne:), with: "Hello World", returning: String.self)
             """
         } expansion: {
             """
@@ -123,105 +109,62 @@ final class XCTestExpectationMacroExpansionTests: XCTestCase {
                 mock.foo(paramOne:),
                 withSignature: "foo(paramOne:)",
                 expectedInput: "Hello World",
-                reportFailure: { message, location in
-                    XCTFail(message, file: location.xctFile, line: location.xctLine)
-                }
+                returning: String.self
             )
             """
         }
     }
 
-    func testAssertWasCalledMacro_WithExpectedInputAndOutputType() {
+    func testExpectWasCalledMacro_WithStaticFunction() {
         assertMacro {
             """
-            #assertWasCalled(mock.foo(paramOne:), with: "Hello World", returning: String.self)
+            #expectWasCalled(Mock.foo)
             """
         } expansion: {
             """
-            mock.expectWasCalled(
-                mock.foo(paramOne:),
-                withSignature: "foo(paramOne:)",
-                expectedInput: "Hello World",
-                returning: String.self,
-                reportFailure: { message, location in
-                    XCTFail(message, file: location.xctFile, line: location.xctLine)
-                }
-            )
+            Mock.expectStaticFunctionWasCalled(Mock.foo, withSignature: "foo")
             """
         }
     }
 
-    func testAssertWasCalledMacro_WithStaticFunction() {
+    func testExpectWasCalledMacro_WithStaticFunction_WithExpectedInput() {
         assertMacro {
             """
-            #assertWasCalled(Mock.foo)
-            """
-        } expansion: {
-            """
-            Mock.expectStaticFunctionWasCalled(
-                Mock.foo,
-                withSignature: "foo",
-                reportFailure: { message, location in
-                    XCTFail(message, file: location.xctFile, line: location.xctLine)
-                }
-            )
-            """
-        }
-    }
-
-    func testAssertWasCalledMacro_WithStaticFunction_WithExpectedInput() {
-        assertMacro {
-            """
-            #assertWasCalled(Mock.foo(paramOne:), with: "Hello World")
+            #expectWasCalled(Mock.foo(paramOne:), with: "Hello World")
             """
         } expansion: {
             """
             Mock.expectStaticFunctionWasCalled(
                 Mock.foo(paramOne:),
                 withSignature: "foo(paramOne:)",
-                expectedInput: "Hello World",
-                reportFailure: { message, location in
-                    XCTFail(message, file: location.xctFile, line: location.xctLine)
-                }
+                expectedInput: "Hello World"
             )
             """
         }
     }
 
-    // MARK: - #assertWasNotCalled
+    // MARK: - #expectWasNotCalled
 
-    func testAssertWasNotCalledMacro() {
+    func testExpectWasNotCalledMacro() {
         assertMacro {
             """
-            #assertWasNotCalled(mock.foo)
+            #expectWasNotCalled(mock.foo)
             """
         } expansion: {
             """
-            mock.expectWasNotCalled(
-                mock.foo,
-                withSignature: "foo",
-                reportFailure: { message, location in
-                    XCTFail(message, file: location.xctFile, line: location.xctLine)
-                }
-            )
+            mock.expectWasNotCalled(mock.foo, withSignature: "foo")
             """
         }
     }
 
-    func testAssertWasNotCalledMacro_WithStaticFunction() {
+    func testExpectWasNotCalledMacro_WithStaticFunction() {
         assertMacro {
             """
-            #assertWasNotCalled(Mock.foo)
+            #expectWasNotCalled(Mock.foo)
             """
         } expansion: {
             """
-            Mock.expectStaticFunctionWasNotCalled(
-                Mock.foo,
-                withSignature: "foo",
-                reportFailure: { message, location in
-                    XCTFail(message, file: location.xctFile, line: location.xctLine)
-                }
-            )
+            Mock.expectStaticFunctionWasNotCalled(Mock.foo, withSignature: "foo")
             """
         }
     }

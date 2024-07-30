@@ -8,25 +8,20 @@ import XCTest
 
 final class ExpectationMacroTests: SpyTestCase {
 
-    // MARK: - assertWasCalled
+    // MARK: - expectWasCalled
 
     func testExpectWasCalled_WithoutCalling() {
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #assertWasCalled(foo)
+            #expectWasCalled(foo)
         }
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #assertWasCalled(foo, taking: Void.self)
+            #expectWasCalled(foo, taking: Void.self)
         }
-    }
-
-    func testExpectWasCalled_WithNoParameters() {
-        foo()
-        #assertWasCalled(foo)
     }
 
     func testExpectWasCalled_WithDifferentParameterTypes() {
@@ -37,41 +32,41 @@ final class ExpectationMacroTests: SpyTestCase {
         zab(paramOne: 2)
         zab(paramOne: 3)
 
-        #assertWasCalled(zab(paramOne:), with: true)
-        #assertWasCalled(zab(paramOne:), with: "Hello")
-        #assertWasCalled(zab(paramOne:), with: "World")
-        #assertWasCalled(zab(paramOne:), with: 1)
-        #assertWasCalled(zab(paramOne:), with: 2)
-        #assertWasCalled(zab(paramOne:), with: 3)
+        #expectWasCalled(zab(paramOne:), with: true)
+        #expectWasCalled(zab(paramOne:), with: "Hello")
+        #expectWasCalled(zab(paramOne:), with: "World")
+        #expectWasCalled(zab(paramOne:), with: 1)
+        #expectWasCalled(zab(paramOne:), with: 2)
+        #expectWasCalled(zab(paramOne:), with: 3)
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #assertWasCalled(zab(paramOne:), taking: Double.self)
+            #expectWasCalled(zab(paramOne:), taking: Double.self)
         }
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #assertWasCalled(zab(paramOne:), with: 1.0)
+            #expectWasCalled(zab(paramOne:), with: 1.0)
         }
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #assertWasCalled(zab(paramOne:), with: false)
+            #expectWasCalled(zab(paramOne:), with: false)
         }
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #assertWasCalled(zab(paramOne:), with: "Goodbye")
+            #expectWasCalled(zab(paramOne:), with: "Goodbye")
         }
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #assertWasCalled(zab(paramOne:), with: 4)
+            #expectWasCalled(zab(paramOne:), with: 4)
         }
     }
 
@@ -79,27 +74,27 @@ final class ExpectationMacroTests: SpyTestCase {
         rab(paramOne: true, paramTwo: 1, paramThree: "Hello")
         rab(paramOne: false, paramTwo: nil, paramThree: nil)
 
-        #assertWasCalled(rab(paramOne:paramTwo:paramThree:), with: true, 1, "Hello")
-        #assertWasCalled(rab(paramOne:paramTwo:paramThree:), with: false, Int?.none, String?.none)
+        #expectWasCalled(rab(paramOne:paramTwo:paramThree:), with: true, 1, "Hello")
+        #expectWasCalled(rab(paramOne:paramTwo:paramThree:), with: false, Int?.none, String?.none)
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #assertWasCalled(rab(paramOne:paramTwo:paramThree:), with: true, 2, "Hello")
+            #expectWasCalled(rab(paramOne:paramTwo:paramThree:), with: true, 2, "Hello")
         }
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #assertWasCalled(rab(paramOne:paramTwo:paramThree:), with: true, Int?.none, String?.none)
+            #expectWasCalled(rab(paramOne:paramTwo:paramThree:), with: true, Int?.none, String?.none)
         }
     }
 
-    // MARK: - assertWasNotCalled
+    // MARK: - expectWasNotCalled
 
     func testExpectWasNotCalled_WithoutCalling() {
-        #assertWasNotCalled(foo)
-        #assertWasNotCalled(bar(paramOne:))
+        #expectWasNotCalled(foo)
+        #expectWasNotCalled(bar(paramOne:))
     }
 
     func testExpectWasNotCalled_WithCall() {
@@ -108,7 +103,7 @@ final class ExpectationMacroTests: SpyTestCase {
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #assertWasNotCalled(foo)
+            #expectWasNotCalled(foo)
         }
     }
 
@@ -118,12 +113,12 @@ final class ExpectationMacroTests: SpyTestCase {
         zab(paramOne: 2)
         zab(paramOne: 1.0)
 
-        #assertWasNotCalled(zab(paramOne:), returning: String.self)
+        #expectWasNotCalled(zab(paramOne:), returning: String.self)
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #assertWasNotCalled(zab(paramOne:), returning: Int.self)
+            #expectWasNotCalled(zab(paramOne:), returning: Int.self)
         }
     }
 

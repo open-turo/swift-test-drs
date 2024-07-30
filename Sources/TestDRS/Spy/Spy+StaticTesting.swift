@@ -7,7 +7,7 @@ import Foundation
 
 extension Spy {
 
-    static func getStaticBlackBox(locationAndReportFailure: (SourceLocation, ReportFailure)? = nil) -> BlackBox {
+    static func getStaticBlackBox(location: SourceLocation?) -> BlackBox {
         guard let context = StaticTestingContext.current else {
             let message = """
             Unable to resolve the current StaticTestingContext. You can create one by wrapping your test with a call to withStaticTestingContext:
@@ -17,10 +17,10 @@ extension Spy {
             }
             """
 
-            if let (location, reportFailure) = locationAndReportFailure {
-                reportFailure(message, location)
+            if let location {
+                reportFailure(message, location: location)
             } else {
-                assertionFailure(message)
+                reportFailure(message)
             }
 
             return BlackBox()

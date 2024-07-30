@@ -16,12 +16,10 @@ public struct ExpectWasCalledResult<AmountMatching: FunctionCallAmountMatching, 
 
     private let _matchingCalls: [ConcreteFunctionCall<Input, Output>]
     private let blackBox: BlackBox
-    private let reportFailure: ReportFailure
 
-    init(matchingCalls: [ConcreteFunctionCall<Input, Output>], blackBox: BlackBox, reportFailure: @escaping ReportFailure) {
+    init(matchingCalls: [ConcreteFunctionCall<Input, Output>], blackBox: BlackBox) {
         _matchingCalls = matchingCalls
         self.blackBox = blackBox
-        self.reportFailure = reportFailure
     }
 
 }
@@ -89,10 +87,10 @@ extension ExpectWasCalledResult where AmountMatching == MatchingAnyAmount {
             let message = "Expected \(signature) to be called exactly once as specified, but \(matchingCalls.count) calls were recorded"
 
             let location = SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
-            reportFailure(message, location)
+            reportFailure(message, location: location)
         }
 
-        return .init(matchingCalls: _matchingCalls, blackBox: blackBox, reportFailure: reportFailure)
+        return .init(matchingCalls: _matchingCalls, blackBox: blackBox)
     }
 
     /// Makes a further expectation that the specified call occurred a specific number of times.
@@ -115,10 +113,10 @@ extension ExpectWasCalledResult where AmountMatching == MatchingAnyAmount {
            let signature = _matchingCalls.first?.signature {
             let message = "Expected \(signature) to be called as specified \(expectedCallCount) times, but \(matchingCalls.count) calls were recorded"
             let location = SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
-            reportFailure(message, location)
+            reportFailure(message, location: location)
         }
 
-        return .init(matchingCalls: _matchingCalls, blackBox: blackBox, reportFailure: reportFailure)
+        return .init(matchingCalls: _matchingCalls, blackBox: blackBox)
     }
 
     /// Makes a further expectation that the specified call occurred a number of times within a given range.
@@ -139,10 +137,10 @@ extension ExpectWasCalledResult where AmountMatching == MatchingAnyAmount {
            let signature = _matchingCalls.first?.signature {
             let message = "Expected \(signature) to be called as specified \(expectedCallCountRange.expandedDescription) times, but \(matchingCalls.count) calls were recorded"
             let location = SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
-            reportFailure(message, location)
+            reportFailure(message, location: location)
         }
 
-        return .init(matchingCalls: _matchingCalls, blackBox: blackBox, reportFailure: reportFailure)
+        return .init(matchingCalls: _matchingCalls, blackBox: blackBox)
     }
 
 }

@@ -6,7 +6,7 @@ import PackageDescription
 
 let package = Package(
     name: "TestDRS",
-    platforms: [.macOS(.v10_15), .iOS(.v16), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)],
+    platforms: [.macOS(.v13), .iOS(.v16), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)],
     products: [
         .library(
             name: "TestDRS",
@@ -16,6 +16,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-syntax.git", branch: "release/6.0"),
         .package(url: "https://github.com/pointfreeco/swift-macro-testing", .upToNextMajor(from: "0.4.0")),
+        .package(url: "https://github.com/pointfreeco/swift-issue-reporting", .upToNextMajor(from: "1.2.2")),
         .package(url: "https://github.com/apple/swift-testing.git", from: "0.10.0"),
     ],
     targets: [
@@ -31,6 +32,7 @@ let package = Package(
             name: "TestDRS",
             dependencies: [
                 "TestDRSMacros",
+                .product(name: "IssueReporting", package: "swift-issue-reporting")
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),

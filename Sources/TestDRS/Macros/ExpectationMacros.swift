@@ -5,7 +5,7 @@
 
 // MARK: - expectWasCalled
 
-/// Expects that the given function was called. __Intended for use with Swift `Testing`. For use with `XCTest`, see `assertWasCalled`.__
+/// Expects that the given function was called.
 ///
 /// - Parameters:
 ///   - function: A reference to the function to expect was called.
@@ -21,7 +21,7 @@ public macro expectWasCalled<Input, Output>(
 ) -> ExpectWasCalledResult<MatchingAnyAmount, Input, Output> = #externalMacro(module: "TestDRSMacros", type: "ExpectWasCalledMacro")
 
 
-/// Expects that the given function was called with the expected input. __Intended for use with Swift `Testing`. For use with `XCTest`, see `assertWasCalled`.__
+/// Expects that the given function was called with the expected input.
 ///
 /// - Parameters:
 ///   - function: A reference to the function to expect was called.
@@ -38,7 +38,7 @@ public macro expectWasCalled<each Input, Output>(
 
 // MARK: - expectWasNotCalled
 
-/// Expects that the given function was not called. __Intended for use with Swift `Testing`. For use with `XCTest`, see `assertWasNotCalled`.__
+/// Expects that the given function was not called.
 ///
 /// - Parameters:
 ///   - function: A reference to the function to expect was not called.

@@ -17,7 +17,7 @@ final class SpyExpectationsTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+                expectWasCalled(foo, withSignature: "foo()")
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -29,7 +29,7 @@ final class SpyExpectationsTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                expectWasCalled(foo, withSignature: "foo()", taking: Void.self, reportFailure: xctReportFailure)
+                expectWasCalled(foo, withSignature: "foo()", taking: Void.self)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -41,7 +41,7 @@ final class SpyExpectationsTests: SpyTestCase {
 
     func testExpectWasCalled_WithNoParameters() {
         foo()
-        expectWasCalled(foo, withSignature: "foo()", taking: Void.self, reportFailure: xctReportFailure)
+        expectWasCalled(foo, withSignature: "foo()", taking: Void.self)
     }
 
     func testExpectWasCalled_WithDifferentParameterTypes() {
@@ -52,17 +52,17 @@ final class SpyExpectationsTests: SpyTestCase {
         zab(paramOne: 2)
         zab(paramOne: 3)
 
-        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true, reportFailure: xctReportFailure)
-        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello", reportFailure: xctReportFailure)
-        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "World", reportFailure: xctReportFailure)
-        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 1, reportFailure: xctReportFailure)
-        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 2, reportFailure: xctReportFailure)
-        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 3, reportFailure: xctReportFailure)
+        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true)
+        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello")
+        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "World")
+        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 1)
+        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 2)
+        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 3)
 
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Double.self, reportFailure: xctReportFailure)
+                expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Double.self)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -74,7 +74,7 @@ final class SpyExpectationsTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 1.0, reportFailure: xctReportFailure)
+                expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 1.0)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -86,7 +86,7 @@ final class SpyExpectationsTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: false, reportFailure: xctReportFailure)
+                expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: false)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -101,7 +101,7 @@ final class SpyExpectationsTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Goodbye", reportFailure: xctReportFailure)
+                expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Goodbye")
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -117,7 +117,7 @@ final class SpyExpectationsTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 4, reportFailure: xctReportFailure)
+                expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 4)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -136,13 +136,13 @@ final class SpyExpectationsTests: SpyTestCase {
         rab(paramOne: true, paramTwo: 1, paramThree: "Hello")
         rab(paramOne: false, paramTwo: nil, paramThree: nil)
 
-        expectWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello", reportFailure: xctReportFailure)
-        expectWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: false, Int?.none, String?.none, reportFailure: xctReportFailure)
+        expectWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
+        expectWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: false, Int?.none, String?.none)
 
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                expectWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "Hello", reportFailure: xctReportFailure)
+                expectWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 2, "Hello")
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -158,7 +158,7 @@ final class SpyExpectationsTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                expectWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, Int?.none, String?.none, reportFailure: xctReportFailure)
+                expectWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, Int?.none, String?.none)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -175,8 +175,8 @@ final class SpyExpectationsTests: SpyTestCase {
     // MARK: - expectWasNotCalled
 
     func testExpectWasNotCalled_WithoutCalling() {
-        expectWasNotCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
-        expectWasNotCalled(bar(paramOne:), withSignature: "bar(paramOne:)", reportFailure: xctReportFailure)
+        expectWasNotCalled(foo, withSignature: "foo()")
+        expectWasNotCalled(bar(paramOne:), withSignature: "bar(paramOne:)")
     }
 
     func testExpectWasNotCalled_WithCall() {
@@ -185,7 +185,7 @@ final class SpyExpectationsTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                expectWasNotCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+                expectWasNotCalled(foo, withSignature: "foo()")
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -201,12 +201,12 @@ final class SpyExpectationsTests: SpyTestCase {
         zab(paramOne: 2)
         zab(paramOne: 1.0)
 
-        expectWasNotCalled(zab(paramOne:), withSignature: "zab(paramOne:)", returning: String.self, reportFailure: xctReportFailure)
+        expectWasNotCalled(zab(paramOne:), withSignature: "zab(paramOne:)", returning: String.self)
 
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                expectWasNotCalled(zab(paramOne:), withSignature: "zab(paramOne:)", returning: Int.self, reportFailure: xctReportFailure)
+                expectWasNotCalled(zab(paramOne:), withSignature: "zab(paramOne:)", returning: Int.self)
             },
             issueMatcher: { issue in
                 issue.description == """

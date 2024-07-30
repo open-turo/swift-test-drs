@@ -16,7 +16,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
     func testGetMatchingCall_ThrowsErrorWhenNoCalls() throws {
         do {
             XCTExpectFailure()
-            _ = try expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+            _ = try expectWasCalled(foo, withSignature: "foo()")
                 .exactlyOnce()
                 .getMatchingCall()
             XCTFail("Expected ExpectWasCalledResultError")
@@ -35,8 +35,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         let callToZab = try expectWasCalled(
             zab(paramOne:),
             withSignature: "zab(paramOne:)",
-            returning: String.self,
-            reportFailure: xctReportFailure
+            returning: String.self
         ).exactlyOnce()
             .getMatchingCall()
 
@@ -48,7 +47,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
     func testGetFirstMatchingCall_ThrowsErrorWhenNoCalls() throws {
         do {
             XCTExpectFailure()
-            _ = try expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+            _ = try expectWasCalled(foo, withSignature: "foo()")
                 .getFirstMatchingCall()
             XCTFail("Expected ExpectWasCalledResultError")
         } catch let error as ExpectWasCalledResultError {
@@ -68,8 +67,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         let callToZab = try expectWasCalled(
             zab(paramOne:),
             withSignature: "zab(paramOne:)",
-            returning: String.self,
-            reportFailure: xctReportFailure
+            returning: String.self
         ).getFirstMatchingCall()
 
         XCTAssertEqual(callToZab.input, "Hello")
@@ -80,7 +78,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
     func testGetLastMatchingCall_ThrowsErrorWhenNoCalls() throws {
         do {
             XCTExpectFailure()
-            _ = try expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+            _ = try expectWasCalled(foo, withSignature: "foo()")
                 .getLastMatchingCall()
             XCTFail("Expected ExpectWasCalledResultError")
         } catch let error as ExpectWasCalledResultError {
@@ -100,8 +98,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         let callToZab = try expectWasCalled(
             zab(paramOne:),
             withSignature: "zab(paramOne:)",
-            returning: String.self,
-            reportFailure: xctReportFailure
+            returning: String.self
         ).getLastMatchingCall()
 
         XCTAssertEqual(callToZab.input, "World")
@@ -113,7 +110,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                let callToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+                let callToFoo = expectWasCalled(foo, withSignature: "foo()")
                     .exactlyOnce()
                     .matchingCall
 
@@ -133,8 +130,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         let callToRab = expectWasCalled(
             rab(paramOne:paramTwo:paramThree:),
             withSignature: "rab(paramOne:paramTwo:paramThree:)",
-            expectedInput: true, 1, "Hello",
-            reportFailure: xctReportFailure
+            expectedInput: true, 1, "Hello"
         ).exactlyOnce()
             .matchingCall
 
@@ -148,7 +144,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callToRab = expectWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello", reportFailure: xctReportFailure)
+                let callToRab = expectWasCalled(rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
                     .exactlyOnce()
                     .matchingCall
 
@@ -168,7 +164,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+                let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
                     .occurring(times: 1)
                     .matchingCalls
 
@@ -187,7 +183,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         foo()
         foo()
 
-        let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+        let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
             .occurring(times: 3)
             .matchingCalls
 
@@ -196,7 +192,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+                let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
                     .occurring(times: 1)
                     .matchingCalls
 
@@ -218,14 +214,14 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         zab(paramOne: 2)
         zab(paramOne: 3)
 
-        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self, reportFailure: xctReportFailure).occurring(times: 1)
-        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: String.self, reportFailure: xctReportFailure).occurring(times: 2)
-        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Int.self, reportFailure: xctReportFailure).occurring(times: 3)
+        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self).occurring(times: 1)
+        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: String.self).occurring(times: 2)
+        expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Int.self).occurring(times: 3)
 
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self, reportFailure: xctReportFailure)
+                expectWasCalled(zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self)
                     .occurring(times: 4)
             },
             issueMatcher: { issue in
@@ -242,7 +238,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+                let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
                     .occurringWithin(times: 0 ... 5)
                     .matchingCalls
 
@@ -261,19 +257,19 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         foo()
         foo()
 
-        expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+        expectWasCalled(foo, withSignature: "foo()")
             .occurringWithin(times: 2 ... 3)
 
-        expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+        expectWasCalled(foo, withSignature: "foo()")
             .occurringWithin(times: 3...)
 
-        expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+        expectWasCalled(foo, withSignature: "foo()")
             .occurringWithin(times: ...3)
 
-        expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+        expectWasCalled(foo, withSignature: "foo()")
             .occurringWithin(times: ..<4)
 
-        let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+        let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
             .occurringWithin(times: 2 ..< 4)
             .matchingCalls
 
@@ -282,7 +278,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+                let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
                     .occurringWithin(times: 0 ... 2)
                     .matchingCalls
 
@@ -298,7 +294,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+                let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
                     .occurringWithin(times: ...2)
                     .matchingCalls
 
@@ -314,7 +310,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+                let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
                     .occurringWithin(times: ..<3)
                     .matchingCalls
 
@@ -330,7 +326,7 @@ final class ExpectWasCalledResultTests: SpyTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                let callsToFoo = expectWasCalled(foo, withSignature: "foo()", reportFailure: xctReportFailure)
+                let callsToFoo = expectWasCalled(foo, withSignature: "foo()")
                     .occurringWithin(times: 4...)
                     .matchingCalls
 

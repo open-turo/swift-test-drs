@@ -1,6 +1,14 @@
 {
-  "originHash" : "daa449108ac7332be85c58d9ac5526907b27cff5fc84ca2bfd8722c1e99fc754",
   "pins" : [
+    {
+      "identity" : "swift-issue-reporting",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-issue-reporting",
+      "state" : {
+        "revision" : "357ca1e5dd31f613a1d43320870ebc219386a495",
+        "version" : "1.2.2"
+      }
+    },
     {
       "identity" : "swift-macro-testing",
       "kind" : "remoteSourceControl",
@@ -24,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-syntax.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "52f0fb13d3c81a62522417c116f70c60ecccfded"
+        "branch" : "release/6.0",
+        "revision" : "82a453c2dfa335c7e778695762438dfe72b328d2"
       }
     },
     {
@@ -38,5 +46,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }
