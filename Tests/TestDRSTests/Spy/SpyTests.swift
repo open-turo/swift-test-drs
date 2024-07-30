@@ -216,7 +216,7 @@ final class SpyTests: SpyTestCase {
         SpyTestCase.staticFoo()
         SpyTestCase.staticFoo()
 
-        #assertWasCalled(SpyTestCase.staticFoo)
+        #expectWasCalled(SpyTestCase.staticFoo)
             .occurring(times: 3)
     }
 
@@ -234,7 +234,7 @@ final class SpyTests: SpyTestCase {
 
         await fulfillment(of: [exp], timeout: 5)
 
-        #assertWasCalled(SpyTestCase.staticFoo)
+        #expectWasCalled(SpyTestCase.staticFoo)
             .occurring(times: 3)
     }
 
@@ -244,9 +244,9 @@ final class SpyTests: SpyTestCase {
             SpyTestCase.staticFoo()
             MySpy.staticFoo()
 
-            #assertWasCalled(SpyTestCase.staticFoo)
+            #expectWasCalled(SpyTestCase.staticFoo)
                 .occurring(times: 2)
-            #assertWasCalled(MySpy.staticFoo)
+            #expectWasCalled(MySpy.staticFoo)
                 .exactlyOnce()
         }
     }
@@ -261,11 +261,11 @@ final class SpyTests: SpyTestCase {
             SpyTestCase.staticFoo()
             SpyTestCase.staticFoo()
 
-            #assertWasCalled(SpyTestCase.staticFoo)
+            #expectWasCalled(SpyTestCase.staticFoo)
                 .occurring(times: 4)
         }
 
-        #assertWasCalled(SpyTestCase.staticFoo)
+        #expectWasCalled(SpyTestCase.staticFoo)
             .exactlyOnce()
     }
 

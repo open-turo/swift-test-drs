@@ -20,7 +20,7 @@ final class SwiftTestingExpectationMacroExpansionTests: XCTestCase {
         }
     }
 
-    // MARK: - #assertWasCalled
+    // MARK: - #expectWasCalled
 
     func testExpectWasCalledMacro_WithNoMemberAccess() {
         assertMacro {
@@ -29,19 +29,7 @@ final class SwiftTestingExpectationMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            expectWasCalled(
-                foo,
-                withSignature: "foo",
-                reportFailure: { message, location in
-                    Issue.record(
-                        Comment(rawValue: message),
-                        fileID: location.fileID,
-                        filePath: location.filePath,
-                        line: location.line,
-                        column: location.column
-                    )
-                }
-            )
+            expectWasCalled(foo, withSignature: "foo")
             """
         }
     }
@@ -53,19 +41,7 @@ final class SwiftTestingExpectationMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.expectWasCalled(
-                mock.foo,
-                withSignature: "foo",
-                reportFailure: { message, location in
-                    Issue.record(
-                        Comment(rawValue: message),
-                        fileID: location.fileID,
-                        filePath: location.filePath,
-                        line: location.line,
-                        column: location.column
-                    )
-                }
-            )
+            mock.expectWasCalled(mock.foo, withSignature: "foo")
             """
         }
     }
@@ -77,19 +53,7 @@ final class SwiftTestingExpectationMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            base.mock.expectWasCalled(
-                base.mock.foo,
-                withSignature: "foo",
-                reportFailure: { message, location in
-                    Issue.record(
-                        Comment(rawValue: message),
-                        fileID: location.fileID,
-                        filePath: location.filePath,
-                        line: location.line,
-                        column: location.column
-                    )
-                }
-            )
+            base.mock.expectWasCalled(base.mock.foo, withSignature: "foo")
             """
         }
     }
@@ -101,19 +65,7 @@ final class SwiftTestingExpectationMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.expectWasCalled(
-                mock.foo(paramOne:),
-                withSignature: "foo(paramOne:)",
-                reportFailure: { message, location in
-                    Issue.record(
-                        Comment(rawValue: message),
-                        fileID: location.fileID,
-                        filePath: location.filePath,
-                        line: location.line,
-                        column: location.column
-                    )
-                }
-            )
+            mock.expectWasCalled(mock.foo(paramOne:), withSignature: "foo(paramOne:)")
             """
         }
     }
@@ -125,19 +77,7 @@ final class SwiftTestingExpectationMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.expectWasCalled(
-                mock.foo(_:paramTwo:),
-                withSignature: "foo(_:paramTwo:)",
-                reportFailure: { message, location in
-                    Issue.record(
-                        Comment(rawValue: message),
-                        fileID: location.fileID,
-                        filePath: location.filePath,
-                        line: location.line,
-                        column: location.column
-                    )
-                }
-            )
+            mock.expectWasCalled(mock.foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)")
             """
         }
     }
@@ -152,16 +92,7 @@ final class SwiftTestingExpectationMacroExpansionTests: XCTestCase {
             mock.expectWasCalled(
                 mock.foo(paramOne:),
                 withSignature: "foo(paramOne:)",
-                expectedInput: "Hello World",
-                reportFailure: { message, location in
-                    Issue.record(
-                        Comment(rawValue: message),
-                        fileID: location.fileID,
-                        filePath: location.filePath,
-                        line: location.line,
-                        column: location.column
-                    )
-                }
+                expectedInput: "Hello World"
             )
             """
         }
@@ -178,16 +109,7 @@ final class SwiftTestingExpectationMacroExpansionTests: XCTestCase {
                 mock.foo(paramOne:),
                 withSignature: "foo(paramOne:)",
                 expectedInput: "Hello World",
-                returning: String.self,
-                reportFailure: { message, location in
-                    Issue.record(
-                        Comment(rawValue: message),
-                        fileID: location.fileID,
-                        filePath: location.filePath,
-                        line: location.line,
-                        column: location.column
-                    )
-                }
+                returning: String.self
             )
             """
         }
@@ -200,19 +122,7 @@ final class SwiftTestingExpectationMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            Mock.expectStaticFunctionWasCalled(
-                Mock.foo,
-                withSignature: "foo",
-                reportFailure: { message, location in
-                    Issue.record(
-                        Comment(rawValue: message),
-                        fileID: location.fileID,
-                        filePath: location.filePath,
-                        line: location.line,
-                        column: location.column
-                    )
-                }
-            )
+            Mock.expectStaticFunctionWasCalled(Mock.foo, withSignature: "foo")
             """
         }
     }
@@ -227,16 +137,7 @@ final class SwiftTestingExpectationMacroExpansionTests: XCTestCase {
             Mock.expectStaticFunctionWasCalled(
                 Mock.foo(paramOne:),
                 withSignature: "foo(paramOne:)",
-                expectedInput: "Hello World",
-                reportFailure: { message, location in
-                    Issue.record(
-                        Comment(rawValue: message),
-                        fileID: location.fileID,
-                        filePath: location.filePath,
-                        line: location.line,
-                        column: location.column
-                    )
-                }
+                expectedInput: "Hello World"
             )
             """
         }
@@ -251,19 +152,7 @@ final class SwiftTestingExpectationMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.expectWasNotCalled(
-                mock.foo,
-                withSignature: "foo",
-                reportFailure: { message, location in
-                    Issue.record(
-                        Comment(rawValue: message),
-                        fileID: location.fileID,
-                        filePath: location.filePath,
-                        line: location.line,
-                        column: location.column
-                    )
-                }
-            )
+            mock.expectWasNotCalled(mock.foo, withSignature: "foo")
             """
         }
     }
@@ -275,19 +164,7 @@ final class SwiftTestingExpectationMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            Mock.expectStaticFunctionWasNotCalled(
-                Mock.foo,
-                withSignature: "foo",
-                reportFailure: { message, location in
-                    Issue.record(
-                        Comment(rawValue: message),
-                        fileID: location.fileID,
-                        filePath: location.filePath,
-                        line: location.line,
-                        column: location.column
-                    )
-                }
-            )
+            Mock.expectStaticFunctionWasNotCalled(Mock.foo, withSignature: "foo")
             """
         }
     }

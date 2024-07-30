@@ -45,7 +45,7 @@ public extension Spy {
         returning outputType: Output.Type = Void.self,
         signature: FunctionSignature = #function
     ) {
-        getStaticBlackBox().recordCall(
+        getStaticBlackBox(location: nil).recordCall(
             with: input,
             at: time,
             returning: outputType,

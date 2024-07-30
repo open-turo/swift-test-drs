@@ -3,8 +3,18 @@
 // Copyright © 2024 Turo Open Source. All rights reserved.
 //
 
-import Foundation
+import IssueReporting
 
-/// Used by expectation macros which inject a function that handles reporting any test failures.
-/// This allows TestDRS to not depend on `XCTest` or Swift `Testing`.
-public typealias ReportFailure = (String, SourceLocation) -> Void
+func reportFailure(_ message: String) {
+    reportIssue(message)
+}
+
+func reportFailure(_ message: String, location: SourceLocation) {
+    reportIssue(
+        message,
+        fileID: location.fileID,
+        filePath: location.filePath,
+        line: location.line,
+        column: location.column
+    )
+}

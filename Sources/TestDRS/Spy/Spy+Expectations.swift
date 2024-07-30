@@ -21,7 +21,6 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
     ///   - outputType: An optional  phantom parameter used to derive the output type of the `function` passed in.
-    ///   - reportFailure: A function that handles reporting any test failures.
     /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
     @discardableResult
     func expectWasCalled<Input, Output>(
@@ -29,7 +28,6 @@ public extension Spy {
         withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
-        reportFailure: @escaping ReportFailure,
         fileID: StaticString = #fileID,
         filePath: StaticString = #filePath,
         line: UInt = #line,
@@ -39,8 +37,7 @@ public extension Spy {
         return blackBox.expectWasCalled(
             function,
             signature: signature,
-            location: location,
-            reportFailure: reportFailure
+            location: location
         )
     }
 
@@ -53,7 +50,6 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - expectedInput: The expected input parameter(s) for the function.
     ///   - outputType: An optional phantom parameter used to derive the output type of the `function` passed in.
-    ///   - reportFailure: A function that handles reporting any test failures.
     /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
     @discardableResult
     func expectWasCalled<each Input, Output>(
@@ -61,7 +57,6 @@ public extension Spy {
         withSignature signature: FunctionSignature,
         expectedInput: repeat each Input,
         returning: Output.Type? = nil,
-        reportFailure: @escaping ReportFailure,
         fileID: StaticString = #fileID,
         filePath: StaticString = #filePath,
         line: UInt = #line,
@@ -72,8 +67,7 @@ public extension Spy {
             function,
             signature: signature,
             expectedInput: repeat each expectedInput,
-            location: location,
-            reportFailure: reportFailure
+            location: location
         )
     }
 
@@ -86,13 +80,11 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
     ///   - outputType: An optional  phantom parameter used to derive the output type of the `function` passed in.
-    ///   - reportFailure: A function that handles reporting any test failures.
     func expectWasNotCalled<Input, Output>(
         _ function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
-        reportFailure: @escaping ReportFailure,
         fileID: StaticString = #fileID,
         filePath: StaticString = #filePath,
         line: UInt = #line,
@@ -102,8 +94,7 @@ public extension Spy {
         blackBox.expectWasNotCalled(
             function,
             signature: signature,
-            location: location,
-            reportFailure: reportFailure
+            location: location
         )
     }
 
@@ -125,7 +116,6 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
     ///   - outputType: An optional  phantom parameter used to derive the output type of the `function` passed in.
-    ///   - reportFailure: A function that handles reporting any test failures.
     /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
     @discardableResult
     static func expectStaticFunctionWasCalled<Input, Output>(
@@ -133,19 +123,17 @@ public extension Spy {
         withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
-        reportFailure: @escaping ReportFailure,
         fileID: StaticString = #fileID,
         filePath: StaticString = #filePath,
         line: UInt = #line,
         column: UInt = #column
     ) -> ExpectWasCalledResult<MatchingAnyAmount, Input, Output> {
         let location = SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
-        return getStaticBlackBox(locationAndReportFailure: (location, reportFailure))
+        return getStaticBlackBox(location: location)
             .expectWasCalled(
                 function,
                 signature: signature,
-                location: location,
-                reportFailure: reportFailure
+                location: location
             )
     }
 
@@ -166,20 +154,18 @@ public extension Spy {
         withSignature signature: FunctionSignature,
         expectedInput: repeat each Input,
         returning: Output.Type? = nil,
-        reportFailure: @escaping ReportFailure,
         fileID: StaticString = #fileID,
         filePath: StaticString = #filePath,
         line: UInt = #line,
         column: UInt = #column
     ) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> where repeat each Input: Equatable {
         let location = SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
-        return getStaticBlackBox(locationAndReportFailure: (location, reportFailure))
+        return getStaticBlackBox(location: location)
             .expectWasCalled(
                 function,
                 signature: signature,
                 expectedInput: repeat each expectedInput,
-                location: location,
-                reportFailure: reportFailure
+                location: location
             )
     }
 
@@ -198,19 +184,17 @@ public extension Spy {
         withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
-        reportFailure: @escaping ReportFailure,
         fileID: StaticString = #fileID,
         filePath: StaticString = #filePath,
         line: UInt = #line,
         column: UInt = #column
     ) {
         let location = SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
-        return getStaticBlackBox(locationAndReportFailure: (location, reportFailure))
+        return getStaticBlackBox(location: location)
             .expectWasNotCalled(
                 function,
                 signature: signature,
-                location: location,
-                reportFailure: reportFailure
+                location: location
             )
     }
 
