@@ -11,8 +11,14 @@ public protocol FunctionCallAmountMatching {}
 /// Supports matching more than one call.
 public protocol MatchingMultiple: FunctionCallAmountMatching {}
 
-/// Matches either zero or one calls.
-public enum MatchingSingle: FunctionCallAmountMatching {}
+/// Supports matching either zero or one calls.
+public protocol MatchingSingle: FunctionCallAmountMatching {}
+
+/// Matches the first call of potentially many.
+public enum MatchingFirst: MatchingSingle {}
+
+/// Matches exactly one call.
+public enum MatchingOne: MatchingSingle {}
 
 /// Matches a certain number of calls from zero to infinity.
 public enum MatchingSomeAmount: MatchingMultiple {}

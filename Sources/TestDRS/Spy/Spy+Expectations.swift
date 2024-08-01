@@ -52,7 +52,7 @@ public extension Spy {
     ///   - outputType: An optional phantom parameter used to derive the output type of the `function` passed in.
     /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
     @discardableResult
-    func expectWasCalled<each Input, Output>(
+    func expectWasCalled<each Input: Equatable, Output>(
         _ function: (repeat each Input) async throws -> Output,
         withSignature signature: FunctionSignature,
         expectedInput: repeat each Input,
@@ -61,7 +61,7 @@ public extension Spy {
         filePath: StaticString = #filePath,
         line: UInt = #line,
         column: UInt = #column
-    ) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> where repeat each Input: Equatable {
+    ) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> {
         let location = SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
         return blackBox.expectWasCalled(
             function,
@@ -149,7 +149,7 @@ public extension Spy {
     ///   - reportFailure: A function that handles reporting any test failures.
     /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
     @discardableResult
-    static func expectStaticFunctionWasCalled<each Input, Output>(
+    static func expectStaticFunctionWasCalled<each Input: Equatable, Output>(
         _ function: (repeat each Input) async throws -> Output,
         withSignature signature: FunctionSignature,
         expectedInput: repeat each Input,
@@ -158,7 +158,7 @@ public extension Spy {
         filePath: StaticString = #filePath,
         line: UInt = #line,
         column: UInt = #column
-    ) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> where repeat each Input: Equatable {
+    ) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> {
         let location = SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
         return getStaticBlackBox(location: location)
             .expectWasCalled(
@@ -198,4 +198,9 @@ public extension Spy {
             )
     }
 
+}
+
+extension Duration {
+    /// A duration that is long enough to essentially be considered infinite, but short enough to not cause an error when used to sleep a `Task`.
+    public static let maxTimeLimit = Duration.seconds(Int32.max)
 }

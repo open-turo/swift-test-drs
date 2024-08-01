@@ -6,7 +6,9 @@
 @testable import TestDRS
 import XCTest
 
-final class ExpectationMacroTests: SpyTestCase {
+final class ExpectationMacroTests: XCTestCase {
+
+    private let spy = TestSpy()
 
     // MARK: - expectWasCalled
 
@@ -14,111 +16,111 @@ final class ExpectationMacroTests: SpyTestCase {
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #expectWasCalled(foo)
+            #expectWasCalled(spy.foo)
         }
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #expectWasCalled(foo, taking: Void.self)
+            #expectWasCalled(spy.foo, taking: Void.self)
         }
     }
 
     func testExpectWasCalled_WithDifferentParameterTypes() {
-        zab(paramOne: true)
-        zab(paramOne: "Hello")
-        zab(paramOne: "World")
-        zab(paramOne: 1)
-        zab(paramOne: 2)
-        zab(paramOne: 3)
+        spy.zab(paramOne: true)
+        spy.zab(paramOne: "Hello")
+        spy.zab(paramOne: "World")
+        spy.zab(paramOne: 1)
+        spy.zab(paramOne: 2)
+        spy.zab(paramOne: 3)
 
-        #expectWasCalled(zab(paramOne:), with: true)
-        #expectWasCalled(zab(paramOne:), with: "Hello")
-        #expectWasCalled(zab(paramOne:), with: "World")
-        #expectWasCalled(zab(paramOne:), with: 1)
-        #expectWasCalled(zab(paramOne:), with: 2)
-        #expectWasCalled(zab(paramOne:), with: 3)
+        #expectWasCalled(spy.zab(paramOne:), with: true)
+        #expectWasCalled(spy.zab(paramOne:), with: "Hello")
+        #expectWasCalled(spy.zab(paramOne:), with: "World")
+        #expectWasCalled(spy.zab(paramOne:), with: 1)
+        #expectWasCalled(spy.zab(paramOne:), with: 2)
+        #expectWasCalled(spy.zab(paramOne:), with: 3)
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #expectWasCalled(zab(paramOne:), taking: Double.self)
+            #expectWasCalled(spy.zab(paramOne:), taking: Double.self)
         }
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #expectWasCalled(zab(paramOne:), with: 1.0)
+            #expectWasCalled(spy.zab(paramOne:), with: 1.0)
         }
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #expectWasCalled(zab(paramOne:), with: false)
+            #expectWasCalled(spy.zab(paramOne:), with: false)
         }
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #expectWasCalled(zab(paramOne:), with: "Goodbye")
+            #expectWasCalled(spy.zab(paramOne:), with: "Goodbye")
         }
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #expectWasCalled(zab(paramOne:), with: 4)
+            #expectWasCalled(spy.zab(paramOne:), with: 4)
         }
     }
 
     func testExpectWasCalled_WithMultipleParameters() {
-        rab(paramOne: true, paramTwo: 1, paramThree: "Hello")
-        rab(paramOne: false, paramTwo: nil, paramThree: nil)
+        spy.rab(paramOne: true, paramTwo: 1, paramThree: "Hello")
+        spy.rab(paramOne: false, paramTwo: nil, paramThree: nil)
 
-        #expectWasCalled(rab(paramOne:paramTwo:paramThree:), with: true, 1, "Hello")
-        #expectWasCalled(rab(paramOne:paramTwo:paramThree:), with: false, Int?.none, String?.none)
+        #expectWasCalled(spy.rab(paramOne:paramTwo:paramThree:), with: true, 1, "Hello")
+        #expectWasCalled(spy.rab(paramOne:paramTwo:paramThree:), with: false, Int?.none, String?.none)
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #expectWasCalled(rab(paramOne:paramTwo:paramThree:), with: true, 2, "Hello")
+            #expectWasCalled(spy.rab(paramOne:paramTwo:paramThree:), with: true, 2, "Hello")
         }
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #expectWasCalled(rab(paramOne:paramTwo:paramThree:), with: true, Int?.none, String?.none)
+            #expectWasCalled(spy.rab(paramOne:paramTwo:paramThree:), with: true, Int?.none, String?.none)
         }
     }
 
     // MARK: - expectWasNotCalled
 
     func testExpectWasNotCalled_WithoutCalling() {
-        #expectWasNotCalled(foo)
-        #expectWasNotCalled(bar(paramOne:))
+        #expectWasNotCalled(spy.foo)
+        #expectWasNotCalled(spy.bar(paramOne:))
     }
 
     func testExpectWasNotCalled_WithCall() {
-        foo()
+        spy.foo()
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #expectWasNotCalled(foo)
+            #expectWasNotCalled(spy.foo)
         }
     }
 
     func testExpectWasNotCalled_WithDifferentInputAndOutputTypes() {
-        zab(paramOne: true)
-        zab(paramOne: 1)
-        zab(paramOne: 2)
-        zab(paramOne: 1.0)
+        spy.zab(paramOne: true)
+        spy.zab(paramOne: 1)
+        spy.zab(paramOne: 2)
+        spy.zab(paramOne: 1.0)
 
-        #expectWasNotCalled(zab(paramOne:), returning: String.self)
+        #expectWasNotCalled(spy.zab(paramOne:), returning: String.self)
 
         XCTExpectFailure { [weak self] in
             guard let self else { return }
 
-            #expectWasNotCalled(zab(paramOne:), returning: Int.self)
+            #expectWasNotCalled(spy.zab(paramOne:), returning: Int.self)
         }
     }
 

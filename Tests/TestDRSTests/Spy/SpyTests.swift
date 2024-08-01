@@ -6,10 +6,11 @@
 @testable import TestDRS
 import XCTest
 
-final class SpyTests: SpyTestCase {
+final class SpyTests: XCTestCase {
 
     private let file = #fileID.components(separatedBy: "/").last!
     private var line = 0
+    private let spy = TestSpy()
 
     override func invokeTest() {
         withStaticTestingContext {
@@ -18,16 +19,16 @@ final class SpyTests: SpyTestCase {
     }
 
     func testCallsToFunction_StartsEmpty() {
-        let calls = blackBox.callsMatching(signature: "foo()")
+        let calls = spy.blackBox.callsMatching(signature: "foo()")
         XCTAssertEqual(calls.count, 0)
     }
 
     func testCallsToFunction_WithNoParameters() {
-        foo()
-        foo()
-        foo()
+        spy.foo()
+        spy.foo()
+        spy.foo()
 
-        let calls = blackBox.callsMatching(signature: "foo()")
+        let calls = spy.blackBox.callsMatching(signature: "foo()")
 
         XCTAssertEqual(calls.count, 3)
 
@@ -42,11 +43,11 @@ final class SpyTests: SpyTestCase {
     }
 
     func testCallsToFunction_WithSingleParameter() {
-        bar(paramOne: true)
-        bar(paramOne: false)
-        bar(paramOne: true)
+        spy.bar(paramOne: true)
+        spy.bar(paramOne: false)
+        spy.bar(paramOne: true)
 
-        let calls = blackBox.callsMatching(signature: "bar(paramOne:)")
+        let calls = spy.blackBox.callsMatching(signature: "bar(paramOne:)")
 
         XCTAssertEqual(calls.count, 3)
 
@@ -64,11 +65,11 @@ final class SpyTests: SpyTestCase {
     }
 
     func testCallsToFunction_WithOptionalParameter() {
-        baz(paramOne: true)
-        baz(paramOne: false)
-        baz(paramOne: nil)
+        spy.baz(paramOne: true)
+        spy.baz(paramOne: false)
+        spy.baz(paramOne: nil)
 
-        let calls = blackBox.callsMatching(signature: "baz(paramOne:)")
+        let calls = spy.blackBox.callsMatching(signature: "baz(paramOne:)")
 
         XCTAssertEqual(calls.count, 3)
 
@@ -86,11 +87,11 @@ final class SpyTests: SpyTestCase {
     }
 
     func testCallsToFunction_WithTwoParameters() throws {
-        oof(paramOne: true, paramTwo: 1)
-        oof(paramOne: false, paramTwo: 2)
-        oof(paramOne: true, paramTwo: 3)
+        spy.oof(paramOne: true, paramTwo: 1)
+        spy.oof(paramOne: false, paramTwo: 2)
+        spy.oof(paramOne: true, paramTwo: 3)
 
-        let calls = blackBox.callsMatching(signature: "oof(paramOne:paramTwo:)")
+        let calls = spy.blackBox.callsMatching(signature: "oof(paramOne:paramTwo:)")
 
         XCTAssertEqual(calls.count, 3)
 
@@ -114,11 +115,11 @@ final class SpyTests: SpyTestCase {
     }
 
     func testCallsToFunction_WithThreeParameters() throws {
-        rab(paramOne: true, paramTwo: 1, paramThree: "Hello")
-        rab(paramOne: false, paramTwo: 2, paramThree: "World")
-        rab(paramOne: true, paramTwo: nil, paramThree: nil)
+        spy.rab(paramOne: true, paramTwo: 1, paramThree: "Hello")
+        spy.rab(paramOne: false, paramTwo: 2, paramThree: "World")
+        spy.rab(paramOne: true, paramTwo: nil, paramThree: nil)
 
-        let calls = blackBox.callsMatching(signature: "rab(paramOne:paramTwo:paramThree:)")
+        let calls = spy.blackBox.callsMatching(signature: "rab(paramOne:paramTwo:paramThree:)")
 
         XCTAssertEqual(calls.count, 3)
 
@@ -145,11 +146,11 @@ final class SpyTests: SpyTestCase {
     }
 
     func testCallsToFunction_WithInputAndOutput() {
-        zab(paramOne: true)
-        zab(paramOne: "Hello")
-        zab(paramOne: 1)
+        spy.zab(paramOne: true)
+        spy.zab(paramOne: "Hello")
+        spy.zab(paramOne: 1)
 
-        let calls = blackBox.callsMatching(signature: "zab(paramOne:)")
+        let calls = spy.blackBox.callsMatching(signature: "zab(paramOne:)")
 
         XCTAssertEqual(calls.count, 3)
 
@@ -170,16 +171,16 @@ final class SpyTests: SpyTestCase {
     }
 
     func testDebugDescription() {
-        foo()
-        bar(paramOne: true)
-        baz(paramOne: nil)
-        oof(paramOne: false, paramTwo: 7)
+        spy.foo()
+        spy.bar(paramOne: true)
+        spy.baz(paramOne: nil)
+        spy.oof(paramOne: false, paramTwo: 7)
 
         // Avoid removal of trailing whitespace
         let space = " "
 
         XCTAssertEqual(
-            blackBox.debugDescription,
+            spy.blackBox.debugDescription,
             """
 
             ******* Function Call 1 *******
@@ -212,39 +213,39 @@ final class SpyTests: SpyTestCase {
     }
 
     func testCallsToStaticFunction() {
-        SpyTestCase.staticFoo()
-        SpyTestCase.staticFoo()
-        SpyTestCase.staticFoo()
+        TestSpy.staticFoo()
+        TestSpy.staticFoo()
+        TestSpy.staticFoo()
 
-        #expectWasCalled(SpyTestCase.staticFoo)
+        #expectWasCalled(TestSpy.staticFoo)
             .occurring(times: 3)
     }
 
     func testCallsToStaticFunction_WithinTask() async {
         let exp = XCTestExpectation(description: "Wait for task")
 
-        SpyTestCase.staticFoo()
+        TestSpy.staticFoo()
 
         Task {
-            SpyTestCase.staticFoo()
+            TestSpy.staticFoo()
             exp.fulfill()
         }
 
-        SpyTestCase.staticFoo()
+        TestSpy.staticFoo()
 
         await fulfillment(of: [exp], timeout: 5)
 
-        #expectWasCalled(SpyTestCase.staticFoo)
+        #expectWasCalled(TestSpy.staticFoo)
             .occurring(times: 3)
     }
 
     func testCallsToStaticFunction_WithLocalContext() {
         withStaticTestingContext {
-            SpyTestCase.staticFoo()
-            SpyTestCase.staticFoo()
+            TestSpy.staticFoo()
+            TestSpy.staticFoo()
             MySpy.staticFoo()
 
-            #expectWasCalled(SpyTestCase.staticFoo)
+            #expectWasCalled(TestSpy.staticFoo)
                 .occurring(times: 2)
             #expectWasCalled(MySpy.staticFoo)
                 .exactlyOnce()
@@ -253,19 +254,19 @@ final class SpyTests: SpyTestCase {
 
     func testCallsToStaticFunction_WithCallsOutsideNestedLocalContext() {
         // This is convoluted, and I don't expect developers to do this, but we want to make sure it works as expected.
-        SpyTestCase.staticFoo()
+        TestSpy.staticFoo()
 
         withStaticTestingContext {
-            SpyTestCase.staticFoo()
-            SpyTestCase.staticFoo()
-            SpyTestCase.staticFoo()
-            SpyTestCase.staticFoo()
+            TestSpy.staticFoo()
+            TestSpy.staticFoo()
+            TestSpy.staticFoo()
+            TestSpy.staticFoo()
 
-            #expectWasCalled(SpyTestCase.staticFoo)
+            #expectWasCalled(TestSpy.staticFoo)
                 .occurring(times: 4)
         }
 
-        #expectWasCalled(SpyTestCase.staticFoo)
+        #expectWasCalled(TestSpy.staticFoo)
             .exactlyOnce()
     }
 
