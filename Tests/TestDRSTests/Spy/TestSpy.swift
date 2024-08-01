@@ -1,12 +1,12 @@
 //
-// Created on 4/30/24.
+// Created on 7/5/24.
 // Copyright © 2024 Turo Open Source. All rights reserved.
 //
 
-@testable import TestDRS
-import XCTest
+import Foundation
+import TestDRS
 
-class SpyTestCase: XCTestCase, Spy {
+final class TestSpy: Spy, @unchecked Sendable {
 
     let blackBox = BlackBox()
 
@@ -68,7 +68,7 @@ extension Date {
     }
 }
 
-extension SpyTestCase {
+extension TestSpy {
 
     protocol SomeProtocol {
         init()

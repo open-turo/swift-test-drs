@@ -5,10 +5,10 @@
 
 import Foundation
 
-/// `FunctionCall` is a protocol that represents a function call in a generic way.
-/// Captures the `Input` and `Output` type information while allowing us to store an array of function calls as an `[any FunctionCall]`.
-/// - SeeAlso: `ConcreteFunctionCall` which is the concrete version of a function call.
-public protocol FunctionCall: CustomDebugStringConvertible, Identifiable {
+/// `FunctionCallRepresentation` is a protocol that represents a function call in a generic way.
+/// Captures the `Input` and `Output` type information while allowing us to store an array of function calls as an `[any FunctionCallRepresentation]`.
+/// - SeeAlso: `FunctionCall` which is the concrete version of a function call.
+protocol FunctionCallRepresentation: CustomDebugStringConvertible, Identifiable {
     associatedtype Input
     associatedtype Output
 
@@ -28,7 +28,7 @@ public protocol FunctionCall: CustomDebugStringConvertible, Identifiable {
     var id: Int { get }
 }
 
-extension FunctionCall {
+extension FunctionCallRepresentation {
     public var debugDescription: String {
         """
         ******* Function Call \(id) *******
@@ -49,20 +49,20 @@ private enum FunctionCallUtilities {
     }()
 }
 
-/// `ConcreteFunctionCall` provides a concrete implementation of the`FunctionCall` protocol.
-public struct ConcreteFunctionCall<Input, Output>: FunctionCall {
+/// `FunctionCall` provides a concrete implementation of the`FunctionCallRepresentation` protocol.
+public struct FunctionCall<Input, Output>: FunctionCallRepresentation, @unchecked Sendable {
 
     /// The signature of the function, that is the string that is captured by `#function`, eg. `foo(bar:)`.
     public let signature: FunctionSignature
 
     /// The type of the function's input parameter(s) (or `Void` if it does not take any parameters). If a function takes more than one parameter, this will be a tuple with the parameters in the order they appear in the signature.
-    public let input: Input
+    let input: Input
 
     /// The return type of the function.
-    public let outputType: Output.Type
+    let outputType: Output.Type
 
     /// The time at which the function was called.
-    public let time: Date
+    let time: Date
 
     /// The unique identifier for this call.
     public let id: Int

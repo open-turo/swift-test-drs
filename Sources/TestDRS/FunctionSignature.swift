@@ -6,7 +6,7 @@
 import Foundation
 
 /// `FunctionSignature` is used to represent the signature of a function.
-public struct FunctionSignature: Equatable, Hashable {
+public struct FunctionSignature: Equatable, Hashable, Sendable {
 
     /// The full text of the function signature.
     let text: String

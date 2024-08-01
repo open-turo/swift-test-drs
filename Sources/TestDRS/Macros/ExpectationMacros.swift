@@ -30,11 +30,11 @@ public macro expectWasCalled<Input, Output>(
 /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
 @freestanding(expression)
 @discardableResult
-public macro expectWasCalled<each Input, Output>(
+public macro expectWasCalled<each Input: Equatable, Output>(
     _ function: (repeat each Input) async throws -> Output,
     with expectedInput: repeat each Input,
     returning outputType: Output.Type? = nil
-) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> = #externalMacro(module: "TestDRSMacros", type: "ExpectWasCalledMacro") where repeat each Input: Equatable
+) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> = #externalMacro(module: "TestDRSMacros", type: "ExpectWasCalledMacro")
 
 // MARK: - expectWasNotCalled
 

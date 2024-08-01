@@ -72,7 +72,7 @@ extension ExpectationMacro {
         forExpectation expectation: ExpectationMacro.Type,
         additionalArguments: [LabeledExprSyntax] = []
     ) -> ExprSyntax? {
-        var arguments = additionalArguments
+        let arguments = additionalArguments
 
         // Functions with a base are parsed as MemberAccessExprSyntax
         // Eg. mock.foo

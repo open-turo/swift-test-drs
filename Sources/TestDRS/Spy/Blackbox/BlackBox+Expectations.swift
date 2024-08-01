@@ -31,12 +31,12 @@ extension BlackBox {
         return ExpectWasCalledResult(matchingCalls: calls, blackBox: self)
     }
 
-    func expectWasCalled<each Input, Output>(
+    func expectWasCalled<each Input: Equatable, Output>(
         _ function: (repeat each Input) async throws -> Output,
         signature: FunctionSignature,
         expectedInput: repeat each Input,
         location: SourceLocation
-    ) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> where repeat each Input: Equatable {
+    ) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> {
         let calls = callsMatching(signature: signature, taking: (repeat each Input).self, returning: Output.self)
         let callsWithExpectedInput = calls.filter { check(repeat each expectedInput, against: $0.input) }
 
