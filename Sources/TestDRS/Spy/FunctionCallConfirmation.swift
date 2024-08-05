@@ -48,7 +48,7 @@ public struct FunctionCallConfirmation<AmountMatching: FunctionCallAmountMatchin
 
 }
 
-public extension FunctionCallConfirmation where AmountMatching == MatchingFirst {
+extension FunctionCallConfirmation where AmountMatching == MatchingFirst {
 
     static func confirmFirstCall(
         stream: AsyncStream<FunctionCall<Input, Output>>,
