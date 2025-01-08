@@ -3,7 +3,7 @@
 
 # Xcode
 xcuserdata
-*/.build/
+**/.build/
 
 # SPM
 */.swiftpm/configuration/registries.json

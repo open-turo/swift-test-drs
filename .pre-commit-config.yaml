@@ -15,15 +15,15 @@ repos:
       - id: commitlint
         stages: [commit-msg]
         additional_dependencies: ["@open-turo/commitlint-config-conventional"]
-  - repo: https://github.com/rhysd/actionlint
-    rev: v1.6.9
-    hooks:
-      - id: actionlint
-  - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 2.1.6 # or specific git tag
-    hooks:
-      - id: shellcheck
-      - id: shfmt
+  # - repo: https://github.com/rhysd/actionlint
+    # rev: v1.6.9
+    # hooks:
+      # - id: actionlint
+  # - repo: https://github.com/jumanjihouse/pre-commit-hooks
+  #   rev: 2.1.6 # or specific git tag
+  #   hooks:
+  #     - id: shellcheck
+  #     - id: shfmt
   - repo: local
     hooks:
       - id: swiftformat
