@@ -1,0 +1,40 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: open-turo/action-pre-commit@v1
+
+  test:
+    name: Test
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tests
+        run: |
+          defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
+          xcodebuild test -scheme TestDRS
+
+  # Package is in alpha and not ready for release
+  # release:
+  #   needs:
+  #     - lint
+  #     - test
+  #   name: Release
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
+  #     - uses: go-semantic-release/action@v1
+  #       with:
+  #         github-token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-swift-test-drs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: open-turo/action-pre-commit@v1
+
+  test:
+    name: Test
+    runs-on: macos-15
+    # needs: [lint]  # Uncomment if tests are slow
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and Test
+        run: |
+          defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
+          xcodebuild test -scheme TestDRS
+
+  # Package is in alpha and not ready for release
+  # release-notes:
+  #   name: Release notes preview
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: open-turo/actions-release/lint-release-notes@v5
+  #       with:
+  #         github-token: ${{ secrets.GITHUB_TOKEN }}

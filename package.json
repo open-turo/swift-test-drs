@@ -1,0 +1,14 @@
+{
+  "description": "Accelerate your testing velocity with Test DRS: Swift utilities for lightning-fast spying, stubbing, and mocking.",
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^9.0.2"
+  },
+  "homepage": "https://github.com/open-turo/swift-test-drs",
+  "license": "MIT",
+  "name": "design-system-ios-core",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/open-turo/swift-test-drs.git"
+  }
+}
