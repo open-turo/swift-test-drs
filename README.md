@@ -35,7 +35,7 @@ protocol NetworkClientProtocol {
 
 This generates a mock with the prefix "Mock" so in this case the generated mock type would be `MockNetworkClientProtocol`.
 
-> **Note:** While the above example is adding a type to a protocol, you can also add mocks to classes and structs. In the case of a class, the generated mock is a subclass of the class you add the mock to.
+> **Note:** While the above example is adding a type to a protocol, you can also add mocks to classes and structs. In the case of a class, the generated mock is a subclass of the class you add the mock to. When attached to a struct, a new mock struct is created. Mocking a struct can be useful in cases where you can't add the `@AddMock` macro to a protocol definition or when you need a mock that conforms to multiple protocols.
 
 ### Stubbing Functions
 
