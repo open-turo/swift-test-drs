@@ -45,7 +45,7 @@ extension BlackBox {
         }
 
         func yield(_ call: FunctionCall<Input, Output>) {
-            guard call.signature == signature else { return }
+            guard call.signature ~= signature else { return }
             wrappedValue.yield(call)
         }
 
@@ -79,7 +79,7 @@ extension BlackBox {
         }
 
         func yield(_ call: FunctionCall<Input, Output>) {
-            guard call.signature == signature, checkExpectedInput(call.input) else { return }
+            guard call.signature ~= signature, checkExpectedInput(call.input) else { return }
             wrappedValue.yield(call)
         }
 
