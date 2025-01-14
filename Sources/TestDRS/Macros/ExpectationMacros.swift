@@ -10,7 +10,7 @@
 /// - Parameters:
 ///   - function: A reference to the function to expect was called.
 ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
-///   - outputType: An optional  phantom parameter used to derive the output type of the `function` passed in.
+///   - outputType: An optional phantom parameter used to derive the output type of the `function` passed in.
 /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
 @freestanding(expression)
 @discardableResult
