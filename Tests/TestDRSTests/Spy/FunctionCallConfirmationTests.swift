@@ -109,9 +109,9 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
             returning: String.self
         )
         .occurring(times: 2)
-        .getFirstMatchingCall()
+        .getLastMatchingCall()
 
-        #expect(callToZab.input == "Hello")
+        #expect(callToZab.input == "World")
     }
 
     // MARK: - confirmationOfCall
@@ -139,8 +139,7 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
 
         let call = await spy.confirmationOfCall(
             to: spy.foo,
-            withSignature: "foo()",
-            timeLimit: .milliseconds(1)
+            withSignature: "foo()"
         ).matchingCall
 
         #expect(call != nil)
@@ -154,8 +153,7 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
 
         let call = await spy.confirmationOfCall(
             to: spy.foo,
-            withSignature: "foo()",
-            timeLimit: .milliseconds(1)
+            withSignature: "foo()"
         ).matchingCall
 
         #expect(call != nil)
@@ -172,8 +170,7 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
         let callToRab = await spy.confirmationOfCall(
             to: spy.rab(paramOne:paramTwo:paramThree:),
             withSignature: "rab(paramOne:paramTwo:paramThree:)",
-            expectedInput: true, 1, "Hello",
-            timeLimit: .milliseconds(1)
+            expectedInput: true, 1, "Hello"
         )
         .exactlyOnce()
         .matchingCall
@@ -260,8 +257,7 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
                 await spy.confirmationOfCall(
                     to: spy.rab(paramOne:paramTwo:paramThree:),
                     withSignature: "rab(paramOne:paramTwo:paramThree:)",
-                    expectedInput: true, 1, "Hello",
-                    timeLimit: .milliseconds(1)
+                    expectedInput: true, 1, "Hello"
                 )
                 .occurring(times: 2)
             } matching: { issue in
@@ -342,8 +338,7 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
         let callsToRab = await spy.confirmationOfCall(
             to: spy.rab(paramOne:paramTwo:paramThree:),
             withSignature: "rab(paramOne:paramTwo:paramThree:)",
-            expectedInput: true, 1, "Hello",
-            timeLimit: .milliseconds(1)
+            expectedInput: true, 1, "Hello"
         )
         .occurringWithin(times: 2 ... 4)
         .matchingCalls
