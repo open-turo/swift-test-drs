@@ -9,7 +9,7 @@ import MacroTesting
 @testable import TestDRSMacros
 import XCTest
 
-final class SwiftTestingExpectationMacroExpansionTests: XCTestCase {
+final class ExpectationMacroExpansionTests: XCTestCase {
 
     override func invokeTest() {
         withMacroTesting(macros: [
@@ -70,7 +70,7 @@ final class SwiftTestingExpectationMacroExpansionTests: XCTestCase {
         }
     }
 
-    func testExpectWasCalledMacro__WithMultipleArguments() {
+    func testExpectWasCalledMacro_WithMultipleArguments() {
         assertMacro {
             """
             #expectWasCalled(mock.foo(_:paramTwo:))
