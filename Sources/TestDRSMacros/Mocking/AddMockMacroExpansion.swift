@@ -20,11 +20,11 @@ public struct AddMockMacro: PeerMacro {
         let mockDeclaration: DeclSyntax
 
         if let protocolDeclaration = declaration.as(ProtocolDeclSyntax.self) {
-            mockDeclaration = DeclSyntax(try mockClassDeclaration(from: protocolDeclaration))
+            mockDeclaration = DeclSyntax(mockClassDeclaration(from: protocolDeclaration))
         } else if let classDeclaration = declaration.as(ClassDeclSyntax.self) {
             mockDeclaration = DeclSyntax(try mockSubclassDeclaration(from: classDeclaration))
         } else if let structDeclaration = declaration.as(StructDeclSyntax.self) {
-            mockDeclaration = DeclSyntax(try mockStruct(from: structDeclaration))
+            mockDeclaration = DeclSyntax(mockStruct(from: structDeclaration))
         } else {
             context.diagnose(
                 Diagnostic(
@@ -46,13 +46,13 @@ public struct AddMockMacro: PeerMacro {
         ]
     }
 
-    private static func mockClassDeclaration(from protocolDeclaration: ProtocolDeclSyntax) throws -> ClassDeclSyntax {
+    private static func mockClassDeclaration(from protocolDeclaration: ProtocolDeclSyntax) -> ClassDeclSyntax {
         let protocolName = protocolDeclaration.name.trimmed.text
 
         // Check if the protocol is marked with @objc, if so, the mock class will need to inherit from NSObject
         let nsObject = protocolDeclaration.attributes.trimmedDescription.contains("@objc") ? "NSObject" : nil
 
-        var classDeclaration = try mockClass(
+        var classDeclaration = mockClass(
             named: protocolName,
             inheritanceClause: .emptyClause.appending(
                 [nsObject, protocolName, mockProtocolName]
@@ -81,9 +81,12 @@ public struct AddMockMacro: PeerMacro {
     }
 
     private static func mockSubclassDeclaration(from classDeclaration: ClassDeclSyntax) throws -> ClassDeclSyntax {
+        guard !classDeclaration.modifiers.containsKeyword(.final) else {
+            throw AddMockError.finalClass
+        }
         let className = classDeclaration.name.trimmed.text
 
-        return try mockClass(
+        return mockClass(
             named: className,
             inheritanceClause: .emptyClause.appending([className, mockProtocolName]),
             members: classDeclaration.memberBlock.members,
@@ -91,7 +94,7 @@ public struct AddMockMacro: PeerMacro {
         )
     }
 
-    private static func mockStruct(from structDeclaration: StructDeclSyntax) throws -> StructDeclSyntax {
+    private static func mockStruct(from structDeclaration: StructDeclSyntax) -> StructDeclSyntax {
         var mockStructDeclaration = structDeclaration.trimmed
         mockStructDeclaration.memberBlock.rightBrace.leadingTrivia = []
 
@@ -115,7 +118,7 @@ public struct AddMockMacro: PeerMacro {
         inheritanceClause: InheritanceClauseSyntax? = nil,
         members: MemberBlockItemListSyntax,
         isSubclass: Bool = false
-    ) throws -> ClassDeclSyntax {
+    ) -> ClassDeclSyntax {
         return ClassDeclSyntax(
             modifiers: DeclModifierListSyntax(
                 [DeclModifierSyntax(name: .keyword(.final))]
