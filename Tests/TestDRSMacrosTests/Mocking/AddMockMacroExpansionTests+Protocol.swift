@@ -24,7 +24,6 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             protocol SomeProtocol {
                 func foo() throws -> String
                 func bar(with paramOne: String) -> Int
@@ -32,6 +31,42 @@ extension AddMockMacroExpansionTests {
                 func oof(with paramOne: String, for paramTwo: String, paramThree: Int) throws -> String
                 mutating func rab(paramOne: Bool)
             }
+
+            #if DEBUG
+
+            final class MockSomeProtocol: SomeProtocol, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                func foo() throws -> String {
+                    recordCall(returning: String.self)
+                    return try throwingStubOutput()
+                }
+
+                func bar(with paramOne: String) -> Int {
+                    recordCall(with: paramOne, returning: Int.self)
+                    return stubOutput(for: paramOne)
+                }
+
+                func baz(with paramOne: String, for paramTwo: String) -> Bool {
+                    recordCall(with: (paramOne, paramTwo), returning: Bool.self)
+                    return stubOutput(for: (paramOne, paramTwo))
+                }
+
+                func oof(with paramOne: String, for paramTwo: String, paramThree: Int) throws -> String {
+                    recordCall(with: (paramOne, paramTwo, paramThree), returning: String.self)
+                    return try throwingStubOutput(for: (paramOne, paramTwo, paramThree))
+                }
+
+                func rab(paramOne: Bool) {
+                    recordCall(with: paramOne)
+                    return stubOutput(for: paramOne)
+                }
+
+            }
+
+            #endif
             """
         }
     }
@@ -50,7 +85,6 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             protocol SomeProtocol {
                 var foo: String { get }
                 static var bar: Int { get set }
@@ -58,6 +92,47 @@ extension AddMockMacroExpansionTests {
 
                 static func oof(paramOne: String) -> Int
             }
+
+            #if DEBUG
+
+            final class MockSomeProtocol: SomeProtocol, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                var foo: String {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                static var bar: Int {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                static var baz: Bool {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                static func oof(paramOne: String) -> Int {
+                    recordCall(with: paramOne, returning: Int.self)
+                    return stubOutput(for: paramOne)
+                }
+
+            }
+
+            #endif
             """
         }
     }
@@ -72,10 +147,25 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             protocol SomeProtocol {
                 func foo<T>() -> T
             }
+
+            #if DEBUG
+
+            final class MockSomeProtocol: SomeProtocol, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                func foo<T>() -> T {
+                    recordCall(returning: T.self)
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
             """
         }
     }
@@ -90,10 +180,25 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             protocol SomeProtocol {
                 func foo<T>() -> T where T: Equatable
             }
+
+            #if DEBUG
+
+            final class MockSomeProtocol: SomeProtocol, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                func foo<T>() -> T where T: Equatable {
+                    recordCall(returning: T.self)
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
             """
         }
     }
@@ -108,10 +213,25 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             @objc protocol SomeProtocol {
                 func foo1()
             }
+
+            #if DEBUG
+
+            @objc final class MockSomeProtocol: NSObject, SomeProtocol, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                func foo1() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
             """
         }
     }
@@ -128,12 +248,36 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             protocol SomeProtocol<T> {
                 associatedtype T
                 var foo: T
                 func bar() -> T
             }
+
+            #if DEBUG
+
+            final class MockSomeProtocol<T>: SomeProtocol, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                var foo: T {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                func bar() -> T {
+                    recordCall(returning: T.self)
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
             """
         }
     }
