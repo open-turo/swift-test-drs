@@ -79,7 +79,6 @@ final class AddMockMacroExpansionTests: XCTestCase {
         } diagnostics: {
             """
             @AddMock
-            ┬───────
             ╰─ 🛑 @AddMock can't be applied to final classes as they can not be subclassed to produce a mock.
             final class SomeClass {
                 var foo = "Hello World"

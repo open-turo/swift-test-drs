@@ -22,7 +22,7 @@ public struct AddMockMacro: PeerMacro {
         if let protocolDeclaration = declaration.as(ProtocolDeclSyntax.self) {
             mockDeclaration = DeclSyntax(mockClassDeclaration(from: protocolDeclaration))
         } else if let classDeclaration = declaration.as(ClassDeclSyntax.self) {
-            mockDeclaration = DeclSyntax(try mockSubclassDeclaration(from: classDeclaration))
+            mockDeclaration = DeclSyntax(mockSubclassDeclaration(from: classDeclaration, context: context))
         } else if let structDeclaration = declaration.as(StructDeclSyntax.self) {
             mockDeclaration = DeclSyntax(mockStruct(from: structDeclaration))
         } else {
@@ -80,9 +80,14 @@ public struct AddMockMacro: PeerMacro {
         return classDeclaration
     }
 
-    private static func mockSubclassDeclaration(from classDeclaration: ClassDeclSyntax) throws -> ClassDeclSyntax {
-        guard !classDeclaration.modifiers.containsKeyword(.final) else {
-            throw AddMockError.finalClass
+    private static func mockSubclassDeclaration(from classDeclaration: ClassDeclSyntax, context: some MacroExpansionContext) -> ClassDeclSyntax {
+        if classDeclaration.modifiers.containsKeyword(.final) {
+            context.diagnose(
+                Diagnostic(
+                    node: Syntax(classDeclaration),
+                    message: AddMockExpansionDiagnostic.finalClass
+                )
+            )
         }
         let className = classDeclaration.name.trimmed.text
 
