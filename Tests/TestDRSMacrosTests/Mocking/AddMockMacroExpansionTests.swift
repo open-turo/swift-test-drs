@@ -12,7 +12,7 @@ import XCTest
 final class AddMockMacroExpansionTests: XCTestCase {
 
     override func invokeTest() {
-        withMacroTesting(macros: ["Mock": AddMockMacro.self, "__MockProperty": MockPropertyMacro.self]) {
+        withMacroTesting(macros: ["AddMock": AddMockMacro.self, "__MockProperty": MockPropertyMacro.self]) {
             super.invokeTest()
         }
     }
@@ -28,11 +28,9 @@ final class AddMockMacroExpansionTests: XCTestCase {
             """
         } diagnostics: {
             """
-
-            """
-        } expansion: {
-            """
             @AddMock
+            ┬───────
+            ╰─ 🛑 @AddMock can only be applied to protocols, classes, and structs
             enum SomeEnum {
                 case foo
                 case bar
@@ -54,12 +52,36 @@ final class AddMockMacroExpansionTests: XCTestCase {
             """
         } diagnostics: {
             """
-
+            @AddMock
+            ┬───────
+            ╰─ 🛑 @AddMock can only be applied to protocols, classes, and structs
+            actor SomeActor {
+                var foo = "Hello World"
+                func bar() {
+                    // fatalError("Unimplemented")
+                }
+            }
             """
-        } expansion: {
+        }
+    }
+
+    func testAddMockMacro_WithFinalClass_ProducesDiagnostic() {
+        assertMacro {
             """
             @AddMock
-            actor SomeActor {
+            final class SomeClass {
+                var foo = "Hello World"
+                func bar() {
+                    // fatalError("Unimplemented")
+                }
+            }
+            """
+        } diagnostics: {
+            """
+            @AddMock
+            ┬───────
+            ╰─ 🛑 @AddMock can't be applied to final classes as they can not be subclassed to produce a mock.
+            final class SomeClass {
                 var foo = "Hello World"
                 func bar() {
                     // fatalError("Unimplemented")

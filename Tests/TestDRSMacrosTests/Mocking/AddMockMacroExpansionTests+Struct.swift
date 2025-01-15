@@ -44,7 +44,6 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             struct SomeStruct: ProtocolOne, ProtocolTwo {
 
                 func foo() {
@@ -72,6 +71,47 @@ extension AddMockMacroExpansionTests {
                 }
 
             }
+
+            #if DEBUG
+
+            struct MockSomeStruct: ProtocolOne, ProtocolTwo, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                func foo() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+                func bar() -> Int {
+                    recordCall(returning: Int.self)
+                    return stubOutput()
+                }
+
+                func baz(paramOne: String) -> Int {
+                    recordCall(with: paramOne, returning: Int.self)
+                    return stubOutput(for: paramOne)
+                }
+
+                func oof() throws -> Int {
+                    recordCall(returning: Int.self)
+                    return try throwingStubOutput()
+                }
+
+                func rab(paramOne: Int, paramTwo: String, paramThree: bool) -> Int {
+                    recordCall(with: (paramOne, paramTwo, paramThree), returning: Int.self)
+                    return stubOutput(for: (paramOne, paramTwo, paramThree))
+                }
+
+                func zab(paramOne: Int) async throws -> Int {
+                    recordCall(with: paramOne, returning: Int.self)
+                    return try throwingStubOutput(for: paramOne)
+                }
+
+            }
+
+            #endif
             """
         }
     }
@@ -92,7 +132,6 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             struct SomeStruct {
                 var foo = "Hello World"
                 static var bar = 7
@@ -102,6 +141,47 @@ extension AddMockMacroExpansionTests {
                     fatalError("Unimplemented")
                 }
             }
+
+            #if DEBUG
+
+            struct MockSomeStruct: Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                var foo {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                static var bar {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                static var baz: Bool {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                static func oof(paramOne: String) -> Int {
+                    recordCall(with: paramOne, returning: Int.self)
+                    return stubOutput(for: paramOne)
+                }
+
+            }
+
+            #endif
             """
         }
     }
@@ -128,7 +208,6 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             struct SomeStruct {
                 var foo: String {
                     "Hello World"
@@ -144,6 +223,41 @@ extension AddMockMacroExpansionTests {
                 }
 
             }
+
+            #if DEBUG
+
+            struct MockSomeStruct: Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                var foo: String {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var bar: String {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var baz: String {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+            }
+
+            #endif
             """
         }
     }
@@ -161,13 +275,39 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             struct SomeStruct {
 
                 var foo: String?
                 let bar: Int!
 
             }
+
+            #if DEBUG
+
+            struct MockSomeStruct: Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                var foo: String? {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var bar: Int! {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+            }
+
+            #endif
             """
         }
     }
@@ -194,7 +334,6 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             struct SomeStruct {
 
                 var foo: String
@@ -210,6 +349,31 @@ extension AddMockMacroExpansionTests {
                     fatalError("Unimplemented")
                 }
             }
+
+            #if DEBUG
+
+            struct MockSomeStruct: Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                var foo: String {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                func oof() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
             """
         }
     }
@@ -236,7 +400,6 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             struct SomeStruct {
 
                 struct NestedStruct {
@@ -252,6 +415,38 @@ extension AddMockMacroExpansionTests {
                     fatalError("Unimplemented")
                 }
             }
+
+            #if DEBUG
+
+            struct MockSomeStruct: Mock {
+
+                struct NestedStruct {
+                    let nestedFoo: String
+                    func nestedBar() {
+                        fatalError("Unimplemented")
+                    }
+                }
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                var foo: NestedStruct {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                func bar() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
             """
         }
     }
@@ -279,14 +474,37 @@ extension AddMockMacroExpansionTests {
         } expansion: {
             """
             struct SomeStruct {
-
-                @AddMock
                 struct NestedStruct {
                     let nestedFoo: String
                     func nestedBar() {
                         fatalError("Unimplemented")
                     }
                 }
+
+                #if DEBUG
+
+                struct MockNestedStruct: Mock {
+
+                    let blackBox = BlackBox()
+                    let stubRegistry = StubRegistry()
+
+                    var nestedFoo: String {
+                        get {
+                            stubValue()
+                        }
+                        set {
+                            setStub(value: newValue)
+                        }
+                    }
+
+                    func nestedBar() {
+                        recordCall()
+                        return stubOutput()
+                    }
+
+                }
+
+                #endif
 
                 var foo: NestedStruct
 
@@ -314,7 +532,6 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             struct SomeStruct<T> {
 
                 var foo: T
@@ -324,6 +541,31 @@ extension AddMockMacroExpansionTests {
                 }
 
             }
+
+            #if DEBUG
+
+            struct MockSomeStruct<T> : Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                var foo: T {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                func bar() -> T {
+                    recordCall(returning: T.self)
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
             """
         }
     }
@@ -350,7 +592,6 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             struct SomeStruct {
                 var x: String
                 var y: Int
@@ -366,6 +607,47 @@ extension AddMockMacroExpansionTests {
 
                 func foo() {}
             }
+
+            #if DEBUG
+
+            struct MockSomeStruct: Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                var x: String {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var y: Int {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var myZ: Bool {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                func foo() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
             """
         }
     }
@@ -388,7 +670,6 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            @AddMock
             struct SomeStruct {
                 let a: String = "Hello World"
                 var b: [Int] = [1, 2, 3]
@@ -398,6 +679,65 @@ extension AddMockMacroExpansionTests {
                 var y = [1, 2, 3]
                 var z = ["YES": true, "NO": false]
             }
+
+            #if DEBUG
+
+            struct MockSomeStruct: Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                var a: String {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var b: [Int] {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var c: [String: Bool] {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var x {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var y {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                var z {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+            }
+
+            #endif
             """
         }
     }
