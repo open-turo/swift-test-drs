@@ -8,11 +8,14 @@ import SwiftDiagnostics
 enum AddMockExpansionDiagnostic: String, DiagnosticMessage {
 
     case invalidType
+    case finalClass
 
     var message: String {
         switch self {
         case .invalidType:
             "@AddMock can only be applied to protocols, classes, and structs"
+        case .finalClass:
+            "@AddMock can't be applied to final classes as they can not be subclassed to produce a mock."
         }
     }
 
@@ -21,18 +24,5 @@ enum AddMockExpansionDiagnostic: String, DiagnosticMessage {
     }
 
     var severity: DiagnosticSeverity { .error }
-
-}
-
-enum AddMockError: Error, CustomDebugStringConvertible {
-
-    case finalClass
-
-    var debugDescription: String {
-        switch self {
-        case .finalClass:
-            "@AddMock can't be applied to final classes as they can not be subclassed to produce a mock."
-        }
-    }
 
 }
