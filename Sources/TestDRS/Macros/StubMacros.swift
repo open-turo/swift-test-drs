@@ -7,25 +7,29 @@
 ///
 /// - Parameters:
 ///   - function: The function to stub. The specified function must be a member of a `StubProviding` type.
+///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
 ///   - output: The output value to be returned when the function is called.
-///
-///   - Note: The compiler will not be able to disambiguate when stubbing functions that are overloaded *and* share the same output type.
-///   If that is the case, use `#stub(_:using:)` and specify the input to the closure explicitly.
 @freestanding(expression)
 @discardableResult
-public macro stub<Input, Output>(_ function: (Input) async throws -> Output, returning output: Output) -> Void = #externalMacro(module: "TestDRSMacros", type: "SetStubReturningOutputMacro")
+public macro stub<Input, Output>(
+    _ function: (Input) async throws -> Output,
+    taking inputType: Input.Type? = nil,
+    returning output: Output
+) -> Void = #externalMacro(module: "TestDRSMacros", type: "SetStubReturningOutputMacro")
 
 /// Sets a stub for a given function to throw a provided error.
 ///
 /// - Parameters:
 ///   - function: The function to stub. The specified function must be a member of a `StubProviding` type.
+///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
 ///   - error: The error to be thrown when the function is called.
-///
-///   - Note: The compiler will not be able to disambiguate when stubbing functions that are overloaded *and* share the same output type.
-///   If that is the case, use `#stub(_:using:)` and specify the input to the closure explicitly.
 @freestanding(expression)
 @discardableResult
-public macro stub<Input, Output>(_ function: (Input) async throws -> Output, throwing error: Error) -> Void = #externalMacro(module: "TestDRSMacros", type: "SetStubThrowingErrorMacro")
+public macro stub<Input, Output>(
+    _ function: (Input) async throws -> Output,
+    taking inputType: Input.Type? = nil,
+    throwing error: Error
+) -> Void = #externalMacro(module: "TestDRSMacros", type: "SetStubThrowingErrorMacro")
 
 /// Sets a stub for a given function using a closure to dynamically determine the output.
 ///
