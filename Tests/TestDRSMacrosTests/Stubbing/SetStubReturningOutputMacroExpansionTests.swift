@@ -24,7 +24,7 @@ final class SetStubReturningOutputMacroTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.setStub(for: mock.foo, withSignature: "foo", returning: "Hello World")
+            mock.setStub(for: mock.foo, withSignature: "foo", taking: nil, returning: "Hello World")
             """
         }
     }
@@ -36,7 +36,7 @@ final class SetStubReturningOutputMacroTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.setStub(for: mock.foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", returning: "Hello World")
+            mock.setStub(for: mock.foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", taking: nil, returning: "Hello World")
             """
         }
     }
@@ -48,7 +48,7 @@ final class SetStubReturningOutputMacroTests: XCTestCase {
             """
         } expansion: {
             """
-            setStub(for: foo, withSignature: "foo()", returning: "Hello World")
+            setStub(for: foo, withSignature: "foo()", taking: nil, returning: "Hello World")
             """
         }
     }
@@ -60,7 +60,19 @@ final class SetStubReturningOutputMacroTests: XCTestCase {
             """
         } expansion: {
             """
-            setStub(for: foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", returning: "Hello World")
+            setStub(for: foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", taking: nil, returning: "Hello World")
+            """
+        }
+    }
+
+    func testStubbingMethod_WithInputTypeSpecified() {
+        assertMacro {
+            """
+            #stub(foo, taking: Int.self, returning: "Hello World")
+            """
+        } expansion: {
+            """
+            setStub(for: foo, withSignature: "foo()", taking: Int.self, returning: "Hello World")
             """
         }
     }

@@ -47,6 +47,7 @@ public extension StubProviding {
     func setStub<Input, Output>(
         for function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature,
+        taking inputType: Input.Type? = nil,
         returning output: Output
     ) {
         stubRegistry.register(output: output, for: function, withSignature: signature)
@@ -65,6 +66,7 @@ public extension StubProviding {
     func setStub<Input, Output>(
         for function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature,
+        taking inputType: Input.Type? = nil,
         throwing error: Error
     ) {
         stubRegistry.register(error: error, for: function, withSignature: signature)
@@ -168,6 +170,7 @@ public extension StubProviding {
     static func setStub<Input, Output>(
         for function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature,
+        taking inputType: Input.Type? = nil,
         returning output: Output
     ) {
         getStaticStubRegistry().register(output: output, for: function, withSignature: signature)
@@ -186,6 +189,7 @@ public extension StubProviding {
     static func setStub<Input, Output>(
         for function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature,
+        taking inputType: Input.Type? = nil,
         throwing error: Error
     ) {
         getStaticStubRegistry().register(error: error, for: function, withSignature: signature)

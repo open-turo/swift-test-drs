@@ -14,7 +14,7 @@ public struct SetStubReturningOutputMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        guard node.arguments.count == 2,
+        guard (2 ... 3).contains(node.arguments.count),
               let firstArgument = node.arguments.first?.expression,
               let output = node.arguments.last?.expression
         else {
@@ -30,13 +30,17 @@ public struct SetStubReturningOutputMacro: ExpressionMacro {
             return ""
         }
 
+        let inputType = node.arguments.first { argument in
+            argument.label?.text == "taking"
+        }?.expression
+
         if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
             return """
-            \(base).setStub(for: \(memberAccess), withSignature: "\(memberAccess.declName)", returning: \(output))
+            \(base).setStub(for: \(memberAccess), withSignature: "\(memberAccess.declName)", taking: \(inputType == nil ? "nil" : "\(inputType)"), returning: \(output))
             """
         } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
             return """
-            setStub(for: \(expression), withSignature: "\(expression.argumentNames == nil ? "\(expression)()" : "\(expression)")", returning: \(output))
+            setStub(for: \(expression), withSignature: "\(expression.argumentNames == nil ? "\(expression)()" : "\(expression)")", taking: \(inputType == nil ? "nil" : "\(inputType)"), returning: \(output))
             """
         } else {
             context.diagnose(
@@ -55,7 +59,7 @@ public struct SetStubThrowingErrorMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        guard node.arguments.count == 2,
+        guard (2 ... 3).contains(node.arguments.count),
               let firstArgument = node.arguments.first?.expression,
               let error = node.arguments.last?.expression
         else {
@@ -71,13 +75,17 @@ public struct SetStubThrowingErrorMacro: ExpressionMacro {
             return ""
         }
 
+        let inputType = node.arguments.first { argument in
+            argument.label?.text == "taking"
+        }?.expression
+
         if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
             return """
-            \(base).setStub(for: \(memberAccess), withSignature: "\(memberAccess.declName)", throwing: \(error))
+            \(base).setStub(for: \(memberAccess), withSignature: "\(memberAccess.declName)", taking: \(inputType == nil ? "nil" : "\(inputType)"), throwing: \(error))
             """
         } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
             return """
-            setStub(for: \(expression), withSignature: "\(expression.argumentNames == nil ? "\(expression)()" : "\(expression)")", throwing: \(error))
+            setStub(for: \(expression), withSignature: "\(expression.argumentNames == nil ? "\(expression)()" : "\(expression)")", taking: \(inputType == nil ? "nil" : "\(inputType)"), throwing: \(error))
             """
         } else {
             context.diagnose(
