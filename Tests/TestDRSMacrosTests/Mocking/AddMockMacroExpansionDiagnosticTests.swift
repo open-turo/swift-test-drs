@@ -1,23 +1,16 @@
 //
-// Created on 5/6/24.
-// Copyright © 2024 Turo Open Source. All rights reserved.
+// Created on 1/24/25.
+// Copyright © 2025 Turo Open Source. All rights reserved.
 //
 
 #if canImport(TestDRSMacros)
 
 import MacroTesting
-import TestDRSMacros
 import XCTest
 
-final class AddMockMacroExpansionTests: XCTestCase {
+final class AddMockMacroExpansionDiagnosticTests: AddMockMacroExpansionTestCase {
 
-    override func invokeTest() {
-        withMacroTesting(macros: ["AddMock": AddMockMacro.self, "__MockProperty": MockPropertyMacro.self]) {
-            super.invokeTest()
-        }
-    }
-
-    func testAddMockMacro_WithEnum_ProducesDiagnostic() {
+    func testEnumProducesDiagnostic() {
         assertMacro {
             """
             @AddMock
@@ -39,7 +32,7 @@ final class AddMockMacroExpansionTests: XCTestCase {
         }
     }
 
-    func testAddMockMacro_WithActor_ProducesDiagnostic() {
+    func testActorProducesDiagnostic() {
         assertMacro {
             """
             @AddMock
@@ -65,7 +58,7 @@ final class AddMockMacroExpansionTests: XCTestCase {
         }
     }
 
-    func testAddMockMacro_WithFinalClass_ProducesDiagnostic() {
+    func testFinalClassProducesDiagnostic() {
         assertMacro {
             """
             @AddMock

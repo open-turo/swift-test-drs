@@ -8,13 +8,13 @@
 import MacroTesting
 import XCTest
 
-extension AddMockMacroExpansionTests {
+final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
 
-    func testAddMockMacro_WithStruct_WithMethods() {
+    func testClassWithMethods() {
         assertMacro {
             """
             @AddMock
-            struct SomeStruct: ProtocolOne, ProtocolTwo {
+            class SomeClass: ProtocolOne, ProtocolTwo {
 
                 func foo() {
                     fatalError("Unimplemented")
@@ -36,7 +36,7 @@ extension AddMockMacroExpansionTests {
                     fatalError("Unimplemented")
                 }
 
-                func zab(paramOne: Int) async throws -> Int {
+                func zab(paramOne: Int) async throws -> (() -> Void) {
                     fatalError("Unimplemented")
                 }
 
@@ -44,7 +44,7 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            struct SomeStruct: ProtocolOne, ProtocolTwo {
+            class SomeClass: ProtocolOne, ProtocolTwo {
 
                 func foo() {
                     fatalError("Unimplemented")
@@ -66,7 +66,7 @@ extension AddMockMacroExpansionTests {
                     fatalError("Unimplemented")
                 }
 
-                func zab(paramOne: Int) async throws -> Int {
+                func zab(paramOne: Int) async throws -> (() -> Void) {
                     fatalError("Unimplemented")
                 }
 
@@ -74,38 +74,38 @@ extension AddMockMacroExpansionTests {
 
             #if DEBUG
 
-            struct MockSomeStruct: ProtocolOne, ProtocolTwo, Mock {
+            final class MockSomeClass: SomeClass, Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
 
-                func foo() {
+                override func foo() {
                     recordCall()
                     return stubOutput()
                 }
 
-                func bar() -> Int {
+                override func bar() -> Int {
                     recordCall(returning: Int.self)
                     return stubOutput()
                 }
 
-                func baz(paramOne: String) -> Int {
+                override func baz(paramOne: String) -> Int {
                     recordCall(with: paramOne, returning: Int.self)
                     return stubOutput(for: paramOne)
                 }
 
-                func oof() throws -> Int {
+                override func oof() throws -> Int {
                     recordCall(returning: Int.self)
                     return try throwingStubOutput()
                 }
 
-                func rab(paramOne: Int, paramTwo: String, paramThree: bool) -> Int {
+                override func rab(paramOne: Int, paramTwo: String, paramThree: bool) -> Int {
                     recordCall(with: (paramOne, paramTwo, paramThree), returning: Int.self)
                     return stubOutput(for: (paramOne, paramTwo, paramThree))
                 }
 
-                func zab(paramOne: Int) async throws -> Int {
-                    recordCall(with: paramOne, returning: Int.self)
+                override func zab(paramOne: Int) async throws -> (() -> Void) {
+                    recordCall(with: paramOne, returning: (() -> Void).self)
                     return try throwingStubOutput(for: paramOne)
                 }
 
@@ -116,40 +116,46 @@ extension AddMockMacroExpansionTests {
         }
     }
 
-    func testAddMockMacro_WithStruct_WithStaticMembers() {
+    func testClassWithClassMembers() {
         assertMacro {
             """
             @AddMock
-            struct SomeStruct {
+            class SomeClass {
                 var foo = "Hello World"
-                static var bar = 7
-                static var baz: Bool { true }
+                class var bar: Int {
+                    get { 7 }
+                    set {}
+                }
+                class var baz: Bool { true }
 
-                static func oof(paramOne: String) -> Int {
+                class func oof(paramOne: String) -> Int {
                     fatalError("Unimplemented")
                 }
             }
             """
         } expansion: {
             """
-            struct SomeStruct {
+            class SomeClass {
                 var foo = "Hello World"
-                static var bar = 7
-                static var baz: Bool { true }
+                class var bar: Int {
+                    get { 7 }
+                    set {}
+                }
+                class var baz: Bool { true }
 
-                static func oof(paramOne: String) -> Int {
+                class func oof(paramOne: String) -> Int {
                     fatalError("Unimplemented")
                 }
             }
 
             #if DEBUG
 
-            struct MockSomeStruct: Mock {
+            final class MockSomeClass: SomeClass, Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
 
-                var foo {
+                override var foo {
                     get {
                         stubValue()
                     }
@@ -157,7 +163,7 @@ extension AddMockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-                static var bar {
+                class override var bar: Int {
                     get {
                         stubValue()
                     }
@@ -165,7 +171,7 @@ extension AddMockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-                static var baz: Bool {
+                class override var baz: Bool {
                     get {
                         stubValue()
                     }
@@ -174,7 +180,7 @@ extension AddMockMacroExpansionTests {
                     }
                 }
 
-                static func oof(paramOne: String) -> Int {
+                class override func oof(paramOne: String) -> Int {
                     recordCall(with: paramOne, returning: Int.self)
                     return stubOutput(for: paramOne)
                 }
@@ -186,68 +192,40 @@ extension AddMockMacroExpansionTests {
         }
     }
 
-    func testAddMockMacro_WithStruct_WithComputedProperties() {
+    func testDoesNotMockStaticMembers() {
         assertMacro {
             """
             @AddMock
-            struct SomeStruct {
-                var foo: String {
-                    "Hello World"
-                }
+            class SomeClass {
+                var foo = "Hello World"
+                static var bar = 7
+                static var baz: Bool { true }
 
-                var bar: String {
-                    get { "Hello World" }
+                static func oof(paramOne: String) -> Int {
+                    fatalError("Unimplemented")
                 }
-
-                var baz: String {
-                    get { "Hello World" }
-                    set {}
-                }
-
             }
             """
         } expansion: {
             """
-            struct SomeStruct {
-                var foo: String {
-                    "Hello World"
-                }
+            class SomeClass {
+                var foo = "Hello World"
+                static var bar = 7
+                static var baz: Bool { true }
 
-                var bar: String {
-                    get { "Hello World" }
+                static func oof(paramOne: String) -> Int {
+                    fatalError("Unimplemented")
                 }
-
-                var baz: String {
-                    get { "Hello World" }
-                    set {}
-                }
-
             }
 
             #if DEBUG
 
-            struct MockSomeStruct: Mock {
+            final class MockSomeClass: SomeClass, Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
 
-                var foo: String {
-                    get {
-                        stubValue()
-                    }
-                    set {
-                        setStub(value: newValue)
-                    }
-                }
-                var bar: String {
-                    get {
-                        stubValue()
-                    }
-                    set {
-                        setStub(value: newValue)
-                    }
-                }
-                var baz: String {
+                override var foo {
                     get {
                         stubValue()
                     }
@@ -262,34 +240,36 @@ extension AddMockMacroExpansionTests {
         }
     }
 
-    func testAddMockMacro_WithStruct_WithOptionalAndImplicitlyUnwrappedOptional() {
+    func testClassWithSuperclass() {
         assertMacro {
             """
             @AddMock
-            struct SomeStruct {
+            class SomeClass: SomeSuperclass {
+                override var foo = "Hello World"
 
-                var foo: String?
-                let bar: Int!
-
+                override func bar() -> Int {
+                    fatalError("Unimplemented")
+                }
             }
             """
         } expansion: {
             """
-            struct SomeStruct {
+            class SomeClass: SomeSuperclass {
+                override var foo = "Hello World"
 
-                var foo: String?
-                let bar: Int!
-
+                override func bar() -> Int {
+                    fatalError("Unimplemented")
+                }
             }
 
             #if DEBUG
 
-            struct MockSomeStruct: Mock {
+            final class MockSomeClass: SomeClass, Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
 
-                var foo: String? {
+                override var foo {
                     get {
                         stubValue()
                     }
@@ -297,7 +277,79 @@ extension AddMockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-                var bar: Int! {
+
+                override func bar() -> Int {
+                    recordCall(returning: Int.self)
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
+            """
+        }
+    }
+
+    func testClassWithComputedProperties() {
+        assertMacro {
+            """
+            @AddMock
+            class SomeClass {
+                var foo: String {
+                    "Hello World"
+                }
+
+                var bar: String {
+                    get { "Hello World" }
+                }
+
+                var baz: String {
+                    get { "Hello World" }
+                    set {}
+                }
+            }
+            """
+        } expansion: {
+            """
+            class SomeClass {
+                var foo: String {
+                    "Hello World"
+                }
+
+                var bar: String {
+                    get { "Hello World" }
+                }
+
+                var baz: String {
+                    get { "Hello World" }
+                    set {}
+                }
+            }
+
+            #if DEBUG
+
+            final class MockSomeClass: SomeClass, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                override var foo: String {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                override var bar: String {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                override var baz: String {
                     get {
                         stubValue()
                     }
@@ -312,12 +364,57 @@ extension AddMockMacroExpansionTests {
         }
     }
 
-    func testAddMockMacro_WithStruct_DoesNotMockPrivateMembers() {
+    func testClassWithOptionalAndImplicitlyUnwrappedOptional() {
         assertMacro {
             """
             @AddMock
-            struct SomeStruct {
+            class SomeClass {
+                var foo: String?
+                let bar: Int!
+            }
+            """
+        } expansion: {
+            """
+            class SomeClass {
+                var foo: String?
+                let bar: Int!
+            }
 
+            #if DEBUG
+
+            final class MockSomeClass: SomeClass, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                override var foo: String? {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                override var bar: Int! {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+            }
+
+            #endif
+            """
+        }
+    }
+
+    func testDoesNotMockPrivateMembers() {
+        assertMacro {
+            """
+            @AddMock
+            class SomeClass {
                 var foo: String
 
                 private var bar: String
@@ -334,8 +431,7 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            struct SomeStruct {
-
+            class SomeClass {
                 var foo: String
 
                 private var bar: String
@@ -352,12 +448,12 @@ extension AddMockMacroExpansionTests {
 
             #if DEBUG
 
-            struct MockSomeStruct: Mock {
+            final class MockSomeClass: SomeClass, Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
 
-                var foo: String {
+                override var foo: String {
                     get {
                         stubValue()
                     }
@@ -366,7 +462,7 @@ extension AddMockMacroExpansionTests {
                     }
                 }
 
-                func oof() {
+                override func oof() {
                     recordCall()
                     return stubOutput()
                 }
@@ -378,203 +474,11 @@ extension AddMockMacroExpansionTests {
         }
     }
 
-    func testAddMockMacro_WithNestedStruct() {
+    func testClassWithInit() {
         assertMacro {
             """
             @AddMock
-            struct SomeStruct {
-
-                struct NestedStruct {
-                    let nestedFoo: String
-                    func nestedBar() {
-                        fatalError("Unimplemented")
-                    }
-                }
-
-                var foo: NestedStruct
-
-                func bar() {
-                    fatalError("Unimplemented")
-                }
-            }
-            """
-        } expansion: {
-            """
-            struct SomeStruct {
-
-                struct NestedStruct {
-                    let nestedFoo: String
-                    func nestedBar() {
-                        fatalError("Unimplemented")
-                    }
-                }
-
-                var foo: NestedStruct
-
-                func bar() {
-                    fatalError("Unimplemented")
-                }
-            }
-
-            #if DEBUG
-
-            struct MockSomeStruct: Mock {
-
-                struct NestedStruct {
-                    let nestedFoo: String
-                    func nestedBar() {
-                        fatalError("Unimplemented")
-                    }
-                }
-
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
-
-                var foo: NestedStruct {
-                    get {
-                        stubValue()
-                    }
-                    set {
-                        setStub(value: newValue)
-                    }
-                }
-
-                func bar() {
-                    recordCall()
-                    return stubOutput()
-                }
-
-            }
-
-            #endif
-            """
-        }
-    }
-
-    func testAddMockMacro_AppliedToNestedStruct() {
-        assertMacro {
-            """
-            struct SomeStruct {
-
-                @AddMock
-                struct NestedStruct {
-                    let nestedFoo: String
-                    func nestedBar() {
-                        fatalError("Unimplemented")
-                    }
-                }
-
-                var foo: NestedStruct
-
-                func bar() {
-                    fatalError("Unimplemented")
-                }
-            }
-            """
-        } expansion: {
-            """
-            struct SomeStruct {
-                struct NestedStruct {
-                    let nestedFoo: String
-                    func nestedBar() {
-                        fatalError("Unimplemented")
-                    }
-                }
-
-                #if DEBUG
-
-                struct MockNestedStruct: Mock {
-
-                    let blackBox = BlackBox()
-                    let stubRegistry = StubRegistry()
-
-                    var nestedFoo: String {
-                        get {
-                            stubValue()
-                        }
-                        set {
-                            setStub(value: newValue)
-                        }
-                    }
-
-                    func nestedBar() {
-                        recordCall()
-                        return stubOutput()
-                    }
-
-                }
-
-                #endif
-
-                var foo: NestedStruct
-
-                func bar() {
-                    fatalError("Unimplemented")
-                }
-            }
-            """
-        }
-    }
-
-    func testAddMockMacro_WithGenericStruct() {
-        assertMacro {
-            """
-            @AddMock
-            struct SomeStruct<T> {
-
-                var foo: T
-
-                func bar() -> T {
-                    fatalError("Unimplemented")
-                }
-
-            }
-            """
-        } expansion: {
-            """
-            struct SomeStruct<T> {
-
-                var foo: T
-
-                func bar() -> T {
-                    fatalError("Unimplemented")
-                }
-
-            }
-
-            #if DEBUG
-
-            struct MockSomeStruct<T> : Mock {
-
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
-
-                var foo: T {
-                    get {
-                        stubValue()
-                    }
-                    set {
-                        setStub(value: newValue)
-                    }
-                }
-
-                func bar() -> T {
-                    recordCall(returning: T.self)
-                    return stubOutput()
-                }
-
-            }
-
-            #endif
-            """
-        }
-    }
-
-    func testAddMockMacro_WithStruct_WithInit() {
-        assertMacro {
-            """
-            @AddMock
-            struct SomeStruct {
+            class SomeClass {
                 var x: String
                 var y: Int
                 var myZ: Bool
@@ -592,7 +496,7 @@ extension AddMockMacroExpansionTests {
             """
         } expansion: {
             """
-            struct SomeStruct {
+            class SomeClass {
                 var x: String
                 var y: Int
                 var myZ: Bool
@@ -610,12 +514,12 @@ extension AddMockMacroExpansionTests {
 
             #if DEBUG
 
-            struct MockSomeStruct: Mock {
+            final class MockSomeClass: SomeClass, Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
 
-                var x: String {
+                override var x: String {
                     get {
                         stubValue()
                     }
@@ -623,7 +527,7 @@ extension AddMockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-                var y: Int {
+                override var y: Int {
                     get {
                         stubValue()
                     }
@@ -631,7 +535,7 @@ extension AddMockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-                var myZ: Bool {
+                override var myZ: Bool {
                     get {
                         stubValue()
                     }
@@ -640,7 +544,14 @@ extension AddMockMacroExpansionTests {
                     }
                 }
 
-                func foo() {
+                override init(_ x: String, y: Int, andZ z: Bool) {
+                    super.init(x, y: y, andZ: z)
+                    self.x = x
+                    self.y = y
+                    myZ = z
+                }
+
+                override func foo() {
                     recordCall()
                     return stubOutput()
                 }
@@ -652,42 +563,58 @@ extension AddMockMacroExpansionTests {
         }
     }
 
-    /// Even though properties x, y, and z expand to not have the type specified, in use the compiler will still properly infer their types.
-    /// The user will see the properties like `@__MockProperty` var x = "Hello World" when viewing the macro expansion.
-    func testAddMockMacro_WithStruct_WithStoredProperties() {
+    func testDoesNotMockPrivateInit() {
         assertMacro {
             """
             @AddMock
-            struct SomeStruct {
-                let a: String = "Hello World"
-                var b: [Int] = [1, 2, 3]
-                var c: [String: Bool] = ["YES": true, "NO": false]
+            class SomeClass {
+                var x: String
+                var y: Int
+                var z: Bool
 
-                let x = "Hello World"
-                var y = [1, 2, 3]
-                var z = ["YES": true, "NO": false]
+                init(x: String, y: Int, z: Bool) {
+                    self.x = x
+                    self.y = y
+                    self.z = z
+                }
+
+                private init() {
+                    x = "Hello World"
+                    y = 27
+                    z = true
+                }
+
             }
             """
         } expansion: {
             """
-            struct SomeStruct {
-                let a: String = "Hello World"
-                var b: [Int] = [1, 2, 3]
-                var c: [String: Bool] = ["YES": true, "NO": false]
+            class SomeClass {
+                var x: String
+                var y: Int
+                var z: Bool
 
-                let x = "Hello World"
-                var y = [1, 2, 3]
-                var z = ["YES": true, "NO": false]
+                init(x: String, y: Int, z: Bool) {
+                    self.x = x
+                    self.y = y
+                    self.z = z
+                }
+
+                private init() {
+                    x = "Hello World"
+                    y = 27
+                    z = true
+                }
+
             }
 
             #if DEBUG
 
-            struct MockSomeStruct: Mock {
+            final class MockSomeClass: SomeClass, Mock {
 
                 let blackBox = BlackBox()
                 let stubRegistry = StubRegistry()
 
-                var a: String {
+                override var x: String {
                     get {
                         stubValue()
                     }
@@ -695,7 +622,7 @@ extension AddMockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-                var b: [Int] {
+                override var y: Int {
                     get {
                         stubValue()
                     }
@@ -703,7 +630,7 @@ extension AddMockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-                var c: [String: Bool] {
+                override var z: Bool {
                     get {
                         stubValue()
                     }
@@ -711,7 +638,50 @@ extension AddMockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-                var x {
+
+                override init(x: String, y: Int, z: Bool) {
+                    super.init(x: x, y: y, z: z)
+                    self.x = x
+                    self.y = y
+                    self.z = z
+                }
+            }
+
+            #endif
+            """
+        }
+    }
+
+    func testFinalMembersAreNotMocked() {
+        assertMacro {
+            """
+            @AddMock
+            class SomeClass {
+                var x = "Hello World"
+                final let y = 7
+                final var z: Bool = true
+
+                final func foo() {}
+            }
+            """
+        } expansion: {
+            """
+            class SomeClass {
+                var x = "Hello World"
+                final let y = 7
+                final var z: Bool = true
+
+                final func foo() {}
+            }
+
+            #if DEBUG
+
+            final class MockSomeClass: SomeClass, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                override var x {
                     get {
                         stubValue()
                     }
@@ -719,22 +689,40 @@ extension AddMockMacroExpansionTests {
                         setStub(value: newValue)
                     }
                 }
-                var y {
-                    get {
-                        stubValue()
-                    }
-                    set {
-                        setStub(value: newValue)
-                    }
+            }
+
+            #endif
+            """
+        }
+    }
+
+    func testPrivateClass() {
+        assertMacro {
+            """
+            @AddMock
+            private class SomeClass {
+                func foo() {}
+            }
+            """
+        } expansion: {
+            """
+            private class SomeClass {
+                func foo() {}
+            }
+
+            #if DEBUG
+
+            final
+            private class MockSomeClass: SomeClass, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                override func foo() {
+                    recordCall()
+                    return stubOutput()
                 }
-                var z {
-                    get {
-                        stubValue()
-                    }
-                    set {
-                        setStub(value: newValue)
-                    }
-                }
+
             }
 
             #endif

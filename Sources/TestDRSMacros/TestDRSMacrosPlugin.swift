@@ -12,6 +12,8 @@ import SwiftSyntaxMacros
 struct TestDRSMacrosPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
         AddMockMacro.self,
+        MockMacro.self,
+        MockFunctionMacro.self,
         MockPropertyMacro.self,
         SetStubReturningOutputMacro.self,
         SetStubThrowingErrorMacro.self,

@@ -8,9 +8,9 @@
 import MacroTesting
 import XCTest
 
-extension AddMockMacroExpansionTests {
+final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
 
-    func testAddMockMacro_WithProtocol() {
+    func testProtocol() {
         assertMacro {
             """
             @AddMock
@@ -71,7 +71,7 @@ extension AddMockMacroExpansionTests {
         }
     }
 
-    func testAddMockMacro_WithProtocol_WithStaticMembers() {
+    func testProtocolWithStaticMembers() {
         assertMacro {
             """
             @AddMock
@@ -137,7 +137,7 @@ extension AddMockMacroExpansionTests {
         }
     }
 
-    func testAddMockMacro_WithProtocol_WithGenericMethod() {
+    func testProtocolWithGenericMethod() {
         assertMacro {
             """
             @AddMock
@@ -170,7 +170,7 @@ extension AddMockMacroExpansionTests {
         }
     }
 
-    func testAddMockMacro_WithProtocol_WithGenericMethodUsingWhereClause() {
+    func testProtocolWithGenericMethodUsingWhereClause() {
         assertMacro {
             """
             @AddMock
@@ -203,7 +203,7 @@ extension AddMockMacroExpansionTests {
         }
     }
 
-    func testAddMockMacro_WithObjectiveCProtocol() {
+    func testObjectiveCProtocol() {
         assertMacro {
             """
             @AddMock
@@ -236,7 +236,7 @@ extension AddMockMacroExpansionTests {
         }
     }
 
-    func testAddMockMacro_WithGenericProtocol() {
+    func testGenericProtocol() {
         assertMacro {
             """
             @AddMock

@@ -14,11 +14,11 @@ enum MockPropertyExpansionDiagnostic: String, DiagnosticMessage {
     var message: String {
         switch self {
         case .invalidType:
-            "@__MockProperty can only be applied to variable declarations"
+            "@_MockProperty can only be applied to variable declarations"
         case .immutable:
-            "@__MockProperty can only be applied to mutable variable declarations"
+            "@_MockProperty can only be applied to mutable variable declarations"
         case .existingAccessor:
-            "@__MockProperty can only be applied to variables without an existing accessor block"
+            "@_MockProperty can only be applied to variables without an existing accessor block"
         }
     }
 
