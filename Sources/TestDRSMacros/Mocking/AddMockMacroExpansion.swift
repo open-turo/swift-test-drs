@@ -11,6 +11,7 @@ import SwiftSyntaxMacros
 public struct AddMockMacro: PeerMacro {
 
     private static let mockProtocolName = "Mock"
+    private static let macroAttributeText = "@AddMock"
 
     public static func expansion(
         of node: SwiftSyntax.AttributeSyntax,
@@ -75,7 +76,7 @@ public struct AddMockMacro: PeerMacro {
         }
         classDeclaration.modifiers += protocolDeclaration.modifiers
         classDeclaration.attributes = protocolDeclaration.attributes
-            .filter { $0.trimmedDescription != "@AddMock" }
+            .filter { $0.trimmedDescription != macroAttributeText }
 
         return classDeclaration
     }
@@ -91,12 +92,18 @@ public struct AddMockMacro: PeerMacro {
         }
         let className = classDeclaration.name.trimmed.text
 
-        return mockClass(
+        var subclassDeclaration = mockClass(
             named: className,
             inheritanceClause: .emptyClause.appending([className, mockProtocolName]),
             members: classDeclaration.memberBlock.members,
             isSubclass: true
         )
+
+        subclassDeclaration.modifiers += classDeclaration.modifiers
+        subclassDeclaration.attributes = classDeclaration.attributes
+            .filter { $0.trimmedDescription != macroAttributeText }
+
+        return subclassDeclaration
     }
 
     private static func mockStruct(from structDeclaration: StructDeclSyntax) -> StructDeclSyntax {
@@ -113,7 +120,7 @@ public struct AddMockMacro: PeerMacro {
 
         mockStructDeclaration.modifiers = structDeclaration.modifiers
         mockStructDeclaration.attributes = structDeclaration.attributes
-            .filter { $0.trimmedDescription != "@AddMock" }
+            .filter { $0.trimmedDescription != macroAttributeText }
 
         return mockStructDeclaration
     }
@@ -200,7 +207,7 @@ public struct AddMockMacro: PeerMacro {
             )
         }
 
-        var attributes = AttributeListSyntax { "@__MockProperty" }
+        var attributes = AttributeListSyntax { "@_MockProperty" }
         attributes += mockProperty.attributes
         mockProperty.attributes = attributes
 
@@ -282,48 +289,14 @@ public struct AddMockMacro: PeerMacro {
             mockMethod.modifiers += [DeclModifierSyntax(name: .keyword(.override))]
         }
 
-        mockMethod.body = mockMethodBody(for: mockMethod)
+        var attributes = AttributeListSyntax { "@_MockFunction" }
+        attributes += mockMethod.attributes
+        mockMethod.attributes = attributes
+        mockMethod.body = nil
 
         return mockMethod
     }
 
-    private static func mockMethodBody(for method: FunctionDeclSyntax) -> CodeBlockSyntax {
-        CodeBlockSyntax(
-            leftBrace: .leftBraceToken(),
-            statements: CodeBlockItemListSyntax {
-                recordCallSyntax(for: method)
-                ReturnStmtSyntax(expression: stubOutputSyntax(for: method))
-            },
-            rightBrace: .rightBraceToken()
-        )
-    }
-
-    private static func stubOutputSyntax(for method: FunctionDeclSyntax) -> ExprSyntax {
-        FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: method.isThrowing ? "throwingStubOutput" : "stubOutput")) {
-            if method.hasParameters {
-                LabeledExprSyntax(
-                    label: "for",
-                    expression: method.inputParameters
-                )
-            }
-        }
-        .wrappedInTry(method.isThrowing)
-    }
-
-    private static func recordCallSyntax(for method: FunctionDeclSyntax) -> FunctionCallExprSyntax {
-        FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "recordCall")) {
-            if method.hasParameters {
-                LabeledExprSyntax(label: "with", expression: method.inputParameters)
-            }
-
-            if let returnClause = method.signature.returnClause {
-                LabeledExprSyntax(
-                    label: "returning",
-                    expression: ExprSyntax(stringLiteral: "\(returnClause.type.trimmed).self")
-                )
-            }
-        }
-    }
 }
 
 private extension PatternBindingSyntax {

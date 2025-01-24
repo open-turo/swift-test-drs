@@ -5,7 +5,6 @@
 
 import Foundation
 
-/// This macro is intended for use by the `AddMockMacro` to provide custom accessors.
-/// It should not be applied manually to properties.
+/// Mocks a property, intended for internal use only.
 @attached(accessor)
-public macro __MockProperty() = #externalMacro(module: "TestDRSMacros", type: "MockPropertyMacro")
+public macro _MockProperty() = #externalMacro(module: "TestDRSMacros", type: "MockPropertyMacro")
