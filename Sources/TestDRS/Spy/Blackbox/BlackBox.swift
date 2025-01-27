@@ -78,8 +78,23 @@ public final class BlackBox: @unchecked Sendable {
         returning outputType: Output.Type
     ) -> [FunctionCall<Input, Output>] {
         storageQueue.sync {
-            storage.filter(signature: signature).compactMap {
-                $0 as? FunctionCall<Input, Output>
+            storage.filter(signature: signature).compactMap { call in
+                if let typedCall = call as? FunctionCall<Input, Output> {
+                    return typedCall
+                }
+                if let input = call.input as? Input, call.outputType is Output.Type {
+                    // If we have the input type now, but didn't when recording, we can just create new FunctionCall with expected type
+                    // See ProtocolConstrainedNonGenericParameterTests
+                    return FunctionCall(
+                        signature: call.signature,
+                        input: input,
+                        outputType: outputType,
+                        time: call.time,
+                        id: call.id
+                    )
+                }
+
+                return nil
             }
         }
     }
