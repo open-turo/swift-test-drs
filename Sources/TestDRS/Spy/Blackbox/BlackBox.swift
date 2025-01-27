@@ -32,7 +32,7 @@ public final class BlackBox: @unchecked Sendable {
         signature: FunctionSignature
     ) {
         storageQueue.sync {
-            let call =  FunctionCall(
+            let call = FunctionCall(
                 signature: signature,
                 input: input,
                 outputType: outputType,
@@ -40,7 +40,10 @@ public final class BlackBox: @unchecked Sendable {
                 id: self.storage.count + 1
             )
             self.storage.append(call)
-            streamCall(call)
+
+            if #available(iOS 16.0, *) {
+                streamCall(call)
+            }
         }
     }
 
@@ -81,8 +84,12 @@ public final class BlackBox: @unchecked Sendable {
         }
     }
 
+}
 
-    // MARK: - AsyncStream Support
+// MARK: - AsyncStream Support
+
+@available(iOS 16.0, *)
+extension BlackBox {
 
     /// Streams all calls with the given input and output type.
     func streamForCallsMatching<Input, Output>(
@@ -94,6 +101,8 @@ public final class BlackBox: @unchecked Sendable {
             addContinuation(FunctionCallContinuation(wrappedValue: continuation, signature: signature))
         }
     }
+
+    // swiftformat:disable spaceAroundOperators
 
     /// Streams calls with input equal to the expected input and a matching output type.
     func streamForCallsMatching<each Input: Equatable, Output>(
@@ -111,6 +120,8 @@ public final class BlackBox: @unchecked Sendable {
             )
         }
     }
+
+    // swiftformat:enable spaceAroundOperators
 
     private func addContinuation<Input, Output>(_ continuation: any FunctionCallContinuationRepresentation<Input, Output>) {
         storageQueue.sync {
@@ -140,6 +151,7 @@ public final class BlackBox: @unchecked Sendable {
             .compactMap { $0 as? any FunctionCallContinuationRepresentation<Input, Output> }
             .forEach { $0.yield(call) }
     }
+
 }
 
 // MARK: CustomDebugStringConvertible
