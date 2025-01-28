@@ -48,7 +48,7 @@ final class SetStubReturningOutputMacroTests: XCTestCase {
             """
         } expansion: {
             """
-            setStub(for: foo, withSignature: "foo()", taking: nil, returning: "Hello World")
+            setStub(for: foo, withSignature: "foo", taking: nil, returning: "Hello World")
             """
         }
     }
@@ -72,7 +72,7 @@ final class SetStubReturningOutputMacroTests: XCTestCase {
             """
         } expansion: {
             """
-            setStub(for: foo, withSignature: "foo()", taking: Int.self, returning: "Hello World")
+            setStub(for: foo, withSignature: "foo", taking: Int.self, returning: "Hello World")
             """
         }
     }
