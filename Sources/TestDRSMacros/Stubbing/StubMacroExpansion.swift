@@ -40,7 +40,7 @@ public struct SetStubReturningOutputMacro: ExpressionMacro {
             """
         } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
             return """
-            setStub(for: \(expression), withSignature: "\(expression.argumentNames == nil ? "\(expression)()" : "\(expression)")", taking: \(inputType == nil ? "nil" : "\(inputType)"), returning: \(output))
+            setStub(for: \(expression), withSignature: "\(expression)", taking: \(inputType == nil ? "nil" : "\(inputType)"), returning: \(output))
             """
         } else {
             context.diagnose(
@@ -85,7 +85,7 @@ public struct SetStubThrowingErrorMacro: ExpressionMacro {
             """
         } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
             return """
-            setStub(for: \(expression), withSignature: "\(expression.argumentNames == nil ? "\(expression)()" : "\(expression)")", taking: \(inputType == nil ? "nil" : "\(inputType)"), throwing: \(error))
+            setStub(for: \(expression), withSignature: "\(expression)", taking: \(inputType == nil ? "nil" : "\(inputType)"), throwing: \(error))
             """
         } else {
             context.diagnose(
@@ -126,7 +126,7 @@ public struct SetStubUsingClosureMacro: ExpressionMacro {
             """
         } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
             return """
-            setDynamicStub(for: \(expression), withSignature: "\(expression.argumentNames == nil ? "\(expression)()" : "\(expression)")")\(closure)
+            setDynamicStub(for: \(expression), withSignature: "\(expression)")\(closure)
             """
         } else {
             context.diagnose(

@@ -48,7 +48,7 @@ final class SetStubThrowingErrorMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            setStub(for: foo, withSignature: "foo()", taking: nil, throwing: MyError.someError)
+            setStub(for: foo, withSignature: "foo", taking: nil, throwing: MyError.someError)
             """
         }
     }
@@ -72,7 +72,7 @@ final class SetStubThrowingErrorMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            setStub(for: foo, withSignature: "foo()", taking: Int.self, throwing: MyError.someError)
+            setStub(for: foo, withSignature: "foo", taking: Int.self, throwing: MyError.someError)
             """
         }
     }
