@@ -56,7 +56,7 @@ public struct FunctionCall<Input, Output>: FunctionCallRepresentation, @unchecke
     public let signature: FunctionSignature
 
     /// The type of the function's input parameter(s) (or `Void` if it does not take any parameters). If a function takes more than one parameter, this will be a tuple with the parameters in the order they appear in the signature.
-    let input: Input
+    public let input: Input
 
     /// The return type of the function.
     let outputType: Output.Type
