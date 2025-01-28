@@ -48,22 +48,25 @@ public final class StubRegistry: @unchecked Sendable {
     /// - Returns: The output value for the given input and function signature.
     /// - Throws: `StubError.noStub` if no stub is registered for the given input and function signature, or any error thrown by the registered closure.
     func getOutput<Input, Output>(for input: Input, withSignature signature: FunctionSignature) throws -> Output {
-        try storageQueue.sync {
+        let stub = storageQueue.sync {
             let identifier = FunctionStubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
 
             // Stubs could be set with either the full signature like `foo(paramOne:)`
             // or if there is no ambiguity, they could be set with an abbreviated signature like `foo`.
             // When we go to retrieve them, we should have the full signature since it is captured by #function.
             // So first we try to retrieve using the full signature provided, and then using the abbreviated version.
-            guard let stub = functionStubs[identifier] ?? functionStubs[identifier.abbreviatedIdentifier] else {
-                if let void = Void() as? Output {
-                    return void
-                }
-                throw StubError.noStub
-            }
-
-            return try stub.evaluate(with: input)
+            return functionStubs[identifier] ?? functionStubs[identifier.abbreviatedIdentifier]
         }
+
+        guard let stub else {
+            if let void = Void() as? Output {
+                return void
+            }
+            throw StubError.noStub
+        }
+
+        // Evaluate the stub outside of the storageQueue so that we don't deadlock
+        return try stub.evaluate(with: input)
     }
 
 }
