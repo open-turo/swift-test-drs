@@ -25,21 +25,13 @@ public struct MockFunctionMacro: BodyMacro {
                 )
                 return []
             }
-            return mockMethodBody(for: method).statements.map { $0 }
+            return CodeBlockItemListSyntax {
+                recordCallSyntax(for: method)
+                ReturnStmtSyntax(expression: stubOutputSyntax(for: method))
+            }.map { $0 }
         }
 
         return []
-    }
-
-    static func mockMethodBody(for method: FunctionDeclSyntax) -> CodeBlockSyntax {
-        CodeBlockSyntax(
-            leftBrace: .leftBraceToken(),
-            statements: CodeBlockItemListSyntax {
-                recordCallSyntax(for: method)
-                ReturnStmtSyntax(expression: stubOutputSyntax(for: method))
-            },
-            rightBrace: .rightBraceToken()
-        )
     }
 
     private static func stubOutputSyntax(for method: FunctionDeclSyntax) -> ExprSyntax {
