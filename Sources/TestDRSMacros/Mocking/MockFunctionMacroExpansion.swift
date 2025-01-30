@@ -11,10 +11,10 @@ import SwiftSyntaxMacros
 public struct MockFunctionMacro: BodyMacro {
 
     public static func expansion(
-        of node: SwiftSyntax.AttributeSyntax,
-        providingBodyFor declaration: some SwiftSyntax.DeclSyntaxProtocol & SwiftSyntax.WithOptionalCodeBlockSyntax,
-        in context: some SwiftSyntaxMacros.MacroExpansionContext
-    ) throws -> [SwiftSyntax.CodeBlockItemSyntax] {
+        of node: AttributeSyntax,
+        providingBodyFor declaration: some DeclSyntaxProtocol & WithOptionalCodeBlockSyntax,
+        in context: some MacroExpansionContext
+    ) throws -> [CodeBlockItemSyntax] {
         if let method = declaration as? FunctionDeclSyntax {
             guard method.body == nil else {
                 context.diagnose(
