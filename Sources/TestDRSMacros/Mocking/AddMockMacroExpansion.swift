@@ -14,10 +14,10 @@ public struct AddMockMacro: PeerMacro {
     private static let macroAttributeText = "@AddMock"
 
     public static func expansion(
-        of node: SwiftSyntax.AttributeSyntax,
+        of node: AttributeSyntax,
         providingPeersOf declaration: some DeclSyntaxProtocol,
         in context: some MacroExpansionContext
-    ) throws -> [SwiftSyntax.DeclSyntax] {
+    ) throws -> [DeclSyntax] {
         let mockDeclaration: DeclSyntax
 
         if let protocolDeclaration = declaration.as(ProtocolDeclSyntax.self) {
