@@ -28,6 +28,7 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
     ///   - outputType: An optional  phantom parameter used to derive the output type of the `function` passed in.
+    ///   - mode: The `ExpectedCallMode` to use when verifying fuction calls. Defaults to `exclusive`, where non-matching calls to the function cause a failure.
     /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
     @discardableResult
     func expectWasCalled<Input, Output>(
@@ -59,6 +60,7 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - expectedInput: The expected input parameter(s) for the function.
     ///   - outputType: An optional phantom parameter used to derive the output type of the `function` passed in.
+    ///   - mode: The `ExpectedCallMode` to use when verifying fuction calls. Defaults to `exclusive`, where non-matching calls to the function cause a failure.
     /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
     @discardableResult
     func expectWasCalled<each Input: Equatable, Output>(
@@ -127,6 +129,7 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
     ///   - outputType: An optional  phantom parameter used to derive the output type of the `function` passed in.
+    ///   - mode: The `ExpectedCallMode` to use when verifying fuction calls. Defaults to `exclusive`, where non-matching calls to the function cause a failure.
     /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
     @discardableResult
     static func expectStaticFunctionWasCalled<Input, Output>(
@@ -159,7 +162,7 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - expectedInput: The expected input parameter(s) for the function.
     ///   - outputType: An optional phantom parameter used to derive the output type of the `function` passed in.
-    ///   - reportFailure: A function that handles reporting any test failures.
+    ///   - mode: The `ExpectedCallMode` to use when verifying fuction calls. Defaults to `exclusive`, where non-matching calls to the function cause a failure.
     /// - Returns: An `ExpectWasCalledResult` containing the matching function calls, or an empty array if no matching call was found.
     @discardableResult
     static func expectStaticFunctionWasCalled<each Input: Equatable, Output>(
@@ -193,7 +196,6 @@ public extension Spy {
     ///   This should also match what is recorded by the `#function` macro.
     ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
     ///   - outputType: An optional  phantom parameter used to derive the output type of the `function` passed in.
-    ///   - reportFailure: A function that handles reporting any test failures.
     static func expectStaticFunctionWasNotCalled<Input, Output>(
         _ function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature,
