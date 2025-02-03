@@ -219,14 +219,29 @@ final class ExpectWasCalledResultTests: XCTestCase {
         spy.zab(paramOne: 2)
         spy.zab(paramOne: 3)
 
-        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self).occurring(times: 1)
-        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", taking: String.self).occurring(times: 2)
-        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", taking: Int.self).occurring(times: 3)
+        spy.expectWasCalled(
+            spy.zab(paramOne:),
+            withSignature: "zab(paramOne:)",
+            taking: Bool.self,
+            mode: .nonExclusive
+        ).occurring(times: 1)
+        spy.expectWasCalled(
+            spy.zab(paramOne:),
+            withSignature: "zab(paramOne:)",
+            taking: String.self,
+            mode: .nonExclusive
+        ).occurring(times: 2)
+        spy.expectWasCalled(
+            spy.zab(paramOne:),
+            withSignature: "zab(paramOne:)",
+            taking: Int.self,
+            mode: .nonExclusive
+        ).occurring(times: 3)
 
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 2
-                spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self)
+                spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", taking: Bool.self, mode: .nonExclusive)
                     .occurring(times: 4)
             },
             issueMatcher: { issue in
