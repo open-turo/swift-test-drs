@@ -7,6 +7,13 @@ import Foundation
 
 // swiftformat:disable spaceAroundOperators
 
+public enum ExpectedCallMode {
+    /// Calls made to a function other than those expected should cause a failure
+    case exclusive
+    /// Calls made to a function other than those expected should not cause a failure
+    case nonExclusive
+}
+
 // MARK: - Instance methods
 
 /// Extension for `Spy` that provides expectation methods for verifying call counts and call order.
@@ -28,6 +35,7 @@ public extension Spy {
         withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
+        mode: ExpectedCallMode = .exclusive,
         fileID: StaticString = #fileID,
         filePath: StaticString = #filePath,
         line: UInt = #line,
@@ -37,6 +45,7 @@ public extension Spy {
         return blackBox.expectWasCalled(
             function,
             signature: signature,
+            mode: mode,
             location: location
         )
     }
@@ -57,6 +66,7 @@ public extension Spy {
         withSignature signature: FunctionSignature,
         expectedInput: repeat each Input,
         returning: Output.Type? = nil,
+        mode: ExpectedCallMode = .exclusive,
         fileID: StaticString = #fileID,
         filePath: StaticString = #filePath,
         line: UInt = #line,
@@ -67,6 +77,7 @@ public extension Spy {
             function,
             signature: signature,
             expectedInput: repeat each expectedInput,
+            mode: mode,
             location: location
         )
     }
@@ -123,6 +134,7 @@ public extension Spy {
         withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
+        mode: ExpectedCallMode = .exclusive,
         fileID: StaticString = #fileID,
         filePath: StaticString = #filePath,
         line: UInt = #line,
@@ -133,6 +145,7 @@ public extension Spy {
             .expectWasCalled(
                 function,
                 signature: signature,
+                mode: mode,
                 location: location
             )
     }
@@ -154,6 +167,7 @@ public extension Spy {
         withSignature signature: FunctionSignature,
         expectedInput: repeat each Input,
         returning: Output.Type? = nil,
+        mode: ExpectedCallMode = .exclusive,
         fileID: StaticString = #fileID,
         filePath: StaticString = #filePath,
         line: UInt = #line,
@@ -165,6 +179,7 @@ public extension Spy {
                 function,
                 signature: signature,
                 expectedInput: repeat each expectedInput,
+                mode: mode,
                 location: location
             )
     }

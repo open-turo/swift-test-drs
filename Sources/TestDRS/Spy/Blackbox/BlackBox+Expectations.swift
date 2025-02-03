@@ -14,6 +14,7 @@ extension BlackBox {
     func expectWasCalled<Input, Output>(
         _ function: (Input) async throws -> Output,
         signature: FunctionSignature,
+        mode: ExpectedCallMode,
         location: SourceLocation
     ) -> ExpectWasCalledResult<MatchingAnyAmount, Input, Output> {
         let calls = callsMatching(signature: signature, taking: Input.self, returning: Output.self)
@@ -26,6 +27,17 @@ extension BlackBox {
                 message = "No calls to \(signature) with input type \(Input.self) and output type \(Output.self) were recorded"
             }
             reportFailure(message, location: location)
+        } else if mode == .exclusive {
+            let allCalls = callsMatching(signature: signature)
+            if calls.count != allCalls.count {
+                let expectedCallIds = calls.map { $0.id }
+                let unexpectedCalls = allCalls
+                    .filter { !expectedCallIds.contains($0.id) }
+                    .map { $0.debugDescription }
+                    .joined(separator: "\n")
+                let messaage = "\(signature) was called with input type \(Input.self) and output type \(Output.self), but was also called with other input and/or output types:\n\(unexpectedCalls)"
+                reportFailure(messaage, location: location)
+            }
         }
 
         return ExpectWasCalledResult(matchingCalls: calls, blackBox: self)
@@ -35,6 +47,7 @@ extension BlackBox {
         _ function: (repeat each Input) async throws -> Output,
         signature: FunctionSignature,
         expectedInput: repeat each Input,
+        mode: ExpectedCallMode,
         location: SourceLocation
     ) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> {
         let calls = callsMatching(signature: signature, taking: (repeat each Input).self, returning: Output.self)
@@ -54,6 +67,17 @@ extension BlackBox {
                 .joined(separator: "\n")
             let message = "\(signature) was not called with expected input (-), but was called with other input (+):\n\n-\((repeat each expectedInput))\n\(actualInputs)"
             reportFailure(message, location: location)
+        } else if mode == .exclusive {
+            let allCalls = callsMatching(signature: signature)
+            if callsWithExpectedInput.count != allCalls.count {
+                let expectedCallIDs = callsWithExpectedInput.map { $0.id }
+                let unexpectedInputs = allCalls
+                    .filter { !expectedCallIDs.contains($0.id) }
+                    .map { "+\($0.input)" }
+                    .joined(separator: "\n")
+                let message = "\(signature) was called with the expected input, but was also called with other input:\n\n\(unexpectedInputs)"
+                reportFailure(message, location: location)
+            }
         }
 
         return ExpectWasCalledResult(matchingCalls: callsWithExpectedInput, blackBox: self)
