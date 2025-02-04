@@ -16,7 +16,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-syntax.git", from: "600.0.1"),
         .package(url: "https://github.com/pointfreeco/swift-macro-testing", from: "0.5.2"),
-        .package(url: "https://github.com/pointfreeco/swift-issue-reporting", from: "1.5.1"),
+        .package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", from: "1.5.1"),
     ],
     targets: [
         .macro(
@@ -31,7 +31,7 @@ let package = Package(
             name: "TestDRS",
             dependencies: [
                 "TestDRSMacros",
-                .product(name: "IssueReporting", package: "swift-issue-reporting")
+                .product(name: "IssueReporting", package: "xctest-dynamic-overlay")
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),
