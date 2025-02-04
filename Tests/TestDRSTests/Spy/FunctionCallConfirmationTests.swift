@@ -128,7 +128,7 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
             issue.sourceLocation?.line == #line - 6 &&
                 issue.sourceLocation?.fileID == #fileID &&
                 issue.description == """
-                Expectation failed: No calls to "foo()" with input type () and output type () were recorded
+                Issue recorded: No calls to "foo()" with input type () and output type () were recorded
                 """
         }
     }
@@ -196,7 +196,7 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
                 issue.sourceLocation?.line == #line - 2 &&
                     issue.sourceLocation?.fileID == #fileID &&
                     issue.description == """
-                    Expectation failed: Expected \"rab(paramOne:paramTwo:paramThree:)\" to be called exactly once as specified, but an additional call was recorded
+                    Issue recorded: Expected \"rab(paramOne:paramTwo:paramThree:)\" to be called exactly once as specified, but an additional call was recorded
                     """
             }
         }
@@ -222,7 +222,7 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
             issue.sourceLocation?.line == #line - 2 &&
                 issue.sourceLocation?.fileID == #fileID &&
                 issue.description == """
-                Expectation failed: Expected "rab(paramOne:paramTwo:paramThree:)" to be called as specified 2 times, but only 1 calls were recorded before timing out
+                Issue recorded: Expected "rab(paramOne:paramTwo:paramThree:)" to be called as specified 2 times, but only 1 calls were recorded before timing out
                 """
         }
     }
@@ -264,7 +264,7 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
                 issue.sourceLocation?.line == #line - 2 &&
                     issue.sourceLocation?.fileID == #fileID &&
                     issue.description == """
-                    Expectation failed: Expected "rab(paramOne:paramTwo:paramThree:)" to be called as specified 2 times, but an additional call was recorded
+                    Issue recorded: Expected "rab(paramOne:paramTwo:paramThree:)" to be called as specified 2 times, but an additional call was recorded
                     """
             }
         }
@@ -290,7 +290,7 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
             issue.sourceLocation?.line == #line - 2 &&
                 issue.sourceLocation?.fileID == #fileID &&
                 issue.description == """
-                Expectation failed: Expected "rab(paramOne:paramTwo:paramThree:)" to be called as specified at least 2 times, but only 1 calls were recorded before timing out
+                Issue recorded: Expected "rab(paramOne:paramTwo:paramThree:)" to be called as specified at least 2 times, but only 1 calls were recorded before timing out
                 """
         }
 
@@ -306,7 +306,7 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
             issue.sourceLocation?.line == #line - 2 &&
                 issue.sourceLocation?.fileID == #fileID &&
                 issue.description == """
-                Expectation failed: Expected "rab(paramOne:paramTwo:paramThree:)" to be called as specified at least 2 times, but only 1 calls were recorded before timing out
+                Issue recorded: Expected "rab(paramOne:paramTwo:paramThree:)" to be called as specified at least 2 times, but only 1 calls were recorded before timing out
                 """
         }
 
@@ -322,7 +322,7 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
             issue.sourceLocation?.line == #line - 2 &&
                 issue.sourceLocation?.fileID == #fileID &&
                 issue.description == """
-                Expectation failed: Expected "rab(paramOne:paramTwo:paramThree:)" to be called as specified at least 2 times, but only 1 calls were recorded before timing out
+                Issue recorded: Expected "rab(paramOne:paramTwo:paramThree:)" to be called as specified at least 2 times, but only 1 calls were recorded before timing out
                 """
         }
     }
@@ -367,7 +367,7 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
                 issue.sourceLocation?.line == #line - 2 &&
                     issue.sourceLocation?.fileID == #fileID &&
                     issue.description == """
-                    Expectation failed: Expected "rab(paramOne:paramTwo:paramThree:)" to be called as specified within 2...4 times, but an additional call was recorded
+                    Issue recorded: Expected "rab(paramOne:paramTwo:paramThree:)" to be called as specified within 2...4 times, but an additional call was recorded
                     """
             }
 
@@ -383,7 +383,7 @@ struct FunctionCallConfirmationSwiftTesting: Sendable {
                 issue.sourceLocation?.line == #line - 2 &&
                     issue.sourceLocation?.fileID == #fileID &&
                     issue.description == """
-                    Expectation failed: Expected "rab(paramOne:paramTwo:paramThree:)" to be called as specified within 2..<5 times, but an additional call was recorded
+                    Issue recorded: Expected "rab(paramOne:paramTwo:paramThree:)" to be called as specified within 2..<5 times, but an additional call was recorded
                     """
             }
         }
