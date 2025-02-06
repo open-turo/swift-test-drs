@@ -35,7 +35,7 @@ extension BlackBox {
                     .filter { !expectedCallIds.contains($0.id) }
                     .map { $0.debugDescription }
                     .joined(separator: "\n")
-                let messaage = "\(signature) was called with input type \(Input.self) and output type \(Output.self), but was also called with other input and/or output types:\n\(unexpectedCalls)"
+                let messaage = "\(signature) was called with input type \(Input.self) and output type \(Output.self), but was also called with other input and/or output types:\n\n\(unexpectedCalls)"
                 reportFailure(messaage, location: location)
             }
         }
