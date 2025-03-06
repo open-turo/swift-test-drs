@@ -7,11 +7,27 @@
 ///
 /// The generated mock type includes methods that mimic the original type's interface, allowing you to control its behavior in tests.
 /// For a given type `MyType`, the generated mock type will be named `MockMyType`.
-/// The mock type will conform to the `StubProviding` and `Spy` protocols. This allows you to stub out each method and expect that methods were called in your tests.
-/// Classes will be mocked using a subclass, while protocols and structs will be mocked using a separate class.
-/// Private members are not included in the generated mock type.
+/// The mock type will conform to the `Mock` protocol, which provides stubbing and verification capabilities.
 ///
-/// Mocked classes will override all internal, public and open instance and class members, including methods, properties, and initializers. Overridden initializers will set stubs in the mock for properties that are passed in. Static members of a class will not be included in the generated mock type as they cannot be overridden.
+/// ## Mock Generation Rules:
+/// - Classes will be mocked using a subclass
+/// - Protocols and structs will be mocked using a separate class/struct
+/// - Private members are not included in the generated mock type
+/// - Final classes cannot be mocked (as they cannot be subclassed)
+/// - Final members of a class cannot be mocked (as they cannot be overridden)
+///
+/// ## Member Handling:
+/// - Mocked classes will override all non-private, non-final instance members
+/// - Static members of a class will not be included in the mock as they cannot be overridden
+/// - Protocol and struct mocks will include all non-private members
+///
+/// ## Initializer Handling:
+/// - For protocols and structs, an empty initializer (`init()`) is always provided
+/// - Any non-empty initializers from the original type are included but marked as deprecated to encourage using the empty initializer
+/// - Class mocks do not include initializers, as they use the parent class initializers
+/// - Note: None of the initializers, including inherited ones, will automatically stub any properties. Properties must be stubbed manually after initialization.
+///
+/// The mock is only generated in debug builds and will be enclosed in `#if DEBUG` / `#endif` tags.
 ///
 /// Usage:
 /// ```
