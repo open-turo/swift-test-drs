@@ -11,6 +11,10 @@ extension WithModifiersSyntax {
         modifiers.containsKeyword(.override)
     }
 
+    var isPublic: Bool {
+        modifiers.containsKeyword(.public)
+    }
+
     var isPrivate: Bool {
         modifiers.containsKeyword(.private)
     }
@@ -25,6 +29,10 @@ extension WithModifiersSyntax {
 
     var isFinal: Bool {
         modifiers.containsKeyword(.final)
+    }
+
+    var hasExplicitAccessControl: Bool {
+        modifiers.containsKeyword(.private) || modifiers.containsKeyword(.fileprivate) || modifiers.containsKeyword(.internal) || modifiers.containsKeyword(.public)
     }
 
 }

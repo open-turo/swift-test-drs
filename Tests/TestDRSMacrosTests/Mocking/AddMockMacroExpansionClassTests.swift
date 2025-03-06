@@ -544,13 +544,6 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
                     }
                 }
 
-                override init(_ x: String, y: Int, andZ z: Bool) {
-                    super.init(x, y: y, andZ: z)
-                    self.x = x
-                    self.y = y
-                    myZ = z
-                }
-
                 override func foo() {
                     recordCall()
                     return stubOutput()
@@ -638,13 +631,6 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
                         setStub(value: newValue)
                     }
                 }
-
-                override init(x: String, y: Int, z: Bool) {
-                    super.init(x: x, y: y, z: z)
-                    self.x = x
-                    self.y = y
-                    self.z = z
-                }
             }
 
             #endif
@@ -719,6 +705,74 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
                 let stubRegistry = StubRegistry()
 
                 override func foo() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
+            """
+        }
+    }
+
+    func testPublicClass() {
+        assertMacro {
+            """
+            @AddMock
+            public class SomeClass {
+                var x = "Hello World"
+                private var y = 0
+                public var z = true
+
+                func foo() {}
+                private func bar() {}
+                public func baz() {}
+            }
+            """
+        } expansion: {
+            """
+            public class SomeClass {
+                var x = "Hello World"
+                private var y = 0
+                public var z = true
+
+                func foo() {}
+                private func bar() {}
+                public func baz() {}
+            }
+
+            #if DEBUG
+
+            final
+            public class MockSomeClass: SomeClass, Mock {
+
+                public let blackBox = BlackBox()
+                public let stubRegistry = StubRegistry()
+
+                override var x {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                public override var z {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                override func foo() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+                public override func baz() {
                     recordCall()
                     return stubOutput()
                 }
