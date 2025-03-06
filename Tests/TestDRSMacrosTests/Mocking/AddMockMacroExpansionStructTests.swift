@@ -640,6 +640,12 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
                     }
                 }
 
+                init() {
+                }
+
+                @available(*, deprecated, message: "Use init() instead to initialize a mock") init(_ x: String, y: Int, andZ z: Bool) {
+                }
+
                 func foo() {
                     recordCall()
                     return stubOutput()
@@ -735,6 +741,87 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
                         setStub(value: newValue)
                     }
                 }
+            }
+
+            #endif
+            """
+        }
+    }
+
+    func testPublicStruct() {
+        assertMacro {
+            """
+            @AddMock
+            public struct SomeStruct {
+                var x = "Hello World"
+                private var y = 0
+                public var z = true
+
+                init(x: String) {
+                    self.x = x
+                }
+
+                func foo() {}
+                private func bar() {}
+                public func baz() {}
+            }
+            """
+        } expansion: {
+            """
+            public struct SomeStruct {
+                var x = "Hello World"
+                private var y = 0
+                public var z = true
+
+                init(x: String) {
+                    self.x = x
+                }
+
+                func foo() {}
+                private func bar() {}
+                public func baz() {}
+            }
+
+            #if DEBUG
+
+            public struct MockSomeStruct: Mock {
+
+                public let blackBox = BlackBox()
+                public let stubRegistry = StubRegistry()
+
+                var x {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                public var z {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                init() {
+                }
+
+                @available(*, deprecated, message: "Use init() instead to initialize a mock") init(x: String) {
+                }
+
+                func foo() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+                public func baz() {
+                    recordCall()
+                    return stubOutput()
+                }
+
             }
 
             #endif

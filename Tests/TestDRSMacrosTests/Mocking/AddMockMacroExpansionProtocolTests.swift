@@ -282,6 +282,66 @@ final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
         }
     }
 
+    func testPublicProtocol() {
+        assertMacro {
+            """
+            @AddMock
+            public protocol SomeProtocol {
+                var x: String
+                func foo() throws -> String
+                mutating func bar(paramOne: Bool)
+                init(x: String)
+            }
+            """
+        } expansion: {
+            """
+            public protocol SomeProtocol {
+                var x: String
+                func foo() throws -> String
+                mutating func bar(paramOne: Bool)
+                init(x: String)
+            }
+
+            #if DEBUG
+
+            final
+            public class MockSomeProtocol: SomeProtocol, Mock {
+
+                public let blackBox = BlackBox()
+                public let stubRegistry = StubRegistry()
+
+                public var x: String {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                init() {
+                }
+
+                @available(*, deprecated, message: "Use init() instead to initialize a mock") public init(x: String) {
+                }
+
+                public func foo() throws -> String {
+                    recordCall(returning: String.self)
+                    return try throwingStubOutput()
+                }
+
+                public func bar(paramOne: Bool) {
+                    recordCall(with: paramOne)
+                    return stubOutput(for: paramOne)
+                }
+
+            }
+
+            #endif
+            """
+        }
+    }
+
 }
 
 #endif

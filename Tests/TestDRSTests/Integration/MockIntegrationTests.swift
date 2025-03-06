@@ -105,18 +105,15 @@ struct MockIntegrationTests {
     @Test @MainActor
     func testAddToMockClassProperties() {
         withStaticTestingContext {
-            let mockClass = AddMockToClass(x: "Hello World", y: 89)
+            let mockClass = AddMockToClass()
+
+            mockClass.x = "Hello World"
+            mockClass.y = 89
+            AddMockToClass.z = true
 
             #expect(mockClass.x == "Hello World")
             #expect(mockClass.y == 89)
-
-            mockClass.x = "Goodbye"
-            mockClass.y = 24
-            AddMockToClass.z = false
-
-            #expect(mockClass.x == "Goodbye")
-            #expect(mockClass.y == 24)
-            #expect(AddMockToClass.z == false)
+            #expect(AddMockToClass.z == true)
         }
     }
 
@@ -193,6 +190,8 @@ private protocol SomeProtocol: Sendable, Identifiable {
     func bam() throws
 
     static func oof() -> String
+
+    init(x: String, y: Int)
 }
 
 @AddMock
@@ -206,7 +205,7 @@ private struct SomeStruct: SomeProtocol {
     var y: Int
     nonisolated(unsafe) static var z: Bool = true
 
-    init(y: Int) {
+    init(x: String, y: Int) {
         self.y = y
     }
 
@@ -243,7 +242,7 @@ private class SomeClass: NSObject, SomeProtocol, @unchecked Sendable {
     var y = 123
     class var z: Bool { true }
 
-    init(x: String, y: Int) {
+    required init(x: String, y: Int) {
         self.x = x
         self.y = y
         self.x = "This should not be in the mock"
@@ -276,6 +275,12 @@ private class SomeClass: NSObject, SomeProtocol, @unchecked Sendable {
 
 }
 
+extension MockSomeClass {
+    convenience init() {
+        self.init(x: "", y: 0)
+    }
+}
+
 @Mock
 private struct MockStruct: SomeProtocol {
     var id: UUID
@@ -283,6 +288,13 @@ private struct MockStruct: SomeProtocol {
     var y: Int
 
     static var z: Bool
+
+    init() {}
+
+    init(x: String, y: Int) {
+        self.x = x
+        self.y = y
+    }
 
     func foo()
     func bar(paramOne: Int)
@@ -298,6 +310,13 @@ private class MockClass: SomeProtocol, @unchecked Sendable {
     var y: Int
 
     static var z: Bool
+
+    init() {}
+
+    required init(x: String, y: Int) {
+        self.x = x
+        self.y = y
+    }
 
     func foo()
     func bar(paramOne: Int)

@@ -11,7 +11,46 @@ import SwiftSyntaxMacros
 public struct AddMockMacro: PeerMacro {
 
     private static let mockProtocolName = "Mock"
-    private static let macroAttributeText = "@AddMock"
+
+    private enum TypeBeingMocked: Equatable {
+        case `protocol`
+        case `class`
+        case `struct`
+    }
+
+    private struct MockGenerationConfig {
+        let typeBeingMocked: TypeBeingMocked
+        let isPublic: Bool
+
+        var shouldMakeMembersPublic: Bool {
+            isPublic && typeBeingMocked == .protocol
+        }
+
+        var shouldOverrideMembers: Bool {
+            typeBeingMocked == .class
+        }
+
+        var isGeneratingClass: Bool {
+            typeBeingMocked != .struct
+        }
+
+        var shouldGenerateInits: Bool {
+            typeBeingMocked != .class
+        }
+
+        var shouldMockStaticMembers: Bool {
+            typeBeingMocked != .class
+        }
+
+        func shouldMockMember(member: WithModifiersSyntax) -> Bool {
+            guard !member.isPrivate else { return false }
+            guard !member.isFinal else { return false }
+            guard !member.isStatic else { return shouldMockStaticMembers }
+            return true
+        }
+    }
+
+    // MARK: - Expansion
 
     public static func expansion(
         of node: AttributeSyntax,
@@ -47,6 +86,8 @@ public struct AddMockMacro: PeerMacro {
         ]
     }
 
+    // MARK: - Type Generation
+
     private static func mockClassDeclaration(from protocolDeclaration: ProtocolDeclSyntax) -> ClassDeclSyntax {
         let protocolName = protocolDeclaration.name.trimmed.text
 
@@ -60,7 +101,7 @@ public struct AddMockMacro: PeerMacro {
                     .compactMap { $0 }
             ),
             members: protocolDeclaration.memberBlock.members,
-            isSubclass: false
+            config: .init(typeBeingMocked: .protocol, isPublic: protocolDeclaration.isPublic)
         )
 
         if let associatedTypeClause = protocolDeclaration.primaryAssociatedTypeClause {
@@ -75,8 +116,7 @@ public struct AddMockMacro: PeerMacro {
             )
         }
         classDeclaration.modifiers += protocolDeclaration.modifiers
-        classDeclaration.attributes = protocolDeclaration.attributes
-            .filter { $0.trimmedDescription != macroAttributeText }
+        classDeclaration.attributes = protocolDeclaration.attributes.removingAddMockMacro()
 
         return classDeclaration
     }
@@ -96,12 +136,11 @@ public struct AddMockMacro: PeerMacro {
             named: className,
             inheritanceClause: .emptyClause.appending([className, mockProtocolName]),
             members: classDeclaration.memberBlock.members,
-            isSubclass: true
+            config: .init(typeBeingMocked: .class, isPublic: classDeclaration.isPublic)
         )
 
         subclassDeclaration.modifiers += classDeclaration.modifiers
-        subclassDeclaration.attributes = classDeclaration.attributes
-            .filter { $0.trimmedDescription != macroAttributeText }
+        subclassDeclaration.attributes = classDeclaration.attributes.removingAddMockMacro()
 
         return subclassDeclaration
     }
@@ -112,15 +151,13 @@ public struct AddMockMacro: PeerMacro {
 
         mockStructDeclaration.memberBlock.members = mockMembers(
             from: structDeclaration.memberBlock.members,
-            forClass: false,
-            shouldOverride: false
+            config: .init(typeBeingMocked: .struct, isPublic: structDeclaration.isPublic)
         )
         mockStructDeclaration.name = mockTypeName(from: structDeclaration.name.trimmedDescription)
         mockStructDeclaration.inheritanceClause = (structDeclaration.inheritanceClause ?? .emptyClause).appending([mockProtocolName])
 
         mockStructDeclaration.modifiers = structDeclaration.modifiers
-        mockStructDeclaration.attributes = structDeclaration.attributes
-            .filter { $0.trimmedDescription != macroAttributeText }
+        mockStructDeclaration.attributes = structDeclaration.attributes.removingAddMockMacro()
 
         return mockStructDeclaration
     }
@@ -129,16 +166,14 @@ public struct AddMockMacro: PeerMacro {
         named typeName: String,
         inheritanceClause: InheritanceClauseSyntax? = nil,
         members: MemberBlockItemListSyntax,
-        isSubclass: Bool = false
+        config: MockGenerationConfig
     ) -> ClassDeclSyntax {
         return ClassDeclSyntax(
-            modifiers: DeclModifierListSyntax(
-                [DeclModifierSyntax(name: .keyword(.final))]
-            ),
+            modifiers: DeclModifierListSyntax([.finalModifier]),
             name: mockTypeName(from: typeName),
             inheritanceClause: inheritanceClause
         ) {
-            mockMembers(from: members, forClass: true, shouldOverride: isSubclass)
+            mockMembers(from: members, config: config)
         }
     }
 
@@ -146,36 +181,36 @@ public struct AddMockMacro: PeerMacro {
         TokenSyntax.identifier("Mock\(typeName)")
     }
 
+    // MARK: - Member Generation
+
     private static func mockMembers(
         from members: MemberBlockItemListSyntax,
-        forClass: Bool,
-        shouldOverride: Bool
+        config: MockGenerationConfig
     ) -> MemberBlockItemListSyntax {
         let mockTypes = members.filter { $0.decl.isTypeDeclaration }
-
-        let mockProperties = members
-            .compactMap { $0.decl.as(VariableDeclSyntax.self) }
-            .filter { !$0.isPrivate && !$0.isFinal && !($0.isStatic && shouldOverride) }
-            .compactMap { mockProperty(for: $0, shouldAddOverrideModifier: shouldOverride) }
-
-        let mockInits: [InitializerDeclSyntax] = {
-            guard forClass, shouldOverride else { return [] }
-            return members
-                .compactMap { $0.decl.as(InitializerDeclSyntax.self) }
-                .filter { !$0.isPrivate }
-                .map { mockInitOverride(for: $0) }
-        }()
-
-        let mockMethods = members
-            .compactMap { $0.decl.as(FunctionDeclSyntax.self) }
-            .filter { !$0.isPrivate && !$0.isFinal && !($0.isStatic && shouldOverride) }
-            .compactMap { mockMethod(for: $0, isInClass: forClass, shouldAddOverrideModifier: shouldOverride) }
+        let mockProperties = mockProperties(from: members, config: config)
+        let mockInits = mockInits(from: members, config: config)
+        let mockMethods = mockMethods(from: members, config: config)
 
         return MemberBlockItemListSyntax {
             mockTypes
-            DeclSyntax("let blackBox = BlackBox()")
-                .with(\.leadingTrivia, .newlines(2))
-            DeclSyntax("let stubRegistry = StubRegistry()")
+            VariableDeclSyntax(
+                leadingTrivia: .newlines(2),
+                modifiers: config.isPublic ? [.publicModifier] : [],
+                .let,
+                name: "blackBox",
+                initializer: InitializerClauseSyntax(
+                    value: FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "BlackBox"))
+                )
+            )
+            VariableDeclSyntax(
+                modifiers: config.isPublic ? [.publicModifier] : [],
+                .let,
+                name: "stubRegistry",
+                initializer: InitializerClauseSyntax(
+                    value: FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "StubRegistry"))
+                )
+            )
             MemberBlockItemListSyntax {
                 for mockProperty in mockProperties {
                     mockProperty
@@ -198,13 +233,60 @@ public struct AddMockMacro: PeerMacro {
         }
     }
 
-    private static func mockProperty(for property: VariableDeclSyntax, shouldAddOverrideModifier: Bool) -> VariableDeclSyntax {
+    private static func mockProperties(
+        from members: MemberBlockItemListSyntax,
+        config: MockGenerationConfig
+    ) -> [VariableDeclSyntax] {
+        members
+            .compactMap { $0.decl.as(VariableDeclSyntax.self) }
+            .filter { config.shouldMockMember(member: $0) }
+            .compactMap { mockProperty(for: $0, config: config) }
+    }
+
+    private static func mockInits(
+        from members: MemberBlockItemListSyntax,
+        config: MockGenerationConfig
+    ) -> [InitializerDeclSyntax] {
+        guard config.shouldGenerateInits else { return [] }
+
+        let mockInits = members
+            .compactMap { $0.decl.as(InitializerDeclSyntax.self) }
+            .filter { !$0.isPrivate }
+            .map { mockInit(for: $0, config: config) }
+
+        guard !mockInits.isEmpty, !mockInits.contains(where: { $0.signature.parameterClause.parameters.isEmpty }) else {
+            return mockInits
+        }
+
+        let emptyInit = InitializerDeclSyntax(
+            signature: FunctionSignatureSyntax(parameterClause: FunctionParameterClauseSyntax {}),
+            body: CodeBlockSyntax {}
+        )
+        return [emptyInit] + mockInits
+    }
+
+    private static func mockMethods(
+        from members: MemberBlockItemListSyntax,
+        config: MockGenerationConfig
+    ) -> [FunctionDeclSyntax] {
+        members
+            .compactMap { $0.decl.as(FunctionDeclSyntax.self) }
+            .filter { config.shouldMockMember(member: $0) }
+            .compactMap { mockMethod(for: $0, config: config) }
+    }
+
+    private static func mockProperty(
+        for property: VariableDeclSyntax,
+        config: MockGenerationConfig
+    ) -> VariableDeclSyntax {
         var mockProperty = property.trimmed
 
-        if shouldAddOverrideModifier && !mockProperty.isOverride {
-            mockProperty.modifiers.append(
-                DeclModifierSyntax(name: .keyword(.override))
-            )
+        if config.shouldMakeMembersPublic && !mockProperty.hasExplicitAccessControl {
+            mockProperty.modifiers.append(.publicModifier)
+        }
+
+        if config.shouldOverrideMembers && !mockProperty.isOverride {
+            mockProperty.modifiers.append(.overrideModifier)
         }
 
         var attributes = AttributeListSyntax { "@_MockProperty" }
@@ -224,51 +306,21 @@ public struct AddMockMacro: PeerMacro {
         return mockProperty
     }
 
-    private static func mockInitOverride(for initializer: InitializerDeclSyntax) -> InitializerDeclSyntax {
-        guard let initBody = initializer.body else { return initializer }
-
+    private static func mockInit(
+        for initializer: InitializerDeclSyntax,
+        config: MockGenerationConfig
+    ) -> InitializerDeclSyntax {
         var mockInit = initializer.trimmed
 
-        let superCall = FunctionCallExprSyntax(callee: ExprSyntax("super.init")) {
-            for param in mockInit.signature.parameterClause.parameters {
-                LabeledExprSyntax(label: param.label, expression: ExprSyntax("\(param.internalName)"))
-            }
+        mockInit.body = CodeBlockSyntax {}
+
+        if config.shouldMakeMembersPublic && !mockInit.hasExplicitAccessControl {
+            mockInit.modifiers += [.publicModifier]
         }
 
-        let internalParamNames = mockInit.signature.parameterClause.parameters.map { $0.internalName.tokenKind }
-
-        let assignmentStatements = initBody.statements.filter { statement in
-
-            if let infixOperatorStatement = statement.item.as(InfixOperatorExprSyntax.self),
-               infixOperatorStatement.operator.is(AssignmentExprSyntax.self),
-               let rightOperand = infixOperatorStatement.rightOperand.as(DeclReferenceExprSyntax.self),
-               internalParamNames.contains(rightOperand.baseName.tokenKind) {
-                return true
-            }
-
-            // For some reason in macro expansion tests `self.x = x` is parsed as `InfixOperatorExprSyntax`
-            // but when expanding in the compiler it is parsed as a `SequenceExprSyntax` that looks like this:
-            // [MemberAccessExprSyntax, AssignmentExprSyntax, DeclReferenceExprSyntax]
-            if let sequence = statement.item.as(SequenceExprSyntax.self),
-               sequence.elements.count == 3,
-               sequence.elements.dropFirst().first?.is(AssignmentExprSyntax.self) == true,
-               let paramReference = sequence.elements.last?.as(DeclReferenceExprSyntax.self),
-               internalParamNames.contains(paramReference.baseName.tokenKind) {
-                return true
-            }
-
-            return false
-        }
-
-        mockInit.body = CodeBlockSyntax {
-            superCall
-            for statement in assignmentStatements {
-                statement.trimmed
-            }
-        }
-
-        if !mockInit.isOverride {
-            mockInit.modifiers += [DeclModifierSyntax(name: .keyword(.override))]
+        if !mockInit.signature.parameterClause.parameters.isEmpty {
+            let deprecatedAttribute = AttributeListSyntax { .deprecated(message: "Use init() instead to initialize a mock") }
+            mockInit.attributes += deprecatedAttribute
         }
 
         return mockInit
@@ -276,17 +328,20 @@ public struct AddMockMacro: PeerMacro {
 
     private static func mockMethod(
         for method: FunctionDeclSyntax,
-        isInClass: Bool,
-        shouldAddOverrideModifier: Bool
+        config: MockGenerationConfig
     ) -> FunctionDeclSyntax? {
         var mockMethod = method.trimmed
 
-        if isInClass {
+        if config.isGeneratingClass {
             mockMethod.modifiers = mockMethod.modifiers.filter { $0.name.tokenKind != .keyword(.mutating) }
         }
 
-        if shouldAddOverrideModifier && !mockMethod.isOverride {
-            mockMethod.modifiers += [DeclModifierSyntax(name: .keyword(.override))]
+        if config.shouldMakeMembersPublic && !mockMethod.hasExplicitAccessControl {
+            mockMethod.modifiers += [.publicModifier]
+        }
+
+        if config.shouldOverrideMembers && !mockMethod.isOverride {
+            mockMethod.modifiers += [.overrideModifier]
         }
 
         var attributes = AttributeListSyntax { "@_MockFunction" }
@@ -302,5 +357,11 @@ public struct AddMockMacro: PeerMacro {
 private extension PatternBindingSyntax {
     func withoutInitializerIfPossible() -> PatternBindingSyntax {
         typeAnnotation == nil ? self : with(\.initializer, nil)
+    }
+}
+
+private extension AttributeListSyntax {
+    func removingAddMockMacro() -> AttributeListSyntax {
+        filter { $0.trimmedDescription != "@AddMock" }
     }
 }
