@@ -5,17 +5,29 @@
 
 import Foundation
 
-/// `FunctionCallRepresentation` is a protocol that represents a function call in a generic way.
-/// Captures the `Input` and `Output` type information while allowing us to store an array of function calls as an `[any FunctionCallRepresentation]`.
-/// - SeeAlso: `FunctionCall` which is the concrete version of a function call.
+/// A protocol that represents a function call.
+///
+/// This protocol creates a common interface for function calls while preserving 
+/// the generic type information about the input and output types.
+/// It enables storing different function calls in the same collection (as `[any FunctionCallRepresentation]`).
+///
+/// This is primarily an internal implementation detail of the spy system, which allows
+/// the recording and verification of function calls.
 protocol FunctionCallRepresentation: CustomDebugStringConvertible, Identifiable {
+
+    /// The input type of the function call.
     associatedtype Input
+    
+    /// The output type of the function call.
     associatedtype Output
 
-    /// The signature of the function, that is the string that is captured by `#function`, eg. `foo(bar:)`.
+    /// The signature of the function as captured by `#function`, e.g., `foo(bar:)`.
     var signature: FunctionSignature { get }
 
-    /// The type of the function's input parameter(s) (or `Void` if it does not take any parameters). If a function takes more than one parameter, this will be a tuple with the parameters in the order they appear in the signature.
+    /// The input parameter(s) passed to the function when it was called.
+    ///
+    /// For functions without parameters, this will be `Void()`.
+    /// For functions with multiple parameters, this will be a tuple containing all parameters.
     var input: Input { get }
 
     /// The return type of the function.
@@ -24,8 +36,9 @@ protocol FunctionCallRepresentation: CustomDebugStringConvertible, Identifiable 
     /// The time at which the function was called.
     var time: Date { get }
 
-    /// The unique identifier for this call.
+    /// A unique identifier for this function call.
     var id: Int { get }
+
 }
 
 extension FunctionCallRepresentation {
@@ -40,8 +53,9 @@ extension FunctionCallRepresentation {
     }
 }
 
-// TODO: Move me
+/// Utility functions and properties for function call handling.
 private enum FunctionCallUtilities {
+    /// A date formatter used for consistent timestamp formatting in debug descriptions.
     static let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "y-MM-dd H:mm:ss.SSS"
@@ -49,13 +63,23 @@ private enum FunctionCallUtilities {
     }()
 }
 
-/// `FunctionCall` provides a concrete implementation of the`FunctionCallRepresentation` protocol.
+/// A concrete implementation of `FunctionCallRepresentation` that captures a function call's details.
+///
+/// This struct represents a single function call, storing information about what function was called,
+/// with what parameters, and when it was called. It's used by the spy system to record function calls
+/// so they can be verified later in tests.
+///
+/// - Note: This struct is marked as `@unchecked Sendable` even though the `input` might not actually be `Sendable`.
+/// The risk is minimal since this is designed to be used with tests and SwiftUI previews.
 public struct FunctionCall<Input, Output>: FunctionCallRepresentation, @unchecked Sendable {
 
-    /// The signature of the function, that is the string that is captured by `#function`, eg. `foo(bar:)`.
+    /// The signature of the function as captured by `#function`, e.g., `foo(bar:)`.
     public let signature: FunctionSignature
 
-    /// The type of the function's input parameter(s) (or `Void` if it does not take any parameters). If a function takes more than one parameter, this will be a tuple with the parameters in the order they appear in the signature.
+    /// The input parameter(s) passed to the function when it was called.
+    ///
+    /// For functions without parameters, this will be `Void()`.
+    /// For functions with multiple parameters, this will be a tuple containing all parameters.
     public let input: Input
 
     /// The return type of the function.
@@ -64,7 +88,7 @@ public struct FunctionCall<Input, Output>: FunctionCallRepresentation, @unchecke
     /// The time at which the function was called.
     let time: Date
 
-    /// The unique identifier for this call.
+    /// A unique identifier for this function call.
     public let id: Int
 
 }

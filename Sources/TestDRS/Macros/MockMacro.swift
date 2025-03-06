@@ -6,6 +6,7 @@
 import Foundation
 
 /// This macro mocks the members of the struct or class that it is applied to.
+///
 /// Properties of the attached type should not be initialized inline (using an initializer is allowed, but not required)
 /// and functions should not have bodies.
 /// In most circumstances the attached type should conform to a protocol,
