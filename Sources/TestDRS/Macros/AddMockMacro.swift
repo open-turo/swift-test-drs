@@ -27,8 +27,6 @@
 /// - Class mocks do not include initializers, as they use the parent class initializers
 /// - Note: None of the initializers, including inherited ones, will automatically stub any properties. Properties must be stubbed manually after initialization.
 ///
-/// The mock is only generated in debug builds and will be enclosed in `#if DEBUG` / `#endif` tags.
-///
 /// Usage:
 /// ```
 /// @AddMock
