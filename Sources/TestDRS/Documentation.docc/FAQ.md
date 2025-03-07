@@ -30,7 +30,7 @@ func testClosureIsCalled() {
 
 ## How do I verify the arguments of non-Equatable types?
 
-When dealing with non-Equatable types, you can use ``getMatchingCall()`` to access the function call and examine its input:
+When dealing with non-Equatable types, you can use ``ExpectWasCalledResult/getMatchingCall()`` to access the function call and examine its input:
 
 ```swift
 // Access a single call
