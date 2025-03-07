@@ -1,4 +1,4 @@
-# Testing Static Members
+# Testing static members
 
 Learn how to test code that uses static members by creating mocks with TestDRS.
 
@@ -14,7 +14,7 @@ This article covers:
 3. Mocking static methods
 4. Verifying static method calls
 
-## The Challenge with Static Members
+## The Challenge with static members
 
 Static properties and methods in Swift are shared across all instances of a class or struct. This means that changes made in one test can affect other tests:
 
@@ -86,7 +86,7 @@ class StaticMemberTests: XCTestCase {
 }
 ```
 
-## Creating Testable Static Members
+## Creating testable static members
 
 To make static members testable with TestDRS, you can simply use one of the macros that generates a mock type, like `@AddMock`:
 
@@ -139,6 +139,7 @@ The `withStaticTestingContext` function uses TaskLocal values to maintain contex
 - Code running on different threads via GCD or other non-Swift Concurrency mechanisms won't have access to the context
 
 If your code creates detached tasks or uses other threading mechanisms, you will get test failures and/or fatal errors when using static members of a TestDRS mock type.
+
 ## Summary
 
 TestDRS makes testing code that uses static members straightforward:
