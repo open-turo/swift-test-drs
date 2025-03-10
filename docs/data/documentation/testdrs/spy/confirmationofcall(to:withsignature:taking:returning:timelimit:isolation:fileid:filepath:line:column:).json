@@ -1,1 +1,1295 @@
-{"sections":[],"schemaVersion":{"major":0,"minor":3,"patch":0},"metadata":{"title":"confirmationOfCall(to:withSignature:taking:returning:timeLimit:isolation:fileID:filePath:line:column:)","platforms":[{"unavailable":false,"introducedAt":"16.0","deprecated":false,"name":"iOS","beta":false}],"externalID":"s:7TestDRS3SpyPAAE18confirmationOfCall2to13withSignature6taking9returning9timeLimit9isolation6fileID0O4Path4line6columnAA08FunctionF12ConfirmationVyAA13MatchingFirstOqd__qd_0_Gqd_0_qd__YaKXE_AA0tI0Vqd__mSgqd_0_mSgs8DurationVScA_pSgYis12StaticStringVA0_S2utYar0_lF","extendedModule":"TestDRS","fragments":[{"text":"func","kind":"keyword"},{"text":" ","kind":"text"},{"text":"confirmationOfCall","kind":"identifier"},{"text":"<","kind":"text"},{"kind":"genericParameter","text":"Input"},{"kind":"text","text":", "},{"text":"Output","kind":"genericParameter"},{"kind":"text","text":">("},{"kind":"externalParam","text":"to"},{"kind":"text","text":": ("},{"text":"Input","kind":"typeIdentifier"},{"text":") ","kind":"text"},{"kind":"keyword","text":"async"},{"kind":"text","text":" "},{"kind":"keyword","text":"throws"},{"text":" -> ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"withSignature"},{"kind":"text","text":": "},{"preciseIdentifier":"s:7TestDRS17FunctionSignatureV","text":"FunctionSignature","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"taking","kind":"externalParam"},{"text":": ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"text":".Type?, ","kind":"text"},{"kind":"externalParam","text":"returning"},{"kind":"text","text":": "},{"text":"Output","kind":"typeIdentifier"},{"text":".Type?, ","kind":"text"},{"kind":"externalParam","text":"timeLimit"},{"text":": ","kind":"text"},{"text":"Duration","preciseIdentifier":"s:s8DurationV","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"isolation","kind":"externalParam"},{"text":": ","kind":"text"},{"kind":"keyword","text":"isolated"},{"text":" (any ","kind":"text"},{"text":"Actor","kind":"typeIdentifier","preciseIdentifier":"s:ScA"},{"text":")?, ","kind":"text"},{"text":"fileID","kind":"externalParam"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:s12StaticStringV","text":"StaticString"},{"text":", ","kind":"text"},{"text":"filePath","kind":"externalParam"},{"kind":"text","text":": "},{"text":"StaticString","preciseIdentifier":"s:s12StaticStringV","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"line","kind":"externalParam"},{"kind":"text","text":": "},{"kind":"typeIdentifier","preciseIdentifier":"s:Su","text":"UInt"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"column"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:Su","text":"UInt"},{"kind":"text","text":") "},{"text":"async","kind":"keyword"},{"text":" -> ","kind":"text"},{"preciseIdentifier":"s:7TestDRS24FunctionCallConfirmationV","kind":"typeIdentifier","text":"FunctionCallConfirmation"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS13MatchingFirstO","text":"MatchingFirst"},{"kind":"text","text":", "},{"text":"Input","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"text":">","kind":"text"}],"modules":[{"name":"TestDRS"}],"symbolKind":"method","roleHeading":"Instance Method","role":"symbol"},"kind":"symbol","variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/spy\/confirmationofcall(to:withsignature:taking:returning:timelimit:isolation:fileid:filepath:line:column:)"]}],"abstract":[{"type":"text","text":"Awaits confirmation of a function call."}],"primaryContentSections":[{"kind":"declarations","declarations":[{"platforms":["macOS"],"languages":["swift"],"tokens":[{"text":"@discardableResult","kind":"attribute"},{"text":" ","kind":"text"},{"text":"func","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"confirmationOfCall"},{"text":"<","kind":"text"},{"text":"Input","kind":"genericParameter"},{"kind":"text","text":", "},{"text":"Output","kind":"genericParameter"},{"kind":"text","text":">("},{"kind":"externalParam","text":"to"},{"kind":"text","text":" "},{"text":"function","kind":"internalParam"},{"kind":"text","text":": ("},{"kind":"typeIdentifier","text":"Input"},{"kind":"text","text":") "},{"kind":"keyword","text":"async"},{"text":" ","kind":"text"},{"kind":"keyword","text":"throws"},{"kind":"text","text":" -> "},{"text":"Output","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"withSignature"},{"text":" ","kind":"text"},{"kind":"internalParam","text":"signature"},{"kind":"text","text":": "},{"kind":"typeIdentifier","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature","text":"FunctionSignature","preciseIdentifier":"s:7TestDRS17FunctionSignatureV"},{"kind":"text","text":", "},{"text":"taking","kind":"externalParam"},{"kind":"text","text":" "},{"kind":"internalParam","text":"inputType"},{"text":": ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":".Type? = nil, "},{"text":"returning","kind":"externalParam"},{"kind":"text","text":" "},{"kind":"internalParam","text":"outputType"},{"text":": ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":".Type? = nil, "},{"kind":"externalParam","text":"timeLimit"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:s8DurationV","text":"Duration","kind":"typeIdentifier"},{"kind":"text","text":" = .maxTimeLimit, "},{"text":"isolation","kind":"externalParam"},{"kind":"text","text":": "},{"text":"isolated","kind":"keyword"},{"kind":"text","text":" (any "},{"text":"Actor","kind":"typeIdentifier","preciseIdentifier":"s:ScA"},{"kind":"text","text":")? = #isolation, "},{"text":"fileID","kind":"externalParam"},{"text":": ","kind":"text"},{"text":"StaticString","kind":"typeIdentifier","preciseIdentifier":"s:s12StaticStringV"},{"text":" = ","kind":"text"},{"text":"#fileID","kind":"keyword"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"filePath"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"StaticString","preciseIdentifier":"s:s12StaticStringV"},{"kind":"text","text":" = "},{"text":"#filePath","kind":"keyword"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"line"},{"kind":"text","text":": "},{"preciseIdentifier":"s:Su","kind":"typeIdentifier","text":"UInt"},{"text":" = ","kind":"text"},{"kind":"keyword","text":"#line"},{"text":", ","kind":"text"},{"text":"column","kind":"externalParam"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:Su","kind":"typeIdentifier","text":"UInt"},{"kind":"text","text":" = "},{"kind":"keyword","text":"#column"},{"kind":"text","text":") "},{"text":"async","kind":"keyword"},{"kind":"text","text":" -> "},{"preciseIdentifier":"s:7TestDRS24FunctionCallConfirmationV","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation","kind":"typeIdentifier","text":"FunctionCallConfirmation"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/MatchingFirst","preciseIdentifier":"s:7TestDRS13MatchingFirstO","text":"MatchingFirst"},{"kind":"text","text":", "},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"Output","kind":"typeIdentifier"},{"text":">","kind":"text"}]}]},{"kind":"parameters","parameters":[{"content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"A reference to the function to expect was called."}]}],"name":"function"},{"name":"inputType","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"An optional phantom parameter used to derive the input type of the "},{"type":"codeVoice","code":"function"},{"text":" passed in.","type":"text"}]}]},{"name":"outputType","content":[{"inlineContent":[{"type":"text","text":"An optional phantom parameter used to derive the output type of the "},{"code":"function","type":"codeVoice"},{"type":"text","text":" passed in."}],"type":"paragraph"}]},{"name":"timeLimit","content":[{"type":"paragraph","inlineContent":[{"text":"The maximum amount of time to wait for confirmation. If the time limit is reached before the first call can be confirmed, a test failure is reported. Defaults to a duration that is effectively infinite.","type":"text"}]}]}]},{"kind":"content","content":[{"type":"heading","text":"Return Value","level":2,"anchor":"return-value"},{"inlineContent":[{"text":"A ","type":"text"},{"type":"codeVoice","code":"FunctionCallConfirmation"},{"type":"text","text":" that waits for the first matching call. Further calls can be confirmed by calling methods on this confirmation."}],"type":"paragraph"}]},{"kind":"content","content":[{"text":"Discussion","type":"heading","anchor":"discussion","level":2},{"type":"paragraph","inlineContent":[{"text":"Similar to using a ","type":"text"},{"type":"codeVoice","code":"Confirmation"},{"text":" in Swift Testing, this macro allows you to await confirmation that a function was called in","type":"text"},{"type":"text","text":" "},{"text":"scenarios where you can’t await the function directly.","type":"text"}]}]}],"identifier":{"interfaceLanguage":"swift","url":"doc:\/\/TestDRS\/documentation\/TestDRS\/Spy\/confirmationOfCall(to:withSignature:taking:returning:timeLimit:isolation:fileID:filePath:line:column:)"},"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/Spy"]]},"references":{"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/Spy/confirmationOfCall(to:withSignature:taking:returning:timeLimit:isolation:fileID:filePath:line:column:)":{"kind":"symbol","url":"\/documentation\/testdrs\/spy\/confirmationofcall(to:withsignature:taking:returning:timelimit:isolation:fileid:filepath:line:column:)","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/Spy\/confirmationOfCall(to:withSignature:taking:returning:timeLimit:isolation:fileID:filePath:line:column:)","fragments":[{"kind":"keyword","text":"func"},{"text":" ","kind":"text"},{"kind":"identifier","text":"confirmationOfCall"},{"text":"<","kind":"text"},{"text":"Input","kind":"genericParameter"},{"kind":"text","text":", "},{"text":"Output","kind":"genericParameter"},{"text":">(","kind":"text"},{"text":"to","kind":"externalParam"},{"text":": (","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":") "},{"kind":"keyword","text":"async"},{"text":" ","kind":"text"},{"kind":"keyword","text":"throws"},{"kind":"text","text":" -> "},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":", "},{"kind":"externalParam","text":"withSignature"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:7TestDRS17FunctionSignatureV","kind":"typeIdentifier","text":"FunctionSignature"},{"kind":"text","text":", "},{"kind":"externalParam","text":"taking"},{"text":": ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"text":".Type?, ","kind":"text"},{"kind":"externalParam","text":"returning"},{"text":": ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":".Type?, "},{"text":"timeLimit","kind":"externalParam"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:s8DurationV","kind":"typeIdentifier","text":"Duration"},{"text":", ","kind":"text"},{"text":"isolation","kind":"externalParam"},{"text":": ","kind":"text"},{"text":"isolated","kind":"keyword"},{"kind":"text","text":" (any "},{"text":"Actor","preciseIdentifier":"s:ScA","kind":"typeIdentifier"},{"text":")?, ","kind":"text"},{"text":"fileID","kind":"externalParam"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"StaticString","preciseIdentifier":"s:s12StaticStringV"},{"kind":"text","text":", "},{"kind":"externalParam","text":"filePath"},{"kind":"text","text":": "},{"text":"StaticString","kind":"typeIdentifier","preciseIdentifier":"s:s12StaticStringV"},{"text":", ","kind":"text"},{"text":"line","kind":"externalParam"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:Su","kind":"typeIdentifier","text":"UInt"},{"kind":"text","text":", "},{"kind":"externalParam","text":"column"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:Su","text":"UInt","kind":"typeIdentifier"},{"kind":"text","text":") "},{"text":"async","kind":"keyword"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS24FunctionCallConfirmationV","text":"FunctionCallConfirmation"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"MatchingFirst","preciseIdentifier":"s:7TestDRS13MatchingFirstO"},{"kind":"text","text":", "},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":", "},{"kind":"typeIdentifier","text":"Output"},{"kind":"text","text":">"}],"type":"topic","abstract":[{"type":"text","text":"Awaits confirmation of a function call."}],"title":"confirmationOfCall(to:withSignature:taking:returning:timeLimit:isolation:fileID:filePath:line:column:)","role":"symbol"},"doc://TestDRS/documentation/TestDRS/Spy":{"kind":"symbol","role":"symbol","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"Spy"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/Spy","navigatorTitle":[{"text":"Spy","kind":"identifier"}],"title":"Spy","abstract":[{"type":"text","text":"A protocol that enables observing and verifying function calls during testing."}],"type":"topic","url":"\/documentation\/testdrs\/spy"},"doc://TestDRS/documentation/TestDRS/FunctionSignature":{"title":"FunctionSignature","url":"\/documentation\/testdrs\/functionsignature","navigatorTitle":[{"text":"FunctionSignature","kind":"identifier"}],"type":"topic","kind":"symbol","role":"symbol","fragments":[{"text":"struct","kind":"keyword"},{"kind":"text","text":" "},{"text":"FunctionSignature","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature","abstract":[{"type":"codeVoice","code":"FunctionSignature"},{"type":"text","text":" is used to represent the signature of a function."}]},"doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation":{"kind":"symbol","type":"topic","title":"FunctionCallConfirmation","navigatorTitle":[{"text":"FunctionCallConfirmation","kind":"identifier"}],"abstract":[{"text":"Encapsulates the result of a ","type":"text"},{"code":"#confirmationOfCall","type":"codeVoice"},{"text":".","type":"text"}],"role":"symbol","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation","fragments":[{"kind":"keyword","text":"struct"},{"text":" ","kind":"text"},{"text":"FunctionCallConfirmation","kind":"identifier"}],"url":"\/documentation\/testdrs\/functioncallconfirmation"},"doc://TestDRS/documentation/TestDRS/MatchingFirst":{"fragments":[{"text":"enum","kind":"keyword"},{"text":" ","kind":"text"},{"text":"MatchingFirst","kind":"identifier"}],"abstract":[{"type":"text","text":"A matching strategy that examines only the first call in a sequence of calls."}],"title":"MatchingFirst","url":"\/documentation\/testdrs\/matchingfirst","role":"symbol","type":"topic","navigatorTitle":[{"text":"MatchingFirst","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/MatchingFirst","kind":"symbol"}}}
+{
+  "abstract": [
+    {
+      "text": "Awaits confirmation of a function call.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/Spy"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/Spy/confirmationOfCall(to:withSignature:taking:returning:timeLimit:isolation:fileID:filePath:line:column:)"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "extendedModule": "TestDRS",
+    "externalID": "s:7TestDRS3SpyPAAE18confirmationOfCall2to13withSignature6taking9returning9timeLimit9isolation6fileID0O4Path4line6columnAA08FunctionF12ConfirmationVyAA13MatchingFirstOqd__qd_0_Gqd_0_qd__YaKXE_AA0tI0Vqd__mSgqd_0_mSgs8DurationVScA_pSgYis12StaticStringVA0_S2utYar0_lF",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "func"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "confirmationOfCall"
+      },
+      {
+        "kind": "text",
+        "text": "<"
+      },
+      {
+        "kind": "genericParameter",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "genericParameter",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ">("
+      },
+      {
+        "kind": "externalParam",
+        "text": "to"
+      },
+      {
+        "kind": "text",
+        "text": ": ("
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ") "
+      },
+      {
+        "kind": "keyword",
+        "text": "async"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "keyword",
+        "text": "throws"
+      },
+      {
+        "kind": "text",
+        "text": " -> "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "withSignature"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:7TestDRS17FunctionSignatureV",
+        "text": "FunctionSignature"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "taking"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ".Type?, "
+      },
+      {
+        "kind": "externalParam",
+        "text": "returning"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ".Type?, "
+      },
+      {
+        "kind": "externalParam",
+        "text": "timeLimit"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:s8DurationV",
+        "text": "Duration"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "isolation"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "keyword",
+        "text": "isolated"
+      },
+      {
+        "kind": "text",
+        "text": " (any "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:ScA",
+        "text": "Actor"
+      },
+      {
+        "kind": "text",
+        "text": ")?, "
+      },
+      {
+        "kind": "externalParam",
+        "text": "fileID"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:s12StaticStringV",
+        "text": "StaticString"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "filePath"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:s12StaticStringV",
+        "text": "StaticString"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "line"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:Su",
+        "text": "UInt"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "column"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:Su",
+        "text": "UInt"
+      },
+      {
+        "kind": "text",
+        "text": ") "
+      },
+      {
+        "kind": "keyword",
+        "text": "async"
+      },
+      {
+        "kind": "text",
+        "text": " -> "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:7TestDRS24FunctionCallConfirmationV",
+        "text": "FunctionCallConfirmation"
+      },
+      {
+        "kind": "text",
+        "text": "<"
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:7TestDRS13MatchingFirstO",
+        "text": "MatchingFirst"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ">"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "platforms": [
+      {
+        "beta": false,
+        "deprecated": false,
+        "introducedAt": "16.0",
+        "name": "iOS",
+        "unavailable": false
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Instance Method",
+    "symbolKind": "method",
+    "title": "confirmationOfCall(to:withSignature:taking:returning:timeLimit:isolation:fileID:filePath:line:column:)"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "attribute",
+              "text": "@discardableResult"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "func"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "confirmationOfCall"
+            },
+            {
+              "kind": "text",
+              "text": "<"
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ">("
+            },
+            {
+              "kind": "externalParam",
+              "text": "to"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "function"
+            },
+            {
+              "kind": "text",
+              "text": ": ("
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ") "
+            },
+            {
+              "kind": "keyword",
+              "text": "async"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "throws"
+            },
+            {
+              "kind": "text",
+              "text": " -> "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "withSignature"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "signature"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature",
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:7TestDRS17FunctionSignatureV",
+              "text": "FunctionSignature"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "taking"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "inputType"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ".Type? = nil, "
+            },
+            {
+              "kind": "externalParam",
+              "text": "returning"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "outputType"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ".Type? = nil, "
+            },
+            {
+              "kind": "externalParam",
+              "text": "timeLimit"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:s8DurationV",
+              "text": "Duration"
+            },
+            {
+              "kind": "text",
+              "text": " = .maxTimeLimit, "
+            },
+            {
+              "kind": "externalParam",
+              "text": "isolation"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "keyword",
+              "text": "isolated"
+            },
+            {
+              "kind": "text",
+              "text": " (any "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:ScA",
+              "text": "Actor"
+            },
+            {
+              "kind": "text",
+              "text": ")? = #isolation, "
+            },
+            {
+              "kind": "externalParam",
+              "text": "fileID"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:s12StaticStringV",
+              "text": "StaticString"
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "keyword",
+              "text": "#fileID"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "filePath"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:s12StaticStringV",
+              "text": "StaticString"
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "keyword",
+              "text": "#filePath"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "line"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:Su",
+              "text": "UInt"
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "keyword",
+              "text": "#line"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "column"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:Su",
+              "text": "UInt"
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "keyword",
+              "text": "#column"
+            },
+            {
+              "kind": "text",
+              "text": ") "
+            },
+            {
+              "kind": "keyword",
+              "text": "async"
+            },
+            {
+              "kind": "text",
+              "text": " -> "
+            },
+            {
+              "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation",
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:7TestDRS24FunctionCallConfirmationV",
+              "text": "FunctionCallConfirmation"
+            },
+            {
+              "kind": "text",
+              "text": "<"
+            },
+            {
+              "identifier": "doc://TestDRS/documentation/TestDRS/MatchingFirst",
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:7TestDRS13MatchingFirstO",
+              "text": "MatchingFirst"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ">"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "kind": "parameters",
+      "parameters": [
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "A reference to the function to expect was called.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "function"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "An optional phantom parameter used to derive the input type of the ",
+                  "type": "text"
+                },
+                {
+                  "code": "function",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " passed in.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "inputType"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "An optional phantom parameter used to derive the output type of the ",
+                  "type": "text"
+                },
+                {
+                  "code": "function",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " passed in.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "outputType"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "The maximum amount of time to wait for confirmation. If the time limit is reached before the first call can be confirmed, a test failure is reported. Defaults to a duration that is effectively infinite.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "timeLimit"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "anchor": "return-value",
+          "level": 2,
+          "text": "Return Value",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "A ",
+              "type": "text"
+            },
+            {
+              "code": "FunctionCallConfirmation",
+              "type": "codeVoice"
+            },
+            {
+              "text": " that waits for the first matching call. Further calls can be confirmed by calling methods on this confirmation.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        }
+      ],
+      "kind": "content"
+    },
+    {
+      "content": [
+        {
+          "anchor": "discussion",
+          "level": 2,
+          "text": "Discussion",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Similar to using a ",
+              "type": "text"
+            },
+            {
+              "code": "Confirmation",
+              "type": "codeVoice"
+            },
+            {
+              "text": " in Swift Testing, this macro allows you to await confirmation that a function was called in",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "scenarios where you can\u2019t await the function directly.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        }
+      ],
+      "kind": "content"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation": {
+      "abstract": [
+        {
+          "text": "Encapsulates the result of a ",
+          "type": "text"
+        },
+        {
+          "code": "#confirmationOfCall",
+          "type": "codeVoice"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "struct"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionCallConfirmation"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionCallConfirmation"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionCallConfirmation",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallconfirmation"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionSignature": {
+      "abstract": [
+        {
+          "code": "FunctionSignature",
+          "type": "codeVoice"
+        },
+        {
+          "text": " is used to represent the signature of a function.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "struct"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionSignature"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionSignature"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionSignature",
+      "type": "topic",
+      "url": "/documentation/testdrs/functionsignature"
+    },
+    "doc://TestDRS/documentation/TestDRS/MatchingFirst": {
+      "abstract": [
+        {
+          "text": "A matching strategy that examines only the first call in a sequence of calls.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "enum"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "MatchingFirst"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/MatchingFirst",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "MatchingFirst"
+        }
+      ],
+      "role": "symbol",
+      "title": "MatchingFirst",
+      "type": "topic",
+      "url": "/documentation/testdrs/matchingfirst"
+    },
+    "doc://TestDRS/documentation/TestDRS/Spy": {
+      "abstract": [
+        {
+          "text": "A protocol that enables observing and verifying function calls during testing.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "Spy"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/Spy",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "Spy"
+        }
+      ],
+      "role": "symbol",
+      "title": "Spy",
+      "type": "topic",
+      "url": "/documentation/testdrs/spy"
+    },
+    "doc://TestDRS/documentation/TestDRS/Spy/confirmationOfCall(to:withSignature:taking:returning:timeLimit:isolation:fileID:filePath:line:column:)": {
+      "abstract": [
+        {
+          "text": "Awaits confirmation of a function call.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "confirmationOfCall"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">("
+        },
+        {
+          "kind": "externalParam",
+          "text": "to"
+        },
+        {
+          "kind": "text",
+          "text": ": ("
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "withSignature"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS17FunctionSignatureV",
+          "text": "FunctionSignature"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "taking"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "returning"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "timeLimit"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s8DurationV",
+          "text": "Duration"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "isolation"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "keyword",
+          "text": "isolated"
+        },
+        {
+          "kind": "text",
+          "text": " (any "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:ScA",
+          "text": "Actor"
+        },
+        {
+          "kind": "text",
+          "text": ")?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "fileID"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s12StaticStringV",
+          "text": "StaticString"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "filePath"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s12StaticStringV",
+          "text": "StaticString"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "line"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Su",
+          "text": "UInt"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "column"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Su",
+          "text": "UInt"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS24FunctionCallConfirmationV",
+          "text": "FunctionCallConfirmation"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS13MatchingFirstO",
+          "text": "MatchingFirst"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/Spy/confirmationOfCall(to:withSignature:taking:returning:timeLimit:isolation:fileID:filePath:line:column:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "confirmationOfCall(to:withSignature:taking:returning:timeLimit:isolation:fileID:filePath:line:column:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/spy/confirmationofcall(to:withsignature:taking:returning:timelimit:isolation:fileid:filepath:line:column:)"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/spy/confirmationofcall(to:withsignature:taking:returning:timelimit:isolation:fileid:filepath:line:column:)"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

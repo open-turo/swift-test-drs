@@ -1,1 +1,328 @@
-{"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature\/ExpressibleByUnicodeScalarLiteral-Implementations"]]},"variants":[{"paths":["\/documentation\/testdrs\/functionsignature\/init(unicodescalarliteral:)"],"traits":[{"interfaceLanguage":"swift"}]}],"schemaVersion":{"minor":3,"major":0,"patch":0},"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature\/init(unicodeScalarLiteral:)","interfaceLanguage":"swift"},"sections":[],"primaryContentSections":[{"declarations":[{"tokens":[{"text":"init","kind":"keyword"},{"text":"(","kind":"text"},{"kind":"externalParam","text":"unicodeScalarLiteral"},{"kind":"text","text":" "},{"kind":"internalParam","text":"value"},{"text":": ","kind":"text"},{"text":"Self","kind":"typeIdentifier"},{"kind":"text","text":"."},{"text":"ExtendedGraphemeClusterLiteralType","preciseIdentifier":"s:s43ExpressibleByExtendedGraphemeClusterLiteralP0cdeF4TypeQa","kind":"typeIdentifier"},{"kind":"text","text":")"}],"languages":["swift"],"platforms":["macOS"]}],"kind":"declarations"}],"abstract":[{"type":"text","text":"Inherited from "},{"type":"codeVoice","code":"ExpressibleByUnicodeScalarLiteral.init(unicodeScalarLiteral:)"},{"text":".","type":"text"}],"kind":"symbol","metadata":{"modules":[{"relatedModules":["Swift"],"name":"TestDRS"}],"conformance":{"conformancePrefix":[{"text":"Conforms when","type":"text"}],"availabilityPrefix":[{"type":"text","text":"Available when"}],"constraints":[{"type":"codeVoice","code":"ExtendedGraphemeClusterLiteralType"},{"text":" is ","type":"text"},{"type":"codeVoice","code":"Self.UnicodeScalarLiteralType"},{"type":"text","text":"."}]},"role":"symbol","symbolKind":"init","title":"init(unicodeScalarLiteral:)","extendedModule":"Swift","roleHeading":"Initializer","fragments":[{"text":"init","kind":"identifier"},{"text":"(","kind":"text"},{"text":"unicodeScalarLiteral","kind":"externalParam"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"Self"},{"text":".","kind":"text"},{"text":"ExtendedGraphemeClusterLiteralType","kind":"typeIdentifier","preciseIdentifier":"s:s43ExpressibleByExtendedGraphemeClusterLiteralP0cdeF4TypeQa"},{"text":")","kind":"text"}],"externalID":"s:s43ExpressibleByExtendedGraphemeClusterLiteralPs013UnicodeScalarF4TypeQz0cdefI0RtzrlE07unicodehF0xAF_tcfc::SYNTHESIZED::s:7TestDRS17FunctionSignatureV"},"references":{"doc://TestDRS/documentation/TestDRS/FunctionSignature/ExpressibleByUnicodeScalarLiteral-Implementations":{"url":"\/documentation\/testdrs\/functionsignature\/expressiblebyunicodescalarliteral-implementations","role":"collectionGroup","title":"ExpressibleByUnicodeScalarLiteral Implementations","abstract":[],"kind":"article","type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature\/ExpressibleByUnicodeScalarLiteral-Implementations"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/FunctionSignature":{"title":"FunctionSignature","url":"\/documentation\/testdrs\/functionsignature","navigatorTitle":[{"text":"FunctionSignature","kind":"identifier"}],"type":"topic","kind":"symbol","role":"symbol","fragments":[{"text":"struct","kind":"keyword"},{"kind":"text","text":" "},{"text":"FunctionSignature","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature","abstract":[{"type":"codeVoice","code":"FunctionSignature"},{"type":"text","text":" is used to represent the signature of a function."}]},"doc://TestDRS/documentation/TestDRS/FunctionSignature/init(unicodeScalarLiteral:)":{"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature\/init(unicodeScalarLiteral:)","fragments":[{"kind":"identifier","text":"init"},{"text":"(","kind":"text"},{"kind":"externalParam","text":"unicodeScalarLiteral"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Self"},{"kind":"text","text":"."},{"preciseIdentifier":"s:s43ExpressibleByExtendedGraphemeClusterLiteralP0cdeF4TypeQa","kind":"typeIdentifier","text":"ExtendedGraphemeClusterLiteralType"},{"kind":"text","text":")"}],"conformance":{"constraints":[{"code":"ExtendedGraphemeClusterLiteralType","type":"codeVoice"},{"type":"text","text":" is "},{"type":"codeVoice","code":"Self.UnicodeScalarLiteralType"},{"type":"text","text":"."}],"availabilityPrefix":[{"type":"text","text":"Available when"}],"conformancePrefix":[{"type":"text","text":"Conforms when"}]},"role":"symbol","type":"topic","abstract":[],"title":"init(unicodeScalarLiteral:)","kind":"symbol","url":"\/documentation\/testdrs\/functionsignature\/init(unicodescalarliteral:)"}}}
+{
+  "abstract": [
+    {
+      "text": "Inherited from ",
+      "type": "text"
+    },
+    {
+      "code": "ExpressibleByUnicodeScalarLiteral.init(unicodeScalarLiteral:)",
+      "type": "codeVoice"
+    },
+    {
+      "text": ".",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/FunctionSignature",
+        "doc://TestDRS/documentation/TestDRS/FunctionSignature/ExpressibleByUnicodeScalarLiteral-Implementations"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/FunctionSignature/init(unicodeScalarLiteral:)"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "conformance": {
+      "availabilityPrefix": [
+        {
+          "text": "Available when",
+          "type": "text"
+        }
+      ],
+      "conformancePrefix": [
+        {
+          "text": "Conforms when",
+          "type": "text"
+        }
+      ],
+      "constraints": [
+        {
+          "code": "ExtendedGraphemeClusterLiteralType",
+          "type": "codeVoice"
+        },
+        {
+          "text": " is ",
+          "type": "text"
+        },
+        {
+          "code": "Self.UnicodeScalarLiteralType",
+          "type": "codeVoice"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ]
+    },
+    "extendedModule": "Swift",
+    "externalID": "s:s43ExpressibleByExtendedGraphemeClusterLiteralPs013UnicodeScalarF4TypeQz0cdefI0RtzrlE07unicodehF0xAF_tcfc::SYNTHESIZED::s:7TestDRS17FunctionSignatureV",
+    "fragments": [
+      {
+        "kind": "identifier",
+        "text": "init"
+      },
+      {
+        "kind": "text",
+        "text": "("
+      },
+      {
+        "kind": "externalParam",
+        "text": "unicodeScalarLiteral"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Self"
+      },
+      {
+        "kind": "text",
+        "text": "."
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:s43ExpressibleByExtendedGraphemeClusterLiteralP0cdeF4TypeQa",
+        "text": "ExtendedGraphemeClusterLiteralType"
+      },
+      {
+        "kind": "text",
+        "text": ")"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS",
+        "relatedModules": [
+          "Swift"
+        ]
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Initializer",
+    "symbolKind": "init",
+    "title": "init(unicodeScalarLiteral:)"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "init"
+            },
+            {
+              "kind": "text",
+              "text": "("
+            },
+            {
+              "kind": "externalParam",
+              "text": "unicodeScalarLiteral"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "value"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Self"
+            },
+            {
+              "kind": "text",
+              "text": "."
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:s43ExpressibleByExtendedGraphemeClusterLiteralP0cdeF4TypeQa",
+              "text": "ExtendedGraphemeClusterLiteralType"
+            },
+            {
+              "kind": "text",
+              "text": ")"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionSignature": {
+      "abstract": [
+        {
+          "code": "FunctionSignature",
+          "type": "codeVoice"
+        },
+        {
+          "text": " is used to represent the signature of a function.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "struct"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionSignature"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionSignature"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionSignature",
+      "type": "topic",
+      "url": "/documentation/testdrs/functionsignature"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionSignature/ExpressibleByUnicodeScalarLiteral-Implementations": {
+      "abstract": [],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature/ExpressibleByUnicodeScalarLiteral-Implementations",
+      "kind": "article",
+      "role": "collectionGroup",
+      "title": "ExpressibleByUnicodeScalarLiteral Implementations",
+      "type": "topic",
+      "url": "/documentation/testdrs/functionsignature/expressiblebyunicodescalarliteral-implementations"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionSignature/init(unicodeScalarLiteral:)": {
+      "abstract": [],
+      "conformance": {
+        "availabilityPrefix": [
+          {
+            "text": "Available when",
+            "type": "text"
+          }
+        ],
+        "conformancePrefix": [
+          {
+            "text": "Conforms when",
+            "type": "text"
+          }
+        ],
+        "constraints": [
+          {
+            "code": "ExtendedGraphemeClusterLiteralType",
+            "type": "codeVoice"
+          },
+          {
+            "text": " is ",
+            "type": "text"
+          },
+          {
+            "code": "Self.UnicodeScalarLiteralType",
+            "type": "codeVoice"
+          },
+          {
+            "text": ".",
+            "type": "text"
+          }
+        ]
+      },
+      "fragments": [
+        {
+          "kind": "identifier",
+          "text": "init"
+        },
+        {
+          "kind": "text",
+          "text": "("
+        },
+        {
+          "kind": "externalParam",
+          "text": "unicodeScalarLiteral"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Self"
+        },
+        {
+          "kind": "text",
+          "text": "."
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s43ExpressibleByExtendedGraphemeClusterLiteralP0cdeF4TypeQa",
+          "text": "ExtendedGraphemeClusterLiteralType"
+        },
+        {
+          "kind": "text",
+          "text": ")"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature/init(unicodeScalarLiteral:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "init(unicodeScalarLiteral:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/functionsignature/init(unicodescalarliteral:)"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/functionsignature/init(unicodescalarliteral:)"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

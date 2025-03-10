@@ -1,1 +1,434 @@
-{"schemaVersion":{"major":0,"patch":0,"minor":3},"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCall","interfaceLanguage":"swift"},"topicSections":[{"generated":true,"identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCall\/id","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCall\/input","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCall\/signature"],"anchor":"Instance-Properties","title":"Instance Properties"}],"sections":[],"kind":"symbol","abstract":[{"type":"text","text":"A concrete implementation of "},{"type":"codeVoice","code":"FunctionCallRepresentation"},{"text":" that captures a function call’s details.","type":"text"}],"primaryContentSections":[{"declarations":[{"tokens":[{"text":"struct","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"FunctionCall"},{"kind":"text","text":"<"},{"text":"Input","kind":"genericParameter"},{"kind":"text","text":", "},{"text":"Output","kind":"genericParameter"},{"text":">","kind":"text"}],"platforms":["macOS"],"languages":["swift"]}],"kind":"declarations"},{"kind":"content","content":[{"anchor":"overview","level":2,"text":"Overview","type":"heading"},{"inlineContent":[{"type":"text","text":"This struct represents a single function call, storing information about what function was called,"},{"text":" ","type":"text"},{"text":"with what parameters, and when it was called. It’s used by the spy system to record function calls","type":"text"},{"type":"text","text":" "},{"type":"text","text":"so they can be verified later in tests."}],"type":"paragraph"},{"type":"aside","style":"note","name":"Note","content":[{"inlineContent":[{"type":"text","text":"This struct is marked as "},{"type":"codeVoice","code":"@unchecked Sendable"},{"type":"text","text":" even though the "},{"type":"codeVoice","code":"input"},{"type":"text","text":" might not actually be "},{"type":"codeVoice","code":"Sendable"},{"type":"text","text":"."},{"text":" ","type":"text"},{"type":"text","text":"The risk is minimal since this is designed to be used with tests and SwiftUI previews."}],"type":"paragraph"}]}]}],"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS"]]},"relationshipsSections":[{"title":"Conforms To","kind":"relationships","type":"conformsTo","identifiers":["doc:\/\/TestDRS\/s28CustomDebugStringConvertibleP","doc:\/\/TestDRS\/s12IdentifiableP","doc:\/\/TestDRS\/s8SendableP"]}],"variants":[{"paths":["\/documentation\/testdrs\/functioncall"],"traits":[{"interfaceLanguage":"swift"}]}],"metadata":{"fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"kind":"identifier","text":"FunctionCall"}],"navigatorTitle":[{"text":"FunctionCall","kind":"identifier"}],"roleHeading":"Structure","title":"FunctionCall","modules":[{"name":"TestDRS"}],"symbolKind":"struct","role":"symbol","externalID":"s:7TestDRS12FunctionCallV"},"references":{"doc://TestDRS/documentation/TestDRS/FunctionCall/input":{"kind":"symbol","role":"symbol","title":"input","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCall\/input","type":"topic","abstract":[{"type":"text","text":"The input parameter(s) passed to the function when it was called."}],"url":"\/documentation\/testdrs\/functioncall\/input","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"input"},{"text":": ","kind":"text"},{"text":"Input","kind":"typeIdentifier"}]},"doc://TestDRS/s8SendableP":{"identifier":"doc:\/\/TestDRS\/s8SendableP","title":"Swift.Sendable","type":"unresolvable"},"doc://TestDRS/documentation/TestDRS/FunctionCall":{"title":"FunctionCall","role":"symbol","kind":"symbol","url":"\/documentation\/testdrs\/functioncall","navigatorTitle":[{"text":"FunctionCall","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCall","type":"topic","fragments":[{"text":"struct","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"FunctionCall"}],"abstract":[{"type":"text","text":"A concrete implementation of "},{"type":"codeVoice","code":"FunctionCallRepresentation"},{"type":"text","text":" that captures a function call’s details."}]},"doc://TestDRS/s28CustomDebugStringConvertibleP":{"identifier":"doc:\/\/TestDRS\/s28CustomDebugStringConvertibleP","title":"Swift.CustomDebugStringConvertible","type":"unresolvable"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/s12IdentifiableP":{"identifier":"doc:\/\/TestDRS\/s12IdentifiableP","title":"Swift.Identifiable","type":"unresolvable"},"doc://TestDRS/documentation/TestDRS/FunctionCall/signature":{"kind":"symbol","fragments":[{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"text":"signature","kind":"identifier"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"FunctionSignature","preciseIdentifier":"s:7TestDRS17FunctionSignatureV"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCall\/signature","url":"\/documentation\/testdrs\/functioncall\/signature","type":"topic","title":"signature","role":"symbol","abstract":[{"type":"text","text":"The signature of the function as captured by "},{"code":"#function","type":"codeVoice"},{"type":"text","text":", e.g., "},{"code":"foo(bar:)","type":"codeVoice"},{"type":"text","text":"."}]},"doc://TestDRS/documentation/TestDRS/FunctionCall/id":{"kind":"symbol","role":"symbol","title":"id","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCall\/id","type":"topic","abstract":[{"text":"A unique identifier for this function call.","type":"text"}],"url":"\/documentation\/testdrs\/functioncall\/id","fragments":[{"text":"let","kind":"keyword"},{"kind":"text","text":" "},{"kind":"identifier","text":"id"},{"kind":"text","text":": "},{"preciseIdentifier":"s:Si","text":"Int","kind":"typeIdentifier"}]}}}
+{
+  "abstract": [
+    {
+      "text": "A concrete implementation of ",
+      "type": "text"
+    },
+    {
+      "code": "FunctionCallRepresentation",
+      "type": "codeVoice"
+    },
+    {
+      "text": " that captures a function call\u2019s details.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/FunctionCall"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS12FunctionCallV",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "struct"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "FunctionCall"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "navigatorTitle": [
+      {
+        "kind": "identifier",
+        "text": "FunctionCall"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Structure",
+    "symbolKind": "struct",
+    "title": "FunctionCall"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "struct"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "FunctionCall"
+            },
+            {
+              "kind": "text",
+              "text": "<"
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ">"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "content": [
+        {
+          "anchor": "overview",
+          "level": 2,
+          "text": "Overview",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "This struct represents a single function call, storing information about what function was called,",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "with what parameters, and when it was called. It\u2019s used by the spy system to record function calls",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "so they can be verified later in tests.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "This struct is marked as ",
+                  "type": "text"
+                },
+                {
+                  "code": "@unchecked Sendable",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " even though the ",
+                  "type": "text"
+                },
+                {
+                  "code": "input",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " might not actually be ",
+                  "type": "text"
+                },
+                {
+                  "code": "Sendable",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": ".",
+                  "type": "text"
+                },
+                {
+                  "text": " ",
+                  "type": "text"
+                },
+                {
+                  "text": "The risk is minimal since this is designed to be used with tests and SwiftUI previews.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "Note",
+          "style": "note",
+          "type": "aside"
+        }
+      ],
+      "kind": "content"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCall": {
+      "abstract": [
+        {
+          "text": "A concrete implementation of ",
+          "type": "text"
+        },
+        {
+          "code": "FunctionCallRepresentation",
+          "type": "codeVoice"
+        },
+        {
+          "text": " that captures a function call\u2019s details.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "struct"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionCall"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCall",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionCall"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionCall",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncall"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCall/id": {
+      "abstract": [
+        {
+          "text": "A unique identifier for this function call.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "let"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "id"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Si",
+          "text": "Int"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCall/id",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "id",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncall/id"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCall/input": {
+      "abstract": [
+        {
+          "text": "The input parameter(s) passed to the function when it was called.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "let"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "input"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCall/input",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "input",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncall/input"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCall/signature": {
+      "abstract": [
+        {
+          "text": "The signature of the function as captured by ",
+          "type": "text"
+        },
+        {
+          "code": "#function",
+          "type": "codeVoice"
+        },
+        {
+          "text": ", e.g., ",
+          "type": "text"
+        },
+        {
+          "code": "foo(bar:)",
+          "type": "codeVoice"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "let"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "signature"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS17FunctionSignatureV",
+          "text": "FunctionSignature"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCall/signature",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "signature",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncall/signature"
+    },
+    "doc://TestDRS/s12IdentifiableP": {
+      "identifier": "doc://TestDRS/s12IdentifiableP",
+      "title": "Swift.Identifiable",
+      "type": "unresolvable"
+    },
+    "doc://TestDRS/s28CustomDebugStringConvertibleP": {
+      "identifier": "doc://TestDRS/s28CustomDebugStringConvertibleP",
+      "title": "Swift.CustomDebugStringConvertible",
+      "type": "unresolvable"
+    },
+    "doc://TestDRS/s8SendableP": {
+      "identifier": "doc://TestDRS/s8SendableP",
+      "title": "Swift.Sendable",
+      "type": "unresolvable"
+    }
+  },
+  "relationshipsSections": [
+    {
+      "identifiers": [
+        "doc://TestDRS/s28CustomDebugStringConvertibleP",
+        "doc://TestDRS/s12IdentifiableP",
+        "doc://TestDRS/s8SendableP"
+      ],
+      "kind": "relationships",
+      "title": "Conforms To",
+      "type": "conformsTo"
+    }
+  ],
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "topicSections": [
+    {
+      "anchor": "Instance-Properties",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/FunctionCall/id",
+        "doc://TestDRS/documentation/TestDRS/FunctionCall/input",
+        "doc://TestDRS/documentation/TestDRS/FunctionCall/signature"
+      ],
+      "title": "Instance Properties"
+    }
+  ],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/functioncall"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

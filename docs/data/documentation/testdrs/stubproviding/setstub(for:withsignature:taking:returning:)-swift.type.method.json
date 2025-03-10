@@ -1,1 +1,708 @@
-{"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/StubProviding\/setStub(for:withSignature:taking:returning:)-swift.type.method","interfaceLanguage":"swift"},"schemaVersion":{"patch":0,"major":0,"minor":3},"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/stubproviding\/setstub(for:withsignature:taking:returning:)-swift.type.method"]}],"sections":[],"abstract":[{"type":"text","text":"Sets a stub for a given function to return a provided output."}],"kind":"symbol","primaryContentSections":[{"declarations":[{"tokens":[{"text":"static","kind":"keyword"},{"kind":"text","text":" "},{"text":"func","kind":"keyword"},{"kind":"text","text":" "},{"kind":"identifier","text":"setStub"},{"text":"<","kind":"text"},{"kind":"genericParameter","text":"Input"},{"text":", ","kind":"text"},{"text":"Output","kind":"genericParameter"},{"text":">(","kind":"text"},{"kind":"externalParam","text":"for"},{"kind":"text","text":" "},{"kind":"internalParam","text":"function"},{"kind":"text","text":": ("},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":") "},{"text":"async","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"keyword","text":"throws"},{"kind":"text","text":" -> "},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"withSignature","kind":"externalParam"},{"kind":"text","text":" "},{"text":"signature","kind":"internalParam"},{"text":": ","kind":"text"},{"text":"FunctionSignature","preciseIdentifier":"s:7TestDRS17FunctionSignatureV","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature","kind":"typeIdentifier"},{"kind":"text","text":", "},{"kind":"externalParam","text":"taking"},{"kind":"text","text":" "},{"text":"inputType","kind":"internalParam"},{"text":": ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"text":".Type? = nil, ","kind":"text"},{"kind":"externalParam","text":"returning"},{"text":" ","kind":"text"},{"kind":"internalParam","text":"output"},{"text":": ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":")"}],"platforms":["macOS"],"languages":["swift"]}],"kind":"declarations"},{"kind":"parameters","parameters":[{"content":[{"inlineContent":[{"type":"text","text":"The function to stub."}],"type":"paragraph"}],"name":"function"},{"name":"signature","content":[{"type":"paragraph","inlineContent":[{"text":"The signature of the function to stub, which can be obtained by right-clicking on the function’s signature and selecting “Copy” > “Copy Symbol Name”.","type":"text"},{"text":" ","type":"text"},{"text":"This should also match what is recorded by the ","type":"text"},{"code":"#function","type":"codeVoice"},{"type":"text","text":" macro."}]}]},{"name":"inputType","content":[{"inlineContent":[{"text":"An optional phantom parameter used to derive the input type of the ","type":"text"},{"code":"function","type":"codeVoice"},{"type":"text","text":" passed in."}],"type":"paragraph"}]},{"content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"The output value to be returned when the function is called."}]}],"name":"output"}]}],"metadata":{"externalID":"s:7TestDRS13StubProvidingPAAE03setC03for13withSignature6taking9returningyqd_0_qd__YaKXE_AA08FunctionH0Vqd__mSgqd_0_tr0_lFZ","roleHeading":"Type Method","extendedModule":"TestDRS","symbolKind":"method","title":"setStub(for:withSignature:taking:returning:)","fragments":[{"kind":"keyword","text":"static"},{"text":" ","kind":"text"},{"text":"func","kind":"keyword"},{"text":" ","kind":"text"},{"text":"setStub","kind":"identifier"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Input"},{"text":", ","kind":"text"},{"text":"Output","kind":"genericParameter"},{"kind":"text","text":">("},{"text":"for","kind":"externalParam"},{"kind":"text","text":": ("},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":") "},{"text":"async","kind":"keyword"},{"kind":"text","text":" "},{"text":"throws","kind":"keyword"},{"kind":"text","text":" -> "},{"text":"Output","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"withSignature","kind":"externalParam"},{"kind":"text","text":": "},{"preciseIdentifier":"s:7TestDRS17FunctionSignatureV","kind":"typeIdentifier","text":"FunctionSignature"},{"kind":"text","text":", "},{"text":"taking","kind":"externalParam"},{"kind":"text","text":": "},{"text":"Input","kind":"typeIdentifier"},{"text":".Type?, ","kind":"text"},{"text":"returning","kind":"externalParam"},{"text":": ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":")"}],"modules":[{"name":"TestDRS"}],"role":"symbol"},"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/StubProviding"]]},"references":{"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/StubProviding":{"kind":"symbol","type":"topic","title":"StubProviding","navigatorTitle":[{"kind":"identifier","text":"StubProviding"}],"abstract":[{"code":"StubProviding","type":"codeVoice"},{"text":" is a protocol that defines a stubbing mechanism for unit testing.","type":"text"},{"text":" ","type":"text"},{"type":"text","text":"It allows you to replace real method calls with stubbed responses, making it easier to test your code in isolation."},{"text":" ","type":"text"},{"text":"Each stub is associated with the function’s signature, input type, and output type.","type":"text"},{"text":" ","type":"text"},{"type":"text","text":"This information is used to retrieve the stub when the function is called."}],"role":"symbol","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StubProviding","fragments":[{"text":"protocol","kind":"keyword"},{"text":" ","kind":"text"},{"text":"StubProviding","kind":"identifier"}],"url":"\/documentation\/testdrs\/stubproviding"},"doc://TestDRS/documentation/TestDRS/StubProviding/setStub(for:withSignature:taking:returning:)-swift.type.method":{"title":"setStub(for:withSignature:taking:returning:)","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StubProviding\/setStub(for:withSignature:taking:returning:)-swift.type.method","type":"topic","kind":"symbol","role":"symbol","fragments":[{"text":"static","kind":"keyword"},{"text":" ","kind":"text"},{"text":"func","kind":"keyword"},{"kind":"text","text":" "},{"text":"setStub","kind":"identifier"},{"kind":"text","text":"<"},{"text":"Input","kind":"genericParameter"},{"kind":"text","text":", "},{"text":"Output","kind":"genericParameter"},{"text":">(","kind":"text"},{"text":"for","kind":"externalParam"},{"kind":"text","text":": ("},{"kind":"typeIdentifier","text":"Input"},{"kind":"text","text":") "},{"text":"async","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"keyword","text":"throws"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","text":"Output"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"withSignature"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"FunctionSignature","preciseIdentifier":"s:7TestDRS17FunctionSignatureV"},{"kind":"text","text":", "},{"kind":"externalParam","text":"taking"},{"text":": ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"text":".Type?, ","kind":"text"},{"text":"returning","kind":"externalParam"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"Output"},{"text":")","kind":"text"}],"abstract":[{"text":"Sets a stub for a given function to return a provided output.","type":"text"}],"url":"\/documentation\/testdrs\/stubproviding\/setstub(for:withsignature:taking:returning:)-swift.type.method"},"doc://TestDRS/documentation/TestDRS/FunctionSignature":{"title":"FunctionSignature","url":"\/documentation\/testdrs\/functionsignature","navigatorTitle":[{"text":"FunctionSignature","kind":"identifier"}],"type":"topic","kind":"symbol","role":"symbol","fragments":[{"text":"struct","kind":"keyword"},{"kind":"text","text":" "},{"text":"FunctionSignature","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature","abstract":[{"type":"codeVoice","code":"FunctionSignature"},{"type":"text","text":" is used to represent the signature of a function."}]}}}
+{
+  "abstract": [
+    {
+      "text": "Sets a stub for a given function to return a provided output.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/StubProviding"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/StubProviding/setStub(for:withSignature:taking:returning:)-swift.type.method"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "extendedModule": "TestDRS",
+    "externalID": "s:7TestDRS13StubProvidingPAAE03setC03for13withSignature6taking9returningyqd_0_qd__YaKXE_AA08FunctionH0Vqd__mSgqd_0_tr0_lFZ",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "static"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "keyword",
+        "text": "func"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "setStub"
+      },
+      {
+        "kind": "text",
+        "text": "<"
+      },
+      {
+        "kind": "genericParameter",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "genericParameter",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ">("
+      },
+      {
+        "kind": "externalParam",
+        "text": "for"
+      },
+      {
+        "kind": "text",
+        "text": ": ("
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ") "
+      },
+      {
+        "kind": "keyword",
+        "text": "async"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "keyword",
+        "text": "throws"
+      },
+      {
+        "kind": "text",
+        "text": " -> "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "withSignature"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:7TestDRS17FunctionSignatureV",
+        "text": "FunctionSignature"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "taking"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ".Type?, "
+      },
+      {
+        "kind": "externalParam",
+        "text": "returning"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ")"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Type Method",
+    "symbolKind": "method",
+    "title": "setStub(for:withSignature:taking:returning:)"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "static"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "func"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "setStub"
+            },
+            {
+              "kind": "text",
+              "text": "<"
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ">("
+            },
+            {
+              "kind": "externalParam",
+              "text": "for"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "function"
+            },
+            {
+              "kind": "text",
+              "text": ": ("
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ") "
+            },
+            {
+              "kind": "keyword",
+              "text": "async"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "throws"
+            },
+            {
+              "kind": "text",
+              "text": " -> "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "withSignature"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "signature"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature",
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:7TestDRS17FunctionSignatureV",
+              "text": "FunctionSignature"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "taking"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "inputType"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ".Type? = nil, "
+            },
+            {
+              "kind": "externalParam",
+              "text": "returning"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "output"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ")"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "kind": "parameters",
+      "parameters": [
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "The function to stub.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "function"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "The signature of the function to stub, which can be obtained by right-clicking on the function\u2019s signature and selecting \u201cCopy\u201d > \u201cCopy Symbol Name\u201d.",
+                  "type": "text"
+                },
+                {
+                  "text": " ",
+                  "type": "text"
+                },
+                {
+                  "text": "This should also match what is recorded by the ",
+                  "type": "text"
+                },
+                {
+                  "code": "#function",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " macro.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "signature"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "An optional phantom parameter used to derive the input type of the ",
+                  "type": "text"
+                },
+                {
+                  "code": "function",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " passed in.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "inputType"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "The output value to be returned when the function is called.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "output"
+        }
+      ]
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionSignature": {
+      "abstract": [
+        {
+          "code": "FunctionSignature",
+          "type": "codeVoice"
+        },
+        {
+          "text": " is used to represent the signature of a function.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "struct"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionSignature"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionSignature"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionSignature",
+      "type": "topic",
+      "url": "/documentation/testdrs/functionsignature"
+    },
+    "doc://TestDRS/documentation/TestDRS/StubProviding": {
+      "abstract": [
+        {
+          "code": "StubProviding",
+          "type": "codeVoice"
+        },
+        {
+          "text": " is a protocol that defines a stubbing mechanism for unit testing.",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "text": "It allows you to replace real method calls with stubbed responses, making it easier to test your code in isolation.",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "text": "Each stub is associated with the function\u2019s signature, input type, and output type.",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "text": "This information is used to retrieve the stub when the function is called.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "StubProviding"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/StubProviding",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "StubProviding"
+        }
+      ],
+      "role": "symbol",
+      "title": "StubProviding",
+      "type": "topic",
+      "url": "/documentation/testdrs/stubproviding"
+    },
+    "doc://TestDRS/documentation/TestDRS/StubProviding/setStub(for:withSignature:taking:returning:)-swift.type.method": {
+      "abstract": [
+        {
+          "text": "Sets a stub for a given function to return a provided output.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "static"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "setStub"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">("
+        },
+        {
+          "kind": "externalParam",
+          "text": "for"
+        },
+        {
+          "kind": "text",
+          "text": ": ("
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "withSignature"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS17FunctionSignatureV",
+          "text": "FunctionSignature"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "taking"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "returning"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ")"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/StubProviding/setStub(for:withSignature:taking:returning:)-swift.type.method",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "setStub(for:withSignature:taking:returning:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/stubproviding/setstub(for:withsignature:taking:returning:)-swift.type.method"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/stubproviding/setstub(for:withsignature:taking:returning:)-swift.type.method"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

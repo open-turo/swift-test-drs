@@ -1,1 +1,465 @@
-{"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/StaticTestable\/register(with:)-761zh","interfaceLanguage":"swift"},"abstract":[{"text":"Inherited from ","type":"text"},{"type":"codeVoice","code":"StaticTestable.register(with:)"},{"text":".","type":"text"}],"schemaVersion":{"patch":0,"major":0,"minor":3},"kind":"symbol","hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/StaticTestable","doc:\/\/TestDRS\/documentation\/TestDRS\/StaticTestable\/register(with:)-7epvj"]]},"metadata":{"role":"symbol","title":"register(with:)","conformance":{"availabilityPrefix":[{"type":"text","text":"Available when"}],"conformancePrefix":[{"type":"text","text":"Conforms when"}],"constraints":[{"type":"codeVoice","code":"Self"},{"text":" conforms to ","type":"text"},{"type":"codeVoice","code":"StubProviding"},{"type":"text","text":"."}]},"extendedModule":"TestDRS","modules":[{"name":"TestDRS"}],"roleHeading":"Type Method","symbolKind":"method","fragments":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"kind":"keyword","text":"func"},{"text":" ","kind":"text"},{"text":"register","kind":"identifier"},{"text":"(","kind":"text"},{"kind":"externalParam","text":"with"},{"text":": ","kind":"text"},{"text":"inout","kind":"keyword"},{"kind":"text","text":" "},{"text":"StaticTestingContext","preciseIdentifier":"s:7TestDRS20StaticTestingContextC","kind":"typeIdentifier"},{"kind":"text","text":")"}],"externalID":"s:7TestDRS14StaticTestablePA2A13StubProvidingRzrlE8register4withyAA0C14TestingContextCz_tFZ"},"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"kind":"keyword","text":"static"},{"text":" ","kind":"text"},{"kind":"keyword","text":"func"},{"text":" ","kind":"text"},{"text":"register","kind":"identifier"},{"kind":"text","text":"("},{"kind":"externalParam","text":"with"},{"text":" ","kind":"text"},{"text":"context","kind":"internalParam"},{"text":": ","kind":"text"},{"text":"inout","kind":"keyword"},{"text":" ","kind":"text"},{"text":"StaticTestingContext","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StaticTestingContext","preciseIdentifier":"s:7TestDRS20StaticTestingContextC","kind":"typeIdentifier"},{"kind":"text","text":")"}],"platforms":["macOS"],"languages":["swift"]}]}],"variants":[{"paths":["\/documentation\/testdrs\/statictestable\/register(with:)-761zh"],"traits":[{"interfaceLanguage":"swift"}]}],"sections":[],"references":{"doc://TestDRS/documentation/TestDRS/StaticTestable/register(with:)-761zh":{"conformance":{"constraints":[{"type":"codeVoice","code":"Self"},{"type":"text","text":" conforms to "},{"code":"StubProviding","type":"codeVoice"},{"type":"text","text":"."}],"availabilityPrefix":[{"text":"Available when","type":"text"}],"conformancePrefix":[{"type":"text","text":"Conforms when"}]},"title":"register(with:)","role":"symbol","url":"\/documentation\/testdrs\/statictestable\/register(with:)-761zh","kind":"symbol","type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StaticTestable\/register(with:)-761zh","abstract":[],"fragments":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"text":"register","kind":"identifier"},{"kind":"text","text":"("},{"kind":"externalParam","text":"with"},{"kind":"text","text":": "},{"text":"inout","kind":"keyword"},{"text":" ","kind":"text"},{"text":"StaticTestingContext","preciseIdentifier":"s:7TestDRS20StaticTestingContextC","kind":"typeIdentifier"},{"kind":"text","text":")"}]},"doc://TestDRS/documentation/TestDRS/StaticTestable/register(with:)-7epvj":{"role":"symbol","type":"topic","defaultImplementations":3,"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StaticTestable\/register(with:)-7epvj","title":"register(with:)","required":true,"fragments":[{"text":"static","kind":"keyword"},{"kind":"text","text":" "},{"text":"func","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"register"},{"kind":"text","text":"("},{"kind":"externalParam","text":"with"},{"text":": ","kind":"text"},{"text":"inout","kind":"keyword"},{"kind":"text","text":" "},{"kind":"typeIdentifier","text":"StaticTestingContext","preciseIdentifier":"s:7TestDRS20StaticTestingContextC"},{"kind":"text","text":")"}],"abstract":[{"text":"Registers the type with the static testing context.","type":"text"}],"kind":"symbol","url":"\/documentation\/testdrs\/statictestable\/register(with:)-7epvj"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/StaticTestable":{"fragments":[{"kind":"keyword","text":"protocol"},{"text":" ","kind":"text"},{"text":"StaticTestable","kind":"identifier"}],"title":"StaticTestable","url":"\/documentation\/testdrs\/statictestable","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StaticTestable","abstract":[{"text":"A type whose static members can be tested using a ","type":"text"},{"code":"StaticTestingContext","type":"codeVoice"},{"type":"text","text":"."}],"type":"topic","role":"symbol","kind":"symbol","navigatorTitle":[{"kind":"identifier","text":"StaticTestable"}]},"doc://TestDRS/documentation/TestDRS/StaticTestingContext":{"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StaticTestingContext","kind":"symbol","navigatorTitle":[{"text":"StaticTestingContext","kind":"identifier"}],"fragments":[{"kind":"keyword","text":"class"},{"text":" ","kind":"text"},{"text":"StaticTestingContext","kind":"identifier"}],"title":"StaticTestingContext","type":"topic","role":"symbol","abstract":[],"url":"\/documentation\/testdrs\/statictestingcontext"}}}
+{
+  "abstract": [
+    {
+      "text": "Inherited from ",
+      "type": "text"
+    },
+    {
+      "code": "StaticTestable.register(with:)",
+      "type": "codeVoice"
+    },
+    {
+      "text": ".",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/StaticTestable",
+        "doc://TestDRS/documentation/TestDRS/StaticTestable/register(with:)-7epvj"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/StaticTestable/register(with:)-761zh"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "conformance": {
+      "availabilityPrefix": [
+        {
+          "text": "Available when",
+          "type": "text"
+        }
+      ],
+      "conformancePrefix": [
+        {
+          "text": "Conforms when",
+          "type": "text"
+        }
+      ],
+      "constraints": [
+        {
+          "code": "Self",
+          "type": "codeVoice"
+        },
+        {
+          "text": " conforms to ",
+          "type": "text"
+        },
+        {
+          "code": "StubProviding",
+          "type": "codeVoice"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ]
+    },
+    "extendedModule": "TestDRS",
+    "externalID": "s:7TestDRS14StaticTestablePA2A13StubProvidingRzrlE8register4withyAA0C14TestingContextCz_tFZ",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "static"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "keyword",
+        "text": "func"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "register"
+      },
+      {
+        "kind": "text",
+        "text": "("
+      },
+      {
+        "kind": "externalParam",
+        "text": "with"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "keyword",
+        "text": "inout"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:7TestDRS20StaticTestingContextC",
+        "text": "StaticTestingContext"
+      },
+      {
+        "kind": "text",
+        "text": ")"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Type Method",
+    "symbolKind": "method",
+    "title": "register(with:)"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "static"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "func"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "register"
+            },
+            {
+              "kind": "text",
+              "text": "("
+            },
+            {
+              "kind": "externalParam",
+              "text": "with"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "context"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "keyword",
+              "text": "inout"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "identifier": "doc://TestDRS/documentation/TestDRS/StaticTestingContext",
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:7TestDRS20StaticTestingContextC",
+              "text": "StaticTestingContext"
+            },
+            {
+              "kind": "text",
+              "text": ")"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/StaticTestable": {
+      "abstract": [
+        {
+          "text": "A type whose static members can be tested using a ",
+          "type": "text"
+        },
+        {
+          "code": "StaticTestingContext",
+          "type": "codeVoice"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "StaticTestable"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/StaticTestable",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "StaticTestable"
+        }
+      ],
+      "role": "symbol",
+      "title": "StaticTestable",
+      "type": "topic",
+      "url": "/documentation/testdrs/statictestable"
+    },
+    "doc://TestDRS/documentation/TestDRS/StaticTestable/register(with:)-761zh": {
+      "abstract": [],
+      "conformance": {
+        "availabilityPrefix": [
+          {
+            "text": "Available when",
+            "type": "text"
+          }
+        ],
+        "conformancePrefix": [
+          {
+            "text": "Conforms when",
+            "type": "text"
+          }
+        ],
+        "constraints": [
+          {
+            "code": "Self",
+            "type": "codeVoice"
+          },
+          {
+            "text": " conforms to ",
+            "type": "text"
+          },
+          {
+            "code": "StubProviding",
+            "type": "codeVoice"
+          },
+          {
+            "text": ".",
+            "type": "text"
+          }
+        ]
+      },
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "static"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "register"
+        },
+        {
+          "kind": "text",
+          "text": "("
+        },
+        {
+          "kind": "externalParam",
+          "text": "with"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "keyword",
+          "text": "inout"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS20StaticTestingContextC",
+          "text": "StaticTestingContext"
+        },
+        {
+          "kind": "text",
+          "text": ")"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/StaticTestable/register(with:)-761zh",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "register(with:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/statictestable/register(with:)-761zh"
+    },
+    "doc://TestDRS/documentation/TestDRS/StaticTestable/register(with:)-7epvj": {
+      "abstract": [
+        {
+          "text": "Registers the type with the static testing context.",
+          "type": "text"
+        }
+      ],
+      "defaultImplementations": 3,
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "static"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "register"
+        },
+        {
+          "kind": "text",
+          "text": "("
+        },
+        {
+          "kind": "externalParam",
+          "text": "with"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "keyword",
+          "text": "inout"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS20StaticTestingContextC",
+          "text": "StaticTestingContext"
+        },
+        {
+          "kind": "text",
+          "text": ")"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/StaticTestable/register(with:)-7epvj",
+      "kind": "symbol",
+      "required": true,
+      "role": "symbol",
+      "title": "register(with:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/statictestable/register(with:)-7epvj"
+    },
+    "doc://TestDRS/documentation/TestDRS/StaticTestingContext": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "class"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "StaticTestingContext"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/StaticTestingContext",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "StaticTestingContext"
+        }
+      ],
+      "role": "symbol",
+      "title": "StaticTestingContext",
+      "type": "topic",
+      "url": "/documentation/testdrs/statictestingcontext"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/statictestable/register(with:)-761zh"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

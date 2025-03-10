@@ -1,1 +1,276 @@
-{"kind":"symbol","identifier":{"interfaceLanguage":"swift","url":"doc:\/\/TestDRS\/documentation\/TestDRS\/Spy\/blackBox"},"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/Spy"]]},"abstract":[{"text":"The storage mechanism for recorded function calls.","type":"text"}],"sections":[],"schemaVersion":{"patch":0,"minor":3,"major":0},"metadata":{"modules":[{"name":"TestDRS"}],"role":"symbol","fragments":[{"kind":"keyword","text":"var"},{"text":" ","kind":"text"},{"kind":"identifier","text":"blackBox"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"BlackBox","preciseIdentifier":"s:7TestDRS8BlackBoxC"}],"symbolKind":"property","required":true,"roleHeading":"Instance Property","title":"blackBox","externalID":"s:7TestDRS3SpyP8blackBoxAA05BlackE0Cvp"},"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/spy\/blackbox"]}],"primaryContentSections":[{"declarations":[{"platforms":["macOS"],"languages":["swift"],"tokens":[{"kind":"keyword","text":"var"},{"text":" ","kind":"text"},{"kind":"identifier","text":"blackBox"},{"text":": ","kind":"text"},{"text":"BlackBox","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/BlackBox","kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS8BlackBoxC"},{"text":" { ","kind":"text"},{"kind":"keyword","text":"get"},{"kind":"text","text":" }"}]}],"kind":"declarations"},{"kind":"content","content":[{"level":2,"text":"Discussion","type":"heading","anchor":"discussion"},{"type":"paragraph","inlineContent":[{"type":"text","text":"The "},{"code":"blackBox","type":"codeVoice"},{"type":"text","text":" stores all function calls made to the spy, allowing for later verification."}]}]}],"references":{"doc://TestDRS/documentation/TestDRS/BlackBox":{"abstract":[{"text":"A mechanism to record and look up function calls for testing purposes.","type":"text"}],"navigatorTitle":[{"text":"BlackBox","kind":"identifier"}],"url":"\/documentation\/testdrs\/blackbox","type":"topic","kind":"symbol","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/BlackBox","role":"symbol","title":"BlackBox","fragments":[{"kind":"keyword","text":"class"},{"text":" ","kind":"text"},{"text":"BlackBox","kind":"identifier"}]},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/Spy":{"kind":"symbol","role":"symbol","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"Spy"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/Spy","navigatorTitle":[{"text":"Spy","kind":"identifier"}],"title":"Spy","abstract":[{"type":"text","text":"A protocol that enables observing and verifying function calls during testing."}],"type":"topic","url":"\/documentation\/testdrs\/spy"},"doc://TestDRS/documentation/TestDRS/Spy/blackBox":{"kind":"symbol","url":"\/documentation\/testdrs\/spy\/blackbox","title":"blackBox","required":true,"role":"symbol","fragments":[{"text":"var","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"blackBox"},{"kind":"text","text":": "},{"text":"BlackBox","kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS8BlackBoxC"}],"abstract":[{"text":"The storage mechanism for recorded function calls.","type":"text"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/Spy\/blackBox","type":"topic"}}}
+{
+  "abstract": [
+    {
+      "text": "The storage mechanism for recorded function calls.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/Spy"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/Spy/blackBox"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS3SpyP8blackBoxAA05BlackE0Cvp",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "var"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "blackBox"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:7TestDRS8BlackBoxC",
+        "text": "BlackBox"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "required": true,
+    "role": "symbol",
+    "roleHeading": "Instance Property",
+    "symbolKind": "property",
+    "title": "blackBox"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "var"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "blackBox"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "identifier": "doc://TestDRS/documentation/TestDRS/BlackBox",
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:7TestDRS8BlackBoxC",
+              "text": "BlackBox"
+            },
+            {
+              "kind": "text",
+              "text": " { "
+            },
+            {
+              "kind": "keyword",
+              "text": "get"
+            },
+            {
+              "kind": "text",
+              "text": " }"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "content": [
+        {
+          "anchor": "discussion",
+          "level": 2,
+          "text": "Discussion",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "The ",
+              "type": "text"
+            },
+            {
+              "code": "blackBox",
+              "type": "codeVoice"
+            },
+            {
+              "text": " stores all function calls made to the spy, allowing for later verification.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        }
+      ],
+      "kind": "content"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/BlackBox": {
+      "abstract": [
+        {
+          "text": "A mechanism to record and look up function calls for testing purposes.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "class"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "BlackBox"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/BlackBox",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "BlackBox"
+        }
+      ],
+      "role": "symbol",
+      "title": "BlackBox",
+      "type": "topic",
+      "url": "/documentation/testdrs/blackbox"
+    },
+    "doc://TestDRS/documentation/TestDRS/Spy": {
+      "abstract": [
+        {
+          "text": "A protocol that enables observing and verifying function calls during testing.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "Spy"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/Spy",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "Spy"
+        }
+      ],
+      "role": "symbol",
+      "title": "Spy",
+      "type": "topic",
+      "url": "/documentation/testdrs/spy"
+    },
+    "doc://TestDRS/documentation/TestDRS/Spy/blackBox": {
+      "abstract": [
+        {
+          "text": "The storage mechanism for recorded function calls.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "var"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "blackBox"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS8BlackBoxC",
+          "text": "BlackBox"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/Spy/blackBox",
+      "kind": "symbol",
+      "required": true,
+      "role": "symbol",
+      "title": "blackBox",
+      "type": "topic",
+      "url": "/documentation/testdrs/spy/blackbox"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/spy/blackbox"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

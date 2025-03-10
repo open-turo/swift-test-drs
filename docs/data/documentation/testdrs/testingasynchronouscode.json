@@ -1,1 +1,1046 @@
-{"sections":[],"abstract":[{"type":"text","text":"Learn best practices for testing asynchronous Swift code with TestDRS."}],"seeAlsoSections":[{"identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/confirmationOfCall(to:taking:returning:timeLimit:isolation:)","doc:\/\/TestDRS\/documentation\/TestDRS\/confirmationOfCall(to:with:returning:timeLimit:isolation:)","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation"],"title":"Asynchronous testing","generated":true,"anchor":"Asynchronous-testing"}],"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/testingasynchronouscode"]}],"primaryContentSections":[{"content":[{"type":"heading","level":2,"anchor":"Overview","text":"Overview"},{"inlineContent":[{"text":"Modern Swift applications commonly use asynchronous programming with ","type":"text"},{"type":"codeVoice","code":"async\/await"},{"type":"text","text":" for operations like network requests, database access, and other potentially long-running tasks. Testing asynchronous code presents unique challenges, but TestDRS provides solutions to make it straightforward. This article will guide you through testing asynchronous code and verifying expectations using TestDRS."}],"type":"paragraph"},{"type":"heading","text":"Prefer direct awaiting when possible","level":2,"anchor":"Prefer-direct-awaiting-when-possible"},{"type":"paragraph","inlineContent":[{"type":"text","text":"The most straightforward way to test asynchronous code is to make your test functions async and directly await the operations:"}]},{"type":"codeListing","syntax":"swift","code":["func testFetchWeather() async throws {","    \/\/ Arrange","    let mockWeatherService = MockWeatherService()","    let expectedWeather = Weather(temperature: 72, condition: .sunny)","    #stub(mockWeatherService.fetchWeather, with: \"San Francisco\", returning: expectedWeather)","    ","    let viewModel = WeatherViewModel(weatherService: mockWeatherService)","    ","    \/\/ Act - directly await the async operation","    try await viewModel.loadWeather(for: \"San Francisco\")","    ","    \/\/ Assert","    XCTAssertEqual(viewModel.currentWeather, expectedWeather)","    #expectWasCalled(mockWeatherService.fetchWeather, with: \"San Francisco\")","}"]},{"type":"heading","level":3,"anchor":"Common-mistake-Unnecessary-use-of-Task","text":"Common mistake: Unnecessary use of Task"},{"type":"paragraph","inlineContent":[{"type":"text","text":"A common mistake is wrapping async calls in a "},{"type":"codeVoice","code":"Task"},{"text":" when it’s not necessary:","type":"text"}]},{"type":"codeListing","code":["\/\/ ❌ INCORRECT: Unnecessarily using Task","func testFetchWeather() throws {","    let mockWeatherService = MockWeatherService()","    let viewModel = WeatherViewModel(weatherService: mockWeatherService)","    ","    \/\/ This creates a Task but doesn't wait for it to complete","    Task {","        try await viewModel.loadWeather(for: \"San Francisco\")","    }","    ","    \/\/ ⚠️ This assertion might run before the Task completes","    #expectWasCalled(mockWeatherService.fetchWeather, with: \"San Francisco\")","}","","\/\/ ✅ CORRECT: Simply make the test async","func testFetchWeather() async throws {","    let mockWeatherService = MockWeatherService()","    let viewModel = WeatherViewModel(weatherService: mockWeatherService)","    ","    \/\/ Directly await the async operation","    try await viewModel.loadWeather(for: \"San Francisco\")","    ","    \/\/ This assertion runs after the async operation completes","    #expectWasCalled(mockWeatherService.fetchWeather, with: \"San Francisco\")","}"],"syntax":"swift"},{"type":"heading","text":"Refactoring production code for testability","level":3,"anchor":"Refactoring-production-code-for-testability"},{"inlineContent":[{"type":"text","text":"Sometimes, you might need to refactor your production code to make it more testable. For example, if your code dispatches work to background tasks, consider exposing an async function that can be directly awaited:"}],"type":"paragraph"},{"type":"codeListing","syntax":"swift","code":["\/\/ ❌ HARD TO TEST: Fire-and-forget Task creation","class WeatherViewModel {","    func loadWeatherInBackground(for city: String) {","        Task {","            do {","                let weather = try await weatherService.fetchWeather(for: city)","                self.currentWeather = weather","            } catch {","                self.error = error","            }","        }","    }","}","","\/\/ ✅ EASIER TO TEST: Expose an async function","class WeatherViewModel {","    func loadWeather(for city: String) async {","        do {","            let weather = try await weatherService.fetchWeather(for: city)","            self.currentWeather = weather","        } catch {","            self.error = error","        }","    }","    ","    \/\/ Keep the fire-and-forget method, but have it call the async method","    func loadWeatherInBackground(for city: String) {","        Task {","            await loadWeather(for: city)","        }","    }","}"]},{"type":"heading","level":2,"text":"When to use `#confirmationOfCall`","anchor":"When-to-use-confirmationOfCall"},{"type":"paragraph","inlineContent":[{"type":"text","text":"While direct awaiting is preferable, there are scenarios where you can’t directly await an operation:"}]},{"items":[{"content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"Testing code that uses timers or debouncing"}]}]},{"content":[{"type":"paragraph","inlineContent":[{"text":"Testing event-driven systems (like Combine publishers)","type":"text"}]}]},{"content":[{"inlineContent":[{"text":"Testing callbacks from notification systems","type":"text"}],"type":"paragraph"}]},{"content":[{"type":"paragraph","inlineContent":[{"text":"Testing code that creates detached tasks you can’t await","type":"text"}]}]},{"content":[{"type":"paragraph","inlineContent":[{"text":"Testing asynchronous UI interactions","type":"text"}]}]}],"type":"orderedList"},{"type":"paragraph","inlineContent":[{"text":"In these cases, ","type":"text"},{"type":"codeVoice","code":"#confirmationOfCall"},{"type":"text","text":" provides a way to asynchronously wait for and verify function calls."}]},{"level":3,"type":"heading","text":"Example: Testing notification observers","anchor":"Example-Testing-notification-observers"},{"syntax":"swift","code":["class NetworkMonitor {","    private let networkClient: NetworkClientProtocol","    ","    init(networkClient: NetworkClientProtocol) {","        self.networkClient = networkClient","        setupNotifications()","    }","    ","    private func setupNotifications() {","        NotificationCenter.default.addObserver(","            self,","            selector: #selector(appDidBecomeActive),","            name: UIApplication.didBecomeActiveNotification,","            object: nil","        )","    }","    ","    @objc private func appDidBecomeActive() {","        Task {","            try? await networkClient.checkConnectivity()","        }","    }","}","","\/\/ Testing with confirmationOfCall","func testNetworkMonitorChecksConnectivityWhenAppBecomesActive() async {","    \/\/ Arrange","    let mockNetworkClient = MockNetworkClient()","    let monitor = NetworkMonitor(networkClient: mockNetworkClient)","    ","    \/\/ Act - post the notification","    NotificationCenter.default.post(","        name: UIApplication.didBecomeActiveNotification,","        object: nil","    )","    ","    \/\/ Assert - wait for the async call triggered by the notification","    await #confirmationOfCall(to: mockNetworkClient.checkConnectivity)","}"],"type":"codeListing"},{"level":2,"text":"Controlling time limits","type":"heading","anchor":"Controlling-time-limits"},{"inlineContent":[{"type":"text","text":"By default, "},{"type":"codeVoice","code":"#confirmationOfCall"},{"text":" will wait an infinite time, but you can specify a custom time limit:","type":"text"}],"type":"paragraph"},{"code":["\/\/ Wait up to 5 seconds for a long-running operation","await #confirmationOfCall(to: mockLongRunningService.process, timeLimit: .seconds(5))"],"syntax":"swift","type":"codeListing"},{"level":2,"text":"Verifying the number of calls","type":"heading","anchor":"Verifying-the-number-of-calls"},{"inlineContent":[{"type":"text","text":"On its own, "},{"type":"codeVoice","code":"#confirmationOfCall"},{"type":"text","text":" waits for a single call. Just as with "},{"type":"codeVoice","code":"expectWasCalled"},{"type":"text","text":" though, you can verify multiple calls using "},{"code":"occurring","type":"codeVoice"},{"type":"text","text":" and "},{"type":"codeVoice","code":"occurringWithin"},{"type":"text","text":":"}],"type":"paragraph"},{"code":["\/\/ Confirm the function was called exactly 3 times","await #confirmationOfCall(to: mockClient.fetchData)","    .occurring(times: 3)","    ","\/\/ Confirm the function was called between 2 and 5 times","await #confirmationOfCall(to: mockClient.fetchData)","    .occurringWithin(times: 2...5)"],"type":"codeListing","syntax":"swift"},{"inlineContent":[{"type":"text","text":"You can also use "},{"type":"codeVoice","code":"exactlyOnce"},{"text":" to verify that additional calls were not made:","type":"text"}],"type":"paragraph"},{"syntax":"swift","type":"codeListing","code":["\/\/ Confirm the function was called exactly once","await #confirmationOfCall(to: mockClient.fetchData)","    .exactlyOnce()"]},{"inlineContent":[{"type":"text","text":"Note that for any of these methods, additional calls may be made after the test is finished without causing a failure."},{"type":"text","text":" "},{"type":"text","text":"This is because these methods do not introduce any sort of artificial delay in order to wait for a failure to occur."}],"type":"paragraph"},{"text":"Summary","type":"heading","anchor":"Summary","level":2},{"type":"paragraph","inlineContent":[{"text":"Testing asynchronous code using TestDRS is straightforward when following these principles:","type":"text"}]},{"type":"orderedList","items":[{"content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"Directly await async operations whenever possible"}]}]},{"content":[{"inlineContent":[{"text":"Refactor production code to make it more testable when needed","type":"text"}],"type":"paragraph"}]},{"content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"Use "},{"code":"confirmationOfCall","type":"codeVoice"},{"text":" only when you can’t directly await the operation","type":"text"}]}]}]},{"type":"paragraph","inlineContent":[{"text":"By following these guidelines, you can write reliable tests for even complex asynchronous behavior in your Swift applications.","type":"text"}]}],"kind":"content"}],"kind":"article","metadata":{"roleHeading":"Article","modules":[{"name":"TestDRS"}],"role":"article","title":"Testing asynchronous code"},"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS"]]},"identifier":{"interfaceLanguage":"swift","url":"doc:\/\/TestDRS\/documentation\/TestDRS\/TestingAsynchronousCode"},"schemaVersion":{"patch":0,"minor":3,"major":0},"references":{"doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:taking:returning:timeLimit:isolation:)":{"fragments":[{"text":"macro","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"confirmationOfCall"},{"text":"<","kind":"text"},{"kind":"genericParameter","text":"Input"},{"kind":"text","text":", "},{"text":"Output","kind":"genericParameter"},{"text":">(","kind":"text"},{"text":"to","kind":"externalParam"},{"text":": (","kind":"text"},{"kind":"typeIdentifier","text":"Input"},{"kind":"text","text":") "},{"text":"async","kind":"keyword"},{"kind":"text","text":" "},{"kind":"keyword","text":"throws"},{"kind":"text","text":" -> "},{"text":"Output","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"taking","kind":"externalParam"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"Input"},{"text":".Type?, ","kind":"text"},{"kind":"externalParam","text":"returning"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"Output"},{"kind":"text","text":".Type?, "},{"kind":"externalParam","text":"timeLimit"},{"kind":"text","text":": "},{"text":"Duration","kind":"typeIdentifier","preciseIdentifier":"s:s8DurationV"},{"kind":"text","text":", "},{"kind":"externalParam","text":"isolation"},{"kind":"text","text":": "},{"text":"isolated","kind":"keyword"},{"text":" (any ","kind":"text"},{"text":"Actor","preciseIdentifier":"s:ScA","kind":"typeIdentifier"},{"text":")?) -> ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS24FunctionCallConfirmationV","text":"FunctionCallConfirmation"},{"text":"<","kind":"text"},{"preciseIdentifier":"s:7TestDRS13MatchingFirstO","text":"MatchingFirst","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"Output","kind":"typeIdentifier"},{"text":">","kind":"text"}],"url":"\/documentation\/testdrs\/confirmationofcall(to:taking:returning:timelimit:isolation:)","type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/confirmationOfCall(to:taking:returning:timeLimit:isolation:)","kind":"symbol","title":"confirmationOfCall(to:taking:returning:timeLimit:isolation:)","abstract":[{"type":"text","text":"Awaits confirmation of a function call."}],"role":"symbol"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:with:returning:timeLimit:isolation:)":{"kind":"symbol","role":"symbol","title":"confirmationOfCall(to:with:returning:timeLimit:isolation:)","type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/confirmationOfCall(to:with:returning:timeLimit:isolation:)","abstract":[{"text":"Awaits confirmation of a function call with an expected input.","type":"text"}],"url":"\/documentation\/testdrs\/confirmationofcall(to:with:returning:timelimit:isolation:)","fragments":[{"kind":"keyword","text":"macro"},{"text":" ","kind":"text"},{"text":"confirmationOfCall","kind":"identifier"},{"text":"<each ","kind":"text"},{"text":"Input","kind":"genericParameter"},{"kind":"text","text":", "},{"text":"Output","kind":"genericParameter"},{"text":">(","kind":"text"},{"kind":"externalParam","text":"to"},{"text":": (repeat each ","kind":"text"},{"kind":"typeIdentifier","text":"Input"},{"text":") ","kind":"text"},{"kind":"keyword","text":"async"},{"text":" ","kind":"text"},{"text":"throws","kind":"keyword"},{"text":" -> ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"with","kind":"externalParam"},{"text":": repeat each ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"returning","kind":"externalParam"},{"kind":"text","text":": "},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":".Type?, "},{"text":"timeLimit","kind":"externalParam"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Duration","preciseIdentifier":"s:s8DurationV"},{"text":", ","kind":"text"},{"text":"isolation","kind":"externalParam"},{"kind":"text","text":": "},{"kind":"keyword","text":"isolated"},{"text":" (any ","kind":"text"},{"text":"Actor","preciseIdentifier":"s:ScA","kind":"typeIdentifier"},{"text":")?) -> ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS24FunctionCallConfirmationV","text":"FunctionCallConfirmation"},{"text":"<","kind":"text"},{"text":"MatchingFirst","kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS13MatchingFirstO"},{"text":", (repeat each ","kind":"text"},{"kind":"typeIdentifier","text":"Input"},{"kind":"text","text":"), "},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":">"}]},"doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation":{"kind":"symbol","type":"topic","title":"FunctionCallConfirmation","navigatorTitle":[{"text":"FunctionCallConfirmation","kind":"identifier"}],"abstract":[{"text":"Encapsulates the result of a ","type":"text"},{"code":"#confirmationOfCall","type":"codeVoice"},{"text":".","type":"text"}],"role":"symbol","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation","fragments":[{"kind":"keyword","text":"struct"},{"text":" ","kind":"text"},{"text":"FunctionCallConfirmation","kind":"identifier"}],"url":"\/documentation\/testdrs\/functioncallconfirmation"}}}
+{
+  "abstract": [
+    {
+      "text": "Learn best practices for testing asynchronous Swift code with TestDRS.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/TestingAsynchronousCode"
+  },
+  "kind": "article",
+  "metadata": {
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "article",
+    "roleHeading": "Article",
+    "title": "Testing asynchronous code"
+  },
+  "primaryContentSections": [
+    {
+      "content": [
+        {
+          "anchor": "Overview",
+          "level": 2,
+          "text": "Overview",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Modern Swift applications commonly use asynchronous programming with ",
+              "type": "text"
+            },
+            {
+              "code": "async/await",
+              "type": "codeVoice"
+            },
+            {
+              "text": " for operations like network requests, database access, and other potentially long-running tasks. Testing asynchronous code presents unique challenges, but TestDRS provides solutions to make it straightforward. This article will guide you through testing asynchronous code and verifying expectations using TestDRS.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "anchor": "Prefer-direct-awaiting-when-possible",
+          "level": 2,
+          "text": "Prefer direct awaiting when possible",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "The most straightforward way to test asynchronous code is to make your test functions async and directly await the operations:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "func testFetchWeather() async throws {",
+            "    // Arrange",
+            "    let mockWeatherService = MockWeatherService()",
+            "    let expectedWeather = Weather(temperature: 72, condition: .sunny)",
+            "    #stub(mockWeatherService.fetchWeather, with: \"San Francisco\", returning: expectedWeather)",
+            "    ",
+            "    let viewModel = WeatherViewModel(weatherService: mockWeatherService)",
+            "    ",
+            "    // Act - directly await the async operation",
+            "    try await viewModel.loadWeather(for: \"San Francisco\")",
+            "    ",
+            "    // Assert",
+            "    XCTAssertEqual(viewModel.currentWeather, expectedWeather)",
+            "    #expectWasCalled(mockWeatherService.fetchWeather, with: \"San Francisco\")",
+            "}"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "anchor": "Common-mistake-Unnecessary-use-of-Task",
+          "level": 3,
+          "text": "Common mistake: Unnecessary use of Task",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "A common mistake is wrapping async calls in a ",
+              "type": "text"
+            },
+            {
+              "code": "Task",
+              "type": "codeVoice"
+            },
+            {
+              "text": " when it\u2019s not necessary:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "// \u274c INCORRECT: Unnecessarily using Task",
+            "func testFetchWeather() throws {",
+            "    let mockWeatherService = MockWeatherService()",
+            "    let viewModel = WeatherViewModel(weatherService: mockWeatherService)",
+            "    ",
+            "    // This creates a Task but doesn't wait for it to complete",
+            "    Task {",
+            "        try await viewModel.loadWeather(for: \"San Francisco\")",
+            "    }",
+            "    ",
+            "    // \u26a0\ufe0f This assertion might run before the Task completes",
+            "    #expectWasCalled(mockWeatherService.fetchWeather, with: \"San Francisco\")",
+            "}",
+            "",
+            "// \u2705 CORRECT: Simply make the test async",
+            "func testFetchWeather() async throws {",
+            "    let mockWeatherService = MockWeatherService()",
+            "    let viewModel = WeatherViewModel(weatherService: mockWeatherService)",
+            "    ",
+            "    // Directly await the async operation",
+            "    try await viewModel.loadWeather(for: \"San Francisco\")",
+            "    ",
+            "    // This assertion runs after the async operation completes",
+            "    #expectWasCalled(mockWeatherService.fetchWeather, with: \"San Francisco\")",
+            "}"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "anchor": "Refactoring-production-code-for-testability",
+          "level": 3,
+          "text": "Refactoring production code for testability",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Sometimes, you might need to refactor your production code to make it more testable. For example, if your code dispatches work to background tasks, consider exposing an async function that can be directly awaited:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "// \u274c HARD TO TEST: Fire-and-forget Task creation",
+            "class WeatherViewModel {",
+            "    func loadWeatherInBackground(for city: String) {",
+            "        Task {",
+            "            do {",
+            "                let weather = try await weatherService.fetchWeather(for: city)",
+            "                self.currentWeather = weather",
+            "            } catch {",
+            "                self.error = error",
+            "            }",
+            "        }",
+            "    }",
+            "}",
+            "",
+            "// \u2705 EASIER TO TEST: Expose an async function",
+            "class WeatherViewModel {",
+            "    func loadWeather(for city: String) async {",
+            "        do {",
+            "            let weather = try await weatherService.fetchWeather(for: city)",
+            "            self.currentWeather = weather",
+            "        } catch {",
+            "            self.error = error",
+            "        }",
+            "    }",
+            "    ",
+            "    // Keep the fire-and-forget method, but have it call the async method",
+            "    func loadWeatherInBackground(for city: String) {",
+            "        Task {",
+            "            await loadWeather(for: city)",
+            "        }",
+            "    }",
+            "}"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "anchor": "When-to-use-confirmationOfCall",
+          "level": 2,
+          "text": "When to use `#confirmationOfCall`",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "While direct awaiting is preferable, there are scenarios where you can\u2019t directly await an operation:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "items": [
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Testing code that uses timers or debouncing",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Testing event-driven systems (like Combine publishers)",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Testing callbacks from notification systems",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Testing code that creates detached tasks you can\u2019t await",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Testing asynchronous UI interactions",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            }
+          ],
+          "type": "orderedList"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "In these cases, ",
+              "type": "text"
+            },
+            {
+              "code": "#confirmationOfCall",
+              "type": "codeVoice"
+            },
+            {
+              "text": " provides a way to asynchronously wait for and verify function calls.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "anchor": "Example-Testing-notification-observers",
+          "level": 3,
+          "text": "Example: Testing notification observers",
+          "type": "heading"
+        },
+        {
+          "code": [
+            "class NetworkMonitor {",
+            "    private let networkClient: NetworkClientProtocol",
+            "    ",
+            "    init(networkClient: NetworkClientProtocol) {",
+            "        self.networkClient = networkClient",
+            "        setupNotifications()",
+            "    }",
+            "    ",
+            "    private func setupNotifications() {",
+            "        NotificationCenter.default.addObserver(",
+            "            self,",
+            "            selector: #selector(appDidBecomeActive),",
+            "            name: UIApplication.didBecomeActiveNotification,",
+            "            object: nil",
+            "        )",
+            "    }",
+            "    ",
+            "    @objc private func appDidBecomeActive() {",
+            "        Task {",
+            "            try? await networkClient.checkConnectivity()",
+            "        }",
+            "    }",
+            "}",
+            "",
+            "// Testing with confirmationOfCall",
+            "func testNetworkMonitorChecksConnectivityWhenAppBecomesActive() async {",
+            "    // Arrange",
+            "    let mockNetworkClient = MockNetworkClient()",
+            "    let monitor = NetworkMonitor(networkClient: mockNetworkClient)",
+            "    ",
+            "    // Act - post the notification",
+            "    NotificationCenter.default.post(",
+            "        name: UIApplication.didBecomeActiveNotification,",
+            "        object: nil",
+            "    )",
+            "    ",
+            "    // Assert - wait for the async call triggered by the notification",
+            "    await #confirmationOfCall(to: mockNetworkClient.checkConnectivity)",
+            "}"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "anchor": "Controlling-time-limits",
+          "level": 2,
+          "text": "Controlling time limits",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "By default, ",
+              "type": "text"
+            },
+            {
+              "code": "#confirmationOfCall",
+              "type": "codeVoice"
+            },
+            {
+              "text": " will wait an infinite time, but you can specify a custom time limit:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "// Wait up to 5 seconds for a long-running operation",
+            "await #confirmationOfCall(to: mockLongRunningService.process, timeLimit: .seconds(5))"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "anchor": "Verifying-the-number-of-calls",
+          "level": 2,
+          "text": "Verifying the number of calls",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "On its own, ",
+              "type": "text"
+            },
+            {
+              "code": "#confirmationOfCall",
+              "type": "codeVoice"
+            },
+            {
+              "text": " waits for a single call. Just as with ",
+              "type": "text"
+            },
+            {
+              "code": "expectWasCalled",
+              "type": "codeVoice"
+            },
+            {
+              "text": " though, you can verify multiple calls using ",
+              "type": "text"
+            },
+            {
+              "code": "occurring",
+              "type": "codeVoice"
+            },
+            {
+              "text": " and ",
+              "type": "text"
+            },
+            {
+              "code": "occurringWithin",
+              "type": "codeVoice"
+            },
+            {
+              "text": ":",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "// Confirm the function was called exactly 3 times",
+            "await #confirmationOfCall(to: mockClient.fetchData)",
+            "    .occurring(times: 3)",
+            "    ",
+            "// Confirm the function was called between 2 and 5 times",
+            "await #confirmationOfCall(to: mockClient.fetchData)",
+            "    .occurringWithin(times: 2...5)"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "You can also use ",
+              "type": "text"
+            },
+            {
+              "code": "exactlyOnce",
+              "type": "codeVoice"
+            },
+            {
+              "text": " to verify that additional calls were not made:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "// Confirm the function was called exactly once",
+            "await #confirmationOfCall(to: mockClient.fetchData)",
+            "    .exactlyOnce()"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Note that for any of these methods, additional calls may be made after the test is finished without causing a failure.",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "This is because these methods do not introduce any sort of artificial delay in order to wait for a failure to occur.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "anchor": "Summary",
+          "level": 2,
+          "text": "Summary",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Testing asynchronous code using TestDRS is straightforward when following these principles:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "items": [
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Directly await async operations whenever possible",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Refactor production code to make it more testable when needed",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Use ",
+                      "type": "text"
+                    },
+                    {
+                      "code": "confirmationOfCall",
+                      "type": "codeVoice"
+                    },
+                    {
+                      "text": " only when you can\u2019t directly await the operation",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            }
+          ],
+          "type": "orderedList"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "By following these guidelines, you can write reliable tests for even complex asynchronous behavior in your Swift applications.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        }
+      ],
+      "kind": "content"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation": {
+      "abstract": [
+        {
+          "text": "Encapsulates the result of a ",
+          "type": "text"
+        },
+        {
+          "code": "#confirmationOfCall",
+          "type": "codeVoice"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "struct"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionCallConfirmation"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionCallConfirmation"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionCallConfirmation",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallconfirmation"
+    },
+    "doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:taking:returning:timeLimit:isolation:)": {
+      "abstract": [
+        {
+          "text": "Awaits confirmation of a function call.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "macro"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "confirmationOfCall"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">("
+        },
+        {
+          "kind": "externalParam",
+          "text": "to"
+        },
+        {
+          "kind": "text",
+          "text": ": ("
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "taking"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "returning"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "timeLimit"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s8DurationV",
+          "text": "Duration"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "isolation"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "keyword",
+          "text": "isolated"
+        },
+        {
+          "kind": "text",
+          "text": " (any "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:ScA",
+          "text": "Actor"
+        },
+        {
+          "kind": "text",
+          "text": ")?) -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS24FunctionCallConfirmationV",
+          "text": "FunctionCallConfirmation"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS13MatchingFirstO",
+          "text": "MatchingFirst"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:taking:returning:timeLimit:isolation:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "confirmationOfCall(to:taking:returning:timeLimit:isolation:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/confirmationofcall(to:taking:returning:timelimit:isolation:)"
+    },
+    "doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:with:returning:timeLimit:isolation:)": {
+      "abstract": [
+        {
+          "text": "Awaits confirmation of a function call with an expected input.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "macro"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "confirmationOfCall"
+        },
+        {
+          "kind": "text",
+          "text": "<each "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">("
+        },
+        {
+          "kind": "externalParam",
+          "text": "to"
+        },
+        {
+          "kind": "text",
+          "text": ": (repeat each "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "with"
+        },
+        {
+          "kind": "text",
+          "text": ": repeat each "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "returning"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "timeLimit"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s8DurationV",
+          "text": "Duration"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "isolation"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "keyword",
+          "text": "isolated"
+        },
+        {
+          "kind": "text",
+          "text": " (any "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:ScA",
+          "text": "Actor"
+        },
+        {
+          "kind": "text",
+          "text": ")?) -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS24FunctionCallConfirmationV",
+          "text": "FunctionCallConfirmation"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS13MatchingFirstO",
+          "text": "MatchingFirst"
+        },
+        {
+          "kind": "text",
+          "text": ", (repeat each "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": "), "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:with:returning:timeLimit:isolation:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "confirmationOfCall(to:with:returning:timeLimit:isolation:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/confirmationofcall(to:with:returning:timelimit:isolation:)"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "seeAlsoSections": [
+    {
+      "anchor": "Asynchronous-testing",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:taking:returning:timeLimit:isolation:)",
+        "doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:with:returning:timeLimit:isolation:)",
+        "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation"
+      ],
+      "title": "Asynchronous testing"
+    }
+  ],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/testingasynchronouscode"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

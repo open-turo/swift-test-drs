@@ -1,1 +1,834 @@
-{"sections":[],"kind":"article","abstract":[{"text":"Learn how to use TestDRS to create and use mocks in your Swift unit tests.","type":"text"}],"metadata":{"title":"Getting started with TestDRS","role":"article","roleHeading":"Article","modules":[{"name":"TestDRS"}]},"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/GettingStarted","interfaceLanguage":"swift"},"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS"]]},"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/gettingstarted"]}],"schemaVersion":{"major":0,"minor":3,"patch":0},"primaryContentSections":[{"content":[{"text":"Overview","type":"heading","anchor":"Overview","level":2},{"type":"paragraph","inlineContent":[{"text":"TestDRS is a powerful Swift testing library that makes it easy to create mock implementations of your protocols, classes, and structs. With TestDRS, you can write tests that isolate the code being tested from its dependencies, making your tests more reliable and focused.","type":"text"}]},{"type":"paragraph","inlineContent":[{"text":"This article will walk you through the basic steps of:","type":"text"}]},{"items":[{"content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"Installing TestDRS"}]}]},{"content":[{"inlineContent":[{"type":"text","text":"Creating your first mock"}],"type":"paragraph"}]},{"content":[{"inlineContent":[{"type":"text","text":"Using mocks in your tests"}],"type":"paragraph"}]},{"content":[{"inlineContent":[{"text":"Stubbing methods","type":"text"}],"type":"paragraph"}]},{"content":[{"inlineContent":[{"type":"text","text":"Verifying function calls"}],"type":"paragraph"}]}],"type":"orderedList"},{"type":"heading","text":"Installation","level":2,"anchor":"Installation"},{"type":"heading","level":3,"text":"Swift Package Manager","anchor":"Swift-Package-Manager"},{"inlineContent":[{"type":"text","text":"Add TestDRS to your project by adding it as a dependency in your "},{"type":"codeVoice","code":"Package.swift"},{"type":"text","text":" file:"}],"type":"paragraph"},{"type":"codeListing","syntax":"swift","code":["dependencies: [","    .package(url: \"https:\/\/github.com\/turo\/swift-test-drs.git\", from: \"1.0.0\")","]"]},{"inlineContent":[{"text":"Then add TestDRS to your test target:","type":"text"}],"type":"paragraph"},{"type":"codeListing","code":[".testTarget(","    name: \"YourTests\",","    dependencies: [\"TestDRS\"]",")"],"syntax":"swift"},{"level":2,"text":"Creating your first mock","type":"heading","anchor":"Creating-your-first-mock"},{"inlineContent":[{"text":"There are two primary ways to create mocks with TestDRS: using ","type":"text"},{"code":"@AddMock","type":"codeVoice"},{"text":" or ","type":"text"},{"type":"codeVoice","code":"@Mock"},{"type":"text","text":". Let’s look at both approaches."}],"type":"paragraph"},{"anchor":"Using-AddMock","level":3,"text":"Using @AddMock","type":"heading"},{"inlineContent":[{"text":"The ","type":"text"},{"type":"codeVoice","code":"@AddMock"},{"type":"text","text":" macro is applied to a production type and generates a mock type alongside it. This is the recommended approach for most cases, as it keeps your mock in sync with your production code."}],"type":"paragraph"},{"code":["import TestDRS","","@AddMock","protocol WeatherService {","    func fetchWeather(for city: String) throws -> Weather","    var defaultCity: String { get set }","}"],"type":"codeListing","syntax":"swift"},{"type":"paragraph","inlineContent":[{"type":"text","text":"This generates a "},{"type":"codeVoice","code":"MockWeatherService"},{"text":" class wrapped in an ","type":"text"},{"type":"codeVoice","code":"#if DEBUG"},{"text":" directive, making it available in test and debug builds but not in release builds.","type":"text"}]},{"level":3,"text":"Using @Mock","type":"heading","anchor":"Using-Mock"},{"type":"paragraph","inlineContent":[{"text":"The ","type":"text"},{"code":"@Mock","type":"codeVoice"},{"text":" macro is applied directly to a mock type that you create. This approach allows you to declare a mock in a test target, but requires you to keep the mock in sync with the production code manually. Luckily Xcode will provide a fixit to quickly fill in any missing members required for protocol conformance, so the boilerplate required is still minimal. Of note, you don’t write any method bodies or property accessors when using ","type":"text"},{"type":"codeVoice","code":"@Mock"},{"type":"text","text":", as the macro generates them for you."}]},{"type":"codeListing","code":["import TestDRS","","@Mock","class MockWeatherService: WeatherService {","    var defaultCity: String","    func fetchWeather(for city: String) throws -> Weather","}"],"syntax":"swift"},{"level":3,"anchor":"Choosing-between-AddMock-and-Mock","text":"Choosing between @AddMock and @Mock","type":"heading"},{"type":"unorderedList","items":[{"content":[{"inlineContent":[{"text":"Use ","type":"text"},{"code":"@AddMock","type":"codeVoice"},{"type":"text","text":" when:"}],"type":"paragraph"},{"items":[{"content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"You want to keep your mock automatically in sync with your production code"}]}]},{"content":[{"inlineContent":[{"type":"text","text":"You want to use your mocks with SwiftUI previews"}],"type":"paragraph"}]}],"type":"unorderedList"}]},{"content":[{"type":"paragraph","inlineContent":[{"text":"Use ","type":"text"},{"code":"@Mock","type":"codeVoice"},{"type":"text","text":" when:"}]},{"type":"unorderedList","items":[{"content":[{"inlineContent":[{"type":"text","text":"You don’t want your mock accessible in your production target, even in debug"}],"type":"paragraph"}]}]}]}]},{"text":"Using mocks in tests","level":2,"type":"heading","anchor":"Using-mocks-in-tests"},{"type":"paragraph","inlineContent":[{"text":"Now that you have a mock, you can use it in your tests. The example below introduces stubbing and verification, which we’ll explain in more detail in the following sections:","type":"text"}]},{"type":"codeListing","code":["import XCTest","import TestDRS","@testable import YourApp","","final class WeatherViewModelTests: XCTestCase {","    func testFetchWeather() throws {","        \/\/ Create a mock","        let mockWeatherService = MockWeatherService()","        ","        \/\/ Create the system under test with the mock","        let viewModel = WeatherViewModel(weatherService: mockWeatherService)","        ","        \/\/ Stub the mock","        let expectedWeather = Weather(temperature: 72, condition: .sunny)","        #stub(mockWeatherService.fetchWeather, returning: expectedWeather)","        ","        \/\/ Act","        viewModel.loadWeather(for: \"San Francisco\")","        ","        \/\/ Assert","        #expectWasCalled(mockWeatherService.fetchWeather, with: \"San Francisco\")","        XCTAssertEqual(viewModel.currentWeather, expectedWeather)","    }","}"],"syntax":"swift"},{"level":2,"anchor":"Stubbing-methods","type":"heading","text":"Stubbing methods"},{"type":"paragraph","inlineContent":[{"type":"text","text":"TestDRS provides macros to stub method calls on your mock objects:"}]},{"anchor":"Returning-a-value","type":"heading","text":"Returning a value","level":3},{"code":["#stub(mockWeatherService.fetchWeather, taking: String.self, returning: Weather(temperature: 72, condition: .sunny))"],"type":"codeListing","syntax":"swift"},{"text":"Throwing an error","anchor":"Throwing-an-error","type":"heading","level":3},{"syntax":"swift","type":"codeListing","code":["#stub(mockWeatherService.fetchWeather, taking: String.self, throwing: NetworkError.serverError)"]},{"level":3,"anchor":"Using-a-closure","type":"heading","text":"Using a closure"},{"type":"paragraph","inlineContent":[{"text":"For more complex behavior, you can provide a closure:","type":"text"}]},{"type":"codeListing","code":["#stub(mockWeatherService.fetchWeather, using: { city in","    if city == \"San Francisco\" {","        return Weather(temperature: 72, condition: .sunny)","    } else {","        throw NetworkError.notFound","    }","})"],"syntax":"swift"},{"anchor":"Verifying-function-calls","type":"heading","level":2,"text":"Verifying function calls"},{"type":"paragraph","inlineContent":[{"text":"After running your code under test, you’ll often want to verify that certain methods were called with specific parameters:","type":"text"}]},{"level":3,"text":"Verify a call was made","type":"heading","anchor":"Verify-a-call-was-made"},{"type":"codeListing","syntax":"swift","code":["#expectWasCalled(mockWeatherService.fetchWeather)"]},{"text":"Verify a call was not made","level":3,"type":"heading","anchor":"Verify-a-call-was-not-made"},{"type":"codeListing","syntax":"swift","code":["#expectWasNotCalled(mockWeatherService.fetchWeather)"]},{"level":3,"type":"heading","text":"Checking call counts","anchor":"Checking-call-counts"},{"type":"paragraph","inlineContent":[{"text":"You can also verify the number of times a method was called:","type":"text"}]},{"syntax":"swift","type":"codeListing","code":["#expectWasCalled(mockWeatherService.fetchWeather)","    .exactlyOnce()"]},{"type":"codeListing","syntax":"swift","code":["#expectWasCalled(mockWeatherService.fetchWeather)","    .occurring(times: 3)"]},{"type":"codeListing","code":["#expectWasCalled(mockWeatherService.fetchWeather)","    .occurringWithin(times: 2...5)"],"syntax":"swift"},{"level":3,"text":"Verify a call was made with specific arguments","anchor":"Verify-a-call-was-made-with-specific-arguments","type":"heading"},{"type":"paragraph","inlineContent":[{"type":"text","text":"If the input to the method you are testing is Equatable, you can pass those arguments into "},{"code":"#expectWasCalled","type":"codeVoice"},{"type":"text","text":" in order to verify that the method was called with the expected arguments:"}]},{"code":["#expectWasCalled(mockWeatherService.fetchWeather, with: \"San Francisco\")"],"type":"codeListing","syntax":"swift"},{"type":"paragraph","inlineContent":[{"text":"For methods with multiple arguments, you can pass them as variadic parameters:","type":"text"}]},{"syntax":"swift","code":["\/\/ For a method like: func logEvent(name: String, parameters: [String: Any], count: Int)","#expectWasCalled(mockAnalytics.logEvent, with: \"button_click\", [\"id\": \"login_button\"], 1)"],"type":"codeListing"},{"type":"paragraph","inlineContent":[{"type":"text","text":"If the arguments aren’t Equatable, you can instead get the input of the function and then verify the arguments individually:"}]},{"type":"codeListing","code":["\/\/ For a method like: func processData(data: CustomData, options: ProcessingOptions)","let result = #expectWasCalled(mockProcessor.processData)","    .exactlyOnce()","let call = try result.getMatchingCall()","let (data, options) = call.input","","\/\/ Now you can verify the arguments","XCTAssertEqual(data.id, \"12345\")","XCTAssertTrue(options.preserveMetadata)"],"syntax":"swift"},{"inlineContent":[{"text":"The ","type":"text"},{"type":"codeVoice","code":"getMatchingCall()"},{"type":"text","text":" method returns the recorded function call, allowing you to access its "},{"code":"input","type":"codeVoice"},{"type":"text","text":" property. For methods with multiple parameters, the input is represented as a tuple, which you can destructure to access individual parameters."}],"type":"paragraph"},{"text":"Next steps","type":"heading","level":2,"anchor":"Next-steps"},{"inlineContent":[{"type":"text","text":"Now that you’ve learned the basics of TestDRS, check out these additional articles:"}],"type":"paragraph"},{"items":[{"content":[{"type":"paragraph","inlineContent":[{"isActive":true,"type":"reference","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/TestingAsynchronousCode"},{"text":" - Learn how to test async functions","type":"text"}]}]},{"content":[{"inlineContent":[{"type":"reference","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/TestingStaticMembers","isActive":true},{"text":" - Discover how to test static properties and methods","type":"text"}],"type":"paragraph"}]}],"type":"unorderedList"}],"kind":"content"}],"references":{"doc://TestDRS/documentation/TestDRS/TestingAsynchronousCode":{"kind":"article","role":"article","type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/TestingAsynchronousCode","url":"\/documentation\/testdrs\/testingasynchronouscode","abstract":[{"type":"text","text":"Learn best practices for testing asynchronous Swift code with TestDRS."}],"title":"Testing asynchronous code"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/TestingStaticMembers":{"kind":"article","role":"article","abstract":[{"type":"text","text":"Learn how to test code that uses static members by creating mocks with TestDRS."}],"title":"Testing static members","type":"topic","url":"\/documentation\/testdrs\/testingstaticmembers","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/TestingStaticMembers"}}}
+{
+  "abstract": [
+    {
+      "text": "Learn how to use TestDRS to create and use mocks in your Swift unit tests.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/GettingStarted"
+  },
+  "kind": "article",
+  "metadata": {
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "article",
+    "roleHeading": "Article",
+    "title": "Getting started with TestDRS"
+  },
+  "primaryContentSections": [
+    {
+      "content": [
+        {
+          "anchor": "Overview",
+          "level": 2,
+          "text": "Overview",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "TestDRS is a powerful Swift testing library that makes it easy to create mock implementations of your protocols, classes, and structs. With TestDRS, you can write tests that isolate the code being tested from its dependencies, making your tests more reliable and focused.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "This article will walk you through the basic steps of:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "items": [
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Installing TestDRS",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Creating your first mock",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Using mocks in your tests",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Stubbing methods",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Verifying function calls",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            }
+          ],
+          "type": "orderedList"
+        },
+        {
+          "anchor": "Installation",
+          "level": 2,
+          "text": "Installation",
+          "type": "heading"
+        },
+        {
+          "anchor": "Swift-Package-Manager",
+          "level": 3,
+          "text": "Swift Package Manager",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Add TestDRS to your project by adding it as a dependency in your ",
+              "type": "text"
+            },
+            {
+              "code": "Package.swift",
+              "type": "codeVoice"
+            },
+            {
+              "text": " file:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "dependencies: [",
+            "    .package(url: \"https://github.com/turo/swift-test-drs.git\", from: \"1.0.0\")",
+            "]"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Then add TestDRS to your test target:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            ".testTarget(",
+            "    name: \"YourTests\",",
+            "    dependencies: [\"TestDRS\"]",
+            ")"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "anchor": "Creating-your-first-mock",
+          "level": 2,
+          "text": "Creating your first mock",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "There are two primary ways to create mocks with TestDRS: using ",
+              "type": "text"
+            },
+            {
+              "code": "@AddMock",
+              "type": "codeVoice"
+            },
+            {
+              "text": " or ",
+              "type": "text"
+            },
+            {
+              "code": "@Mock",
+              "type": "codeVoice"
+            },
+            {
+              "text": ". Let\u2019s look at both approaches.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "anchor": "Using-AddMock",
+          "level": 3,
+          "text": "Using @AddMock",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "The ",
+              "type": "text"
+            },
+            {
+              "code": "@AddMock",
+              "type": "codeVoice"
+            },
+            {
+              "text": " macro is applied to a production type and generates a mock type alongside it. This is the recommended approach for most cases, as it keeps your mock in sync with your production code.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "import TestDRS",
+            "",
+            "@AddMock",
+            "protocol WeatherService {",
+            "    func fetchWeather(for city: String) throws -> Weather",
+            "    var defaultCity: String { get set }",
+            "}"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "This generates a ",
+              "type": "text"
+            },
+            {
+              "code": "MockWeatherService",
+              "type": "codeVoice"
+            },
+            {
+              "text": " class wrapped in an ",
+              "type": "text"
+            },
+            {
+              "code": "#if DEBUG",
+              "type": "codeVoice"
+            },
+            {
+              "text": " directive, making it available in test and debug builds but not in release builds.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "anchor": "Using-Mock",
+          "level": 3,
+          "text": "Using @Mock",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "The ",
+              "type": "text"
+            },
+            {
+              "code": "@Mock",
+              "type": "codeVoice"
+            },
+            {
+              "text": " macro is applied directly to a mock type that you create. This approach allows you to declare a mock in a test target, but requires you to keep the mock in sync with the production code manually. Luckily Xcode will provide a fixit to quickly fill in any missing members required for protocol conformance, so the boilerplate required is still minimal. Of note, you don\u2019t write any method bodies or property accessors when using ",
+              "type": "text"
+            },
+            {
+              "code": "@Mock",
+              "type": "codeVoice"
+            },
+            {
+              "text": ", as the macro generates them for you.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "import TestDRS",
+            "",
+            "@Mock",
+            "class MockWeatherService: WeatherService {",
+            "    var defaultCity: String",
+            "    func fetchWeather(for city: String) throws -> Weather",
+            "}"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "anchor": "Choosing-between-AddMock-and-Mock",
+          "level": 3,
+          "text": "Choosing between @AddMock and @Mock",
+          "type": "heading"
+        },
+        {
+          "items": [
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Use ",
+                      "type": "text"
+                    },
+                    {
+                      "code": "@AddMock",
+                      "type": "codeVoice"
+                    },
+                    {
+                      "text": " when:",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                },
+                {
+                  "items": [
+                    {
+                      "content": [
+                        {
+                          "inlineContent": [
+                            {
+                              "text": "You want to keep your mock automatically in sync with your production code",
+                              "type": "text"
+                            }
+                          ],
+                          "type": "paragraph"
+                        }
+                      ]
+                    },
+                    {
+                      "content": [
+                        {
+                          "inlineContent": [
+                            {
+                              "text": "You want to use your mocks with SwiftUI previews",
+                              "type": "text"
+                            }
+                          ],
+                          "type": "paragraph"
+                        }
+                      ]
+                    }
+                  ],
+                  "type": "unorderedList"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Use ",
+                      "type": "text"
+                    },
+                    {
+                      "code": "@Mock",
+                      "type": "codeVoice"
+                    },
+                    {
+                      "text": " when:",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                },
+                {
+                  "items": [
+                    {
+                      "content": [
+                        {
+                          "inlineContent": [
+                            {
+                              "text": "You don\u2019t want your mock accessible in your production target, even in debug",
+                              "type": "text"
+                            }
+                          ],
+                          "type": "paragraph"
+                        }
+                      ]
+                    }
+                  ],
+                  "type": "unorderedList"
+                }
+              ]
+            }
+          ],
+          "type": "unorderedList"
+        },
+        {
+          "anchor": "Using-mocks-in-tests",
+          "level": 2,
+          "text": "Using mocks in tests",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Now that you have a mock, you can use it in your tests. The example below introduces stubbing and verification, which we\u2019ll explain in more detail in the following sections:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "import XCTest",
+            "import TestDRS",
+            "@testable import YourApp",
+            "",
+            "final class WeatherViewModelTests: XCTestCase {",
+            "    func testFetchWeather() throws {",
+            "        // Create a mock",
+            "        let mockWeatherService = MockWeatherService()",
+            "        ",
+            "        // Create the system under test with the mock",
+            "        let viewModel = WeatherViewModel(weatherService: mockWeatherService)",
+            "        ",
+            "        // Stub the mock",
+            "        let expectedWeather = Weather(temperature: 72, condition: .sunny)",
+            "        #stub(mockWeatherService.fetchWeather, returning: expectedWeather)",
+            "        ",
+            "        // Act",
+            "        viewModel.loadWeather(for: \"San Francisco\")",
+            "        ",
+            "        // Assert",
+            "        #expectWasCalled(mockWeatherService.fetchWeather, with: \"San Francisco\")",
+            "        XCTAssertEqual(viewModel.currentWeather, expectedWeather)",
+            "    }",
+            "}"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "anchor": "Stubbing-methods",
+          "level": 2,
+          "text": "Stubbing methods",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "TestDRS provides macros to stub method calls on your mock objects:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "anchor": "Returning-a-value",
+          "level": 3,
+          "text": "Returning a value",
+          "type": "heading"
+        },
+        {
+          "code": [
+            "#stub(mockWeatherService.fetchWeather, taking: String.self, returning: Weather(temperature: 72, condition: .sunny))"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "anchor": "Throwing-an-error",
+          "level": 3,
+          "text": "Throwing an error",
+          "type": "heading"
+        },
+        {
+          "code": [
+            "#stub(mockWeatherService.fetchWeather, taking: String.self, throwing: NetworkError.serverError)"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "anchor": "Using-a-closure",
+          "level": 3,
+          "text": "Using a closure",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "For more complex behavior, you can provide a closure:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "#stub(mockWeatherService.fetchWeather, using: { city in",
+            "    if city == \"San Francisco\" {",
+            "        return Weather(temperature: 72, condition: .sunny)",
+            "    } else {",
+            "        throw NetworkError.notFound",
+            "    }",
+            "})"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "anchor": "Verifying-function-calls",
+          "level": 2,
+          "text": "Verifying function calls",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "After running your code under test, you\u2019ll often want to verify that certain methods were called with specific parameters:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "anchor": "Verify-a-call-was-made",
+          "level": 3,
+          "text": "Verify a call was made",
+          "type": "heading"
+        },
+        {
+          "code": [
+            "#expectWasCalled(mockWeatherService.fetchWeather)"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "anchor": "Verify-a-call-was-not-made",
+          "level": 3,
+          "text": "Verify a call was not made",
+          "type": "heading"
+        },
+        {
+          "code": [
+            "#expectWasNotCalled(mockWeatherService.fetchWeather)"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "anchor": "Checking-call-counts",
+          "level": 3,
+          "text": "Checking call counts",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "You can also verify the number of times a method was called:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "#expectWasCalled(mockWeatherService.fetchWeather)",
+            "    .exactlyOnce()"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "code": [
+            "#expectWasCalled(mockWeatherService.fetchWeather)",
+            "    .occurring(times: 3)"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "code": [
+            "#expectWasCalled(mockWeatherService.fetchWeather)",
+            "    .occurringWithin(times: 2...5)"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "anchor": "Verify-a-call-was-made-with-specific-arguments",
+          "level": 3,
+          "text": "Verify a call was made with specific arguments",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "If the input to the method you are testing is Equatable, you can pass those arguments into ",
+              "type": "text"
+            },
+            {
+              "code": "#expectWasCalled",
+              "type": "codeVoice"
+            },
+            {
+              "text": " in order to verify that the method was called with the expected arguments:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "#expectWasCalled(mockWeatherService.fetchWeather, with: \"San Francisco\")"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "For methods with multiple arguments, you can pass them as variadic parameters:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "// For a method like: func logEvent(name: String, parameters: [String: Any], count: Int)",
+            "#expectWasCalled(mockAnalytics.logEvent, with: \"button_click\", [\"id\": \"login_button\"], 1)"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "If the arguments aren\u2019t Equatable, you can instead get the input of the function and then verify the arguments individually:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "// For a method like: func processData(data: CustomData, options: ProcessingOptions)",
+            "let result = #expectWasCalled(mockProcessor.processData)",
+            "    .exactlyOnce()",
+            "let call = try result.getMatchingCall()",
+            "let (data, options) = call.input",
+            "",
+            "// Now you can verify the arguments",
+            "XCTAssertEqual(data.id, \"12345\")",
+            "XCTAssertTrue(options.preserveMetadata)"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "The ",
+              "type": "text"
+            },
+            {
+              "code": "getMatchingCall()",
+              "type": "codeVoice"
+            },
+            {
+              "text": " method returns the recorded function call, allowing you to access its ",
+              "type": "text"
+            },
+            {
+              "code": "input",
+              "type": "codeVoice"
+            },
+            {
+              "text": " property. For methods with multiple parameters, the input is represented as a tuple, which you can destructure to access individual parameters.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "anchor": "Next-steps",
+          "level": 2,
+          "text": "Next steps",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Now that you\u2019ve learned the basics of TestDRS, check out these additional articles:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "items": [
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "identifier": "doc://TestDRS/documentation/TestDRS/TestingAsynchronousCode",
+                      "isActive": true,
+                      "type": "reference"
+                    },
+                    {
+                      "text": " - Learn how to test async functions",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "identifier": "doc://TestDRS/documentation/TestDRS/TestingStaticMembers",
+                      "isActive": true,
+                      "type": "reference"
+                    },
+                    {
+                      "text": " - Discover how to test static properties and methods",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            }
+          ],
+          "type": "unorderedList"
+        }
+      ],
+      "kind": "content"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/TestingAsynchronousCode": {
+      "abstract": [
+        {
+          "text": "Learn best practices for testing asynchronous Swift code with TestDRS.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/TestingAsynchronousCode",
+      "kind": "article",
+      "role": "article",
+      "title": "Testing asynchronous code",
+      "type": "topic",
+      "url": "/documentation/testdrs/testingasynchronouscode"
+    },
+    "doc://TestDRS/documentation/TestDRS/TestingStaticMembers": {
+      "abstract": [
+        {
+          "text": "Learn how to test code that uses static members by creating mocks with TestDRS.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/TestingStaticMembers",
+      "kind": "article",
+      "role": "article",
+      "title": "Testing static members",
+      "type": "topic",
+      "url": "/documentation/testdrs/testingstaticmembers"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/gettingstarted"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

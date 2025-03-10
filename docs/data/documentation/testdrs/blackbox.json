@@ -1,1 +1,230 @@
-{"sections":[],"topicSections":[{"identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/BlackBox\/init()"],"generated":true,"title":"Initializers","anchor":"Initializers"},{"title":"Default Implementations","anchor":"Default-Implementations","identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/BlackBox\/CustomDebugStringConvertible-Implementations"],"generated":true}],"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS"]]},"abstract":[{"text":"A mechanism to record and look up function calls for testing purposes.","type":"text"}],"primaryContentSections":[{"declarations":[{"platforms":["macOS"],"tokens":[{"text":"final","kind":"keyword"},{"text":" ","kind":"text"},{"text":"class","kind":"keyword"},{"kind":"text","text":" "},{"text":"BlackBox","kind":"identifier"}],"languages":["swift"]}],"kind":"declarations"}],"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/BlackBox","interfaceLanguage":"swift"},"schemaVersion":{"major":0,"minor":3,"patch":0},"metadata":{"externalID":"s:7TestDRS8BlackBoxC","title":"BlackBox","navigatorTitle":[{"kind":"identifier","text":"BlackBox"}],"symbolKind":"class","roleHeading":"Class","fragments":[{"text":"class","kind":"keyword"},{"text":" ","kind":"text"},{"text":"BlackBox","kind":"identifier"}],"modules":[{"name":"TestDRS"}],"role":"symbol"},"relationshipsSections":[{"title":"Conforms To","type":"conformsTo","identifiers":["doc:\/\/TestDRS\/s8CopyableP","doc:\/\/TestDRS\/s28CustomDebugStringConvertibleP","doc:\/\/TestDRS\/s8SendableP"],"kind":"relationships"}],"kind":"symbol","variants":[{"paths":["\/documentation\/testdrs\/blackbox"],"traits":[{"interfaceLanguage":"swift"}]}],"references":{"doc://TestDRS/s28CustomDebugStringConvertibleP":{"title":"Swift.CustomDebugStringConvertible","type":"unresolvable","identifier":"doc:\/\/TestDRS\/s28CustomDebugStringConvertibleP"},"doc://TestDRS/documentation/TestDRS/BlackBox/init()":{"abstract":[],"url":"\/documentation\/testdrs\/blackbox\/init()","kind":"symbol","title":"init()","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/BlackBox\/init()","type":"topic","role":"symbol","fragments":[{"text":"init","kind":"identifier"},{"text":"()","kind":"text"}]},"doc://TestDRS/documentation/TestDRS/BlackBox/CustomDebugStringConvertible-Implementations":{"abstract":[],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/BlackBox\/CustomDebugStringConvertible-Implementations","type":"topic","kind":"article","role":"collectionGroup","url":"\/documentation\/testdrs\/blackbox\/customdebugstringconvertible-implementations","title":"CustomDebugStringConvertible Implementations"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/s8SendableP":{"title":"Swift.Sendable","type":"unresolvable","identifier":"doc:\/\/TestDRS\/s8SendableP"},"doc://TestDRS/s8CopyableP":{"title":"Swift.Copyable","type":"unresolvable","identifier":"doc:\/\/TestDRS\/s8CopyableP"},"doc://TestDRS/documentation/TestDRS/BlackBox":{"abstract":[{"text":"A mechanism to record and look up function calls for testing purposes.","type":"text"}],"navigatorTitle":[{"text":"BlackBox","kind":"identifier"}],"url":"\/documentation\/testdrs\/blackbox","type":"topic","kind":"symbol","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/BlackBox","role":"symbol","title":"BlackBox","fragments":[{"kind":"keyword","text":"class"},{"text":" ","kind":"text"},{"text":"BlackBox","kind":"identifier"}]}}}
+{
+  "abstract": [
+    {
+      "text": "A mechanism to record and look up function calls for testing purposes.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/BlackBox"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS8BlackBoxC",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "class"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "BlackBox"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "navigatorTitle": [
+      {
+        "kind": "identifier",
+        "text": "BlackBox"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Class",
+    "symbolKind": "class",
+    "title": "BlackBox"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "final"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "class"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "BlackBox"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/BlackBox": {
+      "abstract": [
+        {
+          "text": "A mechanism to record and look up function calls for testing purposes.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "class"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "BlackBox"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/BlackBox",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "BlackBox"
+        }
+      ],
+      "role": "symbol",
+      "title": "BlackBox",
+      "type": "topic",
+      "url": "/documentation/testdrs/blackbox"
+    },
+    "doc://TestDRS/documentation/TestDRS/BlackBox/CustomDebugStringConvertible-Implementations": {
+      "abstract": [],
+      "identifier": "doc://TestDRS/documentation/TestDRS/BlackBox/CustomDebugStringConvertible-Implementations",
+      "kind": "article",
+      "role": "collectionGroup",
+      "title": "CustomDebugStringConvertible Implementations",
+      "type": "topic",
+      "url": "/documentation/testdrs/blackbox/customdebugstringconvertible-implementations"
+    },
+    "doc://TestDRS/documentation/TestDRS/BlackBox/init()": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "identifier",
+          "text": "init"
+        },
+        {
+          "kind": "text",
+          "text": "()"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/BlackBox/init()",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "init()",
+      "type": "topic",
+      "url": "/documentation/testdrs/blackbox/init()"
+    },
+    "doc://TestDRS/s28CustomDebugStringConvertibleP": {
+      "identifier": "doc://TestDRS/s28CustomDebugStringConvertibleP",
+      "title": "Swift.CustomDebugStringConvertible",
+      "type": "unresolvable"
+    },
+    "doc://TestDRS/s8CopyableP": {
+      "identifier": "doc://TestDRS/s8CopyableP",
+      "title": "Swift.Copyable",
+      "type": "unresolvable"
+    },
+    "doc://TestDRS/s8SendableP": {
+      "identifier": "doc://TestDRS/s8SendableP",
+      "title": "Swift.Sendable",
+      "type": "unresolvable"
+    }
+  },
+  "relationshipsSections": [
+    {
+      "identifiers": [
+        "doc://TestDRS/s8CopyableP",
+        "doc://TestDRS/s28CustomDebugStringConvertibleP",
+        "doc://TestDRS/s8SendableP"
+      ],
+      "kind": "relationships",
+      "title": "Conforms To",
+      "type": "conformsTo"
+    }
+  ],
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "topicSections": [
+    {
+      "anchor": "Initializers",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/BlackBox/init()"
+      ],
+      "title": "Initializers"
+    },
+    {
+      "anchor": "Default-Implementations",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/BlackBox/CustomDebugStringConvertible-Implementations"
+      ],
+      "title": "Default Implementations"
+    }
+  ],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/blackbox"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

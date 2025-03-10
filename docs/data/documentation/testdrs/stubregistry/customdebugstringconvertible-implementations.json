@@ -1,1 +1,143 @@
-{"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/stubregistry\/customdebugstringconvertible-implementations"]}],"identifier":{"interfaceLanguage":"swift","url":"doc:\/\/TestDRS\/documentation\/TestDRS\/StubRegistry\/CustomDebugStringConvertible-Implementations"},"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/StubRegistry"]]},"sections":[],"kind":"article","schemaVersion":{"patch":0,"minor":3,"major":0},"topicSections":[{"identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/StubRegistry\/debugDescription"],"generated":true,"anchor":"Instance-Properties","title":"Instance Properties"}],"metadata":{"roleHeading":"API Collection","title":"CustomDebugStringConvertible Implementations","role":"collectionGroup","modules":[{"name":"TestDRS"}]},"references":{"doc://TestDRS/documentation/TestDRS/StubRegistry/debugDescription":{"role":"symbol","abstract":[],"kind":"symbol","type":"topic","title":"debugDescription","url":"\/documentation\/testdrs\/stubregistry\/debugdescription","fragments":[{"text":"var","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"debugDescription"},{"kind":"text","text":": "},{"text":"String","kind":"typeIdentifier","preciseIdentifier":"s:SS"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StubRegistry\/debugDescription"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/StubRegistry":{"kind":"symbol","title":"StubRegistry","fragments":[{"text":"class","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"StubRegistry"}],"url":"\/documentation\/testdrs\/stubregistry","navigatorTitle":[{"text":"StubRegistry","kind":"identifier"}],"abstract":[{"text":"Handles registering and retrieving stubs for members, meant to be used with the ","type":"text"},{"type":"codeVoice","code":"StubProviding"},{"type":"text","text":" protocol."}],"role":"symbol","type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StubRegistry"}}}
+{
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/StubRegistry"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/StubRegistry/CustomDebugStringConvertible-Implementations"
+  },
+  "kind": "article",
+  "metadata": {
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "collectionGroup",
+    "roleHeading": "API Collection",
+    "title": "CustomDebugStringConvertible Implementations"
+  },
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/StubRegistry": {
+      "abstract": [
+        {
+          "text": "Handles registering and retrieving stubs for members, meant to be used with the ",
+          "type": "text"
+        },
+        {
+          "code": "StubProviding",
+          "type": "codeVoice"
+        },
+        {
+          "text": " protocol.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "class"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "StubRegistry"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/StubRegistry",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "StubRegistry"
+        }
+      ],
+      "role": "symbol",
+      "title": "StubRegistry",
+      "type": "topic",
+      "url": "/documentation/testdrs/stubregistry"
+    },
+    "doc://TestDRS/documentation/TestDRS/StubRegistry/debugDescription": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "var"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "debugDescription"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:SS",
+          "text": "String"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/StubRegistry/debugDescription",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "debugDescription",
+      "type": "topic",
+      "url": "/documentation/testdrs/stubregistry/debugdescription"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "topicSections": [
+    {
+      "anchor": "Instance-Properties",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/StubRegistry/debugDescription"
+      ],
+      "title": "Instance Properties"
+    }
+  ],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/stubregistry/customdebugstringconvertible-implementations"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

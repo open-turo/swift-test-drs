@@ -1,1 +1,311 @@
-{"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode","doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode\/Equatable-Implementations"]]},"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode\/!=(_:_:)","interfaceLanguage":"swift"},"sections":[],"metadata":{"modules":[{"name":"TestDRS","relatedModules":["Swift"]}],"title":"!=(_:_:)","extendedModule":"Swift","externalID":"s:SQsE2neoiySbx_xtFZ::SYNTHESIZED::s:7TestDRS16ExpectedCallModeO","fragments":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"kind":"keyword","text":"func"},{"text":" ","kind":"text"},{"kind":"identifier","text":"!="},{"kind":"text","text":" "},{"kind":"text","text":"("},{"text":"Self","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"Self","kind":"typeIdentifier"},{"kind":"text","text":") -> "},{"kind":"typeIdentifier","preciseIdentifier":"s:Sb","text":"Bool"}],"symbolKind":"op","role":"symbol","roleHeading":"Operator"},"kind":"symbol","schemaVersion":{"patch":0,"major":0,"minor":3},"variants":[{"paths":["\/documentation\/testdrs\/expectedcallmode\/!=(_:_:)"],"traits":[{"interfaceLanguage":"swift"}]}],"abstract":[{"type":"text","text":"Inherited from "},{"type":"codeVoice","code":"Equatable.!=(_:_:)"},{"text":".","type":"text"}],"primaryContentSections":[{"kind":"declarations","declarations":[{"platforms":["macOS"],"tokens":[{"kind":"keyword","text":"static"},{"kind":"text","text":" "},{"text":"func","kind":"keyword"},{"kind":"text","text":" "},{"kind":"identifier","text":"!="},{"kind":"text","text":" "},{"kind":"text","text":"("},{"text":"lhs","kind":"internalParam"},{"kind":"text","text":": "},{"text":"Self","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"rhs","kind":"internalParam"},{"kind":"text","text":": "},{"text":"Self","kind":"typeIdentifier"},{"text":") -> ","kind":"text"},{"text":"Bool","kind":"typeIdentifier","preciseIdentifier":"s:Sb"}],"languages":["swift"]}]}],"references":{"doc://TestDRS/documentation/TestDRS/ExpectedCallMode":{"fragments":[{"text":"enum","kind":"keyword"},{"text":" ","kind":"text"},{"text":"ExpectedCallMode","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode","abstract":[],"role":"symbol","type":"topic","kind":"symbol","url":"\/documentation\/testdrs\/expectedcallmode","navigatorTitle":[{"text":"ExpectedCallMode","kind":"identifier"}],"title":"ExpectedCallMode"},"doc://TestDRS/documentation/TestDRS/ExpectedCallMode/!=(_:_:)":{"fragments":[{"kind":"keyword","text":"static"},{"text":" ","kind":"text"},{"kind":"keyword","text":"func"},{"text":" ","kind":"text"},{"kind":"identifier","text":"!="},{"kind":"text","text":" "},{"kind":"text","text":"("},{"text":"Self","kind":"typeIdentifier"},{"kind":"text","text":", "},{"kind":"typeIdentifier","text":"Self"},{"kind":"text","text":") -> "},{"preciseIdentifier":"s:Sb","text":"Bool","kind":"typeIdentifier"}],"kind":"symbol","type":"topic","title":"!=(_:_:)","abstract":[],"role":"symbol","url":"\/documentation\/testdrs\/expectedcallmode\/!=(_:_:)","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode\/!=(_:_:)"},"doc://TestDRS/documentation/TestDRS/ExpectedCallMode/Equatable-Implementations":{"title":"Equatable Implementations","role":"collectionGroup","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode\/Equatable-Implementations","type":"topic","kind":"article","abstract":[],"url":"\/documentation\/testdrs\/expectedcallmode\/equatable-implementations"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"}}}
+{
+  "abstract": [
+    {
+      "text": "Inherited from ",
+      "type": "text"
+    },
+    {
+      "code": "Equatable.!=(_:_:)",
+      "type": "codeVoice"
+    },
+    {
+      "text": ".",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/ExpectedCallMode",
+        "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/Equatable-Implementations"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/!=(_:_:)"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "extendedModule": "Swift",
+    "externalID": "s:SQsE2neoiySbx_xtFZ::SYNTHESIZED::s:7TestDRS16ExpectedCallModeO",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "static"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "keyword",
+        "text": "func"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "!="
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "text",
+        "text": "("
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Self"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Self"
+      },
+      {
+        "kind": "text",
+        "text": ") -> "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:Sb",
+        "text": "Bool"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS",
+        "relatedModules": [
+          "Swift"
+        ]
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Operator",
+    "symbolKind": "op",
+    "title": "!=(_:_:)"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "static"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "func"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "!="
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "text",
+              "text": "("
+            },
+            {
+              "kind": "internalParam",
+              "text": "lhs"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Self"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "internalParam",
+              "text": "rhs"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Self"
+            },
+            {
+              "kind": "text",
+              "text": ") -> "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:Sb",
+              "text": "Bool"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/ExpectedCallMode": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "enum"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "ExpectedCallMode"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/ExpectedCallMode",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "ExpectedCallMode"
+        }
+      ],
+      "role": "symbol",
+      "title": "ExpectedCallMode",
+      "type": "topic",
+      "url": "/documentation/testdrs/expectedcallmode"
+    },
+    "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/!=(_:_:)": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "static"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "!="
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "text",
+          "text": "("
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Self"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Self"
+        },
+        {
+          "kind": "text",
+          "text": ") -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Sb",
+          "text": "Bool"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/!=(_:_:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "!=(_:_:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/expectedcallmode/!=(_:_:)"
+    },
+    "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/Equatable-Implementations": {
+      "abstract": [],
+      "identifier": "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/Equatable-Implementations",
+      "kind": "article",
+      "role": "collectionGroup",
+      "title": "Equatable Implementations",
+      "type": "topic",
+      "url": "/documentation/testdrs/expectedcallmode/equatable-implementations"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/expectedcallmode/!=(_:_:)"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

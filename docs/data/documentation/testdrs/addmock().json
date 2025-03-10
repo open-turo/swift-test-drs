@@ -1,1 +1,383 @@
-{"kind":"symbol","identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/AddMock()","interfaceLanguage":"swift"},"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS"]]},"abstract":[{"type":"text","text":"This macro generates a mock type based on a given protocol, class, or struct."}],"schemaVersion":{"patch":0,"minor":3,"major":0},"primaryContentSections":[{"declarations":[{"platforms":["macOS"],"languages":["swift"],"tokens":[{"kind":"attribute","text":"@attached"},{"text":"(peer, names: prefixed(Mock)) ","kind":"text"},{"text":"macro","kind":"keyword"},{"text":" ","kind":"text"},{"text":"AddMock","kind":"identifier"},{"kind":"text","text":"()"}]}],"kind":"declarations"},{"kind":"content","content":[{"text":"Overview","level":2,"anchor":"overview","type":"heading"},{"type":"paragraph","inlineContent":[{"text":"The generated mock type includes methods that mimic the original type’s interface, allowing you to control its behavior in tests.","type":"text"},{"type":"text","text":" "},{"text":"For a given type ","type":"text"},{"type":"codeVoice","code":"MyType"},{"text":", the generated mock type will be named ","type":"text"},{"type":"codeVoice","code":"MockMyType"},{"type":"text","text":"."},{"type":"text","text":" "},{"text":"The mock type will conform to the ","type":"text"},{"type":"codeVoice","code":"StubProviding"},{"text":" and ","type":"text"},{"code":"Spy","type":"codeVoice"},{"type":"text","text":" protocols. This allows you to stub out each method and expect that methods were called in your tests."},{"type":"text","text":" "},{"type":"text","text":"Classes will be mocked using a subclass, while protocols and structs will be mocked using a separate class."},{"type":"text","text":" "},{"text":"Private members are not included in the generated mock type.","type":"text"}]},{"inlineContent":[{"type":"text","text":"Mocked classes will override all internal, public and open instance and class members, including methods, properties, and initializers. Overridden initializers will set stubs in the mock for properties that are passed in. Static members of a class will not be included in the generated mock type as they cannot be overridden."}],"type":"paragraph"},{"type":"paragraph","inlineContent":[{"type":"text","text":"Usage:"}]},{"syntax":null,"code":["@AddMock","protocol MyType {","    func myMethod()","}"],"type":"codeListing"},{"type":"paragraph","inlineContent":[{"type":"text","text":"This will generate a "},{"type":"codeVoice","code":"MockMyType"},{"type":"text","text":" with the following structure:"}]},{"code":["#if DEBUG","","class MockMyType: MyType, Mock {","    func myMethod() {","        \/\/ Implementation for stubbing and spying","    }","}","","#endif"],"type":"codeListing","syntax":null},{"type":"aside","name":"Note","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"The generated mock type will be wrapped in an "},{"type":"codeVoice","code":"#if DEBUG"},{"type":"text","text":" directive, meaning it will only be included in Debug builds."},{"text":" ","type":"text"},{"type":"text","text":"This ensures that mock types are not included in production code."},{"type":"text","text":" "},{"type":"text","text":"The generated mock type is intended for use in unit tests, during development, in SwiftUI previews, etc."}]}],"style":"note"}]}],"seeAlsoSections":[{"title":"Creating test doubles","generated":true,"identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/Mock()"],"anchor":"Creating-test-doubles"}],"metadata":{"symbolKind":"macro","externalID":"s:7TestDRS7AddMockyycfm","fragments":[{"kind":"keyword","text":"macro"},{"text":" ","kind":"text"},{"text":"AddMock","kind":"identifier"},{"text":"()","kind":"text"}],"role":"symbol","modules":[{"name":"TestDRS"}],"title":"AddMock()","roleHeading":"Macro"},"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/addmock()"]}],"sections":[],"references":{"doc://TestDRS/documentation/TestDRS/Mock()":{"title":"Mock()","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/Mock()","abstract":[{"text":"This macro mocks the members of the struct or class that it is applied to.","type":"text"}],"fragments":[{"text":"macro","kind":"keyword"},{"text":" ","kind":"text"},{"text":"Mock","kind":"identifier"},{"kind":"text","text":"()"}],"url":"\/documentation\/testdrs\/mock()","type":"topic","role":"symbol","kind":"symbol"},"doc://TestDRS/documentation/TestDRS/AddMock()":{"kind":"symbol","url":"\/documentation\/testdrs\/addmock()","abstract":[{"text":"This macro generates a mock type based on a given protocol, class, or struct.","type":"text"}],"role":"symbol","type":"topic","title":"AddMock()","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/AddMock()","fragments":[{"text":"macro","kind":"keyword"},{"text":" ","kind":"text"},{"text":"AddMock","kind":"identifier"},{"text":"()","kind":"text"}]},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"}}}
+{
+  "abstract": [
+    {
+      "text": "This macro generates a mock type based on a given protocol, class, or struct.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/AddMock()"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS7AddMockyycfm",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "macro"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "AddMock"
+      },
+      {
+        "kind": "text",
+        "text": "()"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Macro",
+    "symbolKind": "macro",
+    "title": "AddMock()"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "attribute",
+              "text": "@attached"
+            },
+            {
+              "kind": "text",
+              "text": "(peer, names: prefixed(Mock)) "
+            },
+            {
+              "kind": "keyword",
+              "text": "macro"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "AddMock"
+            },
+            {
+              "kind": "text",
+              "text": "()"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "content": [
+        {
+          "anchor": "overview",
+          "level": 2,
+          "text": "Overview",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "The generated mock type includes methods that mimic the original type\u2019s interface, allowing you to control its behavior in tests.",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "For a given type ",
+              "type": "text"
+            },
+            {
+              "code": "MyType",
+              "type": "codeVoice"
+            },
+            {
+              "text": ", the generated mock type will be named ",
+              "type": "text"
+            },
+            {
+              "code": "MockMyType",
+              "type": "codeVoice"
+            },
+            {
+              "text": ".",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "The mock type will conform to the ",
+              "type": "text"
+            },
+            {
+              "code": "StubProviding",
+              "type": "codeVoice"
+            },
+            {
+              "text": " and ",
+              "type": "text"
+            },
+            {
+              "code": "Spy",
+              "type": "codeVoice"
+            },
+            {
+              "text": " protocols. This allows you to stub out each method and expect that methods were called in your tests.",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "Classes will be mocked using a subclass, while protocols and structs will be mocked using a separate class.",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "Private members are not included in the generated mock type.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Mocked classes will override all internal, public and open instance and class members, including methods, properties, and initializers. Overridden initializers will set stubs in the mock for properties that are passed in. Static members of a class will not be included in the generated mock type as they cannot be overridden.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Usage:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "@AddMock",
+            "protocol MyType {",
+            "    func myMethod()",
+            "}"
+          ],
+          "syntax": null,
+          "type": "codeListing"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "This will generate a ",
+              "type": "text"
+            },
+            {
+              "code": "MockMyType",
+              "type": "codeVoice"
+            },
+            {
+              "text": " with the following structure:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "#if DEBUG",
+            "",
+            "class MockMyType: MyType, Mock {",
+            "    func myMethod() {",
+            "        // Implementation for stubbing and spying",
+            "    }",
+            "}",
+            "",
+            "#endif"
+          ],
+          "syntax": null,
+          "type": "codeListing"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "The generated mock type will be wrapped in an ",
+                  "type": "text"
+                },
+                {
+                  "code": "#if DEBUG",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " directive, meaning it will only be included in Debug builds.",
+                  "type": "text"
+                },
+                {
+                  "text": " ",
+                  "type": "text"
+                },
+                {
+                  "text": "This ensures that mock types are not included in production code.",
+                  "type": "text"
+                },
+                {
+                  "text": " ",
+                  "type": "text"
+                },
+                {
+                  "text": "The generated mock type is intended for use in unit tests, during development, in SwiftUI previews, etc.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "Note",
+          "style": "note",
+          "type": "aside"
+        }
+      ],
+      "kind": "content"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/AddMock()": {
+      "abstract": [
+        {
+          "text": "This macro generates a mock type based on a given protocol, class, or struct.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "macro"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "AddMock"
+        },
+        {
+          "kind": "text",
+          "text": "()"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/AddMock()",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "AddMock()",
+      "type": "topic",
+      "url": "/documentation/testdrs/addmock()"
+    },
+    "doc://TestDRS/documentation/TestDRS/Mock()": {
+      "abstract": [
+        {
+          "text": "This macro mocks the members of the struct or class that it is applied to.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "macro"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "Mock"
+        },
+        {
+          "kind": "text",
+          "text": "()"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/Mock()",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "Mock()",
+      "type": "topic",
+      "url": "/documentation/testdrs/mock()"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "seeAlsoSections": [
+    {
+      "anchor": "Creating-test-doubles",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/Mock()"
+      ],
+      "title": "Creating test doubles"
+    }
+  ],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/addmock()"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

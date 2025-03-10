@@ -1,1 +1,496 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"platforms":["macOS"],"languages":["swift"],"tokens":[{"text":"@discardableResult","kind":"attribute"},{"text":" ","kind":"text"},{"text":"func","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"withStaticTestingContext"},{"kind":"text","text":"<"},{"text":"R","kind":"genericParameter"},{"text":">(","kind":"text"},{"text":"operation","kind":"externalParam"},{"text":": () ","kind":"text"},{"text":"throws","kind":"keyword"},{"text":" -> ","kind":"text"},{"text":"R","kind":"typeIdentifier"},{"kind":"text","text":") "},{"kind":"keyword","text":"rethrows"},{"kind":"text","text":" -> "},{"text":"R","kind":"typeIdentifier"}]}]},{"kind":"parameters","parameters":[{"content":[{"inlineContent":[{"type":"text","text":"The operation to run with the static testing context configured to test the given types."}],"type":"paragraph"}],"name":"operation"}]},{"content":[{"anchor":"discussion","type":"heading","text":"Discussion","level":2},{"type":"paragraph","inlineContent":[{"type":"text","text":"Testing static members can be challenging because they maintain their state across tests."},{"type":"text","text":" "},{"text":"This can lead to side effects where the outcome of one test affects another, leading to flaky tests that pass or fail unpredictably.","type":"text"},{"text":" ","type":"text"},{"type":"text","text":"Using "},{"type":"codeVoice","code":"withStaticTestingContext"},{"type":"text","text":" ensures that each test starts with a clean slate and does not have a dependency on any other test."}]},{"type":"paragraph","inlineContent":[{"text":"When using ","type":"text"},{"type":"codeVoice","code":"XCTest"},{"text":", you can wrap the contents of your test like so:","type":"text"}]},{"type":"codeListing","syntax":"swift","code":["class MyTests: XCTestCase {","","  func myTest() {","      withStaticTestingContext {","          \/\/ Test some static member","      }","  }","","}"]},{"type":"paragraph","inlineContent":[{"type":"text","text":"If all of the tests in a test case will be testing static members, you can wrap "},{"code":"invokeTest","type":"codeVoice"},{"type":"text","text":" so that a new static testing context"},{"type":"text","text":" "},{"type":"text","text":"is created for every test method:"}]},{"syntax":"swift","type":"codeListing","code":["class MyTests: XCTestCase {","","  override func invokeTest() {","      withStaticTestingContext {","          super.invokeTest()","      }","  }","","}"]},{"style":"note","name":"Note","content":[{"inlineContent":[{"type":"text","text":""},{"code":"withStaticTestingContext","type":"codeVoice"},{"text":" employs a task-local variable to maintain the current static testing context. This ensures thread-safety within the Swift Concurrency model.","type":"text"},{"type":"text","text":" "},{"type":"text","text":"However, detached "},{"type":"codeVoice","code":"Task"},{"type":"text","text":"s and non-Swift Concurrency code won’t have access to this context. Consequently, static calls within these contexts cannot be tested."}],"type":"paragraph"}],"type":"aside"}],"kind":"content"}],"abstract":[{"text":"Creates a ","type":"text"},{"code":"StaticTestingContext","type":"codeVoice"},{"type":"text","text":" for testing the given "},{"code":"StaticTestable","type":"codeVoice"},{"text":" types during the duration of the operation.","type":"text"}],"identifier":{"interfaceLanguage":"swift","url":"doc:\/\/TestDRS\/documentation\/TestDRS\/withStaticTestingContext(operation:)"},"sections":[],"metadata":{"role":"symbol","roleHeading":"Function","title":"withStaticTestingContext(operation:)","modules":[{"name":"TestDRS"}],"symbolKind":"func","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"text":"withStaticTestingContext","kind":"identifier"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"R"},{"text":">(","kind":"text"},{"kind":"externalParam","text":"operation"},{"text":": () ","kind":"text"},{"kind":"keyword","text":"throws"},{"kind":"text","text":" -> "},{"kind":"typeIdentifier","text":"R"},{"kind":"text","text":") "},{"kind":"keyword","text":"rethrows"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","text":"R"}],"externalID":"s:7TestDRS24withStaticTestingContext9operationxxyKXE_tKlF"},"kind":"symbol","hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS"]]},"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/withstatictestingcontext(operation:)"]}],"schemaVersion":{"major":0,"minor":3,"patch":0},"references":{"doc://TestDRS/documentation/TestDRS/withStaticTestingContext(operation:)":{"kind":"symbol","title":"withStaticTestingContext(operation:)","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/withStaticTestingContext(operation:)","fragments":[{"kind":"keyword","text":"func"},{"kind":"text","text":" "},{"kind":"identifier","text":"withStaticTestingContext"},{"kind":"text","text":"<"},{"text":"R","kind":"genericParameter"},{"kind":"text","text":">("},{"text":"operation","kind":"externalParam"},{"kind":"text","text":": () "},{"kind":"keyword","text":"throws"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","text":"R"},{"kind":"text","text":") "},{"text":"rethrows","kind":"keyword"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","text":"R"}],"abstract":[{"type":"text","text":"Creates a "},{"code":"StaticTestingContext","type":"codeVoice"},{"type":"text","text":" for testing the given "},{"type":"codeVoice","code":"StaticTestable"},{"type":"text","text":" types during the duration of the operation."}],"role":"symbol","type":"topic","url":"\/documentation\/testdrs\/withstatictestingcontext(operation:)"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"}}}
+{
+  "abstract": [
+    {
+      "text": "Creates a ",
+      "type": "text"
+    },
+    {
+      "code": "StaticTestingContext",
+      "type": "codeVoice"
+    },
+    {
+      "text": " for testing the given ",
+      "type": "text"
+    },
+    {
+      "code": "StaticTestable",
+      "type": "codeVoice"
+    },
+    {
+      "text": " types during the duration of the operation.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/withStaticTestingContext(operation:)"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS24withStaticTestingContext9operationxxyKXE_tKlF",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "func"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "withStaticTestingContext"
+      },
+      {
+        "kind": "text",
+        "text": "<"
+      },
+      {
+        "kind": "genericParameter",
+        "text": "R"
+      },
+      {
+        "kind": "text",
+        "text": ">("
+      },
+      {
+        "kind": "externalParam",
+        "text": "operation"
+      },
+      {
+        "kind": "text",
+        "text": ": () "
+      },
+      {
+        "kind": "keyword",
+        "text": "throws"
+      },
+      {
+        "kind": "text",
+        "text": " -> "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "R"
+      },
+      {
+        "kind": "text",
+        "text": ") "
+      },
+      {
+        "kind": "keyword",
+        "text": "rethrows"
+      },
+      {
+        "kind": "text",
+        "text": " -> "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "R"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Function",
+    "symbolKind": "func",
+    "title": "withStaticTestingContext(operation:)"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "attribute",
+              "text": "@discardableResult"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "func"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "withStaticTestingContext"
+            },
+            {
+              "kind": "text",
+              "text": "<"
+            },
+            {
+              "kind": "genericParameter",
+              "text": "R"
+            },
+            {
+              "kind": "text",
+              "text": ">("
+            },
+            {
+              "kind": "externalParam",
+              "text": "operation"
+            },
+            {
+              "kind": "text",
+              "text": ": () "
+            },
+            {
+              "kind": "keyword",
+              "text": "throws"
+            },
+            {
+              "kind": "text",
+              "text": " -> "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "R"
+            },
+            {
+              "kind": "text",
+              "text": ") "
+            },
+            {
+              "kind": "keyword",
+              "text": "rethrows"
+            },
+            {
+              "kind": "text",
+              "text": " -> "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "R"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "kind": "parameters",
+      "parameters": [
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "The operation to run with the static testing context configured to test the given types.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "operation"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "anchor": "discussion",
+          "level": 2,
+          "text": "Discussion",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Testing static members can be challenging because they maintain their state across tests.",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "This can lead to side effects where the outcome of one test affects another, leading to flaky tests that pass or fail unpredictably.",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "Using ",
+              "type": "text"
+            },
+            {
+              "code": "withStaticTestingContext",
+              "type": "codeVoice"
+            },
+            {
+              "text": " ensures that each test starts with a clean slate and does not have a dependency on any other test.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "When using ",
+              "type": "text"
+            },
+            {
+              "code": "XCTest",
+              "type": "codeVoice"
+            },
+            {
+              "text": ", you can wrap the contents of your test like so:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "class MyTests: XCTestCase {",
+            "",
+            "  func myTest() {",
+            "      withStaticTestingContext {",
+            "          // Test some static member",
+            "      }",
+            "  }",
+            "",
+            "}"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "If all of the tests in a test case will be testing static members, you can wrap ",
+              "type": "text"
+            },
+            {
+              "code": "invokeTest",
+              "type": "codeVoice"
+            },
+            {
+              "text": " so that a new static testing context",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "is created for every test method:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "class MyTests: XCTestCase {",
+            "",
+            "  override func invokeTest() {",
+            "      withStaticTestingContext {",
+            "          super.invokeTest()",
+            "      }",
+            "  }",
+            "",
+            "}"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "",
+                  "type": "text"
+                },
+                {
+                  "code": "withStaticTestingContext",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " employs a task-local variable to maintain the current static testing context. This ensures thread-safety within the Swift Concurrency model.",
+                  "type": "text"
+                },
+                {
+                  "text": " ",
+                  "type": "text"
+                },
+                {
+                  "text": "However, detached ",
+                  "type": "text"
+                },
+                {
+                  "code": "Task",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": "s and non-Swift Concurrency code won\u2019t have access to this context. Consequently, static calls within these contexts cannot be tested.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "Note",
+          "style": "note",
+          "type": "aside"
+        }
+      ],
+      "kind": "content"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/withStaticTestingContext(operation:)": {
+      "abstract": [
+        {
+          "text": "Creates a ",
+          "type": "text"
+        },
+        {
+          "code": "StaticTestingContext",
+          "type": "codeVoice"
+        },
+        {
+          "text": " for testing the given ",
+          "type": "text"
+        },
+        {
+          "code": "StaticTestable",
+          "type": "codeVoice"
+        },
+        {
+          "text": " types during the duration of the operation.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "withStaticTestingContext"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "genericParameter",
+          "text": "R"
+        },
+        {
+          "kind": "text",
+          "text": ">("
+        },
+        {
+          "kind": "externalParam",
+          "text": "operation"
+        },
+        {
+          "kind": "text",
+          "text": ": () "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "R"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "rethrows"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "R"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/withStaticTestingContext(operation:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "withStaticTestingContext(operation:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/withstatictestingcontext(operation:)"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/withstatictestingcontext(operation:)"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}
