@@ -1,1 +1,195 @@
-{"sections":[],"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/LowerBoundProviding"]]},"kind":"symbol","primaryContentSections":[{"kind":"declarations","declarations":[{"languages":["swift"],"platforms":["macOS"],"tokens":[{"kind":"keyword","text":"associatedtype"},{"text":" ","kind":"text"},{"text":"Bound","kind":"identifier"}]}]}],"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/lowerboundproviding\/bound"]}],"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/LowerBoundProviding\/Bound","interfaceLanguage":"swift"},"metadata":{"modules":[{"name":"TestDRS"}],"externalID":"s:7TestDRS19LowerBoundProvidingP0D0Qa","role":"symbol","fragments":[{"text":"associatedtype","kind":"keyword"},{"kind":"text","text":" "},{"text":"Bound","kind":"identifier"}],"roleHeading":"Associated Type","title":"Bound","symbolKind":"associatedtype","required":true},"schemaVersion":{"major":0,"patch":0,"minor":3},"references":{"doc://TestDRS/documentation/TestDRS/LowerBoundProviding/Bound":{"type":"topic","title":"Bound","fragments":[{"kind":"keyword","text":"associatedtype"},{"text":" ","kind":"text"},{"kind":"identifier","text":"Bound"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/LowerBoundProviding\/Bound","abstract":[],"url":"\/documentation\/testdrs\/lowerboundproviding\/bound","kind":"symbol","required":true,"role":"symbol"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/LowerBoundProviding":{"role":"symbol","title":"LowerBoundProviding","navigatorTitle":[{"text":"LowerBoundProviding","kind":"identifier"}],"fragments":[{"kind":"keyword","text":"protocol"},{"text":" ","kind":"text"},{"text":"LowerBoundProviding","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/LowerBoundProviding","type":"topic","abstract":[{"text":"TestDRS supports using ranges that have a lower bound in order to verify call counts.","type":"text"},{"text":" ","type":"text"},{"type":"text","text":"This protocol allows for using "},{"type":"codeVoice","code":"PartialRangeFrom"},{"type":"text","text":", "},{"type":"codeVoice","code":"Range"},{"text":", or ","type":"text"},{"type":"codeVoice","code":"ClosedRange"},{"type":"text","text":"."}],"kind":"symbol","url":"\/documentation\/testdrs\/lowerboundproviding"}}}
+{
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/LowerBoundProviding"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/LowerBoundProviding/Bound"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS19LowerBoundProvidingP0D0Qa",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "associatedtype"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "Bound"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "required": true,
+    "role": "symbol",
+    "roleHeading": "Associated Type",
+    "symbolKind": "associatedtype",
+    "title": "Bound"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "associatedtype"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "Bound"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/LowerBoundProviding": {
+      "abstract": [
+        {
+          "text": "TestDRS supports using ranges that have a lower bound in order to verify call counts.",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "text": "This protocol allows for using ",
+          "type": "text"
+        },
+        {
+          "code": "PartialRangeFrom",
+          "type": "codeVoice"
+        },
+        {
+          "text": ", ",
+          "type": "text"
+        },
+        {
+          "code": "Range",
+          "type": "codeVoice"
+        },
+        {
+          "text": ", or ",
+          "type": "text"
+        },
+        {
+          "code": "ClosedRange",
+          "type": "codeVoice"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "LowerBoundProviding"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/LowerBoundProviding",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "LowerBoundProviding"
+        }
+      ],
+      "role": "symbol",
+      "title": "LowerBoundProviding",
+      "type": "topic",
+      "url": "/documentation/testdrs/lowerboundproviding"
+    },
+    "doc://TestDRS/documentation/TestDRS/LowerBoundProviding/Bound": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "associatedtype"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "Bound"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/LowerBoundProviding/Bound",
+      "kind": "symbol",
+      "required": true,
+      "role": "symbol",
+      "title": "Bound",
+      "type": "topic",
+      "url": "/documentation/testdrs/lowerboundproviding/bound"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/lowerboundproviding/bound"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

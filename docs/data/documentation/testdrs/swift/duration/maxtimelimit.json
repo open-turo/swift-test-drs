@@ -1,1 +1,258 @@
-{"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/Swift\/Duration\/maxTimeLimit","interfaceLanguage":"swift"},"abstract":[{"text":"A duration that is long enough to essentially be considered infinite, but short enough to not cause an error when used to sleep a ","type":"text"},{"type":"codeVoice","code":"Task"},{"type":"text","text":"."}],"primaryContentSections":[{"declarations":[{"platforms":["macOS"],"tokens":[{"text":"static","kind":"keyword"},{"text":" ","kind":"text"},{"text":"let","kind":"keyword"},{"text":" ","kind":"text"},{"text":"maxTimeLimit","kind":"identifier"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:s8DurationV","kind":"typeIdentifier","text":"Duration"}],"languages":["swift"]}],"kind":"declarations"}],"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/Swift","doc:\/\/TestDRS\/documentation\/TestDRS\/Swift\/Duration"]]},"schemaVersion":{"patch":0,"minor":3,"major":0},"kind":"symbol","variants":[{"paths":["\/documentation\/testdrs\/swift\/duration\/maxtimelimit"],"traits":[{"interfaceLanguage":"swift"}]}],"metadata":{"role":"symbol","title":"maxTimeLimit","modules":[{"name":"TestDRS","relatedModules":["Swift"]}],"roleHeading":"Type Property","externalID":"s:s8DurationV7TestDRSE12maxTimeLimitABvpZ","platforms":[{"beta":false,"name":"iOS","deprecated":false,"unavailable":false,"introducedAt":"16.0"}],"extendedModule":"Swift","symbolKind":"property","fragments":[{"text":"static","kind":"keyword"},{"kind":"text","text":" "},{"kind":"keyword","text":"let"},{"kind":"text","text":" "},{"kind":"identifier","text":"maxTimeLimit"},{"kind":"text","text":": "},{"text":"Duration","kind":"typeIdentifier","preciseIdentifier":"s:s8DurationV"}]},"sections":[],"references":{"doc://TestDRS/documentation/TestDRS/Swift/Duration":{"abstract":[],"type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/Swift\/Duration","title":"Duration","role":"symbol","fragments":[{"text":"extension","kind":"keyword"},{"kind":"text","text":" "},{"kind":"identifier","text":"Duration","preciseIdentifier":"s:s8DurationV"}],"navigatorTitle":[{"kind":"identifier","text":"Duration"}],"kind":"symbol","url":"\/documentation\/testdrs\/swift\/duration"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/Swift":{"abstract":[],"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/Swift","url":"\/documentation\/testdrs\/swift","kind":"symbol","title":"Swift","type":"topic"},"doc://TestDRS/documentation/TestDRS/Swift/Duration/maxTimeLimit":{"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/Swift\/Duration\/maxTimeLimit","kind":"symbol","fragments":[{"text":"static","kind":"keyword"},{"kind":"text","text":" "},{"kind":"keyword","text":"let"},{"text":" ","kind":"text"},{"text":"maxTimeLimit","kind":"identifier"},{"kind":"text","text":": "},{"preciseIdentifier":"s:s8DurationV","kind":"typeIdentifier","text":"Duration"}],"type":"topic","url":"\/documentation\/testdrs\/swift\/duration\/maxtimelimit","title":"maxTimeLimit","role":"symbol","abstract":[{"type":"text","text":"A duration that is long enough to essentially be considered infinite, but short enough to not cause an error when used to sleep a "},{"code":"Task","type":"codeVoice"},{"type":"text","text":"."}]}}}
+{
+  "abstract": [
+    {
+      "text": "A duration that is long enough to essentially be considered infinite, but short enough to not cause an error when used to sleep a ",
+      "type": "text"
+    },
+    {
+      "code": "Task",
+      "type": "codeVoice"
+    },
+    {
+      "text": ".",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/Swift",
+        "doc://TestDRS/documentation/TestDRS/Swift/Duration"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/Swift/Duration/maxTimeLimit"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "extendedModule": "Swift",
+    "externalID": "s:s8DurationV7TestDRSE12maxTimeLimitABvpZ",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "static"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "keyword",
+        "text": "let"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "maxTimeLimit"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:s8DurationV",
+        "text": "Duration"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS",
+        "relatedModules": [
+          "Swift"
+        ]
+      }
+    ],
+    "platforms": [
+      {
+        "beta": false,
+        "deprecated": false,
+        "introducedAt": "16.0",
+        "name": "iOS",
+        "unavailable": false
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Type Property",
+    "symbolKind": "property",
+    "title": "maxTimeLimit"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "static"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "let"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "maxTimeLimit"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:s8DurationV",
+              "text": "Duration"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/Swift": {
+      "abstract": [],
+      "identifier": "doc://TestDRS/documentation/TestDRS/Swift",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "Swift",
+      "type": "topic",
+      "url": "/documentation/testdrs/swift"
+    },
+    "doc://TestDRS/documentation/TestDRS/Swift/Duration": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "extension"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "preciseIdentifier": "s:s8DurationV",
+          "text": "Duration"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/Swift/Duration",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "Duration"
+        }
+      ],
+      "role": "symbol",
+      "title": "Duration",
+      "type": "topic",
+      "url": "/documentation/testdrs/swift/duration"
+    },
+    "doc://TestDRS/documentation/TestDRS/Swift/Duration/maxTimeLimit": {
+      "abstract": [
+        {
+          "text": "A duration that is long enough to essentially be considered infinite, but short enough to not cause an error when used to sleep a ",
+          "type": "text"
+        },
+        {
+          "code": "Task",
+          "type": "codeVoice"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "static"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "let"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "maxTimeLimit"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s8DurationV",
+          "text": "Duration"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/Swift/Duration/maxTimeLimit",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "maxTimeLimit",
+      "type": "topic",
+      "url": "/documentation/testdrs/swift/duration/maxtimelimit"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/swift/duration/maxtimelimit"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

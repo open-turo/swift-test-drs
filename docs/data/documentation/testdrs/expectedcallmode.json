@@ -1,1 +1,243 @@
-{"primaryContentSections":[{"declarations":[{"tokens":[{"kind":"keyword","text":"enum"},{"kind":"text","text":" "},{"text":"ExpectedCallMode","kind":"identifier"}],"platforms":["macOS"],"languages":["swift"]}],"kind":"declarations"}],"topicSections":[{"identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode\/exclusive","doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode\/nonExclusive"],"title":"Enumeration Cases","generated":true,"anchor":"Enumeration-Cases"},{"identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode\/Equatable-Implementations"],"title":"Default Implementations","anchor":"Default-Implementations","generated":true}],"relationshipsSections":[{"title":"Conforms To","identifiers":["doc:\/\/TestDRS\/SQ","doc:\/\/TestDRS\/SH"],"kind":"relationships","type":"conformsTo"}],"schemaVersion":{"minor":3,"major":0,"patch":0},"kind":"symbol","metadata":{"fragments":[{"text":"enum","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"ExpectedCallMode"}],"navigatorTitle":[{"text":"ExpectedCallMode","kind":"identifier"}],"title":"ExpectedCallMode","symbolKind":"enum","externalID":"s:7TestDRS16ExpectedCallModeO","modules":[{"name":"TestDRS"}],"roleHeading":"Enumeration","role":"symbol"},"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode","interfaceLanguage":"swift"},"sections":[],"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS"]]},"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/expectedcallmode"]}],"references":{"doc://TestDRS/SH":{"type":"unresolvable","identifier":"doc:\/\/TestDRS\/SH","title":"Swift.Hashable"},"doc://TestDRS/documentation/TestDRS/ExpectedCallMode/nonExclusive":{"abstract":[{"type":"text","text":"Calls made to a function other than those expected should not cause a failure"}],"kind":"symbol","role":"symbol","fragments":[{"text":"case","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"nonExclusive"}],"title":"ExpectedCallMode.nonExclusive","type":"topic","url":"\/documentation\/testdrs\/expectedcallmode\/nonexclusive","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode\/nonExclusive"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/ExpectedCallMode":{"fragments":[{"text":"enum","kind":"keyword"},{"text":" ","kind":"text"},{"text":"ExpectedCallMode","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode","abstract":[],"role":"symbol","type":"topic","kind":"symbol","url":"\/documentation\/testdrs\/expectedcallmode","navigatorTitle":[{"text":"ExpectedCallMode","kind":"identifier"}],"title":"ExpectedCallMode"},"doc://TestDRS/SQ":{"type":"unresolvable","identifier":"doc:\/\/TestDRS\/SQ","title":"Swift.Equatable"},"doc://TestDRS/documentation/TestDRS/ExpectedCallMode/Equatable-Implementations":{"title":"Equatable Implementations","role":"collectionGroup","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode\/Equatable-Implementations","type":"topic","kind":"article","abstract":[],"url":"\/documentation\/testdrs\/expectedcallmode\/equatable-implementations"},"doc://TestDRS/documentation/TestDRS/ExpectedCallMode/exclusive":{"url":"\/documentation\/testdrs\/expectedcallmode\/exclusive","role":"symbol","abstract":[{"type":"text","text":"Calls made to a function other than those expected should cause a failure"}],"kind":"symbol","fragments":[{"text":"case","kind":"keyword"},{"kind":"text","text":" "},{"text":"exclusive","kind":"identifier"}],"type":"topic","title":"ExpectedCallMode.exclusive","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode\/exclusive"}}}
+{
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/ExpectedCallMode"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS16ExpectedCallModeO",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "enum"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "ExpectedCallMode"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "navigatorTitle": [
+      {
+        "kind": "identifier",
+        "text": "ExpectedCallMode"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Enumeration",
+    "symbolKind": "enum",
+    "title": "ExpectedCallMode"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "enum"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "ExpectedCallMode"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/SH": {
+      "identifier": "doc://TestDRS/SH",
+      "title": "Swift.Hashable",
+      "type": "unresolvable"
+    },
+    "doc://TestDRS/SQ": {
+      "identifier": "doc://TestDRS/SQ",
+      "title": "Swift.Equatable",
+      "type": "unresolvable"
+    },
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/ExpectedCallMode": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "enum"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "ExpectedCallMode"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/ExpectedCallMode",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "ExpectedCallMode"
+        }
+      ],
+      "role": "symbol",
+      "title": "ExpectedCallMode",
+      "type": "topic",
+      "url": "/documentation/testdrs/expectedcallmode"
+    },
+    "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/Equatable-Implementations": {
+      "abstract": [],
+      "identifier": "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/Equatable-Implementations",
+      "kind": "article",
+      "role": "collectionGroup",
+      "title": "Equatable Implementations",
+      "type": "topic",
+      "url": "/documentation/testdrs/expectedcallmode/equatable-implementations"
+    },
+    "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/exclusive": {
+      "abstract": [
+        {
+          "text": "Calls made to a function other than those expected should cause a failure",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "case"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "exclusive"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/exclusive",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "ExpectedCallMode.exclusive",
+      "type": "topic",
+      "url": "/documentation/testdrs/expectedcallmode/exclusive"
+    },
+    "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/nonExclusive": {
+      "abstract": [
+        {
+          "text": "Calls made to a function other than those expected should not cause a failure",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "case"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "nonExclusive"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/nonExclusive",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "ExpectedCallMode.nonExclusive",
+      "type": "topic",
+      "url": "/documentation/testdrs/expectedcallmode/nonexclusive"
+    }
+  },
+  "relationshipsSections": [
+    {
+      "identifiers": [
+        "doc://TestDRS/SQ",
+        "doc://TestDRS/SH"
+      ],
+      "kind": "relationships",
+      "title": "Conforms To",
+      "type": "conformsTo"
+    }
+  ],
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "topicSections": [
+    {
+      "anchor": "Enumeration-Cases",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/exclusive",
+        "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/nonExclusive"
+      ],
+      "title": "Enumeration Cases"
+    },
+    {
+      "anchor": "Default-Implementations",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/Equatable-Implementations"
+      ],
+      "title": "Default Implementations"
+    }
+  ],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/expectedcallmode"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

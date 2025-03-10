@@ -1,1 +1,183 @@
-{"topicSections":[{"title":"Initializers","identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature\/init(unicodeScalarLiteral:)"],"anchor":"Initializers","generated":true}],"schemaVersion":{"major":0,"minor":3,"patch":0},"identifier":{"interfaceLanguage":"swift","url":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature\/ExpressibleByUnicodeScalarLiteral-Implementations"},"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/functionsignature\/expressiblebyunicodescalarliteral-implementations"]}],"metadata":{"roleHeading":"API Collection","title":"ExpressibleByUnicodeScalarLiteral Implementations","modules":[{"name":"TestDRS"}],"role":"collectionGroup"},"sections":[],"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature"]]},"kind":"article","references":{"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/FunctionSignature":{"title":"FunctionSignature","url":"\/documentation\/testdrs\/functionsignature","navigatorTitle":[{"text":"FunctionSignature","kind":"identifier"}],"type":"topic","kind":"symbol","role":"symbol","fragments":[{"text":"struct","kind":"keyword"},{"kind":"text","text":" "},{"text":"FunctionSignature","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature","abstract":[{"type":"codeVoice","code":"FunctionSignature"},{"type":"text","text":" is used to represent the signature of a function."}]},"doc://TestDRS/documentation/TestDRS/FunctionSignature/init(unicodeScalarLiteral:)":{"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature\/init(unicodeScalarLiteral:)","fragments":[{"kind":"identifier","text":"init"},{"text":"(","kind":"text"},{"kind":"externalParam","text":"unicodeScalarLiteral"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Self"},{"kind":"text","text":"."},{"preciseIdentifier":"s:s43ExpressibleByExtendedGraphemeClusterLiteralP0cdeF4TypeQa","kind":"typeIdentifier","text":"ExtendedGraphemeClusterLiteralType"},{"kind":"text","text":")"}],"conformance":{"constraints":[{"code":"ExtendedGraphemeClusterLiteralType","type":"codeVoice"},{"type":"text","text":" is "},{"type":"codeVoice","code":"Self.UnicodeScalarLiteralType"},{"type":"text","text":"."}],"availabilityPrefix":[{"type":"text","text":"Available when"}],"conformancePrefix":[{"type":"text","text":"Conforms when"}]},"role":"symbol","type":"topic","abstract":[],"title":"init(unicodeScalarLiteral:)","kind":"symbol","url":"\/documentation\/testdrs\/functionsignature\/init(unicodescalarliteral:)"}}}
+{
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/FunctionSignature"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/FunctionSignature/ExpressibleByUnicodeScalarLiteral-Implementations"
+  },
+  "kind": "article",
+  "metadata": {
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "collectionGroup",
+    "roleHeading": "API Collection",
+    "title": "ExpressibleByUnicodeScalarLiteral Implementations"
+  },
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionSignature": {
+      "abstract": [
+        {
+          "code": "FunctionSignature",
+          "type": "codeVoice"
+        },
+        {
+          "text": " is used to represent the signature of a function.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "struct"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionSignature"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionSignature"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionSignature",
+      "type": "topic",
+      "url": "/documentation/testdrs/functionsignature"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionSignature/init(unicodeScalarLiteral:)": {
+      "abstract": [],
+      "conformance": {
+        "availabilityPrefix": [
+          {
+            "text": "Available when",
+            "type": "text"
+          }
+        ],
+        "conformancePrefix": [
+          {
+            "text": "Conforms when",
+            "type": "text"
+          }
+        ],
+        "constraints": [
+          {
+            "code": "ExtendedGraphemeClusterLiteralType",
+            "type": "codeVoice"
+          },
+          {
+            "text": " is ",
+            "type": "text"
+          },
+          {
+            "code": "Self.UnicodeScalarLiteralType",
+            "type": "codeVoice"
+          },
+          {
+            "text": ".",
+            "type": "text"
+          }
+        ]
+      },
+      "fragments": [
+        {
+          "kind": "identifier",
+          "text": "init"
+        },
+        {
+          "kind": "text",
+          "text": "("
+        },
+        {
+          "kind": "externalParam",
+          "text": "unicodeScalarLiteral"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Self"
+        },
+        {
+          "kind": "text",
+          "text": "."
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s43ExpressibleByExtendedGraphemeClusterLiteralP0cdeF4TypeQa",
+          "text": "ExtendedGraphemeClusterLiteralType"
+        },
+        {
+          "kind": "text",
+          "text": ")"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature/init(unicodeScalarLiteral:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "init(unicodeScalarLiteral:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/functionsignature/init(unicodescalarliteral:)"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "topicSections": [
+    {
+      "anchor": "Initializers",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/FunctionSignature/init(unicodeScalarLiteral:)"
+      ],
+      "title": "Initializers"
+    }
+  ],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/functionsignature/expressiblebyunicodescalarliteral-implementations"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

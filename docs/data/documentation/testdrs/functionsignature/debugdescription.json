@@ -1,1 +1,229 @@
-{"abstract":[{"type":"text","text":"Inherited from "},{"code":"CustomDebugStringConvertible.debugDescription","type":"codeVoice"},{"text":".","type":"text"}],"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature\/debugDescription","interfaceLanguage":"swift"},"kind":"symbol","schemaVersion":{"minor":3,"major":0,"patch":0},"primaryContentSections":[{"declarations":[{"platforms":["macOS"],"tokens":[{"kind":"keyword","text":"var"},{"kind":"text","text":" "},{"text":"debugDescription","kind":"identifier"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"},{"kind":"text","text":" { "},{"kind":"keyword","text":"get"},{"text":" }","kind":"text"}],"languages":["swift"]}],"kind":"declarations"}],"metadata":{"roleHeading":"Instance Property","title":"debugDescription","modules":[{"name":"TestDRS"}],"extendedModule":"TestDRS","symbolKind":"property","fragments":[{"text":"var","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"debugDescription"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:SS","text":"String","kind":"typeIdentifier"}],"externalID":"s:7TestDRS17FunctionSignatureV16debugDescriptionSSvp","role":"symbol"},"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature\/CustomDebugStringConvertible-Implementations"]]},"sections":[],"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/functionsignature\/debugdescription"]}],"references":{"doc://TestDRS/documentation/TestDRS/FunctionSignature/debugDescription":{"url":"\/documentation\/testdrs\/functionsignature\/debugdescription","role":"symbol","title":"debugDescription","abstract":[],"kind":"symbol","type":"topic","fragments":[{"kind":"keyword","text":"var"},{"text":" ","kind":"text"},{"kind":"identifier","text":"debugDescription"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"String","preciseIdentifier":"s:SS"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature\/debugDescription"},"doc://TestDRS/documentation/TestDRS/FunctionSignature":{"title":"FunctionSignature","url":"\/documentation\/testdrs\/functionsignature","navigatorTitle":[{"text":"FunctionSignature","kind":"identifier"}],"type":"topic","kind":"symbol","role":"symbol","fragments":[{"text":"struct","kind":"keyword"},{"kind":"text","text":" "},{"text":"FunctionSignature","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature","abstract":[{"type":"codeVoice","code":"FunctionSignature"},{"type":"text","text":" is used to represent the signature of a function."}]},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/FunctionSignature/CustomDebugStringConvertible-Implementations":{"url":"\/documentation\/testdrs\/functionsignature\/customdebugstringconvertible-implementations","role":"collectionGroup","title":"CustomDebugStringConvertible Implementations","abstract":[],"kind":"article","type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature\/CustomDebugStringConvertible-Implementations"}}}
+{
+  "abstract": [
+    {
+      "text": "Inherited from ",
+      "type": "text"
+    },
+    {
+      "code": "CustomDebugStringConvertible.debugDescription",
+      "type": "codeVoice"
+    },
+    {
+      "text": ".",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/FunctionSignature",
+        "doc://TestDRS/documentation/TestDRS/FunctionSignature/CustomDebugStringConvertible-Implementations"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/FunctionSignature/debugDescription"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "extendedModule": "TestDRS",
+    "externalID": "s:7TestDRS17FunctionSignatureV16debugDescriptionSSvp",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "var"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "debugDescription"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:SS",
+        "text": "String"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Instance Property",
+    "symbolKind": "property",
+    "title": "debugDescription"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "var"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "debugDescription"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:SS",
+              "text": "String"
+            },
+            {
+              "kind": "text",
+              "text": " { "
+            },
+            {
+              "kind": "keyword",
+              "text": "get"
+            },
+            {
+              "kind": "text",
+              "text": " }"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionSignature": {
+      "abstract": [
+        {
+          "code": "FunctionSignature",
+          "type": "codeVoice"
+        },
+        {
+          "text": " is used to represent the signature of a function.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "struct"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionSignature"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionSignature"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionSignature",
+      "type": "topic",
+      "url": "/documentation/testdrs/functionsignature"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionSignature/CustomDebugStringConvertible-Implementations": {
+      "abstract": [],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature/CustomDebugStringConvertible-Implementations",
+      "kind": "article",
+      "role": "collectionGroup",
+      "title": "CustomDebugStringConvertible Implementations",
+      "type": "topic",
+      "url": "/documentation/testdrs/functionsignature/customdebugstringconvertible-implementations"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionSignature/debugDescription": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "var"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "debugDescription"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:SS",
+          "text": "String"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature/debugDescription",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "debugDescription",
+      "type": "topic",
+      "url": "/documentation/testdrs/functionsignature/debugdescription"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/functionsignature/debugdescription"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

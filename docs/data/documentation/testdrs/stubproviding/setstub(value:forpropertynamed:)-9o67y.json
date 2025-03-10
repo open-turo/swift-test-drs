@@ -1,1 +1,438 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"tokens":[{"text":"static","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"keyword","text":"func"},{"text":" ","kind":"text"},{"text":"setStub","kind":"identifier"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Output"},{"kind":"text","text":">("},{"text":"value","kind":"externalParam"},{"text":": ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":", "},{"kind":"externalParam","text":"forPropertyNamed"},{"kind":"text","text":" "},{"text":"propertyName","kind":"internalParam"},{"kind":"text","text":": "},{"kind":"typeIdentifier","preciseIdentifier":"s:s12StaticStringV","text":"StaticString"},{"text":" = ","kind":"text"},{"kind":"keyword","text":"#function"},{"kind":"text","text":")"}],"platforms":["macOS"],"languages":["swift"]}]},{"kind":"parameters","parameters":[{"name":"value","content":[{"type":"paragraph","inlineContent":[{"text":"The value to return.","type":"text"}]}]},{"name":"propertyName","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":""},{"inlineContent":[{"type":"text","text":"Do not pass in this argument"}],"type":"strong"},{"text":", it will automatically capture the name of the calling property.","type":"text"}]}]}]}],"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/StubProviding"]]},"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/StubProviding\/setStub(value:forPropertyNamed:)-9o67y","interfaceLanguage":"swift"},"sections":[],"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/stubproviding\/setstub(value:forpropertynamed:)-9o67y"]}],"abstract":[{"text":"Sets a stub for a given property to return a provided output.","type":"text"},{"text":" ","type":"text"},{"text":"Meant to be called from the setter of the property, will automatically record the property name.","type":"text"}],"kind":"symbol","metadata":{"roleHeading":"Type Method","extendedModule":"TestDRS","externalID":"s:7TestDRS13StubProvidingPAAE03setC05value16forPropertyNamedyqd___s12StaticStringVtlFZ","role":"symbol","title":"setStub(value:forPropertyNamed:)","modules":[{"name":"TestDRS"}],"fragments":[{"text":"static","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"keyword","text":"func"},{"text":" ","kind":"text"},{"kind":"identifier","text":"setStub"},{"text":"<","kind":"text"},{"text":"Output","kind":"genericParameter"},{"text":">(","kind":"text"},{"kind":"externalParam","text":"value"},{"kind":"text","text":": "},{"text":"Output","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"forPropertyNamed"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:s12StaticStringV","text":"StaticString"},{"text":")","kind":"text"}],"symbolKind":"method"},"schemaVersion":{"major":0,"minor":3,"patch":0},"references":{"doc://TestDRS/documentation/TestDRS/StubProviding/setStub(value:forPropertyNamed:)-9o67y":{"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StubProviding\/setStub(value:forPropertyNamed:)-9o67y","abstract":[{"text":"Sets a stub for a given property to return a provided output.","type":"text"},{"type":"text","text":" "},{"type":"text","text":"Meant to be called from the setter of the property, will automatically record the property name."}],"url":"\/documentation\/testdrs\/stubproviding\/setstub(value:forpropertynamed:)-9o67y","role":"symbol","kind":"symbol","fragments":[{"text":"static","kind":"keyword"},{"text":" ","kind":"text"},{"text":"func","kind":"keyword"},{"text":" ","kind":"text"},{"text":"setStub","kind":"identifier"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Output"},{"kind":"text","text":">("},{"text":"value","kind":"externalParam"},{"kind":"text","text":": "},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"forPropertyNamed","kind":"externalParam"},{"kind":"text","text":": "},{"preciseIdentifier":"s:s12StaticStringV","text":"StaticString","kind":"typeIdentifier"},{"text":")","kind":"text"}],"type":"topic","title":"setStub(value:forPropertyNamed:)"},"doc://TestDRS/documentation/TestDRS/StubProviding":{"kind":"symbol","type":"topic","title":"StubProviding","navigatorTitle":[{"kind":"identifier","text":"StubProviding"}],"abstract":[{"code":"StubProviding","type":"codeVoice"},{"text":" is a protocol that defines a stubbing mechanism for unit testing.","type":"text"},{"text":" ","type":"text"},{"type":"text","text":"It allows you to replace real method calls with stubbed responses, making it easier to test your code in isolation."},{"text":" ","type":"text"},{"text":"Each stub is associated with the function’s signature, input type, and output type.","type":"text"},{"text":" ","type":"text"},{"type":"text","text":"This information is used to retrieve the stub when the function is called."}],"role":"symbol","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StubProviding","fragments":[{"text":"protocol","kind":"keyword"},{"text":" ","kind":"text"},{"text":"StubProviding","kind":"identifier"}],"url":"\/documentation\/testdrs\/stubproviding"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"}}}
+{
+  "abstract": [
+    {
+      "text": "Sets a stub for a given property to return a provided output.",
+      "type": "text"
+    },
+    {
+      "text": " ",
+      "type": "text"
+    },
+    {
+      "text": "Meant to be called from the setter of the property, will automatically record the property name.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/StubProviding"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/StubProviding/setStub(value:forPropertyNamed:)-9o67y"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "extendedModule": "TestDRS",
+    "externalID": "s:7TestDRS13StubProvidingPAAE03setC05value16forPropertyNamedyqd___s12StaticStringVtlFZ",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "static"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "keyword",
+        "text": "func"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "setStub"
+      },
+      {
+        "kind": "text",
+        "text": "<"
+      },
+      {
+        "kind": "genericParameter",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ">("
+      },
+      {
+        "kind": "externalParam",
+        "text": "value"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "forPropertyNamed"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:s12StaticStringV",
+        "text": "StaticString"
+      },
+      {
+        "kind": "text",
+        "text": ")"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Type Method",
+    "symbolKind": "method",
+    "title": "setStub(value:forPropertyNamed:)"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "static"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "func"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "setStub"
+            },
+            {
+              "kind": "text",
+              "text": "<"
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ">("
+            },
+            {
+              "kind": "externalParam",
+              "text": "value"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "forPropertyNamed"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "propertyName"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:s12StaticStringV",
+              "text": "StaticString"
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "keyword",
+              "text": "#function"
+            },
+            {
+              "kind": "text",
+              "text": ")"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "kind": "parameters",
+      "parameters": [
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "The value to return.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "value"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "",
+                  "type": "text"
+                },
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Do not pass in this argument",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "strong"
+                },
+                {
+                  "text": ", it will automatically capture the name of the calling property.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "propertyName"
+        }
+      ]
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/StubProviding": {
+      "abstract": [
+        {
+          "code": "StubProviding",
+          "type": "codeVoice"
+        },
+        {
+          "text": " is a protocol that defines a stubbing mechanism for unit testing.",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "text": "It allows you to replace real method calls with stubbed responses, making it easier to test your code in isolation.",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "text": "Each stub is associated with the function\u2019s signature, input type, and output type.",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "text": "This information is used to retrieve the stub when the function is called.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "StubProviding"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/StubProviding",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "StubProviding"
+        }
+      ],
+      "role": "symbol",
+      "title": "StubProviding",
+      "type": "topic",
+      "url": "/documentation/testdrs/stubproviding"
+    },
+    "doc://TestDRS/documentation/TestDRS/StubProviding/setStub(value:forPropertyNamed:)-9o67y": {
+      "abstract": [
+        {
+          "text": "Sets a stub for a given property to return a provided output.",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "text": "Meant to be called from the setter of the property, will automatically record the property name.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "static"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "setStub"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">("
+        },
+        {
+          "kind": "externalParam",
+          "text": "value"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "forPropertyNamed"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s12StaticStringV",
+          "text": "StaticString"
+        },
+        {
+          "kind": "text",
+          "text": ")"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/StubProviding/setStub(value:forPropertyNamed:)-9o67y",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "setStub(value:forPropertyNamed:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/stubproviding/setstub(value:forpropertynamed:)-9o67y"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/stubproviding/setstub(value:forpropertynamed:)-9o67y"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

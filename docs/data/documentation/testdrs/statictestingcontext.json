@@ -1,1 +1,153 @@
-{"primaryContentSections":[{"kind":"declarations","declarations":[{"platforms":["macOS"],"tokens":[{"text":"class","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"StaticTestingContext"}],"languages":["swift"]}]}],"kind":"symbol","metadata":{"symbolKind":"class","navigatorTitle":[{"text":"StaticTestingContext","kind":"identifier"}],"fragments":[{"text":"class","kind":"keyword"},{"text":" ","kind":"text"},{"text":"StaticTestingContext","kind":"identifier"}],"externalID":"s:7TestDRS20StaticTestingContextC","title":"StaticTestingContext","role":"symbol","roleHeading":"Class","modules":[{"name":"TestDRS"}]},"sections":[],"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/StaticTestingContext","interfaceLanguage":"swift"},"relationshipsSections":[{"identifiers":["doc:\/\/TestDRS\/s8SendableP"],"title":"Conforms To","kind":"relationships","type":"conformsTo"}],"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS"]]},"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/statictestingcontext"]}],"schemaVersion":{"minor":3,"major":0,"patch":0},"references":{"doc://TestDRS/s8SendableP":{"identifier":"doc:\/\/TestDRS\/s8SendableP","title":"Swift.Sendable","type":"unresolvable"},"doc://TestDRS/documentation/TestDRS/StaticTestingContext":{"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StaticTestingContext","kind":"symbol","navigatorTitle":[{"text":"StaticTestingContext","kind":"identifier"}],"fragments":[{"kind":"keyword","text":"class"},{"text":" ","kind":"text"},{"text":"StaticTestingContext","kind":"identifier"}],"title":"StaticTestingContext","type":"topic","role":"symbol","abstract":[],"url":"\/documentation\/testdrs\/statictestingcontext"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"}}}
+{
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/StaticTestingContext"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS20StaticTestingContextC",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "class"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "StaticTestingContext"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "navigatorTitle": [
+      {
+        "kind": "identifier",
+        "text": "StaticTestingContext"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Class",
+    "symbolKind": "class",
+    "title": "StaticTestingContext"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "class"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "StaticTestingContext"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/StaticTestingContext": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "class"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "StaticTestingContext"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/StaticTestingContext",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "StaticTestingContext"
+        }
+      ],
+      "role": "symbol",
+      "title": "StaticTestingContext",
+      "type": "topic",
+      "url": "/documentation/testdrs/statictestingcontext"
+    },
+    "doc://TestDRS/s8SendableP": {
+      "identifier": "doc://TestDRS/s8SendableP",
+      "title": "Swift.Sendable",
+      "type": "unresolvable"
+    }
+  },
+  "relationshipsSections": [
+    {
+      "identifiers": [
+        "doc://TestDRS/s8SendableP"
+      ],
+      "kind": "relationships",
+      "title": "Conforms To",
+      "type": "conformsTo"
+    }
+  ],
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/statictestingcontext"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

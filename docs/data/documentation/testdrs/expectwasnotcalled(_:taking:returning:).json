@@ -1,1 +1,892 @@
-{"identifier":{"interfaceLanguage":"swift","url":"doc:\/\/TestDRS\/documentation\/TestDRS\/expectWasNotCalled(_:taking:returning:)"},"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/expectwasnotcalled(_:taking:returning:)"]}],"metadata":{"symbolKind":"macro","roleHeading":"Macro","fragments":[{"kind":"keyword","text":"macro"},{"text":" ","kind":"text"},{"text":"expectWasNotCalled","kind":"identifier"},{"text":"<","kind":"text"},{"kind":"genericParameter","text":"Input"},{"kind":"text","text":", "},{"kind":"genericParameter","text":"Output"},{"text":">((","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":") "},{"kind":"keyword","text":"async"},{"text":" ","kind":"text"},{"text":"throws","kind":"keyword"},{"text":" -> ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"taking","kind":"externalParam"},{"text":": ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":".Type?, "},{"text":"returning","kind":"externalParam"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"Output"},{"kind":"text","text":".Type?)"}],"externalID":"s:7TestDRS18expectWasNotCalled_6taking9returningyq_xYaKXE_xmSgq_mSgtcr0_lufm","modules":[{"name":"TestDRS"}],"role":"symbol","title":"expectWasNotCalled(_:taking:returning:)"},"schemaVersion":{"major":0,"minor":3,"patch":0},"kind":"symbol","sections":[],"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS"]]},"abstract":[{"type":"text","text":"Expects that the given function was not called."}],"seeAlsoSections":[{"identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/expectWasCalled(_:taking:returning:mode:)","doc:\/\/TestDRS\/documentation\/TestDRS\/expectWasCalled(_:with:returning:mode:)","doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectWasCalledResult"],"generated":true,"anchor":"Verifying-interactions","title":"Verifying interactions"}],"primaryContentSections":[{"declarations":[{"tokens":[{"text":"@discardableResult","kind":"attribute"},{"kind":"text","text":" "},{"kind":"attribute","text":"@freestanding"},{"text":"(expression) ","kind":"text"},{"kind":"keyword","text":"macro"},{"text":" ","kind":"text"},{"text":"expectWasNotCalled","kind":"identifier"},{"text":"<","kind":"text"},{"kind":"genericParameter","text":"Input"},{"kind":"text","text":", "},{"text":"Output","kind":"genericParameter"},{"kind":"text","text":">("},{"kind":"externalParam","text":"_"},{"text":" ","kind":"text"},{"text":"function","kind":"internalParam"},{"kind":"text","text":": ("},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":") "},{"text":"async","kind":"keyword"},{"text":" ","kind":"text"},{"text":"throws","kind":"keyword"},{"kind":"text","text":" -> "},{"text":"Output","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"taking","kind":"externalParam"},{"kind":"text","text":" "},{"kind":"internalParam","text":"inputType"},{"kind":"text","text":": "},{"text":"Input","kind":"typeIdentifier"},{"text":".Type? = nil, ","kind":"text"},{"kind":"externalParam","text":"returning"},{"text":" ","kind":"text"},{"text":"outputType","kind":"internalParam"},{"text":": ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"text":".Type? = nil)","kind":"text"}],"platforms":["macOS"],"languages":["swift"]}],"kind":"declarations"},{"kind":"parameters","parameters":[{"name":"function","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"A reference to the function to expect was not called."}]}]},{"name":"inputType","content":[{"inlineContent":[{"text":"An optional phantom parameter used to derive the input type of the ","type":"text"},{"code":"function","type":"codeVoice"},{"text":" passed in.","type":"text"}],"type":"paragraph"}]},{"name":"outputType","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"An optional  phantom parameter used to derive the output type of the "},{"code":"function","type":"codeVoice"},{"text":" passed in.","type":"text"}]}]}]}],"references":{"doc://TestDRS/documentation/TestDRS/expectWasNotCalled(_:taking:returning:)":{"fragments":[{"text":"macro","kind":"keyword"},{"text":" ","kind":"text"},{"text":"expectWasNotCalled","kind":"identifier"},{"text":"<","kind":"text"},{"text":"Input","kind":"genericParameter"},{"kind":"text","text":", "},{"kind":"genericParameter","text":"Output"},{"kind":"text","text":">(("},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":") "},{"text":"async","kind":"keyword"},{"kind":"text","text":" "},{"text":"throws","kind":"keyword"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","text":"Output"},{"text":", ","kind":"text"},{"text":"taking","kind":"externalParam"},{"kind":"text","text":": "},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":".Type?, "},{"text":"returning","kind":"externalParam"},{"text":": ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"text":".Type?)","kind":"text"}],"abstract":[{"type":"text","text":"Expects that the given function was not called."}],"title":"expectWasNotCalled(_:taking:returning:)","url":"\/documentation\/testdrs\/expectwasnotcalled(_:taking:returning:)","role":"symbol","type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/expectWasNotCalled(_:taking:returning:)","kind":"symbol"},"doc://TestDRS/documentation/TestDRS/ExpectWasCalledResult":{"fragments":[{"text":"struct","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"ExpectWasCalledResult"}],"url":"\/documentation\/testdrs\/expectwascalledresult","type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectWasCalledResult","kind":"symbol","title":"ExpectWasCalledResult","abstract":[{"type":"codeVoice","code":"ExpectWasCalledResult"},{"text":" is a struct that encapsulates the result of an ","type":"text"},{"type":"codeVoice","code":"#expectWasCalled"},{"type":"text","text":" expectation."},{"type":"text","text":" "},{"text":"It contains any calls that match the expectation and provides methods for expecting the number of times the given call was recorded.","type":"text"}],"role":"symbol","navigatorTitle":[{"text":"ExpectWasCalledResult","kind":"identifier"}]},"doc://TestDRS/documentation/TestDRS/expectWasCalled(_:with:returning:mode:)":{"fragments":[{"text":"macro","kind":"keyword"},{"text":" ","kind":"text"},{"text":"expectWasCalled","kind":"identifier"},{"text":"<each ","kind":"text"},{"text":"Input","kind":"genericParameter"},{"kind":"text","text":", "},{"kind":"genericParameter","text":"Output"},{"kind":"text","text":">((repeat each "},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":") "},{"text":"async","kind":"keyword"},{"kind":"text","text":" "},{"text":"throws","kind":"keyword"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","text":"Output"},{"text":", ","kind":"text"},{"text":"with","kind":"externalParam"},{"kind":"text","text":": repeat each "},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"returning","kind":"externalParam"},{"text":": ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"text":".Type?, ","kind":"text"},{"kind":"externalParam","text":"mode"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"ExpectedCallMode","preciseIdentifier":"s:7TestDRS16ExpectedCallModeO"},{"text":") -> ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS21ExpectWasCalledResultV","text":"ExpectWasCalledResult"},{"kind":"text","text":"<"},{"preciseIdentifier":"s:7TestDRS17MatchingAnyAmountO","text":"MatchingAnyAmount","kind":"typeIdentifier"},{"kind":"text","text":", (repeat each "},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":"), "},{"kind":"typeIdentifier","text":"Output"},{"text":">","kind":"text"}],"title":"expectWasCalled(_:with:returning:mode:)","type":"topic","abstract":[{"type":"text","text":"Expects that the given function was called with the expected input."}],"kind":"symbol","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/expectWasCalled(_:with:returning:mode:)","url":"\/documentation\/testdrs\/expectwascalled(_:with:returning:mode:)","role":"symbol"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/expectWasCalled(_:taking:returning:mode:)":{"abstract":[{"type":"text","text":"Expects that the given function was called."}],"url":"\/documentation\/testdrs\/expectwascalled(_:taking:returning:mode:)","kind":"symbol","fragments":[{"text":"macro","kind":"keyword"},{"text":" ","kind":"text"},{"text":"expectWasCalled","kind":"identifier"},{"text":"<","kind":"text"},{"text":"Input","kind":"genericParameter"},{"kind":"text","text":", "},{"kind":"genericParameter","text":"Output"},{"kind":"text","text":">(("},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":") "},{"text":"async","kind":"keyword"},{"kind":"text","text":" "},{"text":"throws","kind":"keyword"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","text":"Output"},{"text":", ","kind":"text"},{"text":"taking","kind":"externalParam"},{"kind":"text","text":": "},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":".Type?, "},{"text":"returning","kind":"externalParam"},{"text":": ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"text":".Type?, ","kind":"text"},{"kind":"externalParam","text":"mode"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"ExpectedCallMode","preciseIdentifier":"s:7TestDRS16ExpectedCallModeO"},{"text":") -> ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS21ExpectWasCalledResultV","text":"ExpectWasCalledResult"},{"kind":"text","text":"<"},{"preciseIdentifier":"s:7TestDRS17MatchingAnyAmountO","text":"MatchingAnyAmount","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":", "},{"kind":"typeIdentifier","text":"Output"},{"text":">","kind":"text"}],"role":"symbol","title":"expectWasCalled(_:taking:returning:mode:)","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/expectWasCalled(_:taking:returning:mode:)","type":"topic"}}}
+{
+  "abstract": [
+    {
+      "text": "Expects that the given function was not called.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/expectWasNotCalled(_:taking:returning:)"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS18expectWasNotCalled_6taking9returningyq_xYaKXE_xmSgq_mSgtcr0_lufm",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "macro"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "expectWasNotCalled"
+      },
+      {
+        "kind": "text",
+        "text": "<"
+      },
+      {
+        "kind": "genericParameter",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "genericParameter",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ">(("
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ") "
+      },
+      {
+        "kind": "keyword",
+        "text": "async"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "keyword",
+        "text": "throws"
+      },
+      {
+        "kind": "text",
+        "text": " -> "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "taking"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ".Type?, "
+      },
+      {
+        "kind": "externalParam",
+        "text": "returning"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ".Type?)"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Macro",
+    "symbolKind": "macro",
+    "title": "expectWasNotCalled(_:taking:returning:)"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "attribute",
+              "text": "@discardableResult"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "attribute",
+              "text": "@freestanding"
+            },
+            {
+              "kind": "text",
+              "text": "(expression) "
+            },
+            {
+              "kind": "keyword",
+              "text": "macro"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "expectWasNotCalled"
+            },
+            {
+              "kind": "text",
+              "text": "<"
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ">("
+            },
+            {
+              "kind": "externalParam",
+              "text": "_"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "function"
+            },
+            {
+              "kind": "text",
+              "text": ": ("
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ") "
+            },
+            {
+              "kind": "keyword",
+              "text": "async"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "throws"
+            },
+            {
+              "kind": "text",
+              "text": " -> "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "taking"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "inputType"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ".Type? = nil, "
+            },
+            {
+              "kind": "externalParam",
+              "text": "returning"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "outputType"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ".Type? = nil)"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "kind": "parameters",
+      "parameters": [
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "A reference to the function to expect was not called.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "function"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "An optional phantom parameter used to derive the input type of the ",
+                  "type": "text"
+                },
+                {
+                  "code": "function",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " passed in.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "inputType"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "An optional  phantom parameter used to derive the output type of the ",
+                  "type": "text"
+                },
+                {
+                  "code": "function",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " passed in.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "outputType"
+        }
+      ]
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/ExpectWasCalledResult": {
+      "abstract": [
+        {
+          "code": "ExpectWasCalledResult",
+          "type": "codeVoice"
+        },
+        {
+          "text": " is a struct that encapsulates the result of an ",
+          "type": "text"
+        },
+        {
+          "code": "#expectWasCalled",
+          "type": "codeVoice"
+        },
+        {
+          "text": " expectation.",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "text": "It contains any calls that match the expectation and provides methods for expecting the number of times the given call was recorded.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "struct"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "ExpectWasCalledResult"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/ExpectWasCalledResult",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "ExpectWasCalledResult"
+        }
+      ],
+      "role": "symbol",
+      "title": "ExpectWasCalledResult",
+      "type": "topic",
+      "url": "/documentation/testdrs/expectwascalledresult"
+    },
+    "doc://TestDRS/documentation/TestDRS/expectWasCalled(_:taking:returning:mode:)": {
+      "abstract": [
+        {
+          "text": "Expects that the given function was called.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "macro"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "expectWasCalled"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">(("
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "taking"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "returning"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "mode"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS16ExpectedCallModeO",
+          "text": "ExpectedCallMode"
+        },
+        {
+          "kind": "text",
+          "text": ") -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS21ExpectWasCalledResultV",
+          "text": "ExpectWasCalledResult"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS17MatchingAnyAmountO",
+          "text": "MatchingAnyAmount"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/expectWasCalled(_:taking:returning:mode:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "expectWasCalled(_:taking:returning:mode:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/expectwascalled(_:taking:returning:mode:)"
+    },
+    "doc://TestDRS/documentation/TestDRS/expectWasCalled(_:with:returning:mode:)": {
+      "abstract": [
+        {
+          "text": "Expects that the given function was called with the expected input.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "macro"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "expectWasCalled"
+        },
+        {
+          "kind": "text",
+          "text": "<each "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">((repeat each "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "with"
+        },
+        {
+          "kind": "text",
+          "text": ": repeat each "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "returning"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "mode"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS16ExpectedCallModeO",
+          "text": "ExpectedCallMode"
+        },
+        {
+          "kind": "text",
+          "text": ") -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS21ExpectWasCalledResultV",
+          "text": "ExpectWasCalledResult"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS17MatchingAnyAmountO",
+          "text": "MatchingAnyAmount"
+        },
+        {
+          "kind": "text",
+          "text": ", (repeat each "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": "), "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/expectWasCalled(_:with:returning:mode:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "expectWasCalled(_:with:returning:mode:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/expectwascalled(_:with:returning:mode:)"
+    },
+    "doc://TestDRS/documentation/TestDRS/expectWasNotCalled(_:taking:returning:)": {
+      "abstract": [
+        {
+          "text": "Expects that the given function was not called.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "macro"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "expectWasNotCalled"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">(("
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "taking"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "returning"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?)"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/expectWasNotCalled(_:taking:returning:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "expectWasNotCalled(_:taking:returning:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/expectwasnotcalled(_:taking:returning:)"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "seeAlsoSections": [
+    {
+      "anchor": "Verifying-interactions",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/expectWasCalled(_:taking:returning:mode:)",
+        "doc://TestDRS/documentation/TestDRS/expectWasCalled(_:with:returning:mode:)",
+        "doc://TestDRS/documentation/TestDRS/ExpectWasCalledResult"
+      ],
+      "title": "Verifying interactions"
+    }
+  ],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/expectwasnotcalled(_:taking:returning:)"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

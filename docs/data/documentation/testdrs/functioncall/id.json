@@ -1,1 +1,207 @@
-{"abstract":[{"type":"text","text":"A unique identifier for this function call."}],"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/functioncall\/id"]}],"sections":[],"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCall"]]},"metadata":{"symbolKind":"property","role":"symbol","title":"id","externalID":"s:7TestDRS12FunctionCallV2idSivp","roleHeading":"Instance Property","fragments":[{"text":"let","kind":"keyword"},{"kind":"text","text":" "},{"text":"id","kind":"identifier"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:Si","text":"Int","kind":"typeIdentifier"}],"modules":[{"name":"TestDRS"}]},"schemaVersion":{"patch":0,"minor":3,"major":0},"primaryContentSections":[{"declarations":[{"languages":["swift"],"tokens":[{"kind":"keyword","text":"let"},{"text":" ","kind":"text"},{"kind":"identifier","text":"id"},{"kind":"text","text":": "},{"kind":"typeIdentifier","preciseIdentifier":"s:Si","text":"Int"}],"platforms":["macOS"]}],"kind":"declarations"}],"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCall\/id","interfaceLanguage":"swift"},"kind":"symbol","references":{"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/FunctionCall":{"title":"FunctionCall","role":"symbol","kind":"symbol","url":"\/documentation\/testdrs\/functioncall","navigatorTitle":[{"text":"FunctionCall","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCall","type":"topic","fragments":[{"text":"struct","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"FunctionCall"}],"abstract":[{"type":"text","text":"A concrete implementation of "},{"type":"codeVoice","code":"FunctionCallRepresentation"},{"type":"text","text":" that captures a function call’s details."}]},"doc://TestDRS/documentation/TestDRS/FunctionCall/id":{"kind":"symbol","role":"symbol","title":"id","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCall\/id","type":"topic","abstract":[{"text":"A unique identifier for this function call.","type":"text"}],"url":"\/documentation\/testdrs\/functioncall\/id","fragments":[{"text":"let","kind":"keyword"},{"kind":"text","text":" "},{"kind":"identifier","text":"id"},{"kind":"text","text":": "},{"preciseIdentifier":"s:Si","text":"Int","kind":"typeIdentifier"}]}}}
+{
+  "abstract": [
+    {
+      "text": "A unique identifier for this function call.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/FunctionCall"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/FunctionCall/id"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS12FunctionCallV2idSivp",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "let"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "id"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:Si",
+        "text": "Int"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Instance Property",
+    "symbolKind": "property",
+    "title": "id"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "let"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "id"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:Si",
+              "text": "Int"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCall": {
+      "abstract": [
+        {
+          "text": "A concrete implementation of ",
+          "type": "text"
+        },
+        {
+          "code": "FunctionCallRepresentation",
+          "type": "codeVoice"
+        },
+        {
+          "text": " that captures a function call\u2019s details.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "struct"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionCall"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCall",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionCall"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionCall",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncall"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCall/id": {
+      "abstract": [
+        {
+          "text": "A unique identifier for this function call.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "let"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "id"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Si",
+          "text": "Int"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCall/id",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "id",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncall/id"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/functioncall/id"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

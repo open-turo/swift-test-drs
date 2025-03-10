@@ -1,1 +1,1855 @@
-{"abstract":[{"text":"Encapsulates the result of a ","type":"text"},{"type":"codeVoice","code":"#confirmationOfCall"},{"type":"text","text":"."}],"topicSections":[{"identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/matchingCall","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/matchingCalls"],"generated":true,"title":"Instance Properties","anchor":"Instance-Properties"},{"identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/exactlyOnce(fileID:filePath:line:column:)","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/getFirstMatchingCall()","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/getLastMatchingCall()","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/getMatchingCall()","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/occurring(times:fileID:filePath:line:column:)","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/occurringWithin(times:fileID:filePath:line:column:)"],"generated":true,"title":"Instance Methods","anchor":"Instance-Methods"}],"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS"]]},"metadata":{"title":"FunctionCallConfirmation","role":"symbol","platforms":[{"name":"iOS","unavailable":false,"introducedAt":"16.0","deprecated":false,"beta":false}],"symbolKind":"struct","modules":[{"name":"TestDRS"}],"externalID":"s:7TestDRS24FunctionCallConfirmationV","roleHeading":"Structure","fragments":[{"kind":"keyword","text":"struct"},{"kind":"text","text":" "},{"text":"FunctionCallConfirmation","kind":"identifier"}],"navigatorTitle":[{"text":"FunctionCallConfirmation","kind":"identifier"}]},"schemaVersion":{"major":0,"minor":3,"patch":0},"kind":"symbol","identifier":{"interfaceLanguage":"swift","url":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation"},"relationshipsSections":[{"kind":"relationships","identifiers":["doc:\/\/TestDRS\/s8SendableP"],"title":"Conforms To","type":"conformsTo"}],"sections":[],"seeAlsoSections":[{"generated":true,"title":"Asynchronous testing","identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/TestingAsynchronousCode","doc:\/\/TestDRS\/documentation\/TestDRS\/confirmationOfCall(to:taking:returning:timeLimit:isolation:)","doc:\/\/TestDRS\/documentation\/TestDRS\/confirmationOfCall(to:with:returning:timeLimit:isolation:)"],"anchor":"Asynchronous-testing"}],"primaryContentSections":[{"kind":"declarations","declarations":[{"platforms":["macOS"],"languages":["swift"],"tokens":[{"text":"struct","kind":"keyword"},{"kind":"text","text":" "},{"kind":"identifier","text":"FunctionCallConfirmation"},{"text":"<","kind":"text"},{"text":"AmountMatching","kind":"genericParameter"},{"text":", ","kind":"text"},{"kind":"genericParameter","text":"Input"},{"text":", ","kind":"text"},{"kind":"genericParameter","text":"Output"},{"kind":"text","text":"> "},{"kind":"keyword","text":"where"},{"text":" ","kind":"text"},{"kind":"typeIdentifier","text":"AmountMatching"},{"text":" : ","kind":"text"},{"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallAmountMatching","kind":"typeIdentifier","text":"FunctionCallAmountMatching","preciseIdentifier":"s:7TestDRS26FunctionCallAmountMatchingP"}]}]},{"content":[{"type":"heading","anchor":"overview","text":"Overview","level":2},{"inlineContent":[{"text":"A ","type":"text"},{"type":"codeVoice","code":"FunctionCallConfirmation"},{"text":" contains any calls that match the confirmation and provides methods for confirming the number of times the given call was recorded.","type":"text"}],"type":"paragraph"}],"kind":"content"}],"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/functioncallconfirmation"]}],"references":{"doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/exactlyOnce(fileID:filePath:line:column:)":{"abstract":[{"type":"text","text":"Makes a further confirmation that the specified call occurred exactly once."}],"url":"\/documentation\/testdrs\/functioncallconfirmation\/exactlyonce(fileid:filepath:line:column:)","conformance":{"conformancePrefix":[{"type":"text","text":"Conforms when"}],"constraints":[{"type":"codeVoice","code":"AmountMatching"},{"type":"text","text":" is "},{"code":"MatchingFirst","type":"codeVoice"},{"type":"text","text":" and "},{"type":"codeVoice","code":"Input"},{"text":" conforms to ","type":"text"},{"code":"Sendable","type":"codeVoice"},{"type":"text","text":"."}],"availabilityPrefix":[{"text":"Available when","type":"text"}]},"title":"exactlyOnce(fileID:filePath:line:column:)","kind":"symbol","fragments":[{"text":"func","kind":"keyword"},{"kind":"text","text":" "},{"text":"exactlyOnce","kind":"identifier"},{"kind":"text","text":"("},{"text":"fileID","kind":"externalParam"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:s12StaticStringV","kind":"typeIdentifier","text":"StaticString"},{"text":", ","kind":"text"},{"text":"filePath","kind":"externalParam"},{"text":": ","kind":"text"},{"text":"StaticString","preciseIdentifier":"s:s12StaticStringV","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"line"},{"kind":"text","text":": "},{"text":"UInt","preciseIdentifier":"s:Su","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"column"},{"kind":"text","text":": "},{"preciseIdentifier":"s:Su","kind":"typeIdentifier","text":"UInt"},{"text":") ","kind":"text"},{"kind":"keyword","text":"async"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS24FunctionCallConfirmationV","text":"FunctionCallConfirmation"},{"text":"<","kind":"text"},{"text":"MatchingOne","kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS11MatchingOneO"},{"text":", ","kind":"text"},{"kind":"typeIdentifier","text":"Input"},{"kind":"text","text":", "},{"kind":"typeIdentifier","text":"Output"},{"kind":"text","text":">"}],"role":"symbol","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/exactlyOnce(fileID:filePath:line:column:)","type":"topic"},"doc://TestDRS/s8SendableP":{"type":"unresolvable","identifier":"doc:\/\/TestDRS\/s8SendableP","title":"Swift.Sendable"},"doc://TestDRS/documentation/TestDRS/FunctionCallAmountMatching":{"type":"topic","title":"FunctionCallAmountMatching","fragments":[{"text":"protocol","kind":"keyword"},{"kind":"text","text":" "},{"text":"FunctionCallAmountMatching","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallAmountMatching","abstract":[{"type":"text","text":"A protocol that represents different ways of matching function call counts during verification."}],"navigatorTitle":[{"kind":"identifier","text":"FunctionCallAmountMatching"}],"url":"\/documentation\/testdrs\/functioncallamountmatching","kind":"symbol","role":"symbol"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:taking:returning:timeLimit:isolation:)":{"fragments":[{"text":"macro","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"confirmationOfCall"},{"text":"<","kind":"text"},{"kind":"genericParameter","text":"Input"},{"kind":"text","text":", "},{"text":"Output","kind":"genericParameter"},{"text":">(","kind":"text"},{"text":"to","kind":"externalParam"},{"text":": (","kind":"text"},{"kind":"typeIdentifier","text":"Input"},{"kind":"text","text":") "},{"text":"async","kind":"keyword"},{"kind":"text","text":" "},{"kind":"keyword","text":"throws"},{"kind":"text","text":" -> "},{"text":"Output","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"taking","kind":"externalParam"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"Input"},{"text":".Type?, ","kind":"text"},{"kind":"externalParam","text":"returning"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"Output"},{"kind":"text","text":".Type?, "},{"kind":"externalParam","text":"timeLimit"},{"kind":"text","text":": "},{"text":"Duration","kind":"typeIdentifier","preciseIdentifier":"s:s8DurationV"},{"kind":"text","text":", "},{"kind":"externalParam","text":"isolation"},{"kind":"text","text":": "},{"text":"isolated","kind":"keyword"},{"text":" (any ","kind":"text"},{"text":"Actor","preciseIdentifier":"s:ScA","kind":"typeIdentifier"},{"text":")?) -> ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS24FunctionCallConfirmationV","text":"FunctionCallConfirmation"},{"text":"<","kind":"text"},{"preciseIdentifier":"s:7TestDRS13MatchingFirstO","text":"MatchingFirst","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"Output","kind":"typeIdentifier"},{"text":">","kind":"text"}],"url":"\/documentation\/testdrs\/confirmationofcall(to:taking:returning:timelimit:isolation:)","type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/confirmationOfCall(to:taking:returning:timeLimit:isolation:)","kind":"symbol","title":"confirmationOfCall(to:taking:returning:timeLimit:isolation:)","abstract":[{"type":"text","text":"Awaits confirmation of a function call."}],"role":"symbol"},"doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/getFirstMatchingCall()":{"type":"topic","conformance":{"conformancePrefix":[{"type":"text","text":"Conforms when"}],"availabilityPrefix":[{"text":"Available when","type":"text"}],"constraints":[{"code":"AmountMatching","type":"codeVoice"},{"type":"text","text":" conforms to "},{"type":"codeVoice","code":"MatchingMultiple"},{"type":"text","text":"."}]},"fragments":[{"text":"func","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"getFirstMatchingCall"},{"kind":"text","text":"() "},{"kind":"keyword","text":"throws"},{"text":" -> ","kind":"text"},{"text":"FunctionCall","kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS12FunctionCallV"},{"kind":"text","text":"<"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":", "},{"kind":"typeIdentifier","text":"Output"},{"text":">","kind":"text"}],"title":"getFirstMatchingCall()","kind":"symbol","role":"symbol","url":"\/documentation\/testdrs\/functioncallconfirmation\/getfirstmatchingcall()","abstract":[{"text":"Gets the first matching call if it exists, or throws an ","type":"text"},{"type":"codeVoice","code":"FunctionCallConfirmationError"},{"text":" if no calls were confirmed.","type":"text"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/getFirstMatchingCall()"},"doc://TestDRS/documentation/TestDRS/TestingAsynchronousCode":{"kind":"article","role":"article","type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/TestingAsynchronousCode","url":"\/documentation\/testdrs\/testingasynchronouscode","abstract":[{"type":"text","text":"Learn best practices for testing asynchronous Swift code with TestDRS."}],"title":"Testing asynchronous code"},"doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/getLastMatchingCall()":{"type":"topic","fragments":[{"kind":"keyword","text":"func"},{"text":" ","kind":"text"},{"text":"getLastMatchingCall","kind":"identifier"},{"kind":"text","text":"() "},{"text":"throws","kind":"keyword"},{"kind":"text","text":" -> "},{"preciseIdentifier":"s:7TestDRS12FunctionCallV","kind":"typeIdentifier","text":"FunctionCall"},{"text":"<","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"Output","kind":"typeIdentifier"},{"text":">","kind":"text"}],"url":"\/documentation\/testdrs\/functioncallconfirmation\/getlastmatchingcall()","title":"getLastMatchingCall()","abstract":[{"text":"Gets the last matching call if it exists, or throws an ","type":"text"},{"type":"codeVoice","code":"FunctionCallConfirmationError"},{"text":" if no calls were confirmed.","type":"text"}],"kind":"symbol","role":"symbol","conformance":{"availabilityPrefix":[{"text":"Available when","type":"text"}],"conformancePrefix":[{"type":"text","text":"Conforms when"}],"constraints":[{"type":"codeVoice","code":"AmountMatching"},{"text":" conforms to ","type":"text"},{"type":"codeVoice","code":"MatchingMultiple"},{"text":".","type":"text"}]},"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/getLastMatchingCall()"},"doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:with:returning:timeLimit:isolation:)":{"kind":"symbol","role":"symbol","title":"confirmationOfCall(to:with:returning:timeLimit:isolation:)","type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/confirmationOfCall(to:with:returning:timeLimit:isolation:)","abstract":[{"text":"Awaits confirmation of a function call with an expected input.","type":"text"}],"url":"\/documentation\/testdrs\/confirmationofcall(to:with:returning:timelimit:isolation:)","fragments":[{"kind":"keyword","text":"macro"},{"text":" ","kind":"text"},{"text":"confirmationOfCall","kind":"identifier"},{"text":"<each ","kind":"text"},{"text":"Input","kind":"genericParameter"},{"kind":"text","text":", "},{"text":"Output","kind":"genericParameter"},{"text":">(","kind":"text"},{"kind":"externalParam","text":"to"},{"text":": (repeat each ","kind":"text"},{"kind":"typeIdentifier","text":"Input"},{"text":") ","kind":"text"},{"kind":"keyword","text":"async"},{"text":" ","kind":"text"},{"text":"throws","kind":"keyword"},{"text":" -> ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"with","kind":"externalParam"},{"text":": repeat each ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"returning","kind":"externalParam"},{"kind":"text","text":": "},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":".Type?, "},{"text":"timeLimit","kind":"externalParam"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Duration","preciseIdentifier":"s:s8DurationV"},{"text":", ","kind":"text"},{"text":"isolation","kind":"externalParam"},{"kind":"text","text":": "},{"kind":"keyword","text":"isolated"},{"text":" (any ","kind":"text"},{"text":"Actor","preciseIdentifier":"s:ScA","kind":"typeIdentifier"},{"text":")?) -> ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS24FunctionCallConfirmationV","text":"FunctionCallConfirmation"},{"text":"<","kind":"text"},{"text":"MatchingFirst","kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS13MatchingFirstO"},{"text":", (repeat each ","kind":"text"},{"kind":"typeIdentifier","text":"Input"},{"kind":"text","text":"), "},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":">"}]},"doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation":{"kind":"symbol","type":"topic","title":"FunctionCallConfirmation","navigatorTitle":[{"text":"FunctionCallConfirmation","kind":"identifier"}],"abstract":[{"text":"Encapsulates the result of a ","type":"text"},{"code":"#confirmationOfCall","type":"codeVoice"},{"text":".","type":"text"}],"role":"symbol","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation","fragments":[{"kind":"keyword","text":"struct"},{"text":" ","kind":"text"},{"text":"FunctionCallConfirmation","kind":"identifier"}],"url":"\/documentation\/testdrs\/functioncallconfirmation"},"doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/occurringWithin(times:fileID:filePath:line:column:)":{"role":"symbol","kind":"symbol","fragments":[{"kind":"keyword","text":"func"},{"text":" ","kind":"text"},{"kind":"identifier","text":"occurringWithin"},{"text":"<","kind":"text"},{"kind":"genericParameter","text":"R"},{"text":">(","kind":"text"},{"text":"times","kind":"externalParam"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"R"},{"kind":"text","text":", "},{"kind":"externalParam","text":"fileID"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:s12StaticStringV","kind":"typeIdentifier","text":"StaticString"},{"kind":"text","text":", "},{"kind":"externalParam","text":"filePath"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"StaticString","preciseIdentifier":"s:s12StaticStringV"},{"text":", ","kind":"text"},{"text":"line","kind":"externalParam"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:Su","text":"UInt","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"column","kind":"externalParam"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:Su","kind":"typeIdentifier","text":"UInt"},{"text":") ","kind":"text"},{"kind":"keyword","text":"async"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS24FunctionCallConfirmationV","text":"FunctionCallConfirmation"},{"text":"<","kind":"text"},{"text":"MatchingSomeAmount","kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS18MatchingSomeAmountO"},{"text":", ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"Output","kind":"typeIdentifier"},{"text":">","kind":"text"}],"type":"topic","abstract":[{"text":"Makes a further confirmation that the specified call occurred a number of times within a given range.","type":"text"}],"title":"occurringWithin(times:fileID:filePath:line:column:)","url":"\/documentation\/testdrs\/functioncallconfirmation\/occurringwithin(times:fileid:filepath:line:column:)","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/occurringWithin(times:fileID:filePath:line:column:)","conformance":{"conformancePrefix":[{"type":"text","text":"Conforms when"}],"availabilityPrefix":[{"type":"text","text":"Available when"}],"constraints":[{"type":"codeVoice","code":"AmountMatching"},{"text":" is ","type":"text"},{"code":"MatchingFirst","type":"codeVoice"},{"text":" and ","type":"text"},{"code":"Input","type":"codeVoice"},{"text":" conforms to ","type":"text"},{"type":"codeVoice","code":"Sendable"},{"type":"text","text":"."}]}},"doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/occurring(times:fileID:filePath:line:column:)":{"title":"occurring(times:fileID:filePath:line:column:)","fragments":[{"text":"func","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"occurring"},{"text":"(","kind":"text"},{"kind":"externalParam","text":"times"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:Si","text":"Int"},{"kind":"text","text":", "},{"kind":"externalParam","text":"fileID"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:s12StaticStringV","text":"StaticString","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"filePath","kind":"externalParam"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:s12StaticStringV","kind":"typeIdentifier","text":"StaticString"},{"kind":"text","text":", "},{"text":"line","kind":"externalParam"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"UInt","preciseIdentifier":"s:Su"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"column"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:Su","text":"UInt"},{"kind":"text","text":") "},{"text":"async","kind":"keyword"},{"kind":"text","text":" -> "},{"text":"FunctionCallConfirmation","kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS24FunctionCallConfirmationV"},{"text":"<","kind":"text"},{"text":"MatchingSomeAmount","kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS18MatchingSomeAmountO"},{"kind":"text","text":", "},{"kind":"typeIdentifier","text":"Input"},{"text":", ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":">"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/occurring(times:fileID:filePath:line:column:)","abstract":[{"type":"text","text":"Makes a further confirmation that the specified call occurred a specific number of times."}],"kind":"symbol","url":"\/documentation\/testdrs\/functioncallconfirmation\/occurring(times:fileid:filepath:line:column:)","conformance":{"constraints":[{"code":"AmountMatching","type":"codeVoice"},{"text":" is ","type":"text"},{"type":"codeVoice","code":"MatchingFirst"},{"text":" and ","type":"text"},{"type":"codeVoice","code":"Input"},{"text":" conforms to ","type":"text"},{"type":"codeVoice","code":"Sendable"},{"text":".","type":"text"}],"conformancePrefix":[{"text":"Conforms when","type":"text"}],"availabilityPrefix":[{"type":"text","text":"Available when"}]},"type":"topic","role":"symbol"},"doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/getMatchingCall()":{"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/getMatchingCall()","type":"topic","abstract":[{"type":"text","text":"Gets the matching call if it exists, or throws an "},{"code":"FunctionCallConfirmationError","type":"codeVoice"},{"type":"text","text":" if no calls were made that match the expectation."}],"role":"symbol","fragments":[{"text":"func","kind":"keyword"},{"kind":"text","text":" "},{"text":"getMatchingCall","kind":"identifier"},{"text":"() ","kind":"text"},{"text":"throws","kind":"keyword"},{"kind":"text","text":" -> "},{"text":"FunctionCall","kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS12FunctionCallV"},{"kind":"text","text":"<"},{"kind":"typeIdentifier","text":"Input"},{"text":", ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"text":">","kind":"text"}],"conformance":{"availabilityPrefix":[{"text":"Available when","type":"text"}],"conformancePrefix":[{"type":"text","text":"Conforms when"}],"constraints":[{"type":"codeVoice","code":"AmountMatching"},{"text":" conforms to ","type":"text"},{"type":"codeVoice","code":"MatchingSingle"},{"type":"text","text":"."}]},"kind":"symbol","url":"\/documentation\/testdrs\/functioncallconfirmation\/getmatchingcall()","title":"getMatchingCall()"},"doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/matchingCall":{"conformance":{"availabilityPrefix":[{"type":"text","text":"Available when"}],"conformancePrefix":[{"text":"Conforms when","type":"text"}],"constraints":[{"code":"AmountMatching","type":"codeVoice"},{"type":"text","text":" conforms to "},{"code":"MatchingSingle","type":"codeVoice"},{"text":".","type":"text"}]},"fragments":[{"kind":"keyword","text":"var"},{"text":" ","kind":"text"},{"text":"matchingCall","kind":"identifier"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"FunctionCall","preciseIdentifier":"s:7TestDRS12FunctionCallV"},{"text":"<","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"Output","kind":"typeIdentifier"},{"text":">?","kind":"text"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/matchingCall","kind":"symbol","title":"matchingCall","url":"\/documentation\/testdrs\/functioncallconfirmation\/matchingcall","role":"symbol","abstract":[{"type":"text","text":"The matching call or "},{"type":"codeVoice","code":"nil"},{"type":"text","text":" if no calls were made that match the expectation."}],"type":"topic"},"doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/matchingCalls":{"abstract":[{"text":"The matching calls or an empty array  if no calls were confirmed.","type":"text"}],"role":"symbol","url":"\/documentation\/testdrs\/functioncallconfirmation\/matchingcalls","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/matchingCalls","kind":"symbol","fragments":[{"kind":"keyword","text":"var"},{"text":" ","kind":"text"},{"text":"matchingCalls","kind":"identifier"},{"kind":"text","text":": ["},{"preciseIdentifier":"s:7TestDRS12FunctionCallV","text":"FunctionCall","kind":"typeIdentifier"},{"text":"<","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":">]"}],"conformance":{"availabilityPrefix":[{"text":"Available when","type":"text"}],"constraints":[{"type":"codeVoice","code":"AmountMatching"},{"type":"text","text":" conforms to "},{"type":"codeVoice","code":"MatchingMultiple"},{"text":".","type":"text"}],"conformancePrefix":[{"type":"text","text":"Conforms when"}]},"title":"matchingCalls","type":"topic"}}}
+{
+  "abstract": [
+    {
+      "text": "Encapsulates the result of a ",
+      "type": "text"
+    },
+    {
+      "code": "#confirmationOfCall",
+      "type": "codeVoice"
+    },
+    {
+      "text": ".",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS24FunctionCallConfirmationV",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "struct"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "FunctionCallConfirmation"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "navigatorTitle": [
+      {
+        "kind": "identifier",
+        "text": "FunctionCallConfirmation"
+      }
+    ],
+    "platforms": [
+      {
+        "beta": false,
+        "deprecated": false,
+        "introducedAt": "16.0",
+        "name": "iOS",
+        "unavailable": false
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Structure",
+    "symbolKind": "struct",
+    "title": "FunctionCallConfirmation"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "struct"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "FunctionCallConfirmation"
+            },
+            {
+              "kind": "text",
+              "text": "<"
+            },
+            {
+              "kind": "genericParameter",
+              "text": "AmountMatching"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": "> "
+            },
+            {
+              "kind": "keyword",
+              "text": "where"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "AmountMatching"
+            },
+            {
+              "kind": "text",
+              "text": " : "
+            },
+            {
+              "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallAmountMatching",
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:7TestDRS26FunctionCallAmountMatchingP",
+              "text": "FunctionCallAmountMatching"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "content": [
+        {
+          "anchor": "overview",
+          "level": 2,
+          "text": "Overview",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "A ",
+              "type": "text"
+            },
+            {
+              "code": "FunctionCallConfirmation",
+              "type": "codeVoice"
+            },
+            {
+              "text": " contains any calls that match the confirmation and provides methods for confirming the number of times the given call was recorded.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        }
+      ],
+      "kind": "content"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallAmountMatching": {
+      "abstract": [
+        {
+          "text": "A protocol that represents different ways of matching function call counts during verification.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionCallAmountMatching"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallAmountMatching",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionCallAmountMatching"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionCallAmountMatching",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallamountmatching"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation": {
+      "abstract": [
+        {
+          "text": "Encapsulates the result of a ",
+          "type": "text"
+        },
+        {
+          "code": "#confirmationOfCall",
+          "type": "codeVoice"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "struct"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionCallConfirmation"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionCallConfirmation"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionCallConfirmation",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallconfirmation"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/exactlyOnce(fileID:filePath:line:column:)": {
+      "abstract": [
+        {
+          "text": "Makes a further confirmation that the specified call occurred exactly once.",
+          "type": "text"
+        }
+      ],
+      "conformance": {
+        "availabilityPrefix": [
+          {
+            "text": "Available when",
+            "type": "text"
+          }
+        ],
+        "conformancePrefix": [
+          {
+            "text": "Conforms when",
+            "type": "text"
+          }
+        ],
+        "constraints": [
+          {
+            "code": "AmountMatching",
+            "type": "codeVoice"
+          },
+          {
+            "text": " is ",
+            "type": "text"
+          },
+          {
+            "code": "MatchingFirst",
+            "type": "codeVoice"
+          },
+          {
+            "text": " and ",
+            "type": "text"
+          },
+          {
+            "code": "Input",
+            "type": "codeVoice"
+          },
+          {
+            "text": " conforms to ",
+            "type": "text"
+          },
+          {
+            "code": "Sendable",
+            "type": "codeVoice"
+          },
+          {
+            "text": ".",
+            "type": "text"
+          }
+        ]
+      },
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "exactlyOnce"
+        },
+        {
+          "kind": "text",
+          "text": "("
+        },
+        {
+          "kind": "externalParam",
+          "text": "fileID"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s12StaticStringV",
+          "text": "StaticString"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "filePath"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s12StaticStringV",
+          "text": "StaticString"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "line"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Su",
+          "text": "UInt"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "column"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Su",
+          "text": "UInt"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS24FunctionCallConfirmationV",
+          "text": "FunctionCallConfirmation"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS11MatchingOneO",
+          "text": "MatchingOne"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/exactlyOnce(fileID:filePath:line:column:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "exactlyOnce(fileID:filePath:line:column:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallconfirmation/exactlyonce(fileid:filepath:line:column:)"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/getFirstMatchingCall()": {
+      "abstract": [
+        {
+          "text": "Gets the first matching call if it exists, or throws an ",
+          "type": "text"
+        },
+        {
+          "code": "FunctionCallConfirmationError",
+          "type": "codeVoice"
+        },
+        {
+          "text": " if no calls were confirmed.",
+          "type": "text"
+        }
+      ],
+      "conformance": {
+        "availabilityPrefix": [
+          {
+            "text": "Available when",
+            "type": "text"
+          }
+        ],
+        "conformancePrefix": [
+          {
+            "text": "Conforms when",
+            "type": "text"
+          }
+        ],
+        "constraints": [
+          {
+            "code": "AmountMatching",
+            "type": "codeVoice"
+          },
+          {
+            "text": " conforms to ",
+            "type": "text"
+          },
+          {
+            "code": "MatchingMultiple",
+            "type": "codeVoice"
+          },
+          {
+            "text": ".",
+            "type": "text"
+          }
+        ]
+      },
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "getFirstMatchingCall"
+        },
+        {
+          "kind": "text",
+          "text": "() "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS12FunctionCallV",
+          "text": "FunctionCall"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/getFirstMatchingCall()",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "getFirstMatchingCall()",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallconfirmation/getfirstmatchingcall()"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/getLastMatchingCall()": {
+      "abstract": [
+        {
+          "text": "Gets the last matching call if it exists, or throws an ",
+          "type": "text"
+        },
+        {
+          "code": "FunctionCallConfirmationError",
+          "type": "codeVoice"
+        },
+        {
+          "text": " if no calls were confirmed.",
+          "type": "text"
+        }
+      ],
+      "conformance": {
+        "availabilityPrefix": [
+          {
+            "text": "Available when",
+            "type": "text"
+          }
+        ],
+        "conformancePrefix": [
+          {
+            "text": "Conforms when",
+            "type": "text"
+          }
+        ],
+        "constraints": [
+          {
+            "code": "AmountMatching",
+            "type": "codeVoice"
+          },
+          {
+            "text": " conforms to ",
+            "type": "text"
+          },
+          {
+            "code": "MatchingMultiple",
+            "type": "codeVoice"
+          },
+          {
+            "text": ".",
+            "type": "text"
+          }
+        ]
+      },
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "getLastMatchingCall"
+        },
+        {
+          "kind": "text",
+          "text": "() "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS12FunctionCallV",
+          "text": "FunctionCall"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/getLastMatchingCall()",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "getLastMatchingCall()",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallconfirmation/getlastmatchingcall()"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/getMatchingCall()": {
+      "abstract": [
+        {
+          "text": "Gets the matching call if it exists, or throws an ",
+          "type": "text"
+        },
+        {
+          "code": "FunctionCallConfirmationError",
+          "type": "codeVoice"
+        },
+        {
+          "text": " if no calls were made that match the expectation.",
+          "type": "text"
+        }
+      ],
+      "conformance": {
+        "availabilityPrefix": [
+          {
+            "text": "Available when",
+            "type": "text"
+          }
+        ],
+        "conformancePrefix": [
+          {
+            "text": "Conforms when",
+            "type": "text"
+          }
+        ],
+        "constraints": [
+          {
+            "code": "AmountMatching",
+            "type": "codeVoice"
+          },
+          {
+            "text": " conforms to ",
+            "type": "text"
+          },
+          {
+            "code": "MatchingSingle",
+            "type": "codeVoice"
+          },
+          {
+            "text": ".",
+            "type": "text"
+          }
+        ]
+      },
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "getMatchingCall"
+        },
+        {
+          "kind": "text",
+          "text": "() "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS12FunctionCallV",
+          "text": "FunctionCall"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/getMatchingCall()",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "getMatchingCall()",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallconfirmation/getmatchingcall()"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/matchingCall": {
+      "abstract": [
+        {
+          "text": "The matching call or ",
+          "type": "text"
+        },
+        {
+          "code": "nil",
+          "type": "codeVoice"
+        },
+        {
+          "text": " if no calls were made that match the expectation.",
+          "type": "text"
+        }
+      ],
+      "conformance": {
+        "availabilityPrefix": [
+          {
+            "text": "Available when",
+            "type": "text"
+          }
+        ],
+        "conformancePrefix": [
+          {
+            "text": "Conforms when",
+            "type": "text"
+          }
+        ],
+        "constraints": [
+          {
+            "code": "AmountMatching",
+            "type": "codeVoice"
+          },
+          {
+            "text": " conforms to ",
+            "type": "text"
+          },
+          {
+            "code": "MatchingSingle",
+            "type": "codeVoice"
+          },
+          {
+            "text": ".",
+            "type": "text"
+          }
+        ]
+      },
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "var"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "matchingCall"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS12FunctionCallV",
+          "text": "FunctionCall"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">?"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/matchingCall",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "matchingCall",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallconfirmation/matchingcall"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/matchingCalls": {
+      "abstract": [
+        {
+          "text": "The matching calls or an empty array  if no calls were confirmed.",
+          "type": "text"
+        }
+      ],
+      "conformance": {
+        "availabilityPrefix": [
+          {
+            "text": "Available when",
+            "type": "text"
+          }
+        ],
+        "conformancePrefix": [
+          {
+            "text": "Conforms when",
+            "type": "text"
+          }
+        ],
+        "constraints": [
+          {
+            "code": "AmountMatching",
+            "type": "codeVoice"
+          },
+          {
+            "text": " conforms to ",
+            "type": "text"
+          },
+          {
+            "code": "MatchingMultiple",
+            "type": "codeVoice"
+          },
+          {
+            "text": ".",
+            "type": "text"
+          }
+        ]
+      },
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "var"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "matchingCalls"
+        },
+        {
+          "kind": "text",
+          "text": ": ["
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS12FunctionCallV",
+          "text": "FunctionCall"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">]"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/matchingCalls",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "matchingCalls",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallconfirmation/matchingcalls"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/occurring(times:fileID:filePath:line:column:)": {
+      "abstract": [
+        {
+          "text": "Makes a further confirmation that the specified call occurred a specific number of times.",
+          "type": "text"
+        }
+      ],
+      "conformance": {
+        "availabilityPrefix": [
+          {
+            "text": "Available when",
+            "type": "text"
+          }
+        ],
+        "conformancePrefix": [
+          {
+            "text": "Conforms when",
+            "type": "text"
+          }
+        ],
+        "constraints": [
+          {
+            "code": "AmountMatching",
+            "type": "codeVoice"
+          },
+          {
+            "text": " is ",
+            "type": "text"
+          },
+          {
+            "code": "MatchingFirst",
+            "type": "codeVoice"
+          },
+          {
+            "text": " and ",
+            "type": "text"
+          },
+          {
+            "code": "Input",
+            "type": "codeVoice"
+          },
+          {
+            "text": " conforms to ",
+            "type": "text"
+          },
+          {
+            "code": "Sendable",
+            "type": "codeVoice"
+          },
+          {
+            "text": ".",
+            "type": "text"
+          }
+        ]
+      },
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "occurring"
+        },
+        {
+          "kind": "text",
+          "text": "("
+        },
+        {
+          "kind": "externalParam",
+          "text": "times"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Si",
+          "text": "Int"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "fileID"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s12StaticStringV",
+          "text": "StaticString"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "filePath"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s12StaticStringV",
+          "text": "StaticString"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "line"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Su",
+          "text": "UInt"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "column"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Su",
+          "text": "UInt"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS24FunctionCallConfirmationV",
+          "text": "FunctionCallConfirmation"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS18MatchingSomeAmountO",
+          "text": "MatchingSomeAmount"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/occurring(times:fileID:filePath:line:column:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "occurring(times:fileID:filePath:line:column:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallconfirmation/occurring(times:fileid:filepath:line:column:)"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/occurringWithin(times:fileID:filePath:line:column:)": {
+      "abstract": [
+        {
+          "text": "Makes a further confirmation that the specified call occurred a number of times within a given range.",
+          "type": "text"
+        }
+      ],
+      "conformance": {
+        "availabilityPrefix": [
+          {
+            "text": "Available when",
+            "type": "text"
+          }
+        ],
+        "conformancePrefix": [
+          {
+            "text": "Conforms when",
+            "type": "text"
+          }
+        ],
+        "constraints": [
+          {
+            "code": "AmountMatching",
+            "type": "codeVoice"
+          },
+          {
+            "text": " is ",
+            "type": "text"
+          },
+          {
+            "code": "MatchingFirst",
+            "type": "codeVoice"
+          },
+          {
+            "text": " and ",
+            "type": "text"
+          },
+          {
+            "code": "Input",
+            "type": "codeVoice"
+          },
+          {
+            "text": " conforms to ",
+            "type": "text"
+          },
+          {
+            "code": "Sendable",
+            "type": "codeVoice"
+          },
+          {
+            "text": ".",
+            "type": "text"
+          }
+        ]
+      },
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "occurringWithin"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "genericParameter",
+          "text": "R"
+        },
+        {
+          "kind": "text",
+          "text": ">("
+        },
+        {
+          "kind": "externalParam",
+          "text": "times"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "R"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "fileID"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s12StaticStringV",
+          "text": "StaticString"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "filePath"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s12StaticStringV",
+          "text": "StaticString"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "line"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Su",
+          "text": "UInt"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "column"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Su",
+          "text": "UInt"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS24FunctionCallConfirmationV",
+          "text": "FunctionCallConfirmation"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS18MatchingSomeAmountO",
+          "text": "MatchingSomeAmount"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/occurringWithin(times:fileID:filePath:line:column:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "occurringWithin(times:fileID:filePath:line:column:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallconfirmation/occurringwithin(times:fileid:filepath:line:column:)"
+    },
+    "doc://TestDRS/documentation/TestDRS/TestingAsynchronousCode": {
+      "abstract": [
+        {
+          "text": "Learn best practices for testing asynchronous Swift code with TestDRS.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/TestingAsynchronousCode",
+      "kind": "article",
+      "role": "article",
+      "title": "Testing asynchronous code",
+      "type": "topic",
+      "url": "/documentation/testdrs/testingasynchronouscode"
+    },
+    "doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:taking:returning:timeLimit:isolation:)": {
+      "abstract": [
+        {
+          "text": "Awaits confirmation of a function call.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "macro"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "confirmationOfCall"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">("
+        },
+        {
+          "kind": "externalParam",
+          "text": "to"
+        },
+        {
+          "kind": "text",
+          "text": ": ("
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "taking"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "returning"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "timeLimit"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s8DurationV",
+          "text": "Duration"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "isolation"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "keyword",
+          "text": "isolated"
+        },
+        {
+          "kind": "text",
+          "text": " (any "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:ScA",
+          "text": "Actor"
+        },
+        {
+          "kind": "text",
+          "text": ")?) -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS24FunctionCallConfirmationV",
+          "text": "FunctionCallConfirmation"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS13MatchingFirstO",
+          "text": "MatchingFirst"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:taking:returning:timeLimit:isolation:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "confirmationOfCall(to:taking:returning:timeLimit:isolation:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/confirmationofcall(to:taking:returning:timelimit:isolation:)"
+    },
+    "doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:with:returning:timeLimit:isolation:)": {
+      "abstract": [
+        {
+          "text": "Awaits confirmation of a function call with an expected input.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "macro"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "confirmationOfCall"
+        },
+        {
+          "kind": "text",
+          "text": "<each "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">("
+        },
+        {
+          "kind": "externalParam",
+          "text": "to"
+        },
+        {
+          "kind": "text",
+          "text": ": (repeat each "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "with"
+        },
+        {
+          "kind": "text",
+          "text": ": repeat each "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "returning"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "timeLimit"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s8DurationV",
+          "text": "Duration"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "isolation"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "keyword",
+          "text": "isolated"
+        },
+        {
+          "kind": "text",
+          "text": " (any "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:ScA",
+          "text": "Actor"
+        },
+        {
+          "kind": "text",
+          "text": ")?) -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS24FunctionCallConfirmationV",
+          "text": "FunctionCallConfirmation"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS13MatchingFirstO",
+          "text": "MatchingFirst"
+        },
+        {
+          "kind": "text",
+          "text": ", (repeat each "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": "), "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:with:returning:timeLimit:isolation:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "confirmationOfCall(to:with:returning:timeLimit:isolation:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/confirmationofcall(to:with:returning:timelimit:isolation:)"
+    },
+    "doc://TestDRS/s8SendableP": {
+      "identifier": "doc://TestDRS/s8SendableP",
+      "title": "Swift.Sendable",
+      "type": "unresolvable"
+    }
+  },
+  "relationshipsSections": [
+    {
+      "identifiers": [
+        "doc://TestDRS/s8SendableP"
+      ],
+      "kind": "relationships",
+      "title": "Conforms To",
+      "type": "conformsTo"
+    }
+  ],
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "seeAlsoSections": [
+    {
+      "anchor": "Asynchronous-testing",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/TestingAsynchronousCode",
+        "doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:taking:returning:timeLimit:isolation:)",
+        "doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:with:returning:timeLimit:isolation:)"
+      ],
+      "title": "Asynchronous testing"
+    }
+  ],
+  "topicSections": [
+    {
+      "anchor": "Instance-Properties",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/matchingCall",
+        "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/matchingCalls"
+      ],
+      "title": "Instance Properties"
+    },
+    {
+      "anchor": "Instance-Methods",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/exactlyOnce(fileID:filePath:line:column:)",
+        "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/getFirstMatchingCall()",
+        "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/getLastMatchingCall()",
+        "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/getMatchingCall()",
+        "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/occurring(times:fileID:filePath:line:column:)",
+        "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/occurringWithin(times:fileID:filePath:line:column:)"
+      ],
+      "title": "Instance Methods"
+    }
+  ],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/functioncallconfirmation"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

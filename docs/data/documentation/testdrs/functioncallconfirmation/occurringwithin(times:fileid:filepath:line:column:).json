@@ -1,1 +1,1030 @@
-{"sections":[],"abstract":[{"type":"text","text":"Makes a further confirmation that the specified call occurred a number of times within a given range."}],"metadata":{"fragments":[{"kind":"keyword","text":"func"},{"text":" ","kind":"text"},{"text":"occurringWithin","kind":"identifier"},{"kind":"text","text":"<"},{"text":"R","kind":"genericParameter"},{"text":">(","kind":"text"},{"kind":"externalParam","text":"times"},{"text":": ","kind":"text"},{"text":"R","kind":"typeIdentifier"},{"kind":"text","text":", "},{"kind":"externalParam","text":"fileID"},{"kind":"text","text":": "},{"text":"StaticString","kind":"typeIdentifier","preciseIdentifier":"s:s12StaticStringV"},{"text":", ","kind":"text"},{"text":"filePath","kind":"externalParam"},{"kind":"text","text":": "},{"kind":"typeIdentifier","preciseIdentifier":"s:s12StaticStringV","text":"StaticString"},{"kind":"text","text":", "},{"text":"line","kind":"externalParam"},{"kind":"text","text":": "},{"kind":"typeIdentifier","preciseIdentifier":"s:Su","text":"UInt"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"column"},{"kind":"text","text":": "},{"text":"UInt","kind":"typeIdentifier","preciseIdentifier":"s:Su"},{"text":") ","kind":"text"},{"text":"async","kind":"keyword"},{"kind":"text","text":" -> "},{"text":"FunctionCallConfirmation","kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS24FunctionCallConfirmationV"},{"kind":"text","text":"<"},{"text":"MatchingSomeAmount","kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS18MatchingSomeAmountO"},{"text":", ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":">"}],"externalID":"s:7TestDRS24FunctionCallConfirmationVA2A13MatchingFirstORszs8SendableR_rlE15occurringWithin5times6fileID0L4Path4line6columnACyAA0F10SomeAmountOq_q0_Gqd___s12StaticStringVAQS2utYaSXRd__sAFRd__AA19LowerBoundProvidingRd__Si0V0SXRtd__lF","title":"occurringWithin(times:fileID:filePath:line:column:)","symbolKind":"method","roleHeading":"Instance Method","platforms":[{"introducedAt":"16.0","beta":false,"unavailable":false,"name":"iOS","deprecated":false}],"modules":[{"name":"TestDRS"}],"conformance":{"constraints":[{"type":"codeVoice","code":"AmountMatching"},{"type":"text","text":" is "},{"type":"codeVoice","code":"MatchingFirst"},{"type":"text","text":" and "},{"code":"Input","type":"codeVoice"},{"type":"text","text":" conforms to "},{"type":"codeVoice","code":"Sendable"},{"type":"text","text":"."}],"availabilityPrefix":[{"text":"Available when","type":"text"}],"conformancePrefix":[{"type":"text","text":"Conforms when"}]},"role":"symbol","extendedModule":"TestDRS"},"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/functioncallconfirmation\/occurringwithin(times:fileid:filepath:line:column:)"]}],"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation"]]},"primaryContentSections":[{"declarations":[{"languages":["swift"],"tokens":[{"kind":"attribute","text":"@discardableResult"},{"kind":"text","text":" "},{"text":"func","kind":"keyword"},{"kind":"text","text":" "},{"kind":"identifier","text":"occurringWithin"},{"text":"<","kind":"text"},{"kind":"genericParameter","text":"R"},{"text":">(","kind":"text"},{"text":"times","kind":"externalParam"},{"text":" ","kind":"text"},{"kind":"internalParam","text":"expectedCallCountRange"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"R"},{"text":", ","kind":"text"},{"text":"fileID","kind":"externalParam"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:s12StaticStringV","text":"StaticString","kind":"typeIdentifier"},{"text":" = ","kind":"text"},{"text":"#fileID","kind":"keyword"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"filePath"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"StaticString","preciseIdentifier":"s:s12StaticStringV"},{"kind":"text","text":" = "},{"text":"#filePath","kind":"keyword"},{"text":", ","kind":"text"},{"text":"line","kind":"externalParam"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"UInt","preciseIdentifier":"s:Su"},{"text":" = ","kind":"text"},{"kind":"keyword","text":"#line"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"column"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:Su","text":"UInt"},{"text":" = ","kind":"text"},{"text":"#column","kind":"keyword"},{"text":") ","kind":"text"},{"text":"async","kind":"keyword"},{"text":" -> ","kind":"text"},{"text":"FunctionCallConfirmation","preciseIdentifier":"s:7TestDRS24FunctionCallConfirmationV","kind":"typeIdentifier","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation"},{"text":"<","kind":"text"},{"text":"MatchingSomeAmount","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/MatchingSomeAmount","preciseIdentifier":"s:7TestDRS18MatchingSomeAmountO","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"kind":"typeIdentifier","text":"Input"},{"kind":"text","text":", "},{"kind":"typeIdentifier","text":"Output"},{"text":"> ","kind":"text"},{"text":"where","kind":"keyword"},{"kind":"text","text":" "},{"kind":"typeIdentifier","text":"R"},{"text":" : ","kind":"text"},{"preciseIdentifier":"s:SX","text":"RangeExpression","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"R","kind":"typeIdentifier"},{"text":" : ","kind":"text"},{"text":"Sendable","preciseIdentifier":"s:s8SendableP","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"R","kind":"typeIdentifier"},{"text":" : ","kind":"text"},{"text":"LowerBoundProviding","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/LowerBoundProviding","kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS19LowerBoundProvidingP"},{"text":", ","kind":"text"},{"kind":"typeIdentifier","text":"R"},{"kind":"text","text":"."},{"text":"Bound","preciseIdentifier":"s:SX5BoundQa","kind":"typeIdentifier"},{"text":" == ","kind":"text"},{"preciseIdentifier":"s:Si","text":"Int","kind":"typeIdentifier"}],"platforms":["macOS"]}],"kind":"declarations"},{"kind":"parameters","parameters":[{"name":"expectedCallCountRange","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"The expected range within which the function should have been called."}]}]}]},{"kind":"content","content":[{"anchor":"return-value","text":"Return Value","level":2,"type":"heading"},{"type":"paragraph","inlineContent":[{"text":"A ","type":"text"},{"type":"codeVoice","code":"FunctionCallConfirmation<MatchingSomeAmount, Input, Output>"},{"text":" that has attempted to await the minimum number of matching calls within the ","type":"text"},{"code":"expectedCallCountRange","type":"codeVoice"},{"type":"text","text":"."}]}]},{"content":[{"level":2,"anchor":"discussion","type":"heading","text":"Discussion"},{"name":"Note","content":[{"inlineContent":[{"text":"Additional calls beyond the upper bound of the ","type":"text"},{"type":"codeVoice","code":"expectedCallCountRange"},{"text":" may be made after the test finishes without causing failure.","type":"text"},{"type":"text","text":" "},{"type":"text","text":"This can occur because this method does not introduce a delay in order to wait for failures."}],"type":"paragraph"}],"type":"aside","style":"note"}],"kind":"content"}],"schemaVersion":{"patch":0,"minor":3,"major":0},"identifier":{"interfaceLanguage":"swift","url":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/occurringWithin(times:fileID:filePath:line:column:)"},"kind":"symbol","references":{"doc://TestDRS/documentation/TestDRS/MatchingSomeAmount":{"url":"\/documentation\/testdrs\/matchingsomeamount","role":"symbol","fragments":[{"kind":"keyword","text":"enum"},{"kind":"text","text":" "},{"text":"MatchingSomeAmount","kind":"identifier"}],"kind":"symbol","title":"MatchingSomeAmount","navigatorTitle":[{"text":"MatchingSomeAmount","kind":"identifier"}],"abstract":[{"text":"A matching strategy that verifies a specific number or range of function calls.","type":"text"}],"type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/MatchingSomeAmount"},"doc://TestDRS/documentation/TestDRS/LowerBoundProviding":{"type":"topic","kind":"symbol","role":"symbol","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/LowerBoundProviding","fragments":[{"text":"protocol","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"LowerBoundProviding"}],"navigatorTitle":[{"text":"LowerBoundProviding","kind":"identifier"}],"title":"LowerBoundProviding","abstract":[{"text":"TestDRS supports using ranges that have a lower bound in order to verify call counts.","type":"text"},{"text":" ","type":"text"},{"text":"This protocol allows for using ","type":"text"},{"type":"codeVoice","code":"PartialRangeFrom"},{"text":", ","type":"text"},{"code":"Range","type":"codeVoice"},{"text":", or ","type":"text"},{"code":"ClosedRange","type":"codeVoice"},{"text":".","type":"text"}],"url":"\/documentation\/testdrs\/lowerboundproviding"},"doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation":{"kind":"symbol","type":"topic","title":"FunctionCallConfirmation","navigatorTitle":[{"text":"FunctionCallConfirmation","kind":"identifier"}],"abstract":[{"text":"Encapsulates the result of a ","type":"text"},{"code":"#confirmationOfCall","type":"codeVoice"},{"text":".","type":"text"}],"role":"symbol","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation","fragments":[{"kind":"keyword","text":"struct"},{"text":" ","kind":"text"},{"text":"FunctionCallConfirmation","kind":"identifier"}],"url":"\/documentation\/testdrs\/functioncallconfirmation"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/occurringWithin(times:fileID:filePath:line:column:)":{"role":"symbol","kind":"symbol","fragments":[{"kind":"keyword","text":"func"},{"text":" ","kind":"text"},{"kind":"identifier","text":"occurringWithin"},{"text":"<","kind":"text"},{"kind":"genericParameter","text":"R"},{"text":">(","kind":"text"},{"text":"times","kind":"externalParam"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"R"},{"kind":"text","text":", "},{"kind":"externalParam","text":"fileID"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:s12StaticStringV","kind":"typeIdentifier","text":"StaticString"},{"kind":"text","text":", "},{"kind":"externalParam","text":"filePath"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"StaticString","preciseIdentifier":"s:s12StaticStringV"},{"text":", ","kind":"text"},{"text":"line","kind":"externalParam"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:Su","text":"UInt","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"column","kind":"externalParam"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:Su","kind":"typeIdentifier","text":"UInt"},{"text":") ","kind":"text"},{"kind":"keyword","text":"async"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS24FunctionCallConfirmationV","text":"FunctionCallConfirmation"},{"text":"<","kind":"text"},{"text":"MatchingSomeAmount","kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS18MatchingSomeAmountO"},{"text":", ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"Output","kind":"typeIdentifier"},{"text":">","kind":"text"}],"type":"topic","abstract":[{"text":"Makes a further confirmation that the specified call occurred a number of times within a given range.","type":"text"}],"title":"occurringWithin(times:fileID:filePath:line:column:)","url":"\/documentation\/testdrs\/functioncallconfirmation\/occurringwithin(times:fileid:filepath:line:column:)","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallConfirmation\/occurringWithin(times:fileID:filePath:line:column:)","conformance":{"conformancePrefix":[{"type":"text","text":"Conforms when"}],"availabilityPrefix":[{"type":"text","text":"Available when"}],"constraints":[{"type":"codeVoice","code":"AmountMatching"},{"text":" is ","type":"text"},{"code":"MatchingFirst","type":"codeVoice"},{"text":" and ","type":"text"},{"code":"Input","type":"codeVoice"},{"text":" conforms to ","type":"text"},{"type":"codeVoice","code":"Sendable"},{"type":"text","text":"."}]}}}}
+{
+  "abstract": [
+    {
+      "text": "Makes a further confirmation that the specified call occurred a number of times within a given range.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/occurringWithin(times:fileID:filePath:line:column:)"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "conformance": {
+      "availabilityPrefix": [
+        {
+          "text": "Available when",
+          "type": "text"
+        }
+      ],
+      "conformancePrefix": [
+        {
+          "text": "Conforms when",
+          "type": "text"
+        }
+      ],
+      "constraints": [
+        {
+          "code": "AmountMatching",
+          "type": "codeVoice"
+        },
+        {
+          "text": " is ",
+          "type": "text"
+        },
+        {
+          "code": "MatchingFirst",
+          "type": "codeVoice"
+        },
+        {
+          "text": " and ",
+          "type": "text"
+        },
+        {
+          "code": "Input",
+          "type": "codeVoice"
+        },
+        {
+          "text": " conforms to ",
+          "type": "text"
+        },
+        {
+          "code": "Sendable",
+          "type": "codeVoice"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ]
+    },
+    "extendedModule": "TestDRS",
+    "externalID": "s:7TestDRS24FunctionCallConfirmationVA2A13MatchingFirstORszs8SendableR_rlE15occurringWithin5times6fileID0L4Path4line6columnACyAA0F10SomeAmountOq_q0_Gqd___s12StaticStringVAQS2utYaSXRd__sAFRd__AA19LowerBoundProvidingRd__Si0V0SXRtd__lF",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "func"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "occurringWithin"
+      },
+      {
+        "kind": "text",
+        "text": "<"
+      },
+      {
+        "kind": "genericParameter",
+        "text": "R"
+      },
+      {
+        "kind": "text",
+        "text": ">("
+      },
+      {
+        "kind": "externalParam",
+        "text": "times"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "R"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "fileID"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:s12StaticStringV",
+        "text": "StaticString"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "filePath"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:s12StaticStringV",
+        "text": "StaticString"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "line"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:Su",
+        "text": "UInt"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "column"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:Su",
+        "text": "UInt"
+      },
+      {
+        "kind": "text",
+        "text": ") "
+      },
+      {
+        "kind": "keyword",
+        "text": "async"
+      },
+      {
+        "kind": "text",
+        "text": " -> "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:7TestDRS24FunctionCallConfirmationV",
+        "text": "FunctionCallConfirmation"
+      },
+      {
+        "kind": "text",
+        "text": "<"
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:7TestDRS18MatchingSomeAmountO",
+        "text": "MatchingSomeAmount"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ">"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "platforms": [
+      {
+        "beta": false,
+        "deprecated": false,
+        "introducedAt": "16.0",
+        "name": "iOS",
+        "unavailable": false
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Instance Method",
+    "symbolKind": "method",
+    "title": "occurringWithin(times:fileID:filePath:line:column:)"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "attribute",
+              "text": "@discardableResult"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "func"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "occurringWithin"
+            },
+            {
+              "kind": "text",
+              "text": "<"
+            },
+            {
+              "kind": "genericParameter",
+              "text": "R"
+            },
+            {
+              "kind": "text",
+              "text": ">("
+            },
+            {
+              "kind": "externalParam",
+              "text": "times"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "expectedCallCountRange"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "R"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "fileID"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:s12StaticStringV",
+              "text": "StaticString"
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "keyword",
+              "text": "#fileID"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "filePath"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:s12StaticStringV",
+              "text": "StaticString"
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "keyword",
+              "text": "#filePath"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "line"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:Su",
+              "text": "UInt"
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "keyword",
+              "text": "#line"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "column"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:Su",
+              "text": "UInt"
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "keyword",
+              "text": "#column"
+            },
+            {
+              "kind": "text",
+              "text": ") "
+            },
+            {
+              "kind": "keyword",
+              "text": "async"
+            },
+            {
+              "kind": "text",
+              "text": " -> "
+            },
+            {
+              "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation",
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:7TestDRS24FunctionCallConfirmationV",
+              "text": "FunctionCallConfirmation"
+            },
+            {
+              "kind": "text",
+              "text": "<"
+            },
+            {
+              "identifier": "doc://TestDRS/documentation/TestDRS/MatchingSomeAmount",
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:7TestDRS18MatchingSomeAmountO",
+              "text": "MatchingSomeAmount"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": "> "
+            },
+            {
+              "kind": "keyword",
+              "text": "where"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "R"
+            },
+            {
+              "kind": "text",
+              "text": " : "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:SX",
+              "text": "RangeExpression"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "R"
+            },
+            {
+              "kind": "text",
+              "text": " : "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:s8SendableP",
+              "text": "Sendable"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "R"
+            },
+            {
+              "kind": "text",
+              "text": " : "
+            },
+            {
+              "identifier": "doc://TestDRS/documentation/TestDRS/LowerBoundProviding",
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:7TestDRS19LowerBoundProvidingP",
+              "text": "LowerBoundProviding"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "R"
+            },
+            {
+              "kind": "text",
+              "text": "."
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:SX5BoundQa",
+              "text": "Bound"
+            },
+            {
+              "kind": "text",
+              "text": " == "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:Si",
+              "text": "Int"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "kind": "parameters",
+      "parameters": [
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "The expected range within which the function should have been called.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "expectedCallCountRange"
+        }
+      ]
+    },
+    {
+      "content": [
+        {
+          "anchor": "return-value",
+          "level": 2,
+          "text": "Return Value",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "A ",
+              "type": "text"
+            },
+            {
+              "code": "FunctionCallConfirmation<MatchingSomeAmount, Input, Output>",
+              "type": "codeVoice"
+            },
+            {
+              "text": " that has attempted to await the minimum number of matching calls within the ",
+              "type": "text"
+            },
+            {
+              "code": "expectedCallCountRange",
+              "type": "codeVoice"
+            },
+            {
+              "text": ".",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        }
+      ],
+      "kind": "content"
+    },
+    {
+      "content": [
+        {
+          "anchor": "discussion",
+          "level": 2,
+          "text": "Discussion",
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "Additional calls beyond the upper bound of the ",
+                  "type": "text"
+                },
+                {
+                  "code": "expectedCallCountRange",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " may be made after the test finishes without causing failure.",
+                  "type": "text"
+                },
+                {
+                  "text": " ",
+                  "type": "text"
+                },
+                {
+                  "text": "This can occur because this method does not introduce a delay in order to wait for failures.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "Note",
+          "style": "note",
+          "type": "aside"
+        }
+      ],
+      "kind": "content"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation": {
+      "abstract": [
+        {
+          "text": "Encapsulates the result of a ",
+          "type": "text"
+        },
+        {
+          "code": "#confirmationOfCall",
+          "type": "codeVoice"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "struct"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionCallConfirmation"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionCallConfirmation"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionCallConfirmation",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallconfirmation"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/occurringWithin(times:fileID:filePath:line:column:)": {
+      "abstract": [
+        {
+          "text": "Makes a further confirmation that the specified call occurred a number of times within a given range.",
+          "type": "text"
+        }
+      ],
+      "conformance": {
+        "availabilityPrefix": [
+          {
+            "text": "Available when",
+            "type": "text"
+          }
+        ],
+        "conformancePrefix": [
+          {
+            "text": "Conforms when",
+            "type": "text"
+          }
+        ],
+        "constraints": [
+          {
+            "code": "AmountMatching",
+            "type": "codeVoice"
+          },
+          {
+            "text": " is ",
+            "type": "text"
+          },
+          {
+            "code": "MatchingFirst",
+            "type": "codeVoice"
+          },
+          {
+            "text": " and ",
+            "type": "text"
+          },
+          {
+            "code": "Input",
+            "type": "codeVoice"
+          },
+          {
+            "text": " conforms to ",
+            "type": "text"
+          },
+          {
+            "code": "Sendable",
+            "type": "codeVoice"
+          },
+          {
+            "text": ".",
+            "type": "text"
+          }
+        ]
+      },
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "occurringWithin"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "genericParameter",
+          "text": "R"
+        },
+        {
+          "kind": "text",
+          "text": ">("
+        },
+        {
+          "kind": "externalParam",
+          "text": "times"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "R"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "fileID"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s12StaticStringV",
+          "text": "StaticString"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "filePath"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s12StaticStringV",
+          "text": "StaticString"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "line"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Su",
+          "text": "UInt"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "column"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Su",
+          "text": "UInt"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS24FunctionCallConfirmationV",
+          "text": "FunctionCallConfirmation"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS18MatchingSomeAmountO",
+          "text": "MatchingSomeAmount"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallConfirmation/occurringWithin(times:fileID:filePath:line:column:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "occurringWithin(times:fileID:filePath:line:column:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallconfirmation/occurringwithin(times:fileid:filepath:line:column:)"
+    },
+    "doc://TestDRS/documentation/TestDRS/LowerBoundProviding": {
+      "abstract": [
+        {
+          "text": "TestDRS supports using ranges that have a lower bound in order to verify call counts.",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "text": "This protocol allows for using ",
+          "type": "text"
+        },
+        {
+          "code": "PartialRangeFrom",
+          "type": "codeVoice"
+        },
+        {
+          "text": ", ",
+          "type": "text"
+        },
+        {
+          "code": "Range",
+          "type": "codeVoice"
+        },
+        {
+          "text": ", or ",
+          "type": "text"
+        },
+        {
+          "code": "ClosedRange",
+          "type": "codeVoice"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "LowerBoundProviding"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/LowerBoundProviding",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "LowerBoundProviding"
+        }
+      ],
+      "role": "symbol",
+      "title": "LowerBoundProviding",
+      "type": "topic",
+      "url": "/documentation/testdrs/lowerboundproviding"
+    },
+    "doc://TestDRS/documentation/TestDRS/MatchingSomeAmount": {
+      "abstract": [
+        {
+          "text": "A matching strategy that verifies a specific number or range of function calls.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "enum"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "MatchingSomeAmount"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/MatchingSomeAmount",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "MatchingSomeAmount"
+        }
+      ],
+      "role": "symbol",
+      "title": "MatchingSomeAmount",
+      "type": "topic",
+      "url": "/documentation/testdrs/matchingsomeamount"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/functioncallconfirmation/occurringwithin(times:fileid:filepath:line:column:)"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

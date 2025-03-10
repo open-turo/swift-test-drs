@@ -1,1 +1,530 @@
-{"metadata":{"modules":[{"name":"TestDRS"}],"role":"symbol","symbolKind":"protocol","roleHeading":"Protocol","navigatorTitle":[{"kind":"identifier","text":"Mock"}],"fragments":[{"text":"protocol","kind":"keyword"},{"kind":"text","text":" "},{"text":"Mock","kind":"identifier"}],"title":"Mock","externalID":"s:7TestDRS4MockP"},"abstract":[{"text":"A protocol that combines stubbing and spying functionality for comprehensive test doubles.","type":"text"}],"primaryContentSections":[{"declarations":[{"tokens":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"Mock"},{"text":" : ","kind":"text"},{"preciseIdentifier":"s:7TestDRS3SpyP","kind":"typeIdentifier","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/Spy","text":"Spy"},{"text":", ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS13StubProvidingP","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StubProviding","text":"StubProviding"}],"platforms":["macOS"],"languages":["swift"]}],"kind":"declarations"},{"kind":"content","content":[{"type":"heading","level":2,"anchor":"overview","text":"Overview"},{"inlineContent":[{"type":"text","text":"The "},{"type":"codeVoice","code":"Mock"},{"type":"text","text":" protocol combines the capabilities of "},{"type":"codeVoice","code":"StubProviding"},{"text":", ","type":"text"},{"code":"Spy","type":"codeVoice"},{"type":"text","text":", and "},{"code":"StaticTestable","type":"codeVoice"},{"type":"text","text":" protocols"},{"text":" ","type":"text"},{"text":"to create a versatile test double that can:","type":"text"}],"type":"paragraph"},{"items":[{"content":[{"inlineContent":[{"text":"Stub method and property implementations to return predetermined values (","type":"text"},{"code":"StubProviding","type":"codeVoice"},{"text":")","type":"text"}],"type":"paragraph"}]},{"content":[{"type":"paragraph","inlineContent":[{"text":"Record and verify method invocations, including parameters and call counts (","type":"text"},{"type":"codeVoice","code":"Spy"},{"type":"text","text":")"}]}]},{"content":[{"inlineContent":[{"type":"text","text":"Support testing of static members in a thread-safe manner ("},{"type":"codeVoice","code":"StaticTestable"},{"text":")","type":"text"}],"type":"paragraph"}]}],"type":"orderedList"},{"type":"paragraph","inlineContent":[{"type":"text","text":"Mock objects created with this protocol are suitable for both state-based and interaction-based testing approaches."},{"type":"text","text":" "},{"text":"They allow you to verify both the behavior of the code under test (by examining calls made to the mock)","type":"text"},{"text":" ","type":"text"},{"type":"text","text":"and its outputs (by controlling what the mock returns)."}]},{"inlineContent":[{"type":"text","text":"Mock implementations are typically generated automatically using the "},{"type":"codeVoice","code":"@AddMock"},{"text":" macro, which creates","type":"text"},{"type":"text","text":" "},{"text":"a concrete class that implements this protocol for a given type (protocol, class, or struct).","type":"text"}],"type":"paragraph"},{"type":"paragraph","inlineContent":[{"text":"Example usage:","type":"text"}]},{"code":["@AddMock","protocol Calculator {","    func add(_ a: Int, _ b: Int) -> Int","}","","func testCalculatorUsage() {","    let mockCalculator = MockCalculator()","","    \/\/ Always return 42 from the add method, no matter the input","    #stub(mockCalculator.add, returning: 42)","    ","    \/\/ Use the mock in your code under test","    let result = systemUnderTest.performCalculation(using: mockCalculator)","    ","    \/\/ Verify the mock was called correctly","    #expectWasCalled(mockCalculator.add, with: 10, 20)","    XCTAssertEqual(result, 42)","}"],"syntax":"swift","type":"codeListing"}]}],"sections":[],"schemaVersion":{"major":0,"minor":3,"patch":0},"identifier":{"interfaceLanguage":"swift","url":"doc:\/\/TestDRS\/documentation\/TestDRS\/Mock"},"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS"]]},"relationshipsSections":[{"kind":"relationships","title":"Inherits From","type":"inheritsFrom","identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/Spy","doc:\/\/TestDRS\/documentation\/TestDRS\/StaticTestable","doc:\/\/TestDRS\/documentation\/TestDRS\/StubProviding"]}],"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/mock"]}],"kind":"symbol","references":{"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/Spy":{"kind":"symbol","role":"symbol","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"Spy"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/Spy","navigatorTitle":[{"text":"Spy","kind":"identifier"}],"title":"Spy","abstract":[{"type":"text","text":"A protocol that enables observing and verifying function calls during testing."}],"type":"topic","url":"\/documentation\/testdrs\/spy"},"doc://TestDRS/documentation/TestDRS/StaticTestable":{"fragments":[{"kind":"keyword","text":"protocol"},{"text":" ","kind":"text"},{"text":"StaticTestable","kind":"identifier"}],"title":"StaticTestable","url":"\/documentation\/testdrs\/statictestable","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StaticTestable","abstract":[{"text":"A type whose static members can be tested using a ","type":"text"},{"code":"StaticTestingContext","type":"codeVoice"},{"type":"text","text":"."}],"type":"topic","role":"symbol","kind":"symbol","navigatorTitle":[{"kind":"identifier","text":"StaticTestable"}]},"doc://TestDRS/documentation/TestDRS/StubProviding":{"kind":"symbol","type":"topic","title":"StubProviding","navigatorTitle":[{"kind":"identifier","text":"StubProviding"}],"abstract":[{"code":"StubProviding","type":"codeVoice"},{"text":" is a protocol that defines a stubbing mechanism for unit testing.","type":"text"},{"text":" ","type":"text"},{"type":"text","text":"It allows you to replace real method calls with stubbed responses, making it easier to test your code in isolation."},{"text":" ","type":"text"},{"text":"Each stub is associated with the function’s signature, input type, and output type.","type":"text"},{"text":" ","type":"text"},{"type":"text","text":"This information is used to retrieve the stub when the function is called."}],"role":"symbol","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/StubProviding","fragments":[{"text":"protocol","kind":"keyword"},{"text":" ","kind":"text"},{"text":"StubProviding","kind":"identifier"}],"url":"\/documentation\/testdrs\/stubproviding"},"doc://TestDRS/documentation/TestDRS/Mock":{"kind":"symbol","url":"\/documentation\/testdrs\/mock","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/Mock","fragments":[{"kind":"keyword","text":"protocol"},{"text":" ","kind":"text"},{"text":"Mock","kind":"identifier"}],"type":"topic","abstract":[{"type":"text","text":"A protocol that combines stubbing and spying functionality for comprehensive test doubles."}],"title":"Mock","role":"symbol","navigatorTitle":[{"text":"Mock","kind":"identifier"}]}}}
+{
+  "abstract": [
+    {
+      "text": "A protocol that combines stubbing and spying functionality for comprehensive test doubles.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/Mock"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS4MockP",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "protocol"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "Mock"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "navigatorTitle": [
+      {
+        "kind": "identifier",
+        "text": "Mock"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Protocol",
+    "symbolKind": "protocol",
+    "title": "Mock"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "protocol"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "Mock"
+            },
+            {
+              "kind": "text",
+              "text": " : "
+            },
+            {
+              "identifier": "doc://TestDRS/documentation/TestDRS/Spy",
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:7TestDRS3SpyP",
+              "text": "Spy"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "identifier": "doc://TestDRS/documentation/TestDRS/StubProviding",
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:7TestDRS13StubProvidingP",
+              "text": "StubProviding"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "content": [
+        {
+          "anchor": "overview",
+          "level": 2,
+          "text": "Overview",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "The ",
+              "type": "text"
+            },
+            {
+              "code": "Mock",
+              "type": "codeVoice"
+            },
+            {
+              "text": " protocol combines the capabilities of ",
+              "type": "text"
+            },
+            {
+              "code": "StubProviding",
+              "type": "codeVoice"
+            },
+            {
+              "text": ", ",
+              "type": "text"
+            },
+            {
+              "code": "Spy",
+              "type": "codeVoice"
+            },
+            {
+              "text": ", and ",
+              "type": "text"
+            },
+            {
+              "code": "StaticTestable",
+              "type": "codeVoice"
+            },
+            {
+              "text": " protocols",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "to create a versatile test double that can:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "items": [
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Stub method and property implementations to return predetermined values (",
+                      "type": "text"
+                    },
+                    {
+                      "code": "StubProviding",
+                      "type": "codeVoice"
+                    },
+                    {
+                      "text": ")",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Record and verify method invocations, including parameters and call counts (",
+                      "type": "text"
+                    },
+                    {
+                      "code": "Spy",
+                      "type": "codeVoice"
+                    },
+                    {
+                      "text": ")",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            },
+            {
+              "content": [
+                {
+                  "inlineContent": [
+                    {
+                      "text": "Support testing of static members in a thread-safe manner (",
+                      "type": "text"
+                    },
+                    {
+                      "code": "StaticTestable",
+                      "type": "codeVoice"
+                    },
+                    {
+                      "text": ")",
+                      "type": "text"
+                    }
+                  ],
+                  "type": "paragraph"
+                }
+              ]
+            }
+          ],
+          "type": "orderedList"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Mock objects created with this protocol are suitable for both state-based and interaction-based testing approaches.",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "They allow you to verify both the behavior of the code under test (by examining calls made to the mock)",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "and its outputs (by controlling what the mock returns).",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Mock implementations are typically generated automatically using the ",
+              "type": "text"
+            },
+            {
+              "code": "@AddMock",
+              "type": "codeVoice"
+            },
+            {
+              "text": " macro, which creates",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "a concrete class that implements this protocol for a given type (protocol, class, or struct).",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "Example usage:",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "code": [
+            "@AddMock",
+            "protocol Calculator {",
+            "    func add(_ a: Int, _ b: Int) -> Int",
+            "}",
+            "",
+            "func testCalculatorUsage() {",
+            "    let mockCalculator = MockCalculator()",
+            "",
+            "    // Always return 42 from the add method, no matter the input",
+            "    #stub(mockCalculator.add, returning: 42)",
+            "    ",
+            "    // Use the mock in your code under test",
+            "    let result = systemUnderTest.performCalculation(using: mockCalculator)",
+            "    ",
+            "    // Verify the mock was called correctly",
+            "    #expectWasCalled(mockCalculator.add, with: 10, 20)",
+            "    XCTAssertEqual(result, 42)",
+            "}"
+          ],
+          "syntax": "swift",
+          "type": "codeListing"
+        }
+      ],
+      "kind": "content"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/Mock": {
+      "abstract": [
+        {
+          "text": "A protocol that combines stubbing and spying functionality for comprehensive test doubles.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "Mock"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/Mock",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "Mock"
+        }
+      ],
+      "role": "symbol",
+      "title": "Mock",
+      "type": "topic",
+      "url": "/documentation/testdrs/mock"
+    },
+    "doc://TestDRS/documentation/TestDRS/Spy": {
+      "abstract": [
+        {
+          "text": "A protocol that enables observing and verifying function calls during testing.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "Spy"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/Spy",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "Spy"
+        }
+      ],
+      "role": "symbol",
+      "title": "Spy",
+      "type": "topic",
+      "url": "/documentation/testdrs/spy"
+    },
+    "doc://TestDRS/documentation/TestDRS/StaticTestable": {
+      "abstract": [
+        {
+          "text": "A type whose static members can be tested using a ",
+          "type": "text"
+        },
+        {
+          "code": "StaticTestingContext",
+          "type": "codeVoice"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "StaticTestable"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/StaticTestable",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "StaticTestable"
+        }
+      ],
+      "role": "symbol",
+      "title": "StaticTestable",
+      "type": "topic",
+      "url": "/documentation/testdrs/statictestable"
+    },
+    "doc://TestDRS/documentation/TestDRS/StubProviding": {
+      "abstract": [
+        {
+          "code": "StubProviding",
+          "type": "codeVoice"
+        },
+        {
+          "text": " is a protocol that defines a stubbing mechanism for unit testing.",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "text": "It allows you to replace real method calls with stubbed responses, making it easier to test your code in isolation.",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "text": "Each stub is associated with the function\u2019s signature, input type, and output type.",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "text": "This information is used to retrieve the stub when the function is called.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "StubProviding"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/StubProviding",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "StubProviding"
+        }
+      ],
+      "role": "symbol",
+      "title": "StubProviding",
+      "type": "topic",
+      "url": "/documentation/testdrs/stubproviding"
+    }
+  },
+  "relationshipsSections": [
+    {
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/Spy",
+        "doc://TestDRS/documentation/TestDRS/StaticTestable",
+        "doc://TestDRS/documentation/TestDRS/StubProviding"
+      ],
+      "kind": "relationships",
+      "title": "Inherits From",
+      "type": "inheritsFrom"
+    }
+  ],
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/mock"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

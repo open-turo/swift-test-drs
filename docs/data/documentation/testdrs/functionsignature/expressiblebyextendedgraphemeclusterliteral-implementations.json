@@ -1,1 +1,183 @@
-{"topicSections":[{"generated":true,"title":"Initializers","anchor":"Initializers","identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature\/init(extendedGraphemeClusterLiteral:)"]}],"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/functionsignature\/expressiblebyextendedgraphemeclusterliteral-implementations"]}],"schemaVersion":{"patch":0,"major":0,"minor":3},"sections":[],"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature\/ExpressibleByExtendedGraphemeClusterLiteral-Implementations","interfaceLanguage":"swift"},"kind":"article","metadata":{"modules":[{"name":"TestDRS"}],"title":"ExpressibleByExtendedGraphemeClusterLiteral Implementations","role":"collectionGroup","roleHeading":"API Collection"},"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature"]]},"references":{"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/FunctionSignature":{"title":"FunctionSignature","url":"\/documentation\/testdrs\/functionsignature","navigatorTitle":[{"text":"FunctionSignature","kind":"identifier"}],"type":"topic","kind":"symbol","role":"symbol","fragments":[{"text":"struct","kind":"keyword"},{"kind":"text","text":" "},{"text":"FunctionSignature","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature","abstract":[{"type":"codeVoice","code":"FunctionSignature"},{"type":"text","text":" is used to represent the signature of a function."}]},"doc://TestDRS/documentation/TestDRS/FunctionSignature/init(extendedGraphemeClusterLiteral:)":{"type":"topic","title":"init(extendedGraphemeClusterLiteral:)","fragments":[{"text":"init","kind":"identifier"},{"kind":"text","text":"("},{"text":"extendedGraphemeClusterLiteral","kind":"externalParam"},{"text":": ","kind":"text"},{"text":"Self","kind":"typeIdentifier"},{"kind":"text","text":"."},{"preciseIdentifier":"s:s26ExpressibleByStringLiteralP0cD4TypeQa","kind":"typeIdentifier","text":"StringLiteralType"},{"kind":"text","text":")"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature\/init(extendedGraphemeClusterLiteral:)","conformance":{"constraints":[{"code":"ExtendedGraphemeClusterLiteralType","type":"codeVoice"},{"type":"text","text":" is "},{"code":"Self.StringLiteralType","type":"codeVoice"},{"type":"text","text":"."}],"conformancePrefix":[{"text":"Conforms when","type":"text"}],"availabilityPrefix":[{"type":"text","text":"Available when"}]},"abstract":[],"url":"\/documentation\/testdrs\/functionsignature\/init(extendedgraphemeclusterliteral:)","kind":"symbol","role":"symbol"}}}
+{
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/FunctionSignature"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/FunctionSignature/ExpressibleByExtendedGraphemeClusterLiteral-Implementations"
+  },
+  "kind": "article",
+  "metadata": {
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "collectionGroup",
+    "roleHeading": "API Collection",
+    "title": "ExpressibleByExtendedGraphemeClusterLiteral Implementations"
+  },
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionSignature": {
+      "abstract": [
+        {
+          "code": "FunctionSignature",
+          "type": "codeVoice"
+        },
+        {
+          "text": " is used to represent the signature of a function.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "struct"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionSignature"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionSignature"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionSignature",
+      "type": "topic",
+      "url": "/documentation/testdrs/functionsignature"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionSignature/init(extendedGraphemeClusterLiteral:)": {
+      "abstract": [],
+      "conformance": {
+        "availabilityPrefix": [
+          {
+            "text": "Available when",
+            "type": "text"
+          }
+        ],
+        "conformancePrefix": [
+          {
+            "text": "Conforms when",
+            "type": "text"
+          }
+        ],
+        "constraints": [
+          {
+            "code": "ExtendedGraphemeClusterLiteralType",
+            "type": "codeVoice"
+          },
+          {
+            "text": " is ",
+            "type": "text"
+          },
+          {
+            "code": "Self.StringLiteralType",
+            "type": "codeVoice"
+          },
+          {
+            "text": ".",
+            "type": "text"
+          }
+        ]
+      },
+      "fragments": [
+        {
+          "kind": "identifier",
+          "text": "init"
+        },
+        {
+          "kind": "text",
+          "text": "("
+        },
+        {
+          "kind": "externalParam",
+          "text": "extendedGraphemeClusterLiteral"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Self"
+        },
+        {
+          "kind": "text",
+          "text": "."
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s26ExpressibleByStringLiteralP0cD4TypeQa",
+          "text": "StringLiteralType"
+        },
+        {
+          "kind": "text",
+          "text": ")"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature/init(extendedGraphemeClusterLiteral:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "init(extendedGraphemeClusterLiteral:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/functionsignature/init(extendedgraphemeclusterliteral:)"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "topicSections": [
+    {
+      "anchor": "Initializers",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/FunctionSignature/init(extendedGraphemeClusterLiteral:)"
+      ],
+      "title": "Initializers"
+    }
+  ],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/functionsignature/expressiblebyextendedgraphemeclusterliteral-implementations"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

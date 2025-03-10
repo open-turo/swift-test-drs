@@ -1,1 +1,256 @@
-{"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS"]]},"metadata":{"title":"MatchingOne","externalID":"s:7TestDRS11MatchingOneO","modules":[{"name":"TestDRS"}],"navigatorTitle":[{"text":"MatchingOne","kind":"identifier"}],"symbolKind":"enum","fragments":[{"kind":"keyword","text":"enum"},{"kind":"text","text":" "},{"text":"MatchingOne","kind":"identifier"}],"roleHeading":"Enumeration","role":"symbol"},"schemaVersion":{"patch":0,"major":0,"minor":3},"abstract":[{"text":"A matching strategy that requires exactly one function call.","type":"text"}],"sections":[],"primaryContentSections":[{"declarations":[{"languages":["swift"],"tokens":[{"text":"enum","kind":"keyword"},{"kind":"text","text":" "},{"text":"MatchingOne","kind":"identifier"}],"platforms":["macOS"]}],"kind":"declarations"},{"kind":"content","content":[{"text":"Overview","type":"heading","anchor":"overview","level":2},{"type":"paragraph","inlineContent":[{"type":"text","text":"This strategy is used when a function should be called exactly once. Verification"},{"type":"text","text":" "},{"type":"text","text":"will should fail if the function wasn’t called at all or was called more than once."}]}]}],"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/matchingone"]}],"relationshipsSections":[{"identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallAmountMatching","doc:\/\/TestDRS\/documentation\/TestDRS\/MatchingSingle"],"title":"Conforms To","type":"conformsTo","kind":"relationships"}],"kind":"symbol","identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/MatchingOne","interfaceLanguage":"swift"},"references":{"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/FunctionCallAmountMatching":{"type":"topic","title":"FunctionCallAmountMatching","fragments":[{"text":"protocol","kind":"keyword"},{"kind":"text","text":" "},{"text":"FunctionCallAmountMatching","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionCallAmountMatching","abstract":[{"type":"text","text":"A protocol that represents different ways of matching function call counts during verification."}],"navigatorTitle":[{"kind":"identifier","text":"FunctionCallAmountMatching"}],"url":"\/documentation\/testdrs\/functioncallamountmatching","kind":"symbol","role":"symbol"},"doc://TestDRS/documentation/TestDRS/MatchingSingle":{"url":"\/documentation\/testdrs\/matchingsingle","role":"symbol","fragments":[{"text":"protocol","kind":"keyword"},{"kind":"text","text":" "},{"text":"MatchingSingle","kind":"identifier"}],"kind":"symbol","type":"topic","title":"MatchingSingle","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/MatchingSingle","abstract":[{"type":"text","text":"A protocol for matching strategies that handle at most a single function call."}],"navigatorTitle":[{"kind":"identifier","text":"MatchingSingle"}]},"doc://TestDRS/documentation/TestDRS/MatchingOne":{"role":"symbol","fragments":[{"text":"enum","kind":"keyword"},{"kind":"text","text":" "},{"text":"MatchingOne","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/MatchingOne","type":"topic","abstract":[{"text":"A matching strategy that requires exactly one function call.","type":"text"}],"title":"MatchingOne","kind":"symbol","navigatorTitle":[{"kind":"identifier","text":"MatchingOne"}],"url":"\/documentation\/testdrs\/matchingone"}}}
+{
+  "abstract": [
+    {
+      "text": "A matching strategy that requires exactly one function call.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/MatchingOne"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS11MatchingOneO",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "enum"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "MatchingOne"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "navigatorTitle": [
+      {
+        "kind": "identifier",
+        "text": "MatchingOne"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Enumeration",
+    "symbolKind": "enum",
+    "title": "MatchingOne"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "enum"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "MatchingOne"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "content": [
+        {
+          "anchor": "overview",
+          "level": 2,
+          "text": "Overview",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "This strategy is used when a function should be called exactly once. Verification",
+              "type": "text"
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "text": "will should fail if the function wasn\u2019t called at all or was called more than once.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        }
+      ],
+      "kind": "content"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionCallAmountMatching": {
+      "abstract": [
+        {
+          "text": "A protocol that represents different ways of matching function call counts during verification.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionCallAmountMatching"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionCallAmountMatching",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionCallAmountMatching"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionCallAmountMatching",
+      "type": "topic",
+      "url": "/documentation/testdrs/functioncallamountmatching"
+    },
+    "doc://TestDRS/documentation/TestDRS/MatchingOne": {
+      "abstract": [
+        {
+          "text": "A matching strategy that requires exactly one function call.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "enum"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "MatchingOne"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/MatchingOne",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "MatchingOne"
+        }
+      ],
+      "role": "symbol",
+      "title": "MatchingOne",
+      "type": "topic",
+      "url": "/documentation/testdrs/matchingone"
+    },
+    "doc://TestDRS/documentation/TestDRS/MatchingSingle": {
+      "abstract": [
+        {
+          "text": "A protocol for matching strategies that handle at most a single function call.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "MatchingSingle"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/MatchingSingle",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "MatchingSingle"
+        }
+      ],
+      "role": "symbol",
+      "title": "MatchingSingle",
+      "type": "topic",
+      "url": "/documentation/testdrs/matchingsingle"
+    }
+  },
+  "relationshipsSections": [
+    {
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/FunctionCallAmountMatching",
+        "doc://TestDRS/documentation/TestDRS/MatchingSingle"
+      ],
+      "kind": "relationships",
+      "title": "Conforms To",
+      "type": "conformsTo"
+    }
+  ],
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/matchingone"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

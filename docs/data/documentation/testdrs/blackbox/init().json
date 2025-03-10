@@ -1,1 +1,149 @@
-{"kind":"symbol","metadata":{"fragments":[{"text":"init","kind":"identifier"},{"kind":"text","text":"()"}],"externalID":"s:7TestDRS8BlackBoxCACycfc","roleHeading":"Initializer","title":"init()","symbolKind":"init","modules":[{"name":"TestDRS"}],"role":"symbol"},"identifier":{"interfaceLanguage":"swift","url":"doc:\/\/TestDRS\/documentation\/TestDRS\/BlackBox\/init()"},"primaryContentSections":[{"kind":"declarations","declarations":[{"platforms":["macOS"],"tokens":[{"text":"init","kind":"keyword"},{"text":"()","kind":"text"}],"languages":["swift"]}]}],"sections":[],"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/blackbox\/init()"]}],"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/BlackBox"]]},"schemaVersion":{"minor":3,"major":0,"patch":0},"references":{"doc://TestDRS/documentation/TestDRS/BlackBox/init()":{"abstract":[],"url":"\/documentation\/testdrs\/blackbox\/init()","kind":"symbol","title":"init()","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/BlackBox\/init()","type":"topic","role":"symbol","fragments":[{"text":"init","kind":"identifier"},{"text":"()","kind":"text"}]},"doc://TestDRS/documentation/TestDRS/BlackBox":{"abstract":[{"text":"A mechanism to record and look up function calls for testing purposes.","type":"text"}],"navigatorTitle":[{"text":"BlackBox","kind":"identifier"}],"url":"\/documentation\/testdrs\/blackbox","type":"topic","kind":"symbol","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/BlackBox","role":"symbol","title":"BlackBox","fragments":[{"kind":"keyword","text":"class"},{"text":" ","kind":"text"},{"text":"BlackBox","kind":"identifier"}]},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"}}}
+{
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/BlackBox"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/BlackBox/init()"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS8BlackBoxCACycfc",
+    "fragments": [
+      {
+        "kind": "identifier",
+        "text": "init"
+      },
+      {
+        "kind": "text",
+        "text": "()"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Initializer",
+    "symbolKind": "init",
+    "title": "init()"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "init"
+            },
+            {
+              "kind": "text",
+              "text": "()"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/BlackBox": {
+      "abstract": [
+        {
+          "text": "A mechanism to record and look up function calls for testing purposes.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "class"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "BlackBox"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/BlackBox",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "BlackBox"
+        }
+      ],
+      "role": "symbol",
+      "title": "BlackBox",
+      "type": "topic",
+      "url": "/documentation/testdrs/blackbox"
+    },
+    "doc://TestDRS/documentation/TestDRS/BlackBox/init()": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "identifier",
+          "text": "init"
+        },
+        {
+          "kind": "text",
+          "text": "()"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/BlackBox/init()",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "init()",
+      "type": "topic",
+      "url": "/documentation/testdrs/blackbox/init()"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/blackbox/init()"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

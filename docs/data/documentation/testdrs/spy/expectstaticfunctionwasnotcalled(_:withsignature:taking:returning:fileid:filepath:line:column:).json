@@ -1,1 +1,916 @@
-{"schemaVersion":{"minor":3,"patch":0,"major":0},"kind":"symbol","hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/Spy"]]},"metadata":{"fragments":[{"text":"static","kind":"keyword"},{"kind":"text","text":" "},{"text":"func","kind":"keyword"},{"text":" ","kind":"text"},{"text":"expectStaticFunctionWasNotCalled","kind":"identifier"},{"kind":"text","text":"<"},{"text":"Input","kind":"genericParameter"},{"kind":"text","text":", "},{"kind":"genericParameter","text":"Output"},{"text":">((","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"text":") ","kind":"text"},{"text":"async","kind":"keyword"},{"kind":"text","text":" "},{"kind":"keyword","text":"throws"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","text":"Output"},{"kind":"text","text":", "},{"kind":"externalParam","text":"withSignature"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:7TestDRS17FunctionSignatureV","text":"FunctionSignature","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"taking","kind":"externalParam"},{"kind":"text","text":": "},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":".Type?, "},{"text":"returning","kind":"externalParam"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Output"},{"kind":"text","text":".Type?, "},{"kind":"externalParam","text":"fileID"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:s12StaticStringV","text":"StaticString"},{"kind":"text","text":", "},{"kind":"externalParam","text":"filePath"},{"text":": ","kind":"text"},{"text":"StaticString","kind":"typeIdentifier","preciseIdentifier":"s:s12StaticStringV"},{"text":", ","kind":"text"},{"text":"line","kind":"externalParam"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:Su","text":"UInt"},{"text":", ","kind":"text"},{"text":"column","kind":"externalParam"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:Su","text":"UInt"},{"text":")","kind":"text"}],"role":"symbol","title":"expectStaticFunctionWasNotCalled(_:withSignature:taking:returning:fileID:filePath:line:column:)","modules":[{"name":"TestDRS"}],"symbolKind":"method","extendedModule":"TestDRS","externalID":"s:7TestDRS3SpyPAAE32expectStaticFunctionWasNotCalled_13withSignature6taking9returning6fileID0N4Path4line6columnyqd_0_qd__YaKXE_AA0fK0Vqd__mSgqd_0_mSgs0E6StringVAQS2utr0_lFZ","roleHeading":"Type Method"},"abstract":[{"type":"text","text":"Expects that the given function was not called."}],"primaryContentSections":[{"declarations":[{"languages":["swift"],"platforms":["macOS"],"tokens":[{"text":"static","kind":"keyword"},{"text":" ","kind":"text"},{"text":"func","kind":"keyword"},{"text":" ","kind":"text"},{"text":"expectStaticFunctionWasNotCalled","kind":"identifier"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Input"},{"text":", ","kind":"text"},{"kind":"genericParameter","text":"Output"},{"text":">(","kind":"text"},{"text":"_","kind":"externalParam"},{"text":" ","kind":"text"},{"text":"function","kind":"internalParam"},{"kind":"text","text":": ("},{"text":"Input","kind":"typeIdentifier"},{"text":") ","kind":"text"},{"kind":"keyword","text":"async"},{"text":" ","kind":"text"},{"text":"throws","kind":"keyword"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","text":"Output"},{"kind":"text","text":", "},{"text":"withSignature","kind":"externalParam"},{"text":" ","kind":"text"},{"kind":"internalParam","text":"signature"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"FunctionSignature","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature","preciseIdentifier":"s:7TestDRS17FunctionSignatureV"},{"kind":"text","text":", "},{"text":"taking","kind":"externalParam"},{"kind":"text","text":" "},{"kind":"internalParam","text":"inputType"},{"text":": ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"text":".Type? = nil, ","kind":"text"},{"text":"returning","kind":"externalParam"},{"kind":"text","text":" "},{"text":"outputType","kind":"internalParam"},{"text":": ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":".Type? = nil, "},{"text":"fileID","kind":"externalParam"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:s12StaticStringV","text":"StaticString"},{"kind":"text","text":" = "},{"text":"#fileID","kind":"keyword"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"filePath"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","preciseIdentifier":"s:s12StaticStringV","text":"StaticString"},{"kind":"text","text":" = "},{"kind":"keyword","text":"#filePath"},{"kind":"text","text":", "},{"kind":"externalParam","text":"line"},{"kind":"text","text":": "},{"text":"UInt","preciseIdentifier":"s:Su","kind":"typeIdentifier"},{"text":" = ","kind":"text"},{"text":"#line","kind":"keyword"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"column"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:Su","text":"UInt","kind":"typeIdentifier"},{"text":" = ","kind":"text"},{"text":"#column","kind":"keyword"},{"kind":"text","text":")"}]}],"kind":"declarations"},{"kind":"parameters","parameters":[{"name":"function","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"A reference to the function to expect was not called."}]}]},{"name":"signature","content":[{"type":"paragraph","inlineContent":[{"text":"The signature of the function to check.","type":"text"},{"type":"text","text":" "},{"type":"text","text":"The signature can be obtained by right-clicking on the function’s signature and selecting “Copy” > “Copy Symbol Name”."},{"text":" ","type":"text"},{"type":"text","text":"This should also match what is recorded by the "},{"code":"#function","type":"codeVoice"},{"type":"text","text":" macro."}]}]},{"content":[{"inlineContent":[{"type":"text","text":"An optional phantom parameter used to derive the input type of the "},{"code":"function","type":"codeVoice"},{"text":" passed in.","type":"text"}],"type":"paragraph"}],"name":"inputType"},{"content":[{"inlineContent":[{"text":"An optional  phantom parameter used to derive the output type of the ","type":"text"},{"code":"function","type":"codeVoice"},{"text":" passed in.","type":"text"}],"type":"paragraph"}],"name":"outputType"}]}],"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/spy\/expectstaticfunctionwasnotcalled(_:withsignature:taking:returning:fileid:filepath:line:column:)"]}],"sections":[],"identifier":{"interfaceLanguage":"swift","url":"doc:\/\/TestDRS\/documentation\/TestDRS\/Spy\/expectStaticFunctionWasNotCalled(_:withSignature:taking:returning:fileID:filePath:line:column:)"},"references":{"doc://TestDRS/documentation/TestDRS/Spy":{"kind":"symbol","role":"symbol","fragments":[{"kind":"keyword","text":"protocol"},{"kind":"text","text":" "},{"kind":"identifier","text":"Spy"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/Spy","navigatorTitle":[{"text":"Spy","kind":"identifier"}],"title":"Spy","abstract":[{"type":"text","text":"A protocol that enables observing and verifying function calls during testing."}],"type":"topic","url":"\/documentation\/testdrs\/spy"},"doc://TestDRS/documentation/TestDRS/Spy/expectStaticFunctionWasNotCalled(_:withSignature:taking:returning:fileID:filePath:line:column:)":{"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/Spy\/expectStaticFunctionWasNotCalled(_:withSignature:taking:returning:fileID:filePath:line:column:)","url":"\/documentation\/testdrs\/spy\/expectstaticfunctionwasnotcalled(_:withsignature:taking:returning:fileid:filepath:line:column:)","title":"expectStaticFunctionWasNotCalled(_:withSignature:taking:returning:fileID:filePath:line:column:)","role":"symbol","kind":"symbol","type":"topic","fragments":[{"text":"static","kind":"keyword"},{"kind":"text","text":" "},{"text":"func","kind":"keyword"},{"text":" ","kind":"text"},{"text":"expectStaticFunctionWasNotCalled","kind":"identifier"},{"text":"<","kind":"text"},{"text":"Input","kind":"genericParameter"},{"kind":"text","text":", "},{"text":"Output","kind":"genericParameter"},{"text":">((","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":") "},{"kind":"keyword","text":"async"},{"text":" ","kind":"text"},{"text":"throws","kind":"keyword"},{"text":" -> ","kind":"text"},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"withSignature","kind":"externalParam"},{"kind":"text","text":": "},{"kind":"typeIdentifier","preciseIdentifier":"s:7TestDRS17FunctionSignatureV","text":"FunctionSignature"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"taking"},{"kind":"text","text":": "},{"text":"Input","kind":"typeIdentifier"},{"text":".Type?, ","kind":"text"},{"text":"returning","kind":"externalParam"},{"kind":"text","text":": "},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":".Type?, "},{"kind":"externalParam","text":"fileID"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:s12StaticStringV","text":"StaticString","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"filePath","kind":"externalParam"},{"kind":"text","text":": "},{"preciseIdentifier":"s:s12StaticStringV","text":"StaticString","kind":"typeIdentifier"},{"kind":"text","text":", "},{"text":"line","kind":"externalParam"},{"kind":"text","text":": "},{"preciseIdentifier":"s:Su","text":"UInt","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"text":"column","kind":"externalParam"},{"text":": ","kind":"text"},{"preciseIdentifier":"s:Su","kind":"typeIdentifier","text":"UInt"},{"kind":"text","text":")"}],"abstract":[{"type":"text","text":"Expects that the given function was not called."}]},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"},"doc://TestDRS/documentation/TestDRS/FunctionSignature":{"title":"FunctionSignature","url":"\/documentation\/testdrs\/functionsignature","navigatorTitle":[{"text":"FunctionSignature","kind":"identifier"}],"type":"topic","kind":"symbol","role":"symbol","fragments":[{"text":"struct","kind":"keyword"},{"kind":"text","text":" "},{"text":"FunctionSignature","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/FunctionSignature","abstract":[{"type":"codeVoice","code":"FunctionSignature"},{"type":"text","text":" is used to represent the signature of a function."}]}}}
+{
+  "abstract": [
+    {
+      "text": "Expects that the given function was not called.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/Spy"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/Spy/expectStaticFunctionWasNotCalled(_:withSignature:taking:returning:fileID:filePath:line:column:)"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "extendedModule": "TestDRS",
+    "externalID": "s:7TestDRS3SpyPAAE32expectStaticFunctionWasNotCalled_13withSignature6taking9returning6fileID0N4Path4line6columnyqd_0_qd__YaKXE_AA0fK0Vqd__mSgqd_0_mSgs0E6StringVAQS2utr0_lFZ",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "static"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "keyword",
+        "text": "func"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "expectStaticFunctionWasNotCalled"
+      },
+      {
+        "kind": "text",
+        "text": "<"
+      },
+      {
+        "kind": "genericParameter",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "genericParameter",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ">(("
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ") "
+      },
+      {
+        "kind": "keyword",
+        "text": "async"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "keyword",
+        "text": "throws"
+      },
+      {
+        "kind": "text",
+        "text": " -> "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "withSignature"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:7TestDRS17FunctionSignatureV",
+        "text": "FunctionSignature"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "taking"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ".Type?, "
+      },
+      {
+        "kind": "externalParam",
+        "text": "returning"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ".Type?, "
+      },
+      {
+        "kind": "externalParam",
+        "text": "fileID"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:s12StaticStringV",
+        "text": "StaticString"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "filePath"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:s12StaticStringV",
+        "text": "StaticString"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "line"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:Su",
+        "text": "UInt"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "column"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:Su",
+        "text": "UInt"
+      },
+      {
+        "kind": "text",
+        "text": ")"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Type Method",
+    "symbolKind": "method",
+    "title": "expectStaticFunctionWasNotCalled(_:withSignature:taking:returning:fileID:filePath:line:column:)"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "static"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "func"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "expectStaticFunctionWasNotCalled"
+            },
+            {
+              "kind": "text",
+              "text": "<"
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ">("
+            },
+            {
+              "kind": "externalParam",
+              "text": "_"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "function"
+            },
+            {
+              "kind": "text",
+              "text": ": ("
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ") "
+            },
+            {
+              "kind": "keyword",
+              "text": "async"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "throws"
+            },
+            {
+              "kind": "text",
+              "text": " -> "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "withSignature"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "signature"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature",
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:7TestDRS17FunctionSignatureV",
+              "text": "FunctionSignature"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "taking"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "inputType"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ".Type? = nil, "
+            },
+            {
+              "kind": "externalParam",
+              "text": "returning"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "outputType"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ".Type? = nil, "
+            },
+            {
+              "kind": "externalParam",
+              "text": "fileID"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:s12StaticStringV",
+              "text": "StaticString"
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "keyword",
+              "text": "#fileID"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "filePath"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:s12StaticStringV",
+              "text": "StaticString"
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "keyword",
+              "text": "#filePath"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "line"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:Su",
+              "text": "UInt"
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "keyword",
+              "text": "#line"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "column"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:Su",
+              "text": "UInt"
+            },
+            {
+              "kind": "text",
+              "text": " = "
+            },
+            {
+              "kind": "keyword",
+              "text": "#column"
+            },
+            {
+              "kind": "text",
+              "text": ")"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "kind": "parameters",
+      "parameters": [
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "A reference to the function to expect was not called.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "function"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "The signature of the function to check.",
+                  "type": "text"
+                },
+                {
+                  "text": " ",
+                  "type": "text"
+                },
+                {
+                  "text": "The signature can be obtained by right-clicking on the function\u2019s signature and selecting \u201cCopy\u201d > \u201cCopy Symbol Name\u201d.",
+                  "type": "text"
+                },
+                {
+                  "text": " ",
+                  "type": "text"
+                },
+                {
+                  "text": "This should also match what is recorded by the ",
+                  "type": "text"
+                },
+                {
+                  "code": "#function",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " macro.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "signature"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "An optional phantom parameter used to derive the input type of the ",
+                  "type": "text"
+                },
+                {
+                  "code": "function",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " passed in.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "inputType"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "An optional  phantom parameter used to derive the output type of the ",
+                  "type": "text"
+                },
+                {
+                  "code": "function",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " passed in.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "outputType"
+        }
+      ]
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/FunctionSignature": {
+      "abstract": [
+        {
+          "code": "FunctionSignature",
+          "type": "codeVoice"
+        },
+        {
+          "text": " is used to represent the signature of a function.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "struct"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "FunctionSignature"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/FunctionSignature",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "FunctionSignature"
+        }
+      ],
+      "role": "symbol",
+      "title": "FunctionSignature",
+      "type": "topic",
+      "url": "/documentation/testdrs/functionsignature"
+    },
+    "doc://TestDRS/documentation/TestDRS/Spy": {
+      "abstract": [
+        {
+          "text": "A protocol that enables observing and verifying function calls during testing.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "Spy"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/Spy",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "Spy"
+        }
+      ],
+      "role": "symbol",
+      "title": "Spy",
+      "type": "topic",
+      "url": "/documentation/testdrs/spy"
+    },
+    "doc://TestDRS/documentation/TestDRS/Spy/expectStaticFunctionWasNotCalled(_:withSignature:taking:returning:fileID:filePath:line:column:)": {
+      "abstract": [
+        {
+          "text": "Expects that the given function was not called.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "static"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "func"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "expectStaticFunctionWasNotCalled"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">(("
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "withSignature"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS17FunctionSignatureV",
+          "text": "FunctionSignature"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "taking"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "returning"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "fileID"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s12StaticStringV",
+          "text": "StaticString"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "filePath"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s12StaticStringV",
+          "text": "StaticString"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "line"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Su",
+          "text": "UInt"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "column"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:Su",
+          "text": "UInt"
+        },
+        {
+          "kind": "text",
+          "text": ")"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/Spy/expectStaticFunctionWasNotCalled(_:withSignature:taking:returning:fileID:filePath:line:column:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "expectStaticFunctionWasNotCalled(_:withSignature:taking:returning:fileID:filePath:line:column:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/spy/expectstaticfunctionwasnotcalled(_:withsignature:taking:returning:fileid:filepath:line:column:)"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/spy/expectstaticfunctionwasnotcalled(_:withsignature:taking:returning:fileid:filepath:line:column:)"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

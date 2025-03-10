@@ -1,1 +1,167 @@
-{"schemaVersion":{"patch":0,"major":0,"minor":3},"identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode\/nonExclusive","interfaceLanguage":"swift"},"metadata":{"externalID":"s:7TestDRS16ExpectedCallModeO12nonExclusiveyA2CmF","fragments":[{"text":"case","kind":"keyword"},{"kind":"text","text":" "},{"kind":"identifier","text":"nonExclusive"}],"symbolKind":"case","title":"ExpectedCallMode.nonExclusive","modules":[{"name":"TestDRS"}],"roleHeading":"Case","role":"symbol"},"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS","doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode"]]},"variants":[{"traits":[{"interfaceLanguage":"swift"}],"paths":["\/documentation\/testdrs\/expectedcallmode\/nonexclusive"]}],"kind":"symbol","abstract":[{"text":"Calls made to a function other than those expected should not cause a failure","type":"text"}],"primaryContentSections":[{"kind":"declarations","declarations":[{"platforms":["macOS"],"tokens":[{"text":"case","kind":"keyword"},{"kind":"text","text":" "},{"text":"nonExclusive","kind":"identifier"}],"languages":["swift"]}]}],"sections":[],"references":{"doc://TestDRS/documentation/TestDRS/ExpectedCallMode/nonExclusive":{"abstract":[{"type":"text","text":"Calls made to a function other than those expected should not cause a failure"}],"kind":"symbol","role":"symbol","fragments":[{"text":"case","kind":"keyword"},{"text":" ","kind":"text"},{"kind":"identifier","text":"nonExclusive"}],"title":"ExpectedCallMode.nonExclusive","type":"topic","url":"\/documentation\/testdrs\/expectedcallmode\/nonexclusive","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode\/nonExclusive"},"doc://TestDRS/documentation/TestDRS/ExpectedCallMode":{"fragments":[{"text":"enum","kind":"keyword"},{"text":" ","kind":"text"},{"text":"ExpectedCallMode","kind":"identifier"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/ExpectedCallMode","abstract":[],"role":"symbol","type":"topic","kind":"symbol","url":"\/documentation\/testdrs\/expectedcallmode","navigatorTitle":[{"text":"ExpectedCallMode","kind":"identifier"}],"title":"ExpectedCallMode"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"}}}
+{
+  "abstract": [
+    {
+      "text": "Calls made to a function other than those expected should not cause a failure",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/ExpectedCallMode"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/nonExclusive"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS16ExpectedCallModeO12nonExclusiveyA2CmF",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "case"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "nonExclusive"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Case",
+    "symbolKind": "case",
+    "title": "ExpectedCallMode.nonExclusive"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "case"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "nonExclusive"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/ExpectedCallMode": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "enum"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "ExpectedCallMode"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/ExpectedCallMode",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "ExpectedCallMode"
+        }
+      ],
+      "role": "symbol",
+      "title": "ExpectedCallMode",
+      "type": "topic",
+      "url": "/documentation/testdrs/expectedcallmode"
+    },
+    "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/nonExclusive": {
+      "abstract": [
+        {
+          "text": "Calls made to a function other than those expected should not cause a failure",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "case"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "nonExclusive"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/ExpectedCallMode/nonExclusive",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "ExpectedCallMode.nonExclusive",
+      "type": "topic",
+      "url": "/documentation/testdrs/expectedcallmode/nonexclusive"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/expectedcallmode/nonexclusive"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

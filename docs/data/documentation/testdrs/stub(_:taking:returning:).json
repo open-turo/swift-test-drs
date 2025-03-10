@@ -1,1 +1,736 @@
-{"hierarchy":{"paths":[["doc:\/\/TestDRS\/documentation\/TestDRS"]]},"seeAlsoSections":[{"identifiers":["doc:\/\/TestDRS\/documentation\/TestDRS\/stub(_:taking:throwing:)","doc:\/\/TestDRS\/documentation\/TestDRS\/stub(_:using:)"],"title":"Stubbing methods","anchor":"Stubbing-methods","generated":true}],"primaryContentSections":[{"declarations":[{"platforms":["macOS"],"languages":["swift"],"tokens":[{"kind":"attribute","text":"@discardableResult"},{"kind":"text","text":" "},{"text":"@freestanding","kind":"attribute"},{"text":"(expression) ","kind":"text"},{"kind":"keyword","text":"macro"},{"kind":"text","text":" "},{"text":"stub","kind":"identifier"},{"text":"<","kind":"text"},{"kind":"genericParameter","text":"Input"},{"text":", ","kind":"text"},{"kind":"genericParameter","text":"Output"},{"text":">(","kind":"text"},{"kind":"externalParam","text":"_"},{"text":" ","kind":"text"},{"kind":"internalParam","text":"function"},{"text":": (","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"text":") ","kind":"text"},{"text":"async","kind":"keyword"},{"text":" ","kind":"text"},{"text":"throws","kind":"keyword"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","text":"Output"},{"kind":"text","text":", "},{"text":"taking","kind":"externalParam"},{"text":" ","kind":"text"},{"kind":"internalParam","text":"inputType"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Input"},{"text":".Type? = nil, ","kind":"text"},{"kind":"externalParam","text":"returning"},{"text":" ","kind":"text"},{"text":"output","kind":"internalParam"},{"text":": ","kind":"text"},{"kind":"typeIdentifier","text":"Output"},{"kind":"text","text":")"}]}],"kind":"declarations"},{"kind":"parameters","parameters":[{"name":"function","content":[{"type":"paragraph","inlineContent":[{"text":"The function to stub. The specified function must be a member of a ","type":"text"},{"code":"StubProviding","type":"codeVoice"},{"text":" type.","type":"text"}]}]},{"name":"inputType","content":[{"inlineContent":[{"type":"text","text":"An optional phantom parameter used to derive the input type of the "},{"type":"codeVoice","code":"function"},{"text":" passed in.","type":"text"}],"type":"paragraph"}]},{"name":"output","content":[{"type":"paragraph","inlineContent":[{"type":"text","text":"The output value to be returned when the function is called."}]}]}]}],"kind":"symbol","identifier":{"url":"doc:\/\/TestDRS\/documentation\/TestDRS\/stub(_:taking:returning:)","interfaceLanguage":"swift"},"metadata":{"roleHeading":"Macro","fragments":[{"kind":"keyword","text":"macro"},{"kind":"text","text":" "},{"kind":"identifier","text":"stub"},{"text":"<","kind":"text"},{"kind":"genericParameter","text":"Input"},{"kind":"text","text":", "},{"text":"Output","kind":"genericParameter"},{"text":">((","kind":"text"},{"kind":"typeIdentifier","text":"Input"},{"text":") ","kind":"text"},{"kind":"keyword","text":"async"},{"kind":"text","text":" "},{"kind":"keyword","text":"throws"},{"kind":"text","text":" -> "},{"text":"Output","kind":"typeIdentifier"},{"text":", ","kind":"text"},{"kind":"externalParam","text":"taking"},{"text":": ","kind":"text"},{"text":"Input","kind":"typeIdentifier"},{"text":".Type?, ","kind":"text"},{"kind":"externalParam","text":"returning"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Output"},{"kind":"text","text":")"}],"role":"symbol","symbolKind":"macro","externalID":"s:7TestDRS4stub_6taking9returningyq_xYaKXE_xmSgq_tcr0_lufm","title":"stub(_:taking:returning:)","modules":[{"name":"TestDRS"}]},"sections":[],"schemaVersion":{"minor":3,"major":0,"patch":0},"abstract":[{"text":"Sets a stub for a given function to return a provided output.","type":"text"}],"variants":[{"paths":["\/documentation\/testdrs\/stub(_:taking:returning:)"],"traits":[{"interfaceLanguage":"swift"}]}],"references":{"doc://TestDRS/documentation/TestDRS/stub(_:using:)":{"role":"symbol","abstract":[{"text":"Sets a stub for a given function using a closure to dynamically determine the output.","type":"text"}],"url":"\/documentation\/testdrs\/stub(_:using:)","fragments":[{"kind":"keyword","text":"macro"},{"kind":"text","text":" "},{"kind":"identifier","text":"stub"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Input"},{"kind":"text","text":", "},{"kind":"genericParameter","text":"Output"},{"kind":"text","text":">(("},{"text":"Input","kind":"typeIdentifier"},{"kind":"text","text":") "},{"text":"async","kind":"keyword"},{"kind":"text","text":" "},{"kind":"keyword","text":"throws"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","text":"Output"},{"kind":"text","text":", "},{"text":"using","kind":"externalParam"},{"text":": (","kind":"text"},{"kind":"typeIdentifier","text":"Input"},{"kind":"text","text":") "},{"kind":"keyword","text":"throws"},{"text":" -> ","kind":"text"},{"kind":"typeIdentifier","text":"Output"},{"text":")","kind":"text"}],"kind":"symbol","title":"stub(_:using:)","type":"topic","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/stub(_:using:)"},"doc://TestDRS/documentation/TestDRS/stub(_:taking:throwing:)":{"role":"symbol","title":"stub(_:taking:throwing:)","abstract":[{"text":"Sets a stub for a given function to throw a provided error.","type":"text"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/stub(_:taking:throwing:)","kind":"symbol","fragments":[{"kind":"keyword","text":"macro"},{"text":" ","kind":"text"},{"kind":"identifier","text":"stub"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Input"},{"text":", ","kind":"text"},{"text":"Output","kind":"genericParameter"},{"kind":"text","text":">(("},{"kind":"typeIdentifier","text":"Input"},{"text":") ","kind":"text"},{"kind":"keyword","text":"async"},{"kind":"text","text":" "},{"text":"throws","kind":"keyword"},{"kind":"text","text":" -> "},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":", "},{"kind":"externalParam","text":"taking"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Input"},{"kind":"text","text":".Type?, "},{"kind":"externalParam","text":"throwing"},{"kind":"text","text":": any "},{"kind":"typeIdentifier","text":"Error","preciseIdentifier":"s:s5ErrorP"},{"kind":"text","text":")"}],"type":"topic","url":"\/documentation\/testdrs\/stub(_:taking:throwing:)"},"doc://TestDRS/documentation/TestDRS/stub(_:taking:returning:)":{"role":"symbol","title":"stub(_:taking:returning:)","abstract":[{"text":"Sets a stub for a given function to return a provided output.","type":"text"}],"identifier":"doc:\/\/TestDRS\/documentation\/TestDRS\/stub(_:taking:returning:)","kind":"symbol","fragments":[{"kind":"keyword","text":"macro"},{"text":" ","kind":"text"},{"kind":"identifier","text":"stub"},{"kind":"text","text":"<"},{"kind":"genericParameter","text":"Input"},{"text":", ","kind":"text"},{"text":"Output","kind":"genericParameter"},{"kind":"text","text":">(("},{"kind":"typeIdentifier","text":"Input"},{"text":") ","kind":"text"},{"kind":"keyword","text":"async"},{"kind":"text","text":" "},{"text":"throws","kind":"keyword"},{"kind":"text","text":" -> "},{"text":"Output","kind":"typeIdentifier"},{"kind":"text","text":", "},{"kind":"externalParam","text":"taking"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Input"},{"kind":"text","text":".Type?, "},{"kind":"externalParam","text":"returning"},{"kind":"text","text":": "},{"kind":"typeIdentifier","text":"Output"},{"kind":"text","text":")"}],"type":"topic","url":"\/documentation\/testdrs\/stub(_:taking:returning:)"},"doc://TestDRS/documentation/TestDRS":{"role":"collection","identifier":"doc:\/\/TestDRS\/documentation\/TestDRS","kind":"symbol","abstract":[{"text":"A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.","type":"text"}],"type":"topic","title":"TestDRS","url":"\/documentation\/testdrs"}}}
+{
+  "abstract": [
+    {
+      "text": "Sets a stub for a given function to return a provided output.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/stub(_:taking:returning:)"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS4stub_6taking9returningyq_xYaKXE_xmSgq_tcr0_lufm",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "macro"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "stub"
+      },
+      {
+        "kind": "text",
+        "text": "<"
+      },
+      {
+        "kind": "genericParameter",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "genericParameter",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ">(("
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ") "
+      },
+      {
+        "kind": "keyword",
+        "text": "async"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "keyword",
+        "text": "throws"
+      },
+      {
+        "kind": "text",
+        "text": " -> "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ", "
+      },
+      {
+        "kind": "externalParam",
+        "text": "taking"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Input"
+      },
+      {
+        "kind": "text",
+        "text": ".Type?, "
+      },
+      {
+        "kind": "externalParam",
+        "text": "returning"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "text": "Output"
+      },
+      {
+        "kind": "text",
+        "text": ")"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Macro",
+    "symbolKind": "macro",
+    "title": "stub(_:taking:returning:)"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "attribute",
+              "text": "@discardableResult"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "attribute",
+              "text": "@freestanding"
+            },
+            {
+              "kind": "text",
+              "text": "(expression) "
+            },
+            {
+              "kind": "keyword",
+              "text": "macro"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "stub"
+            },
+            {
+              "kind": "text",
+              "text": "<"
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "genericParameter",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ">("
+            },
+            {
+              "kind": "externalParam",
+              "text": "_"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "function"
+            },
+            {
+              "kind": "text",
+              "text": ": ("
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ") "
+            },
+            {
+              "kind": "keyword",
+              "text": "async"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "throws"
+            },
+            {
+              "kind": "text",
+              "text": " -> "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ", "
+            },
+            {
+              "kind": "externalParam",
+              "text": "taking"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "inputType"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Input"
+            },
+            {
+              "kind": "text",
+              "text": ".Type? = nil, "
+            },
+            {
+              "kind": "externalParam",
+              "text": "returning"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "internalParam",
+              "text": "output"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "kind": "typeIdentifier",
+              "text": "Output"
+            },
+            {
+              "kind": "text",
+              "text": ")"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "kind": "parameters",
+      "parameters": [
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "The function to stub. The specified function must be a member of a ",
+                  "type": "text"
+                },
+                {
+                  "code": "StubProviding",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " type.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "function"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "An optional phantom parameter used to derive the input type of the ",
+                  "type": "text"
+                },
+                {
+                  "code": "function",
+                  "type": "codeVoice"
+                },
+                {
+                  "text": " passed in.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "inputType"
+        },
+        {
+          "content": [
+            {
+              "inlineContent": [
+                {
+                  "text": "The output value to be returned when the function is called.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "name": "output"
+        }
+      ]
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/stub(_:taking:returning:)": {
+      "abstract": [
+        {
+          "text": "Sets a stub for a given function to return a provided output.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "macro"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "stub"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">(("
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "taking"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "returning"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ")"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/stub(_:taking:returning:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "stub(_:taking:returning:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/stub(_:taking:returning:)"
+    },
+    "doc://TestDRS/documentation/TestDRS/stub(_:taking:throwing:)": {
+      "abstract": [
+        {
+          "text": "Sets a stub for a given function to throw a provided error.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "macro"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "stub"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">(("
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "taking"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ".Type?, "
+        },
+        {
+          "kind": "externalParam",
+          "text": "throwing"
+        },
+        {
+          "kind": "text",
+          "text": ": any "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:s5ErrorP",
+          "text": "Error"
+        },
+        {
+          "kind": "text",
+          "text": ")"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/stub(_:taking:throwing:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "stub(_:taking:throwing:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/stub(_:taking:throwing:)"
+    },
+    "doc://TestDRS/documentation/TestDRS/stub(_:using:)": {
+      "abstract": [
+        {
+          "text": "Sets a stub for a given function using a closure to dynamically determine the output.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "macro"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "stub"
+        },
+        {
+          "kind": "text",
+          "text": "<"
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "genericParameter",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ">(("
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "async"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ", "
+        },
+        {
+          "kind": "externalParam",
+          "text": "using"
+        },
+        {
+          "kind": "text",
+          "text": ": ("
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Input"
+        },
+        {
+          "kind": "text",
+          "text": ") "
+        },
+        {
+          "kind": "keyword",
+          "text": "throws"
+        },
+        {
+          "kind": "text",
+          "text": " -> "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Output"
+        },
+        {
+          "kind": "text",
+          "text": ")"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/stub(_:using:)",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "stub(_:using:)",
+      "type": "topic",
+      "url": "/documentation/testdrs/stub(_:using:)"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "seeAlsoSections": [
+    {
+      "anchor": "Stubbing-methods",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/stub(_:taking:throwing:)",
+        "doc://TestDRS/documentation/TestDRS/stub(_:using:)"
+      ],
+      "title": "Stubbing methods"
+    }
+  ],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/stub(_:taking:returning:)"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}
