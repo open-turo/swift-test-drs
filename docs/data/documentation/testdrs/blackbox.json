@@ -1,0 +1,230 @@
+{
+  "abstract": [
+    {
+      "text": "A mechanism to record and look up function calls for testing purposes.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/BlackBox"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS8BlackBoxC",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "class"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "BlackBox"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "navigatorTitle": [
+      {
+        "kind": "identifier",
+        "text": "BlackBox"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Class",
+    "symbolKind": "class",
+    "title": "BlackBox"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "final"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "keyword",
+              "text": "class"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "BlackBox"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/BlackBox": {
+      "abstract": [
+        {
+          "text": "A mechanism to record and look up function calls for testing purposes.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "class"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "BlackBox"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/BlackBox",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "BlackBox"
+        }
+      ],
+      "role": "symbol",
+      "title": "BlackBox",
+      "type": "topic",
+      "url": "/documentation/testdrs/blackbox"
+    },
+    "doc://TestDRS/documentation/TestDRS/BlackBox/CustomDebugStringConvertible-Implementations": {
+      "abstract": [],
+      "identifier": "doc://TestDRS/documentation/TestDRS/BlackBox/CustomDebugStringConvertible-Implementations",
+      "kind": "article",
+      "role": "collectionGroup",
+      "title": "CustomDebugStringConvertible Implementations",
+      "type": "topic",
+      "url": "/documentation/testdrs/blackbox/customdebugstringconvertible-implementations"
+    },
+    "doc://TestDRS/documentation/TestDRS/BlackBox/init()": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "identifier",
+          "text": "init"
+        },
+        {
+          "kind": "text",
+          "text": "()"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/BlackBox/init()",
+      "kind": "symbol",
+      "role": "symbol",
+      "title": "init()",
+      "type": "topic",
+      "url": "/documentation/testdrs/blackbox/init()"
+    },
+    "doc://TestDRS/s28CustomDebugStringConvertibleP": {
+      "identifier": "doc://TestDRS/s28CustomDebugStringConvertibleP",
+      "title": "Swift.CustomDebugStringConvertible",
+      "type": "unresolvable"
+    },
+    "doc://TestDRS/s8CopyableP": {
+      "identifier": "doc://TestDRS/s8CopyableP",
+      "title": "Swift.Copyable",
+      "type": "unresolvable"
+    },
+    "doc://TestDRS/s8SendableP": {
+      "identifier": "doc://TestDRS/s8SendableP",
+      "title": "Swift.Sendable",
+      "type": "unresolvable"
+    }
+  },
+  "relationshipsSections": [
+    {
+      "identifiers": [
+        "doc://TestDRS/s8CopyableP",
+        "doc://TestDRS/s28CustomDebugStringConvertibleP",
+        "doc://TestDRS/s8SendableP"
+      ],
+      "kind": "relationships",
+      "title": "Conforms To",
+      "type": "conformsTo"
+    }
+  ],
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "topicSections": [
+    {
+      "anchor": "Initializers",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/BlackBox/init()"
+      ],
+      "title": "Initializers"
+    },
+    {
+      "anchor": "Default-Implementations",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/BlackBox/CustomDebugStringConvertible-Implementations"
+      ],
+      "title": "Default Implementations"
+    }
+  ],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/blackbox"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

@@ -40,10 +40,8 @@ public extension StubProviding {
     ///   - function: The function to stub.
     ///   - signature: The signature of the function to stub, which can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
     ///   This should also match what is recorded by the `#function` macro.
+    ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
     ///   - output: The output value to be returned when the function is called.
-    ///
-    ///   - Note: The compiler will not be able to disambiguate when stubbing functions that are overloaded *and* share the same output type.
-    ///   If that is the case, use `setDynamicStub(for:withSignature:using:)` and specify the input to the closure explicitly.
     func setStub<Input, Output>(
         for function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature,
@@ -59,10 +57,8 @@ public extension StubProviding {
     ///   - function: The function to stub.
     ///   - signature: The signature of the function to stub, which can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
     ///   This should also match what is recorded by the `#function` macro.
+    ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
     ///   - error: The error to be thrown when the function is called.
-    ///
-    ///   - Note: The compiler will not be able to disambiguate when stubbing functions that are overloaded *and* share the same output type.
-    ///   If that is the case, use `setDynamicStub(for:withSignature:using:)` and specify the input to the closure explicitly.
     func setStub<Input, Output>(
         for function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature,
@@ -163,10 +159,8 @@ public extension StubProviding {
     ///   - function: The function to stub.
     ///   - signature: The signature of the function to stub, which can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
     ///   This should also match what is recorded by the `#function` macro.
+    ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
     ///   - output: The output value to be returned when the function is called.
-    ///
-    ///   - Note: The compiler will not be able to disambiguate when stubbing functions that are overloaded *and* share the same output type.
-    ///   If that is the case, use `setDynamicStub(for:withSignature:using:)` and specify the input to the closure explicitly.
     static func setStub<Input, Output>(
         for function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature,
@@ -182,10 +176,8 @@ public extension StubProviding {
     ///   - function: The function to stub.
     ///   - signature: The signature of the function to stub, which can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
     ///   This should also match what is recorded by the `#function` macro.
+    ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
     ///   - error: The error to be thrown when the function is called.
-    ///
-    ///   - Note: The compiler will not be able to disambiguate when stubbing functions that are overloaded *and* share the same output type.
-    ///   If that is the case, use `setDynamicStub(for:withSignature:using:)` and specify the input to the closure explicitly.
     static func setStub<Input, Output>(
         for function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature,

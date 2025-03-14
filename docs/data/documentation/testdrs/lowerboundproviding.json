@@ -1,0 +1,323 @@
+{
+  "abstract": [
+    {
+      "text": "TestDRS supports using ranges that have a lower bound in order to verify call counts.",
+      "type": "text"
+    },
+    {
+      "text": " ",
+      "type": "text"
+    },
+    {
+      "text": "This protocol allows for using ",
+      "type": "text"
+    },
+    {
+      "code": "PartialRangeFrom",
+      "type": "codeVoice"
+    },
+    {
+      "text": ", ",
+      "type": "text"
+    },
+    {
+      "code": "Range",
+      "type": "codeVoice"
+    },
+    {
+      "text": ", or ",
+      "type": "text"
+    },
+    {
+      "code": "ClosedRange",
+      "type": "codeVoice"
+    },
+    {
+      "text": ".",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/LowerBoundProviding"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS19LowerBoundProvidingP",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "protocol"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "LowerBoundProviding"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "navigatorTitle": [
+      {
+        "kind": "identifier",
+        "text": "LowerBoundProviding"
+      }
+    ],
+    "role": "symbol",
+    "roleHeading": "Protocol",
+    "symbolKind": "protocol",
+    "title": "LowerBoundProviding"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "protocol"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "LowerBoundProviding"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/LowerBoundProviding": {
+      "abstract": [
+        {
+          "text": "TestDRS supports using ranges that have a lower bound in order to verify call counts.",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "text": "This protocol allows for using ",
+          "type": "text"
+        },
+        {
+          "code": "PartialRangeFrom",
+          "type": "codeVoice"
+        },
+        {
+          "text": ", ",
+          "type": "text"
+        },
+        {
+          "code": "Range",
+          "type": "codeVoice"
+        },
+        {
+          "text": ", or ",
+          "type": "text"
+        },
+        {
+          "code": "ClosedRange",
+          "type": "codeVoice"
+        },
+        {
+          "text": ".",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "LowerBoundProviding"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/LowerBoundProviding",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "LowerBoundProviding"
+        }
+      ],
+      "role": "symbol",
+      "title": "LowerBoundProviding",
+      "type": "topic",
+      "url": "/documentation/testdrs/lowerboundproviding"
+    },
+    "doc://TestDRS/documentation/TestDRS/LowerBoundProviding/Bound": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "associatedtype"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "Bound"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/LowerBoundProviding/Bound",
+      "kind": "symbol",
+      "required": true,
+      "role": "symbol",
+      "title": "Bound",
+      "type": "topic",
+      "url": "/documentation/testdrs/lowerboundproviding/bound"
+    },
+    "doc://TestDRS/documentation/TestDRS/LowerBoundProviding/lowerBound": {
+      "abstract": [],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "var"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "lowerBound"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "text": "Self"
+        },
+        {
+          "kind": "text",
+          "text": "."
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS19LowerBoundProvidingP0D0Qa",
+          "text": "Bound"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/LowerBoundProviding/lowerBound",
+      "kind": "symbol",
+      "required": true,
+      "role": "symbol",
+      "title": "lowerBound",
+      "type": "topic",
+      "url": "/documentation/testdrs/lowerboundproviding/lowerbound"
+    },
+    "doc://TestDRS/documentation/TestDRS/Swift/ClosedRange": {
+      "identifier": "doc://TestDRS/documentation/TestDRS/Swift/ClosedRange",
+      "title": "ClosedRange",
+      "type": "unresolvable"
+    },
+    "doc://TestDRS/documentation/TestDRS/Swift/PartialRangeFrom": {
+      "identifier": "doc://TestDRS/documentation/TestDRS/Swift/PartialRangeFrom",
+      "title": "PartialRangeFrom",
+      "type": "unresolvable"
+    },
+    "doc://TestDRS/documentation/TestDRS/Swift/Range": {
+      "identifier": "doc://TestDRS/documentation/TestDRS/Swift/Range",
+      "title": "Range",
+      "type": "unresolvable"
+    }
+  },
+  "relationshipsSections": [
+    {
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/Swift/ClosedRange",
+        "doc://TestDRS/documentation/TestDRS/Swift/PartialRangeFrom",
+        "doc://TestDRS/documentation/TestDRS/Swift/Range"
+      ],
+      "kind": "relationships",
+      "title": "Conforming Types",
+      "type": "conformingTypes"
+    }
+  ],
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "topicSections": [
+    {
+      "anchor": "Associated-Types",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/LowerBoundProviding/Bound"
+      ],
+      "title": "Associated Types"
+    },
+    {
+      "anchor": "Instance-Properties",
+      "generated": true,
+      "identifiers": [
+        "doc://TestDRS/documentation/TestDRS/LowerBoundProviding/lowerBound"
+      ],
+      "title": "Instance Properties"
+    }
+  ],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/lowerboundproviding"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}

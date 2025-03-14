@@ -10,8 +10,9 @@ enum FunctionCallConfirmationError: Error {
     case noCalls
 }
 
-/// `FunctionCallConfirmation` is a struct that encapsulates the result of a `#confirmationOfCall`.
-/// It contains any calls that match the confirmation and provides methods for confirming the number of times the given call was recorded.
+/// Encapsulates the result of a `#confirmationOfCall`.
+///
+/// A `FunctionCallConfirmation` contains any calls that match the confirmation and provides methods for confirming the number of times the given call was recorded.
 @available(iOS 16.0, *)
 public struct FunctionCallConfirmation<AmountMatching: FunctionCallAmountMatching, Input, Output>: Sendable {
 

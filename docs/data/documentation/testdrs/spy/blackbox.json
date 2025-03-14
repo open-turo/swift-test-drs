@@ -1,0 +1,276 @@
+{
+  "abstract": [
+    {
+      "text": "The storage mechanism for recorded function calls.",
+      "type": "text"
+    }
+  ],
+  "hierarchy": {
+    "paths": [
+      [
+        "doc://TestDRS/documentation/TestDRS",
+        "doc://TestDRS/documentation/TestDRS/Spy"
+      ]
+    ]
+  },
+  "identifier": {
+    "interfaceLanguage": "swift",
+    "url": "doc://TestDRS/documentation/TestDRS/Spy/blackBox"
+  },
+  "kind": "symbol",
+  "metadata": {
+    "externalID": "s:7TestDRS3SpyP8blackBoxAA05BlackE0Cvp",
+    "fragments": [
+      {
+        "kind": "keyword",
+        "text": "var"
+      },
+      {
+        "kind": "text",
+        "text": " "
+      },
+      {
+        "kind": "identifier",
+        "text": "blackBox"
+      },
+      {
+        "kind": "text",
+        "text": ": "
+      },
+      {
+        "kind": "typeIdentifier",
+        "preciseIdentifier": "s:7TestDRS8BlackBoxC",
+        "text": "BlackBox"
+      }
+    ],
+    "modules": [
+      {
+        "name": "TestDRS"
+      }
+    ],
+    "required": true,
+    "role": "symbol",
+    "roleHeading": "Instance Property",
+    "symbolKind": "property",
+    "title": "blackBox"
+  },
+  "primaryContentSections": [
+    {
+      "declarations": [
+        {
+          "languages": [
+            "swift"
+          ],
+          "platforms": [
+            "macOS"
+          ],
+          "tokens": [
+            {
+              "kind": "keyword",
+              "text": "var"
+            },
+            {
+              "kind": "text",
+              "text": " "
+            },
+            {
+              "kind": "identifier",
+              "text": "blackBox"
+            },
+            {
+              "kind": "text",
+              "text": ": "
+            },
+            {
+              "identifier": "doc://TestDRS/documentation/TestDRS/BlackBox",
+              "kind": "typeIdentifier",
+              "preciseIdentifier": "s:7TestDRS8BlackBoxC",
+              "text": "BlackBox"
+            },
+            {
+              "kind": "text",
+              "text": " { "
+            },
+            {
+              "kind": "keyword",
+              "text": "get"
+            },
+            {
+              "kind": "text",
+              "text": " }"
+            }
+          ]
+        }
+      ],
+      "kind": "declarations"
+    },
+    {
+      "content": [
+        {
+          "anchor": "discussion",
+          "level": 2,
+          "text": "Discussion",
+          "type": "heading"
+        },
+        {
+          "inlineContent": [
+            {
+              "text": "The ",
+              "type": "text"
+            },
+            {
+              "code": "blackBox",
+              "type": "codeVoice"
+            },
+            {
+              "text": " stores all function calls made to the spy, allowing for later verification.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        }
+      ],
+      "kind": "content"
+    }
+  ],
+  "references": {
+    "doc://TestDRS/documentation/TestDRS": {
+      "abstract": [
+        {
+          "text": "A modern Swift testing library that provides powerful mocking, stubbing, and verification capabilities through Swift macros.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS",
+      "kind": "symbol",
+      "role": "collection",
+      "title": "TestDRS",
+      "type": "topic",
+      "url": "/documentation/testdrs"
+    },
+    "doc://TestDRS/documentation/TestDRS/BlackBox": {
+      "abstract": [
+        {
+          "text": "A mechanism to record and look up function calls for testing purposes.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "class"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "BlackBox"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/BlackBox",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "BlackBox"
+        }
+      ],
+      "role": "symbol",
+      "title": "BlackBox",
+      "type": "topic",
+      "url": "/documentation/testdrs/blackbox"
+    },
+    "doc://TestDRS/documentation/TestDRS/Spy": {
+      "abstract": [
+        {
+          "text": "A protocol that enables observing and verifying function calls during testing.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "protocol"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "Spy"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/Spy",
+      "kind": "symbol",
+      "navigatorTitle": [
+        {
+          "kind": "identifier",
+          "text": "Spy"
+        }
+      ],
+      "role": "symbol",
+      "title": "Spy",
+      "type": "topic",
+      "url": "/documentation/testdrs/spy"
+    },
+    "doc://TestDRS/documentation/TestDRS/Spy/blackBox": {
+      "abstract": [
+        {
+          "text": "The storage mechanism for recorded function calls.",
+          "type": "text"
+        }
+      ],
+      "fragments": [
+        {
+          "kind": "keyword",
+          "text": "var"
+        },
+        {
+          "kind": "text",
+          "text": " "
+        },
+        {
+          "kind": "identifier",
+          "text": "blackBox"
+        },
+        {
+          "kind": "text",
+          "text": ": "
+        },
+        {
+          "kind": "typeIdentifier",
+          "preciseIdentifier": "s:7TestDRS8BlackBoxC",
+          "text": "BlackBox"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/Spy/blackBox",
+      "kind": "symbol",
+      "required": true,
+      "role": "symbol",
+      "title": "blackBox",
+      "type": "topic",
+      "url": "/documentation/testdrs/spy/blackbox"
+    }
+  },
+  "schemaVersion": {
+    "major": 0,
+    "minor": 3,
+    "patch": 0
+  },
+  "sections": [],
+  "variants": [
+    {
+      "paths": [
+        "/documentation/testdrs/spy/blackbox"
+      ],
+      "traits": [
+        {
+          "interfaceLanguage": "swift"
+        }
+      ]
+    }
+  ]
+}
