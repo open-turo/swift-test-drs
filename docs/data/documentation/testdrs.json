@@ -113,7 +113,7 @@
                 {
                   "inlineContent": [
                     {
-                      "text": "Test static members with proper isolation between tests",
+                      "text": "Test code using static members with proper isolation between tests",
                       "type": "text"
                     }
                   ],
@@ -812,6 +812,20 @@
       "type": "topic",
       "url": "/documentation/testdrs/mock()"
     },
+    "doc://TestDRS/documentation/TestDRS/MockingStaticMembers": {
+      "abstract": [
+        {
+          "text": "Learn how to test code that uses static members by creating mocks with TestDRS.",
+          "type": "text"
+        }
+      ],
+      "identifier": "doc://TestDRS/documentation/TestDRS/MockingStaticMembers",
+      "kind": "article",
+      "role": "article",
+      "title": "Mocking static members",
+      "type": "topic",
+      "url": "/documentation/testdrs/mockingstaticmembers"
+    },
     "doc://TestDRS/documentation/TestDRS/SourceLocation": {
       "abstract": [
         {
@@ -1077,20 +1091,6 @@
       "title": "Testing asynchronous code",
       "type": "topic",
       "url": "/documentation/testdrs/testingasynchronouscode"
-    },
-    "doc://TestDRS/documentation/TestDRS/TestingStaticMembers": {
-      "abstract": [
-        {
-          "text": "Learn how to test code that uses static members by creating mocks with TestDRS.",
-          "type": "text"
-        }
-      ],
-      "identifier": "doc://TestDRS/documentation/TestDRS/TestingStaticMembers",
-      "kind": "article",
-      "role": "article",
-      "title": "Testing static members",
-      "type": "topic",
-      "url": "/documentation/testdrs/testingstaticmembers"
     },
     "doc://TestDRS/documentation/TestDRS/confirmationOfCall(to:taking:returning:timeLimit:isolation:)": {
       "abstract": [
@@ -2430,7 +2430,7 @@
     {
       "anchor": "Additional-testing-topics",
       "identifiers": [
-        "doc://TestDRS/documentation/TestDRS/TestingStaticMembers",
+        "doc://TestDRS/documentation/TestDRS/MockingStaticMembers",
         "doc://TestDRS/documentation/TestDRS/FAQ"
       ],
       "title": "Additional testing topics"

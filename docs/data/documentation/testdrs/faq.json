@@ -58,10 +58,10 @@
             "    // Arrange",
             "    let mockCallback = CallbackHandler()",
             "    let dataLoader = DataLoader()",
-            "    ",
+            "",
             "    // Act - pass the mock's function directly as the completion handler",
             "    dataLoader.loadData(completion: mockCallback.onComplete)",
-            "    ",
+            "",
             "    // Assert",
             "    #expectWasCalled(mockCallback.onComplete)",
             "        .exactlyOnce()",
@@ -158,9 +158,8 @@
               "type": "text"
             },
             {
-              "identifier": "doc://TestDRS/documentation/TestDRS/TestingStaticMembers",
-              "isActive": true,
-              "type": "reference"
+              "text": "doc:TestingStaticMembers",
+              "type": "text"
             },
             {
               "text": " article.",
@@ -347,19 +346,19 @@
       "type": "topic",
       "url": "/documentation/testdrs/expectwascalledresult/getmatchingcall()"
     },
-    "doc://TestDRS/documentation/TestDRS/TestingStaticMembers": {
+    "doc://TestDRS/documentation/TestDRS/MockingStaticMembers": {
       "abstract": [
         {
           "text": "Learn how to test code that uses static members by creating mocks with TestDRS.",
           "type": "text"
         }
       ],
-      "identifier": "doc://TestDRS/documentation/TestDRS/TestingStaticMembers",
+      "identifier": "doc://TestDRS/documentation/TestDRS/MockingStaticMembers",
       "kind": "article",
       "role": "article",
-      "title": "Testing static members",
+      "title": "Mocking static members",
       "type": "topic",
-      "url": "/documentation/testdrs/testingstaticmembers"
+      "url": "/documentation/testdrs/mockingstaticmembers"
     }
   },
   "schemaVersion": {
@@ -373,7 +372,7 @@
       "anchor": "Additional-testing-topics",
       "generated": true,
       "identifiers": [
-        "doc://TestDRS/documentation/TestDRS/TestingStaticMembers"
+        "doc://TestDRS/documentation/TestDRS/MockingStaticMembers"
       ],
       "title": "Additional testing topics"
     }

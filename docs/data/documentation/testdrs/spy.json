@@ -296,11 +296,11 @@
             "func testFetchUserIsCalled() async {",
             "    // Create a mock that conforms to Spy",
             "    let mockUserService = MockUserService()",
-            "    ",
+            "",
             "    // Use mock in code under test",
             "    let userViewModel = UserViewModel(userService: mockUserService)",
             "    await userViewModel.loadUser(id: \"user123\")",
-            "    ",
+            "",
             "    // Verify the method was called with expected input",
             "    #expectWasCalled(mockUserService.fetchUser, with \"user123\")",
             "}"
