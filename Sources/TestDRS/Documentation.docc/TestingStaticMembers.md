@@ -21,11 +21,11 @@ Static properties and methods in Swift are shared across all instances of a clas
 ```swift
 class AuthService {
     static var currentUser: User?
-    
+
     static func isUserLoggedIn() -> Bool {
         return currentUser != nil
     }
-    
+
     static func currentUserRole() -> String {
         return currentUser?.role ?? "guest"
     }
@@ -37,7 +37,7 @@ class AuthServiceTests: XCTestCase {
         AuthService.currentUser = User(id: "123", role: "admin")
         XCTAssertTrue(AuthService.isUserLoggedIn())
     }
-    
+
     func testCurrentUserRole_WhenNoUser() {
         // This assumes no user is set, but might run after the previous test
         // which would cause this test to fail unexpectedly
@@ -74,11 +74,11 @@ class StaticMemberTests: XCTestCase {
             super.invokeTest()
         }
     }
-    
+
     func testStaticMethod1() {
         // This test now runs in its own static testing context
     }
-    
+
     func testStaticMethod2() {
         // This test also runs in its own static testing context,
         // unaffected by testStaticMethod1
@@ -105,7 +105,7 @@ class FeatureManager {
         guard AuthService.isUserLoggedIn() else {
             return false
         }
-        
+
         return AuthService.currentUserRole() == "admin"
     }
 }
@@ -115,15 +115,15 @@ func testCanAccessAdminFeature() throws {
     withStaticTestingContext {
         // Set the mock as the dependency
         Dependencies.authService = MockAuthService.self
-        
+
         // Stub the static methods
         #stub(MockAuthService.isUserLoggedIn, returning: true)
         #stub(MockAuthService.currentUserRole, returning: "admin")
-        
+
         let featureManager = FeatureManager()
 
         #expect(featureManager.canAccessAdminFeature())
-        
+
         // Verify the static methods were called
         #expectWasCalled(MockAuthService.isUserLoggedIn).exactlyOnce()
         #expectWasCalled(MockAuthService.currentUserRole).exactlyOnce()

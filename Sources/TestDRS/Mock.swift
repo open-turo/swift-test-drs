@@ -9,7 +9,7 @@ import Foundation
 ///
 /// The `Mock` protocol combines the capabilities of `StubProviding`, `Spy`, and `StaticTestable` protocols
 /// to create a versatile test double that can:
-/// 
+///
 /// 1. Stub method and property implementations to return predetermined values (`StubProviding`)
 /// 2. Record and verify method invocations, including parameters and call counts (`Spy`)
 /// 3. Support testing of static members in a thread-safe manner (`StaticTestable`)
@@ -33,10 +33,10 @@ import Foundation
 ///
 ///     // Always return 42 from the add method, no matter the input
 ///     #stub(mockCalculator.add, returning: 42)
-///     
+///
 ///     // Use the mock in your code under test
 ///     let result = systemUnderTest.performCalculation(using: mockCalculator)
-///     
+///
 ///     // Verify the mock was called correctly
 ///     #expectWasCalled(mockCalculator.add, with: 10, 20)
 ///     XCTAssertEqual(result, 42)

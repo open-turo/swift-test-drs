@@ -34,11 +34,11 @@ import Foundation
 /// func testFetchUserIsCalled() async {
 ///     // Create a mock that conforms to Spy
 ///     let mockUserService = MockUserService()
-///     
+///
 ///     // Use mock in code under test
 ///     let userViewModel = UserViewModel(userService: mockUserService)
 ///     await userViewModel.loadUser(id: "user123")
-///     
+///
 ///     // Verify the method was called with expected input
 ///     #expectWasCalled(mockUserService.fetchUser, with "user123")
 /// }
@@ -62,7 +62,7 @@ public extension Spy {
     /// inserted into the mock implementations of functions.
     ///
     /// - Parameters:
-    ///   - input: The parameter(s) passed to the function. For functions with multiple parameters, 
+    ///   - input: The parameter(s) passed to the function. For functions with multiple parameters,
     ///          use a tuple containing all parameters in the order they appear in the function signature.
     ///          For functions without parameters, this defaults to `Void()`.
     ///   - time: The time when the function was called. Defaults to the current time.
@@ -101,7 +101,7 @@ public extension Spy {
     /// inserted into the mock implementations of static functions.
     ///
     /// - Parameters:
-    ///   - input: The parameter(s) passed to the static function. For functions with multiple parameters, 
+    ///   - input: The parameter(s) passed to the static function. For functions with multiple parameters,
     ///          use a tuple containing all parameters in the order they appear in the function signature.
     ///          For functions without parameters, this defaults to `Void()`.
     ///   - time: The time when the function was called. Defaults to the current time.

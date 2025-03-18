@@ -7,7 +7,7 @@ import Foundation
 
 /// A protocol that represents a function call.
 ///
-/// This protocol creates a common interface for function calls while preserving 
+/// This protocol creates a common interface for function calls while preserving
 /// the generic type information about the input and output types.
 /// It enables storing different function calls in the same collection (as `[any FunctionCallRepresentation]`).
 ///
@@ -17,7 +17,7 @@ protocol FunctionCallRepresentation: CustomDebugStringConvertible, Identifiable 
 
     /// The input type of the function call.
     associatedtype Input
-    
+
     /// The output type of the function call.
     associatedtype Output
 
