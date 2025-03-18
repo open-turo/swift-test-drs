@@ -16,12 +16,12 @@ func testFetchWeather() async throws {
     let mockWeatherService = MockWeatherService()
     let expectedWeather = Weather(temperature: 72, condition: .sunny)
     #stub(mockWeatherService.fetchWeather, with: "San Francisco", returning: expectedWeather)
-    
+
     let viewModel = WeatherViewModel(weatherService: mockWeatherService)
-    
+
     // Act - directly await the async operation
     try await viewModel.loadWeather(for: "San Francisco")
-    
+
     // Assert
     XCTAssertEqual(viewModel.currentWeather, expectedWeather)
     #expectWasCalled(mockWeatherService.fetchWeather, with: "San Francisco")
@@ -37,12 +37,12 @@ A common mistake is wrapping async calls in a `Task` when it's not necessary:
 func testFetchWeather() throws {
     let mockWeatherService = MockWeatherService()
     let viewModel = WeatherViewModel(weatherService: mockWeatherService)
-    
+
     // This creates a Task but doesn't wait for it to complete
     Task {
         try await viewModel.loadWeather(for: "San Francisco")
     }
-    
+
     // ⚠️ This assertion might run before the Task completes
     #expectWasCalled(mockWeatherService.fetchWeather, with: "San Francisco")
 }
@@ -51,10 +51,10 @@ func testFetchWeather() throws {
 func testFetchWeather() async throws {
     let mockWeatherService = MockWeatherService()
     let viewModel = WeatherViewModel(weatherService: mockWeatherService)
-    
+
     // Directly await the async operation
     try await viewModel.loadWeather(for: "San Francisco")
-    
+
     // This assertion runs after the async operation completes
     #expectWasCalled(mockWeatherService.fetchWeather, with: "San Francisco")
 }
@@ -89,7 +89,7 @@ class WeatherViewModel {
             self.error = error
         }
     }
-    
+
     // Keep the fire-and-forget method, but have it call the async method
     func loadWeatherInBackground(for city: String) {
         Task {
@@ -116,12 +116,12 @@ In these cases, `#confirmationOfCall` provides a way to asynchronously wait for 
 ```swift
 class NetworkMonitor {
     private let networkClient: NetworkClientProtocol
-    
+
     init(networkClient: NetworkClientProtocol) {
         self.networkClient = networkClient
         setupNotifications()
     }
-    
+
     private func setupNotifications() {
         NotificationCenter.default.addObserver(
             self,
@@ -130,7 +130,7 @@ class NetworkMonitor {
             object: nil
         )
     }
-    
+
     @objc private func appDidBecomeActive() {
         Task {
             try? await networkClient.checkConnectivity()
@@ -143,13 +143,13 @@ func testNetworkMonitorChecksConnectivityWhenAppBecomesActive() async {
     // Arrange
     let mockNetworkClient = MockNetworkClient()
     let monitor = NetworkMonitor(networkClient: mockNetworkClient)
-    
+
     // Act - post the notification
     NotificationCenter.default.post(
         name: UIApplication.didBecomeActiveNotification,
         object: nil
     )
-    
+
     // Assert - wait for the async call triggered by the notification
     await #confirmationOfCall(to: mockNetworkClient.checkConnectivity)
 }
@@ -172,7 +172,7 @@ On its own, `#confirmationOfCall` waits for a single call. Just as with `expectW
 // Confirm the function was called exactly 3 times
 await #confirmationOfCall(to: mockClient.fetchData)
     .occurring(times: 3)
-    
+
 // Confirm the function was called between 2 and 5 times
 await #confirmationOfCall(to: mockClient.fetchData)
     .occurringWithin(times: 2...5)

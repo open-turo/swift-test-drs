@@ -7,4 +7,3 @@ swift package --allow-writing-to-directory docs \
     --hosting-base-path "swift-test-drs" \
     --output-path docs
 echo '<script>window.location.href += "/documentation/testdrs"</script>' > docs/index.html
-

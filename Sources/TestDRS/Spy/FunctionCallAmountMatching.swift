@@ -27,7 +27,7 @@ public protocol MatchingMultiple: FunctionCallAmountMatching {}
 /// A matching strategy that examines only the first call in a sequence of calls.
 ///
 /// This strategy is useful when you only care about the first time a function was called,
-/// even if it was called multiple times. It will match the first call that satisfies 
+/// even if it was called multiple times. It will match the first call that satisfies
 /// the verification criteria, regardless of how many times the function was called.
 public enum MatchingFirst: MatchingSingle {}
 

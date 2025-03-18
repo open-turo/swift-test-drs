@@ -90,17 +90,17 @@ final class WeatherViewModelTests: XCTestCase {
     func testFetchWeather() throws {
         // Create a mock
         let mockWeatherService = MockWeatherService()
-        
+
         // Create the system under test with the mock
         let viewModel = WeatherViewModel(weatherService: mockWeatherService)
-        
+
         // Stub the mock
         let expectedWeather = Weather(temperature: 72, condition: .sunny)
         #stub(mockWeatherService.fetchWeather, returning: expectedWeather)
-        
+
         // Act
         viewModel.loadWeather(for: "San Francisco")
-        
+
         // Assert
         #expectWasCalled(mockWeatherService.fetchWeather, with: "San Francisco")
         XCTAssertEqual(viewModel.currentWeather, expectedWeather)

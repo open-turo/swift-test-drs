@@ -18,10 +18,10 @@ func testClosureIsCalled() {
     // Arrange
     let mockCallback = CallbackHandler()
     let dataLoader = DataLoader()
-    
+
     // Act - pass the mock's function directly as the completion handler
     dataLoader.loadData(completion: mockCallback.onComplete)
-    
+
     // Assert
     #expectWasCalled(mockCallback.onComplete)
         .exactlyOnce()
