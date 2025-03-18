@@ -1,4 +1,4 @@
-# Testing static members
+# Mocking static members
 
 Learn how to test code that uses static members by creating mocks with TestDRS.
 
@@ -9,12 +9,12 @@ This article explains how to test code that interacts with static properties and
 TestDRS provides the `withStaticTestingContext` function to isolate static state between tests, ensuring that each test starts with a clean slate.
 
 This article covers:
-1. The challenges of testing static members
+1. The challenges of testing with static members
 2. Using `withStaticTestingContext` to isolate tests
 3. Mocking static methods
 4. Verifying static method calls
 
-## The Challenge with static members
+## The challenge with static members
 
 Static properties and methods in Swift are shared across all instances of a class or struct. This means that changes made in one test can affect other tests:
 

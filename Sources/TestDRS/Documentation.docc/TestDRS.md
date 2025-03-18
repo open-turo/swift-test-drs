@@ -12,7 +12,7 @@ With TestDRS, you can:
 - Stub function returns with specific values or dynamic behavior
 - Verify that functions were called with the expected parameters
 - Test asynchronous code with async/await support
-- Test static members with proper isolation between tests
+- Test code using static members with proper isolation between tests
 
 ## Topics
 
@@ -54,5 +54,5 @@ These tools help you test asynchronous code by allowing you to await and verify 
 
 ### Additional testing topics
 
-- <doc:TestingStaticMembers>
+- <doc:MockingStaticMembers>
 - <doc:FAQ>

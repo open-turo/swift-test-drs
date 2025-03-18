@@ -14,7 +14,7 @@
   },
   "identifier": {
     "interfaceLanguage": "swift",
-    "url": "doc://TestDRS/documentation/TestDRS/TestingStaticMembers"
+    "url": "doc://TestDRS/documentation/TestDRS/MockingStaticMembers"
   },
   "kind": "article",
   "metadata": {
@@ -25,7 +25,7 @@
     ],
     "role": "article",
     "roleHeading": "Article",
-    "title": "Testing static members"
+    "title": "Mocking static members"
   },
   "primaryContentSections": [
     {
@@ -78,7 +78,7 @@
                 {
                   "inlineContent": [
                     {
-                      "text": "The challenges of testing static members",
+                      "text": "The challenges of testing with static members",
                       "type": "text"
                     }
                   ],
@@ -137,9 +137,9 @@
           "type": "orderedList"
         },
         {
-          "anchor": "The-Challenge-with-static-members",
+          "anchor": "The-challenge-with-static-members",
           "level": 2,
-          "text": "The Challenge with static members",
+          "text": "The challenge with static members",
           "type": "heading"
         },
         {
@@ -155,11 +155,11 @@
           "code": [
             "class AuthService {",
             "    static var currentUser: User?",
-            "    ",
+            "",
             "    static func isUserLoggedIn() -> Bool {",
             "        return currentUser != nil",
             "    }",
-            "    ",
+            "",
             "    static func currentUserRole() -> String {",
             "        return currentUser?.role ?? \"guest\"",
             "    }",
@@ -171,7 +171,7 @@
             "        AuthService.currentUser = User(id: \"123\", role: \"admin\")",
             "        XCTAssertTrue(AuthService.isUserLoggedIn())",
             "    }",
-            "    ",
+            "",
             "    func testCurrentUserRole_WhenNoUser() {",
             "        // This assumes no user is set, but might run after the previous test",
             "        // which would cause this test to fail unexpectedly",
@@ -271,11 +271,11 @@
             "            super.invokeTest()",
             "        }",
             "    }",
-            "    ",
+            "",
             "    func testStaticMethod1() {",
             "        // This test now runs in its own static testing context",
             "    }",
-            "    ",
+            "",
             "    func testStaticMethod2() {",
             "        // This test also runs in its own static testing context,",
             "        // unaffected by testStaticMethod1",
@@ -350,7 +350,7 @@
             "        guard AuthService.isUserLoggedIn() else {",
             "            return false",
             "        }",
-            "        ",
+            "",
             "        return AuthService.currentUserRole() == \"admin\"",
             "    }",
             "}",
@@ -360,15 +360,15 @@
             "    withStaticTestingContext {",
             "        // Set the mock as the dependency",
             "        Dependencies.authService = MockAuthService.self",
-            "        ",
+            "",
             "        // Stub the static methods",
             "        #stub(MockAuthService.isUserLoggedIn, returning: true)",
             "        #stub(MockAuthService.currentUserRole, returning: \"admin\")",
-            "        ",
+            "",
             "        let featureManager = FeatureManager()",
             "",
             "        #expect(featureManager.canAccessAdminFeature())",
-            "        ",
+            "",
             "        // Verify the static methods were called",
             "        #expectWasCalled(MockAuthService.isUserLoggedIn).exactlyOnce()",
             "        #expectWasCalled(MockAuthService.currentUserRole).exactlyOnce()",
@@ -598,7 +598,7 @@
   "variants": [
     {
       "paths": [
-        "/documentation/testdrs/testingstaticmembers"
+        "/documentation/testdrs/mockingstaticmembers"
       ],
       "traits": [
         {

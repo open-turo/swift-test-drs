@@ -201,8 +201,8 @@
             "type": "groupMarker"
           },
           {
-            "path": "/documentation/testdrs/testingstaticmembers",
-            "title": "Testing static members",
+            "path": "/documentation/testdrs/mockingstaticmembers",
+            "title": "Mocking static members",
             "type": "article"
           },
           {
@@ -430,12 +430,12 @@
                         "type": "method"
                       },
                       {
-                        "path": "/documentation/testdrs/statictestable/register(with:)-9ol6n",
+                        "path": "/documentation/testdrs/statictestable/register(with:)-761zh",
                         "title": "static func register(with: inout StaticTestingContext)",
                         "type": "method"
                       },
                       {
-                        "path": "/documentation/testdrs/statictestable/register(with:)-761zh",
+                        "path": "/documentation/testdrs/statictestable/register(with:)-9ol6n",
                         "title": "static func register(with: inout StaticTestingContext)",
                         "type": "method"
                       }

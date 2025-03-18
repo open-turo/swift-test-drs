@@ -444,17 +444,17 @@
             "    func testFetchWeather() throws {",
             "        // Create a mock",
             "        let mockWeatherService = MockWeatherService()",
-            "        ",
+            "",
             "        // Create the system under test with the mock",
             "        let viewModel = WeatherViewModel(weatherService: mockWeatherService)",
-            "        ",
+            "",
             "        // Stub the mock",
             "        let expectedWeather = Weather(temperature: 72, condition: .sunny)",
             "        #stub(mockWeatherService.fetchWeather, returning: expectedWeather)",
-            "        ",
+            "",
             "        // Act",
             "        viewModel.loadWeather(for: \"San Francisco\")",
-            "        ",
+            "",
             "        // Assert",
             "        #expectWasCalled(mockWeatherService.fetchWeather, with: \"San Francisco\")",
             "        XCTAssertEqual(viewModel.currentWeather, expectedWeather)",
@@ -749,9 +749,8 @@
                 {
                   "inlineContent": [
                     {
-                      "identifier": "doc://TestDRS/documentation/TestDRS/TestingStaticMembers",
-                      "isActive": true,
-                      "type": "reference"
+                      "text": "doc:TestingStaticMembers",
+                      "type": "text"
                     },
                     {
                       "text": " - Discover how to test static properties and methods",
@@ -797,20 +796,6 @@
       "title": "Testing asynchronous code",
       "type": "topic",
       "url": "/documentation/testdrs/testingasynchronouscode"
-    },
-    "doc://TestDRS/documentation/TestDRS/TestingStaticMembers": {
-      "abstract": [
-        {
-          "text": "Learn how to test code that uses static members by creating mocks with TestDRS.",
-          "type": "text"
-        }
-      ],
-      "identifier": "doc://TestDRS/documentation/TestDRS/TestingStaticMembers",
-      "kind": "article",
-      "role": "article",
-      "title": "Testing static members",
-      "type": "topic",
-      "url": "/documentation/testdrs/testingstaticmembers"
     }
   },
   "schemaVersion": {
