@@ -71,10 +71,43 @@ public struct MockMacro: ExtensionMacro, MemberMacro, MemberAttributeMacro {
         return []
     }
 
-    public static func expansion(of node: AttributeSyntax, providingMembersOf declaration: some DeclGroupSyntax, conformingTo protocols: [TypeSyntax], in context: some MacroExpansionContext) throws -> [DeclSyntax] {
-        guard declarationTypeIsSupported(declaration) else { return [] }
+    public static func expansion(
+        of node: AttributeSyntax, providingMembersOf declaration: some DeclGroupSyntax,
+        conformingTo protocols: [TypeSyntax], in context: some MacroExpansionContext
+    ) throws -> [DeclSyntax] {
+        let declIsPublic: Bool
 
-        return ["let blackBox = BlackBox()", "let stubRegistry = StubRegistry()"]
+        if let classDecl = declaration.as(ClassDeclSyntax.self) {
+            declIsPublic = classDecl.isPublic
+        } else if let structDecl = declaration.as(StructDeclSyntax.self) {
+            declIsPublic = structDecl.isPublic
+        } else {
+            // Unsupported type
+            return []
+        }
+
+        return [
+            DeclSyntax(
+                VariableDeclSyntax(
+                    modifiers: declIsPublic ? [.publicModifier] : [],
+                    .let,
+                    name: "blackBox",
+                    initializer: InitializerClauseSyntax(
+                        value: FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "BlackBox"))
+                    )
+                )
+            ),
+            DeclSyntax(
+                VariableDeclSyntax(
+                    modifiers: declIsPublic ? [.publicModifier] : [],
+                    .let,
+                    name: "stubRegistry",
+                    initializer: InitializerClauseSyntax(
+                        value: FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "StubRegistry"))
+                    )
+                )
+            )
+        ]
     }
 
     private static func declarationTypeIsSupported(_ declaration: some DeclGroupSyntax) -> Bool {
