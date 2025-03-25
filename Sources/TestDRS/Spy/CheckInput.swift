@@ -39,4 +39,4 @@ private func checkEqualOrThrow<T: Equatable>(_ lhs: T, _ rhs: T) throws {
     if lhs != rhs { throw NotEqualError() }
 }
 
-private struct NotEqualError: Error { }
+private struct NotEqualError: Error {}

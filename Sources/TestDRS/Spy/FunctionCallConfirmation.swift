@@ -13,7 +13,6 @@ enum FunctionCallConfirmationError: Error {
 /// Encapsulates the result of a `#confirmationOfCall`.
 ///
 /// A `FunctionCallConfirmation` contains any calls that match the confirmation and provides methods for confirming the number of times the given call was recorded.
-@available(iOS 16.0, *)
 public struct FunctionCallConfirmation<AmountMatching: FunctionCallAmountMatching, Input, Output>: Sendable {
 
     private var _matchingCalls: [FunctionCall<Input, Output>] = []
@@ -50,7 +49,6 @@ public struct FunctionCallConfirmation<AmountMatching: FunctionCallAmountMatchin
 
 }
 
-@available(iOS 16.0, *)
 extension FunctionCallConfirmation where AmountMatching == MatchingFirst {
 
     static func confirmFirstCall(
@@ -102,7 +100,6 @@ extension FunctionCallConfirmation where AmountMatching == MatchingFirst {
 
 // MARK: - Matching Calls
 
-@available(iOS 16.0, *)
 extension FunctionCallConfirmation where AmountMatching: MatchingSingle {
 
     /// The matching call or `nil` if no calls were made that match the expectation.
@@ -120,7 +117,6 @@ extension FunctionCallConfirmation where AmountMatching: MatchingSingle {
 
 }
 
-@available(iOS 16.0, *)
 extension FunctionCallConfirmation where AmountMatching: MatchingMultiple {
 
     /// The matching calls or an empty array  if no calls were confirmed.
@@ -148,7 +144,6 @@ extension FunctionCallConfirmation where AmountMatching: MatchingMultiple {
 
 // MARK: - Confirming amount
 
-@available(iOS 16.0, *)
 extension FunctionCallConfirmation where AmountMatching == MatchingFirst, Input: Sendable {
 
     /// Makes a further confirmation that the specified call occurred exactly once.

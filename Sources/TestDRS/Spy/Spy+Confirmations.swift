@@ -18,7 +18,6 @@ public extension Spy {
     ///   - outputType: An optional phantom parameter used to derive the output type of the `function` passed in.
     ///   - timeLimit: The maximum amount of time to wait for confirmation. If the time limit is reached before the first call can be confirmed, a test failure is reported. Defaults to a duration that is effectively infinite.
     /// - Returns: A `FunctionCallConfirmation` that waits for the first matching call. Further calls can be confirmed by calling methods on this confirmation.
-    @available(iOS 16.0, *)
     @discardableResult
     func confirmationOfCall<Input, Output>(
         to function: (Input) async throws -> Output,
@@ -26,7 +25,7 @@ public extension Spy {
         taking inputType: Input.Type? = nil,
         returning outputType: Output.Type? = nil,
         timeLimit: Duration = .maxTimeLimit,
-        isolation: isolated(any Actor)? = #isolation,
+        isolation: isolated (any Actor)? = #isolation,
         fileID: StaticString = #fileID,
         filePath: StaticString = #filePath,
         line: UInt = #line,
@@ -58,7 +57,6 @@ public extension Spy {
     ///   - outputType: An optional phantom parameter used to derive the output type of the `function` passed in.
     ///   - timeLimit: The maximum amount of time to wait for confirmation. If the time limit is reached before the first call can be confirmed, a test failure is reported. Defaults to a duration that is effectively infinite.
     /// - Returns: A `FunctionCallConfirmation` that waits for the first matching call. Further calls can be confirmed by calling methods on this confirmation.
-    @available(iOS 16.0, *)
     @discardableResult
     func confirmationOfCall<each Input: Equatable, Output>(
         to function: (repeat each Input) async throws -> Output,
@@ -66,7 +64,7 @@ public extension Spy {
         expectedInput: repeat each Input,
         returning: Output.Type? = nil,
         timeLimit: Duration = .maxTimeLimit,
-        isolation: isolated(any Actor)? = #isolation,
+        isolation: isolated (any Actor)? = #isolation,
         fileID: StaticString = #fileID,
         filePath: StaticString = #filePath,
         line: UInt = #line,
