@@ -5,6 +5,8 @@
 
 import Foundation
 
+// swiftformat:disable spaceAroundOperators
+
 /// Awaits confirmation of a function call.
 ///
 /// Similar to using a `Confirmation` in Swift Testing, this macro allows you to await confirmation that a function was called in
@@ -16,7 +18,6 @@ import Foundation
 ///   - outputType: An optional phantom parameter used to derive the output type of the `function` passed in.
 ///   - timeLimit: The maximum amount of time to wait for confirmation. If the time limit is reached before the first call can be confirmed, a test failure is reported. Defaults to a duration that is effectively infinite.
 /// - Returns: A `FunctionCallConfirmation` that waits for the first matching call. Further calls can be confirmed by calling methods on this confirmation.
-@available(iOS 16.0, *)
 @freestanding(expression)
 @discardableResult
 public macro confirmationOfCall<Input, Output>(
@@ -26,7 +27,6 @@ public macro confirmationOfCall<Input, Output>(
     timeLimit: Duration = .maxTimeLimit,
     isolation: isolated(any Actor)? = #isolation
 ) -> FunctionCallConfirmation<MatchingFirst, Input, Output> = #externalMacro(module: "TestDRSMacros", type: "ConfirmationOfCallMacro")
-
 
 /// Awaits confirmation of a function call with an expected input.
 ///
@@ -39,7 +39,6 @@ public macro confirmationOfCall<Input, Output>(
 ///   - outputType: An optional phantom parameter used to derive the output type of the `function` passed in.
 ///   - timeLimit: The maximum amount of time to wait for confirmation. If the time limit is reached before the first call can be confirmed, a test failure is reported. Defaults to a duration that is effectively infinite.
 /// - Returns: A `FunctionCallConfirmation` that waits for the first matching call. Further calls can be confirmed by calling methods on this confirmation.
-@available(iOS 16.0, *)
 @freestanding(expression)
 @discardableResult
 public macro confirmationOfCall<each Input: Equatable, Output>(

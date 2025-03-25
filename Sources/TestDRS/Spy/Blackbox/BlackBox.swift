@@ -103,7 +103,6 @@ public final class BlackBox: @unchecked Sendable {
 
 // MARK: - AsyncStream Support
 
-@available(iOS 16.0, *)
 extension BlackBox {
 
     /// Streams all calls with the given input and output type.
