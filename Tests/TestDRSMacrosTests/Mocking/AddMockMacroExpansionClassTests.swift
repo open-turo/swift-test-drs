@@ -784,5 +784,41 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
         }
     }
 
+    func testUncheckedSendableClass() {
+        assertMacro {
+            """
+            @AddMock
+            class SomeClass: NSObject, @unchecked Sendable {
+                let x = 0
+            }
+            """
+        } expansion: {
+            """
+            class SomeClass: NSObject, @unchecked Sendable {
+                let x = 0
+            }
+
+            #if DEBUG
+
+            final class MockSomeClass: SomeClass, Mock, @unchecked Sendable {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                override var x {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+            }
+
+            #endif
+            """
+        }
+    }
+
 }
 #endif

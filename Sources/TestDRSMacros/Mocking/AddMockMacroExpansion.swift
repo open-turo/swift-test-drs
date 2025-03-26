@@ -132,9 +132,26 @@ public struct AddMockMacro: PeerMacro {
         }
         let className = classDeclaration.name.trimmed.text
 
+        let uncheckedSendableAttributeType = classDeclaration.inheritanceClause?.inheritedTypes.first { inheritedType in
+            inheritedType.type.as(AttributedTypeSyntax.self)?
+                .attributes.first?
+                .as(AttributeSyntax.self)?
+                .attributeName.as(IdentifierTypeSyntax.self)?
+                .name.tokenKind == .identifier("unchecked")
+        }
+
+        let inheritanceClause = InheritanceClauseSyntax(inheritedTypes: InheritedTypeListSyntax {
+            InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier(className)))
+            InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier(mockProtocolName)))
+
+            if let uncheckedSendableAttributeType {
+                uncheckedSendableAttributeType
+            }
+        })
+
         var subclassDeclaration = mockClass(
             named: className,
-            inheritanceClause: .emptyClause.appending([className, mockProtocolName]),
+            inheritanceClause: inheritanceClause,
             members: classDeclaration.memberBlock.members,
             config: .init(typeBeingMocked: .class, isPublic: classDeclaration.isPublic)
         )
