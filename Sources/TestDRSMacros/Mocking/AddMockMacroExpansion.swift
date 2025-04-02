@@ -38,6 +38,10 @@ public struct AddMockMacro: PeerMacro {
             typeBeingMocked != .class
         }
 
+        var needsPublicInit: Bool {
+            isPublic && typeBeingMocked != .class
+        }
+
         var shouldMockStaticMembers: Bool {
             typeBeingMocked != .class
         }
@@ -271,7 +275,7 @@ public struct AddMockMacro: PeerMacro {
             .filter { !$0.isPrivate }
             .map { mockInit(for: $0, config: config) }
 
-        let emptyInitIsNeeded = !mockInits.isEmpty || config.shouldMakeMembersPublic
+        let emptyInitIsNeeded = !mockInits.isEmpty || config.needsPublicInit
         let alreadyHasEmptyInit = mockInits.contains(where: { $0.signature.parameterClause.parameters.isEmpty })
 
         if emptyInitIsNeeded && !alreadyHasEmptyInit {
@@ -279,7 +283,7 @@ public struct AddMockMacro: PeerMacro {
                 signature: FunctionSignatureSyntax(parameterClause: FunctionParameterClauseSyntax {}),
                 body: CodeBlockSyntax {}
             )
-            if config.shouldMakeMembersPublic {
+            if config.needsPublicInit {
                 emptyInit.modifiers.append(.publicModifier)
             }
             mockInits.insert(emptyInit, at: 0)

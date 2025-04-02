@@ -806,7 +806,7 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
                     }
                 }
 
-                init() {
+                public init() {
                 }
 
                 @available(*, deprecated, message: "Use init() instead to initialize a mock") init(x: String) {
@@ -829,5 +829,74 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
         }
     }
 
+    func testPublicStructWithoutInit() {
+        assertMacro {
+            """
+            @AddMock
+            public struct SomeStruct {
+                var x = "Hello World"
+                private var y = 0
+                public var z = true
+
+                func foo() {}
+                private func bar() {}
+                public func baz() {}
+            }
+            """
+        } expansion: {
+            """
+            public struct SomeStruct {
+                var x = "Hello World"
+                private var y = 0
+                public var z = true
+
+                func foo() {}
+                private func bar() {}
+                public func baz() {}
+            }
+
+            #if DEBUG
+
+            public struct MockSomeStruct: Mock {
+
+                public let blackBox = BlackBox()
+                public let stubRegistry = StubRegistry()
+
+                var x {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+                public var z {
+                    get {
+                        stubValue()
+                    }
+                    set {
+                        setStub(value: newValue)
+                    }
+                }
+
+                public init() {
+                }
+
+                func foo() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+                public func baz() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
+            """
+        }
+    }
 }
 #endif
