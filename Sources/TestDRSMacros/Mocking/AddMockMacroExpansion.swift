@@ -266,20 +266,26 @@ public struct AddMockMacro: PeerMacro {
     ) -> [InitializerDeclSyntax] {
         guard config.shouldGenerateInits else { return [] }
 
-        let mockInits = members
+        var mockInits = members
             .compactMap { $0.decl.as(InitializerDeclSyntax.self) }
             .filter { !$0.isPrivate }
             .map { mockInit(for: $0, config: config) }
 
-        guard !mockInits.isEmpty, !mockInits.contains(where: { $0.signature.parameterClause.parameters.isEmpty }) else {
-            return mockInits
+        let emptyInitIsNeeded = !mockInits.isEmpty || config.shouldMakeMembersPublic
+        let alreadyHasEmptyInit = mockInits.contains(where: { $0.signature.parameterClause.parameters.isEmpty })
+
+        if emptyInitIsNeeded && !alreadyHasEmptyInit {
+            var emptyInit = InitializerDeclSyntax(
+                signature: FunctionSignatureSyntax(parameterClause: FunctionParameterClauseSyntax {}),
+                body: CodeBlockSyntax {}
+            )
+            if config.shouldMakeMembersPublic {
+                emptyInit.modifiers.append(.publicModifier)
+            }
+            mockInits.insert(emptyInit, at: 0)
         }
 
-        let emptyInit = InitializerDeclSyntax(
-            signature: FunctionSignatureSyntax(parameterClause: FunctionParameterClauseSyntax {}),
-            body: CodeBlockSyntax {}
-        )
-        return [emptyInit] + mockInits
+        return mockInits
     }
 
     private static func mockMethods(
