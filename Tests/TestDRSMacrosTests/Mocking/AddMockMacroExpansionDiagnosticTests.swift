@@ -83,6 +83,28 @@ final class AddMockMacroExpansionDiagnosticTests: AddMockMacroExpansionTestCase 
         }
     }
 
+    func testActorConstrainedProtocolProducesDiagnostic() {
+        assertMacro {
+            """
+            @AddMock
+            protocol SomeProtocol: Actor {
+                var foo: String { get set }
+                func bar()
+            }
+            """
+        } diagnostics: {
+            """
+            @AddMock
+            ┬───────
+            ╰─ 🛑 @AddMock can't be applied to actor-constrained protocols. Consider using a more general constraint like Sendable to allow for class-based mocks.
+            protocol SomeProtocol: Actor {
+                var foo: String { get set }
+                func bar()
+            }
+            """
+        }
+    }
+
 }
 
 #endif
