@@ -17,9 +17,10 @@ extension BlackBox {
         mode: ExpectedCallMode,
         location: SourceLocation
     ) -> ExpectWasCalledResult<MatchingAnyAmount, Input, Output> {
-        let calls = callsMatching(signature: signature, taking: Input.self, returning: Output.self)
+        let callsWithMatchingSignature = callsMatching(signature: signature)
+        let matchingCalls = callsWithMatchingSignature.compactMap(taking: Input.self, returning: Output.self)
 
-        if calls.isEmpty {
+        if matchingCalls.isEmpty {
             let message: String
             if callsMatching(signature: signature).isEmpty {
                 message = "No calls to \(signature) were recorded"
@@ -28,10 +29,9 @@ extension BlackBox {
             }
             reportFailure(message, location: location)
         } else if mode == .exclusive {
-            let allCalls = callsMatching(signature: signature)
-            if calls.count != allCalls.count {
-                let expectedCallIds = calls.map { $0.id }
-                let unexpectedCalls = allCalls
+            if matchingCalls.count != callsWithMatchingSignature.count {
+                let expectedCallIds = matchingCalls.map { $0.id }
+                let unexpectedCalls = callsWithMatchingSignature
                     .filter { !expectedCallIds.contains($0.id) }
                     .map { $0.debugDescription }
                     .joined(separator: "\n")
@@ -40,7 +40,7 @@ extension BlackBox {
             }
         }
 
-        return ExpectWasCalledResult(matchingCalls: calls, blackBox: self)
+        return ExpectWasCalledResult(matchingCalls: matchingCalls, blackBox: self)
     }
 
     func expectWasCalled<each Input: Equatable, Output>(
@@ -50,10 +50,11 @@ extension BlackBox {
         mode: ExpectedCallMode,
         location: SourceLocation
     ) -> ExpectWasCalledResult<MatchingAnyAmount, (repeat each Input), Output> {
-        let calls = callsMatching(signature: signature, taking: (repeat each Input).self, returning: Output.self)
-        let callsWithExpectedInput = calls.filter { check(repeat each expectedInput, against: $0.input) }
+        let callsWithMatchingSignature = callsMatching(signature: signature)
+        let callsWithExpectedType = callsWithMatchingSignature.compactMap(taking: (repeat each Input).self, returning: Output.self)
+        let matchingCalls = callsWithExpectedType.filter { check(repeat each expectedInput, against: $0.input) }
 
-        if calls.isEmpty {
+        if callsWithMatchingSignature.isEmpty {
             let message: String
             if callsMatching(signature: signature).isEmpty {
                 message = "No calls to \(signature) were recorded"
@@ -61,17 +62,16 @@ extension BlackBox {
                 message = "No calls to \(signature) with input type \((repeat each Input).self) and output type \(Output.self) were recorded"
             }
             reportFailure(message, location: location)
-        } else if callsWithExpectedInput.isEmpty {
-            let actualInputs = calls
+        } else if matchingCalls.isEmpty {
+            let actualInputs = callsWithMatchingSignature
                 .map { "+\($0.input)" }
                 .joined(separator: "\n")
             let message = "\(signature) was not called with expected input (-), but was called with other input (+):\n\n-\((repeat each expectedInput))\n\(actualInputs)"
             reportFailure(message, location: location)
         } else if mode == .exclusive {
-            let allCalls = callsMatching(signature: signature)
-            if callsWithExpectedInput.count != allCalls.count {
-                let expectedCallIDs = callsWithExpectedInput.map { $0.id }
-                let unexpectedInputs = allCalls
+            if matchingCalls.count != callsWithMatchingSignature.count {
+                let expectedCallIDs = matchingCalls.map { $0.id }
+                let unexpectedInputs = callsWithMatchingSignature
                     .filter { !expectedCallIDs.contains($0.id) }
                     .map { "+\($0.input)" }
                     .joined(separator: "\n")
@@ -80,7 +80,7 @@ extension BlackBox {
             }
         }
 
-        return ExpectWasCalledResult(matchingCalls: callsWithExpectedInput, blackBox: self)
+        return ExpectWasCalledResult(matchingCalls: matchingCalls, blackBox: self)
     }
 
     // MARK: - expectWasNotCalled
@@ -90,7 +90,8 @@ extension BlackBox {
         signature: FunctionSignature,
         location: SourceLocation
     ) {
-        let calls = callsMatching(signature: signature, taking: Input.self, returning: Output.self)
+        let calls = callsMatching(signature: signature)
+            .compactMap(taking: Input.self, returning: Output.self)
 
         if !calls.isEmpty {
             let message = "\(calls.count) calls to \(signature) with input type \(Input.self) and output type \(Output.self) were recorded"
