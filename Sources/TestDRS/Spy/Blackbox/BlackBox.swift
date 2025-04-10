@@ -47,55 +47,16 @@ public final class BlackBox: @unchecked Sendable {
         }
     }
 
-    /// Returns an array of function calls that match the given signature and input type.
+    /// Returns an array of function calls that match the given signature.
     ///
     /// - Parameters:
     ///   - signature: The signature to match.
-    ///   - previousCall: If provided, only calls occuring after the `previousCall` will be returned, otherwise all matching calls will be returned. Defaults to `nil`.
-    ///   - inputType: The input type to match.
-    /// - Returns: An array of function calls that match the given criteria.
-    ///
-    ///- Note: This method returns the function calls as an array of `[any FunctionCallRepresentation]`, to instead retrieve an array of `[FunctionCall<Input, Output>]` see `callsMatching(signature:taking:returning:)`.
     func callsMatching<Input>(
         signature: FunctionSignature,
         taking inputType: Input.Type = Void.self
     ) -> [any FunctionCallRepresentation] {
         storageQueue.sync {
-            storage.filter(signature: signature, inputType: inputType)
-        }
-    }
-
-    /// Returns an array of concrete function calls that match the given signature, input type, and output type.
-    ///
-    /// - Parameters:
-    ///   - signature: The signature to match.
-    ///   - inputType: The input type to match.
-    ///   - outputType: The output type to match.
-    /// - Returns: An array of concrete function calls that match the given criteria.
-    func callsMatching<Input, Output>(
-        signature: FunctionSignature,
-        taking inputType: Input.Type,
-        returning outputType: Output.Type
-    ) -> [FunctionCall<Input, Output>] {
-        storageQueue.sync {
-            storage.filter(signature: signature).compactMap { call in
-                if let typedCall = call as? FunctionCall<Input, Output> {
-                    return typedCall
-                }
-                if let input = call.input as? Input, call.outputType is Output.Type {
-                    // If we have the input type now, but didn't when recording, we can just create new FunctionCall with expected type
-                    // See ProtocolConstrainedNonGenericParameterTests
-                    return FunctionCall(
-                        signature: call.signature,
-                        input: input,
-                        outputType: outputType,
-                        time: call.time,
-                        id: call.id
-                    )
-                }
-
-                return nil
-            }
+            storage.filter(signature: signature)
         }
     }
 
@@ -180,7 +141,8 @@ extension BlackBox: CustomDebugStringConvertible {
     }
 }
 
-private extension Sequence<any FunctionCallRepresentation> {
+extension Sequence<any FunctionCallRepresentation> {
+
     /// Filters the sequence to include only the function calls that match the given signature.
     ///
     /// - Parameter signature: The signature to match.
@@ -191,17 +153,30 @@ private extension Sequence<any FunctionCallRepresentation> {
         }
     }
 
-    /// Filters the sequence to include only the function calls that match the given signature and input type.
-    ///
-    /// - Parameters:
-    ///   - signature: The signature to match.
-    ///   - inputType: The input type to match.
-    /// - Returns: An array of function calls that match the given signature and input type.
-    func filter<Input>(signature: FunctionSignature, inputType: Input.Type) -> [any FunctionCallRepresentation] {
-        return filter { call in
-            call.signature ~= signature && (inputType == Void.self || call.input is Input)
+    func compactMap<Input, Output>(
+        taking inputType: Input.Type,
+        returning outputType: Output.Type
+    ) -> [FunctionCall<Input, Output>] {
+        compactMap { call in
+            if let typedCall = call as? FunctionCall<Input, Output> {
+                return typedCall
+            }
+            if let input = call.input as? Input, call.outputType is Output.Type {
+                // If we have the input type now, but didn't when recording, we can just create new FunctionCall with expected type
+                // See ProtocolConstrainedNonGenericParameterTests
+                return FunctionCall(
+                    signature: call.signature,
+                    input: input,
+                    outputType: outputType,
+                    time: call.time,
+                    id: call.id
+                )
+            }
+
+            return nil
         }
     }
+
 }
 
 private extension [any FunctionCallRepresentation] {
