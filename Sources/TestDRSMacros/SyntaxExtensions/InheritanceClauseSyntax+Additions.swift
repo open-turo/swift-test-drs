@@ -11,6 +11,10 @@ extension InheritanceClauseSyntax {
         InheritanceClauseSyntax(inheritedTypes: [])
     }
 
+    var containsActor: Bool {
+        inheritedTypes.contains { $0.type.as(IdentifierTypeSyntax.self)?.name.tokenKind == .identifier("Actor") }
+    }
+
     /// Appends the given types to the inheritance clause syntax.
     ///
     /// - Parameters:

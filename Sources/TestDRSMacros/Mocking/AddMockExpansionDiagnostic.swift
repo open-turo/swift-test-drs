@@ -9,6 +9,7 @@ enum AddMockExpansionDiagnostic: String, DiagnosticMessage {
 
     case invalidType
     case finalClass
+    case actorConstrained
 
     var message: String {
         switch self {
@@ -16,6 +17,8 @@ enum AddMockExpansionDiagnostic: String, DiagnosticMessage {
             "@AddMock can only be applied to protocols, classes, and structs"
         case .finalClass:
             "@AddMock can't be applied to final classes as they can not be subclassed to produce a mock."
+        case .actorConstrained:
+            "@AddMock can't be applied to actor-constrained protocols. Consider using a more general constraint like Sendable to allow for class-based mocks."
         }
     }
 

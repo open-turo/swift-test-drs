@@ -64,6 +64,15 @@ public struct AddMockMacro: PeerMacro {
         let mockDeclaration: DeclSyntax
 
         if let protocolDeclaration = declaration.as(ProtocolDeclSyntax.self) {
+            guard !(protocolDeclaration.inheritanceClause?.containsActor == true) else {
+                context.diagnose(
+                    Diagnostic(
+                        node: Syntax(node),
+                        message: AddMockExpansionDiagnostic.actorConstrained
+                    )
+                )
+                return []
+            }
             mockDeclaration = DeclSyntax(mockClassDeclaration(from: protocolDeclaration))
         } else if let classDeclaration = declaration.as(ClassDeclSyntax.self) {
             mockDeclaration = DeclSyntax(mockSubclassDeclaration(from: classDeclaration, context: context))
