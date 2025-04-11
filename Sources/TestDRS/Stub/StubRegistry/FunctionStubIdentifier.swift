@@ -38,8 +38,8 @@ extension StubRegistry.FunctionStubIdentifier: CustomDebugStringConvertible {
     public var debugDescription: String {
         """
         signature: \(signature)
-        inputType: \(inputType)
-        outputType: \(outputType)
+        inputType: \(inputType.asVoidIfEmptyParens())
+        outputType: \(outputType.asVoidIfEmptyParens())
         """
     }
 }
