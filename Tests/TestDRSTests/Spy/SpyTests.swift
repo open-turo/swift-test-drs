@@ -185,26 +185,26 @@ final class SpyTests: XCTestCase {
 
             ******* Function Call 1 *******
             signature: "foo()"
-            input: ()
-            outputType: ()
+            input: Void
+            outputType: Void
             time: 2018-06-15 0:00:00.000
             \(space)
             ******* Function Call 2 *******
             signature: "bar(paramOne:)"
             input: true
-            outputType: ()
+            outputType: Void
             time: 2018-06-15 0:00:01.000
             \(space)
             ******* Function Call 3 *******
             signature: "baz(paramOne:)"
             input: nil
-            outputType: ()
+            outputType: Void
             time: 2018-06-15 0:00:02.000
             \(space)
             ******* Function Call 4 *******
             signature: "oof(paramOne:paramTwo:)"
             input: (false, 7)
-            outputType: ()
+            outputType: Void
             time: 2018-06-15 0:00:03.000
             \(space)
 
