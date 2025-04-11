@@ -251,7 +251,7 @@ final class StubProvidingTests: XCTestCase {
             \(space)
             ******* Function Stub *******
             signature: "foo()"
-            inputType: ()
+            inputType: Void
             outputType: Int
             stubbed output: 7
             \(space)
