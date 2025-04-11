@@ -46,8 +46,8 @@ extension FunctionCallRepresentation {
         """
         ******* Function Call \(id) *******
         signature: \(signature)
-        input: \(input)
-        outputType: \(outputType)
+        input: \(String(describing: input).asVoidIfEmptyParens())
+        outputType: \(String(describing: outputType).asVoidIfEmptyParens())
         time: \(FunctionCallUtilities.dateFormatter.string(from: time))
         """
     }
@@ -91,4 +91,15 @@ public struct FunctionCall<Input, Output>: FunctionCallRepresentation, @unchecke
     /// A unique identifier for this function call.
     public let id: Int
 
+}
+
+extension String {
+    /// Convert empty parens to "Void" for clarity in debug descriptions.
+    func asVoidIfEmptyParens() -> String {
+        if self == "()" {
+            "Void"
+        } else {
+            self
+        }
+    }
 }

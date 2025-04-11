@@ -38,7 +38,7 @@ extension StubRegistry.Stub: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
         case .output(let output):
-            "stubbed output: \(output)"
+            "stubbed output: \(String(describing: output).asVoidIfEmptyParens())"
         case .error(let error):
             "stubbed error: \(error)"
         case .closure:

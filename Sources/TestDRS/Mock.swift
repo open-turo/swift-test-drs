@@ -42,4 +42,17 @@ import Foundation
 ///     XCTAssertEqual(result, 42)
 /// }
 /// ```
-public protocol Mock: StubProviding, Spy, StaticTestable {}
+public protocol Mock: StubProviding, Spy, StaticTestable, CustomDebugStringConvertible {}
+
+extension Mock where Self: AnyObject {
+    public var debugDescription: String {
+        "Stub Registry:\n\(stubRegistry)Black Box:\n\(blackBox)"
+    }
+}
+
+extension Mock {
+    public var debugDescription: String {
+        // The default memberwise description is sufficient for structs
+        ""
+    }
+}
