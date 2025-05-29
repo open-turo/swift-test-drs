@@ -51,4 +51,4 @@ See ``ExpectWasCalledResult`` for additional methods for accessing function call
 
 TestDRS does not currently have a way to reset a mock. Generally, you should create a new mock instance for each test. If you find yourself wanting to reset a mock during a test, consider if that test should be refactored into multiple tests.
 
-For static mocks, use `withStaticTestingContext` to isolate test cases, as described in the <doc:TestingStaticMembers> article.
+For static mocks, use `withStaticTestingContext` to isolate test cases, as described in the <doc:MockingStaticMembers> article.

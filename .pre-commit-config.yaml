@@ -3,12 +3,17 @@ repos:
     rev: v4.1.0 # Use the ref you want to point at
     hooks:
       - id: check-json
+        exclude: ^docs/
       - id: check-yaml
+        exclude: ^docs/
       - id: pretty-format-json
         args:
           - --autofix
+        exclude: ^docs/
       - id: end-of-file-fixer
+        exclude: ^docs/
       - id: trailing-whitespace
+        exclude: ^docs/
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
     rev: v8.0.0
     hooks:

@@ -207,4 +207,4 @@ The `getMatchingCall()` method returns the recorded function call, allowing you 
 Now that you've learned the basics of TestDRS, check out these additional articles:
 
 - <doc:TestingAsynchronousCode> - Learn how to test async functions
-- <doc:TestingStaticMembers> - Discover how to test static properties and methods
+- <doc:MockingStaticMembers> - Discover how to test static properties and methods
