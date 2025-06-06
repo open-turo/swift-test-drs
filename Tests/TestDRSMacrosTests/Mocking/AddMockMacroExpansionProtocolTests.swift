@@ -236,6 +236,49 @@ final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
         }
     }
 
+    func testObjectiveCProtocolWithInitializers() {
+        assertMacro {
+            """
+            @AddMock
+            @objc protocol StartEndTimePickingDelegate {
+                init()
+                init(value: String)
+                func foo()
+            }
+            """
+        } expansion: {
+            """
+            @objc protocol StartEndTimePickingDelegate {
+                init()
+                init(value: String)
+                func foo()
+            }
+
+            #if DEBUG
+
+            @objc final class MockStartEndTimePickingDelegate: NSObject, StartEndTimePickingDelegate, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                override init() {
+                }
+
+                @available(*, deprecated, message: "Use init() instead to initialize a mock") override init(value: String) {
+                }
+
+                func foo() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
+            """
+        }
+    }
+
     func testGenericProtocol() {
         assertMacro {
             """
