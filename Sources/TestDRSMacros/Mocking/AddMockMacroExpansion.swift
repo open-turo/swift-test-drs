@@ -21,6 +21,7 @@ public struct AddMockMacro: PeerMacro {
     private struct MockGenerationConfig {
         let typeBeingMocked: TypeBeingMocked
         let isPublic: Bool
+        let inheritsFromNSObject: Bool
 
         var shouldMakeMembersPublic: Bool {
             isPublic && typeBeingMocked == .protocol
@@ -28,6 +29,10 @@ public struct AddMockMacro: PeerMacro {
 
         var shouldOverrideMembers: Bool {
             typeBeingMocked == .class
+        }
+
+        var shouldOverrideInitializers: Bool {
+            typeBeingMocked == .class || inheritsFromNSObject
         }
 
         var isGeneratingClass: Bool {
@@ -114,7 +119,7 @@ public struct AddMockMacro: PeerMacro {
                     .compactMap { $0 }
             ),
             members: protocolDeclaration.memberBlock.members,
-            config: .init(typeBeingMocked: .protocol, isPublic: protocolDeclaration.isPublic)
+            config: .init(typeBeingMocked: .protocol, isPublic: protocolDeclaration.isPublic, inheritsFromNSObject: nsObject != nil)
         )
 
         if let associatedTypeClause = protocolDeclaration.primaryAssociatedTypeClause {
@@ -166,7 +171,7 @@ public struct AddMockMacro: PeerMacro {
             named: className,
             inheritanceClause: inheritanceClause,
             members: classDeclaration.memberBlock.members,
-            config: .init(typeBeingMocked: .class, isPublic: classDeclaration.isPublic)
+            config: .init(typeBeingMocked: .class, isPublic: classDeclaration.isPublic, inheritsFromNSObject: false)
         )
 
         subclassDeclaration.modifiers += classDeclaration.modifiers
@@ -181,7 +186,7 @@ public struct AddMockMacro: PeerMacro {
 
         mockStructDeclaration.memberBlock.members = mockMembers(
             from: structDeclaration.memberBlock.members,
-            config: .init(typeBeingMocked: .struct, isPublic: structDeclaration.isPublic)
+            config: .init(typeBeingMocked: .struct, isPublic: structDeclaration.isPublic, inheritsFromNSObject: false)
         )
         mockStructDeclaration.name = mockTypeName(from: structDeclaration.name.trimmedDescription)
         mockStructDeclaration.inheritanceClause = (structDeclaration.inheritanceClause ?? .emptyClause).appending([mockProtocolName])
@@ -352,6 +357,10 @@ public struct AddMockMacro: PeerMacro {
 
         if config.shouldMakeMembersPublic && !mockInit.hasExplicitAccessControl {
             mockInit.modifiers += [.publicModifier]
+        }
+
+        if config.shouldOverrideInitializers && !mockInit.isOverride {
+            mockInit.modifiers += [.overrideModifier]
         }
 
         if !mockInit.signature.parameterClause.parameters.isEmpty {
