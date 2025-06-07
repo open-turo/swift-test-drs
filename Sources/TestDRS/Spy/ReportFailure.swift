@@ -5,8 +5,14 @@
 
 import IssueReporting
 
-func reportFailure(_ message: String) {
-    reportIssue(message)
+public func reportFailure(
+    _ message: String,
+    fileID: StaticString = #fileID,
+    filePath: StaticString = #filePath,
+    line: UInt = #line,
+    column: UInt = #column
+) {
+    reportIssue(message, fileID: fileID, filePath: filePath, line: line, column: column)
 }
 
 func reportFailure(_ message: String, location: SourceLocation) {
