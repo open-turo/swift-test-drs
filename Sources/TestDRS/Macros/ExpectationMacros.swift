@@ -56,3 +56,31 @@ public macro expectWasNotCalled<Input, Output>(
     taking inputType: Input.Type? = nil,
     returning outputType: Output.Type? = nil
 ) = #externalMacro(module: "TestDRSMacros", type: "ExpectWasNotCalledMacro")
+
+// MARK: - expectCase
+
+/// Expects that the given value matches the specified enum case.
+///
+/// This macro generates a switch statement that verifies the enum value matches the expected case pattern.
+/// If the case doesn't match, it reports a test failure with a descriptive error message.
+///
+/// - Parameters:
+///   - expectedCase: The expected case pattern (e.g., `.success`, `.failure(_)`, `.loading(progress: _)`).
+///   - value: The enum value to check against the expected case.
+///
+/// Example usage:
+/// ```swift
+/// enum Result<T, E> {
+///     case success(T)
+///     case failure(E)
+/// }
+///
+/// let result: Result<String, Error> = .success("data")
+/// #expectCase(.success(_), in: result)  // Passes
+/// #expectCase(.failure(_), in: result)  // Fails with descriptive message
+/// ```
+@freestanding(expression)
+public macro expectCase<T>(
+    _ expectedCase: T,
+    in value: T
+) = #externalMacro(module: "TestDRSMacros", type: "ExpectCaseMacro")
