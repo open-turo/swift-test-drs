@@ -5,8 +5,14 @@
 
 import IssueReporting
 
-func reportFailure(_ message: String) {
-    reportIssue(message)
+func reportFailure(
+    _ message: String,
+    fileID: StaticString = #fileID,
+    filePath: StaticString = #filePath,
+    line: UInt = #line,
+    column: UInt = #column
+) {
+    reportIssue(message, fileID: fileID, filePath: filePath, line: line, column: column)
 }
 
 func reportFailure(_ message: String, location: SourceLocation) {
@@ -17,4 +23,17 @@ func reportFailure(_ message: String, location: SourceLocation) {
         line: location.line,
         column: location.column
     )
+}
+
+/// Internal helper function for `expectCase` macro failures.
+public func _expectCaseFailure<T>(
+    expectedCase: String,
+    actualValue: T,
+    fileID: StaticString = #fileID,
+    filePath: StaticString = #filePath,
+    line: UInt = #line,
+    column: UInt = #column
+) {
+    let message = "Expected \(expectedCase), but got \(String(describing: actualValue))"
+    reportFailure(message, fileID: fileID, filePath: filePath, line: line, column: column)
 }
