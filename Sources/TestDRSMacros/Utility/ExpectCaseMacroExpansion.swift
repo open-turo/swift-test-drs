@@ -105,11 +105,6 @@ public struct ExpectCaseMacro: ExpressionMacro {
             ])
         )
 
-        let errorMessage = buildErrorMessage(
-            caseName: caseName,
-            valueExpression: valueExpression,
-            casePattern: casePattern
-        )
         let defaultCase = SwitchCaseSyntax(
             label: .default(SwitchDefaultLabelSyntax()),
             statements: CodeBlockItemListSyntax([
@@ -118,10 +113,20 @@ public struct ExpectCaseMacro: ExpressionMacro {
                         StmtSyntax(
                             ExpressionStmtSyntax(
                                 expression: FunctionCallExprSyntax(
-                                    calledExpression: ExprSyntax(DeclReferenceExprSyntax(baseName: .identifier("reportFailure"))),
+                                    calledExpression: ExprSyntax(DeclReferenceExprSyntax(baseName: .identifier("_expectCaseFailure"))),
                                     leftParen: .leftParenToken(),
                                     arguments: LabeledExprListSyntax([
-                                        LabeledExprSyntax(expression: errorMessage)
+                                        LabeledExprSyntax(
+                                            label: "expectedCase",
+                                            colon: .colonToken(),
+                                            expression: StringLiteralExprSyntax(content: casePattern.description),
+                                            trailingComma: .commaToken()
+                                        ),
+                                        LabeledExprSyntax(
+                                            label: "actualValue",
+                                            colon: .colonToken(),
+                                            expression: valueExpression
+                                        )
                                     ]),
                                     rightParen: .rightParenToken()
                                 )
@@ -143,39 +148,4 @@ public struct ExpectCaseMacro: ExpressionMacro {
         )
     }
 
-    private static func buildErrorMessage(caseName: String, valueExpression: ExprSyntax, casePattern: ExprSyntax) -> ExprSyntax {
-        let expectedPart = StringLiteralExprSyntax(content: "Expected ")
-        let casePatternString = StringLiteralExprSyntax(content: casePattern.description)
-        let middlePart = StringLiteralExprSyntax(content: ", but got ")
-
-        let stringDescribingCall = FunctionCallExprSyntax(
-            calledExpression: ExprSyntax(DeclReferenceExprSyntax(baseName: .identifier("String"))),
-            leftParen: .leftParenToken(),
-            arguments: LabeledExprListSyntax([
-                LabeledExprSyntax(label: "describing", colon: .colonToken(), expression: valueExpression)
-            ]),
-            rightParen: .rightParenToken()
-        )
-
-        // Concatenate: "Expected " + pattern + ", but got " + description
-        let firstConcat = InfixOperatorExprSyntax(
-            leftOperand: ExprSyntax(expectedPart),
-            operator: BinaryOperatorExprSyntax(operator: .binaryOperator("+")),
-            rightOperand: ExprSyntax(casePatternString)
-        )
-
-        let secondConcat = InfixOperatorExprSyntax(
-            leftOperand: ExprSyntax(firstConcat),
-            operator: BinaryOperatorExprSyntax(operator: .binaryOperator("+")),
-            rightOperand: ExprSyntax(middlePart)
-        )
-
-        let finalConcat = InfixOperatorExprSyntax(
-            leftOperand: ExprSyntax(secondConcat),
-            operator: BinaryOperatorExprSyntax(operator: .binaryOperator("+")),
-            rightOperand: ExprSyntax(stringDescribingCall)
-        )
-
-        return ExprSyntax(finalConcat)
-    }
 }
