@@ -33,7 +33,7 @@ final class ExpectCaseMacroExpansionTests: XCTestCase {
                 case .bar:
                     break
                 default:
-                    reportFailure("Expected " + ".bar" + ", but got " + String(describing: foo))
+                    _expectCaseFailure(expectedCase: ".bar", actualValue: foo)
                 }
             }()
             """
@@ -52,7 +52,7 @@ final class ExpectCaseMacroExpansionTests: XCTestCase {
                 case .failure("error"):
                     break
                 default:
-                    reportFailure("Expected " + #".failure("error")"# + ", but got " + String(describing: result))
+                    _expectCaseFailure(expectedCase: #".failure("error")"#, actualValue: result)
                 }
             }()
             """
