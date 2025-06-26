@@ -28,9 +28,9 @@ final class SetStubUsingClosureMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.setDynamicStub(for: mock.foo, withSignature: "foo") {
-                "Hello World"
-            }
+            mock.setDynamicStub(for: mock.foo, withSignature: "foo", using: {
+                    "Hello World"
+                })
             """
         }
     }
@@ -42,9 +42,9 @@ final class SetStubUsingClosureMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.setDynamicStub(for: mock.foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)") {
-                "Hello World"
-            }
+            mock.setDynamicStub(for: mock.foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", using: {
+                    "Hello World"
+                })
             """
         }
     }
@@ -56,9 +56,9 @@ final class SetStubUsingClosureMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            setDynamicStub(for: foo, withSignature: "foo") {
-                "Hello World"
-            }
+            setDynamicStub(for: foo, withSignature: "foo", using: {
+                    "Hello World"
+                })
             """
         }
     }
@@ -74,9 +74,23 @@ final class SetStubUsingClosureMacroExpansionTests: XCTestCase {
             """
             let x = "Hello "
             let y = "World"
-            setDynamicStub(for: foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)") {
-                x + y
-            }
+            setDynamicStub(for: foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", using: {
+                    x + y
+                })
+            """
+        }
+    }
+
+    func testStubbingMethod_WithClosureVariable() {
+        assertMacro {
+            """
+            let block = { "Hello World" }
+            #stub(mock.foo, using: block)
+            """
+        } expansion: {
+            """
+            let block = { "Hello World" }
+            mock.setDynamicStub(for: mock.foo, withSignature: "foo", using: block)
             """
         }
     }
