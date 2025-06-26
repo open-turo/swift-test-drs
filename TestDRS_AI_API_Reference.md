@@ -46,7 +46,7 @@ protocol NetworkClient {
 - Generated mocks wrapped in `#if DEBUG`
 
 ### @Mock Macro
-**Purpose**: Adds mock functionality to existing types
+**Purpose**: Adds mock functionality to existing mocked types
 **Syntax**: `@Mock`
 **Usage**: Applied to struct/class definitions
 
@@ -109,7 +109,7 @@ class MockNetworkClient: NetworkClient {
 ```
 
 ### #expectWasCalled(_:with:returning:mode:)
-**Purpose**: Verify function called with specific input (requires Equatable input)
+**Purpose**: Verify function called with specific input (requires `Equatable` input)
 **Syntax**: `#expectWasCalled(function, with: expectedInput, returning: OutputType.self, mode: ExpectedCallMode = .nonExclusive)`
 
 ```swift
