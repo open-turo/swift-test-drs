@@ -122,11 +122,11 @@ public struct SetStubUsingClosureMacro: ExpressionMacro {
 
         if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
             return """
-            \(base).setDynamicStub(for: \(memberAccess), withSignature: "\(memberAccess.declName)")\(closure)
+            \(base).setDynamicStub(for: \(memberAccess), withSignature: "\(memberAccess.declName)", using: \(closure))
             """
         } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
             return """
-            setDynamicStub(for: \(expression), withSignature: "\(expression)")\(closure)
+            setDynamicStub(for: \(expression), withSignature: "\(expression)", using: \(closure))
             """
         } else {
             context.diagnose(
