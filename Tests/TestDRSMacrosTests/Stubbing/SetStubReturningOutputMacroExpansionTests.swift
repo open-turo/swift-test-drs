@@ -77,6 +77,52 @@ final class SetStubReturningOutputMacroTests: XCTestCase {
         }
     }
 
+    func testStubbingMethod_WithMultilineFormatting() {
+        assertMacro {
+            """
+            #stub(
+                foo,
+                returning: "Hello World"
+            )
+            """
+        } expansion: {
+            """
+            setStub(for: foo, withSignature: "foo", taking: nil, returning: "Hello World")
+            """
+        }
+    }
+
+    func testStubbingMethod_WithMultilineFormatting_WithArguments() {
+        assertMacro {
+            """
+            #stub(
+                foo(_:paramTwo:),
+                taking: Int.self,
+                returning: "Hello World"
+            )
+            """
+        } expansion: {
+            """
+            setStub(for: foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", taking: Int.self, returning: "Hello World")
+            """
+        }
+    }
+
+    func testStubbingMethod_WithMultilineFormatting_WithMemberAccess() {
+        assertMacro {
+            """
+            #stub(
+                mock.foo,
+                returning: "Hello World"
+            )
+            """
+        } expansion: {
+            """
+            mock.setStub(for: mock.foo, withSignature: "foo", taking: nil, returning: "Hello World")
+            """
+        }
+    }
+
 }
 
 #endif
