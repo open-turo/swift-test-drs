@@ -38,9 +38,9 @@ public struct SetStubReturningOutputMacro: ExpressionMacro {
             return """
             \(base).setStub(for: \(memberAccess), withSignature: "\(memberAccess.declName)", taking: \(inputType == nil ? "nil" : "\(inputType)"), returning: \(output))
             """
-        } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
+        } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self)?.trimmed {
             return """
-            setStub(for: \(expression), withSignature: "\(expression)", taking: \(inputType == nil ? "nil" : "\(inputType)"), returning: \(output))
+            setStub(for: \(expression), withSignature: \(literal: expression.description), taking: \(inputType == nil ? "nil" : "\(inputType)"), returning: \(output))
             """
         } else {
             context.diagnose(
@@ -83,9 +83,9 @@ public struct SetStubThrowingErrorMacro: ExpressionMacro {
             return """
             \(base).setStub(for: \(memberAccess), withSignature: "\(memberAccess.declName)", taking: \(inputType == nil ? "nil" : "\(inputType)"), throwing: \(error))
             """
-        } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
+        } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self)?.trimmed {
             return """
-            setStub(for: \(expression), withSignature: "\(expression)", taking: \(inputType == nil ? "nil" : "\(inputType)"), throwing: \(error))
+            setStub(for: \(expression), withSignature: \(literal: expression.description), taking: \(inputType == nil ? "nil" : "\(inputType)"), throwing: \(error))
             """
         } else {
             context.diagnose(
@@ -124,9 +124,9 @@ public struct SetStubUsingClosureMacro: ExpressionMacro {
             return """
             \(base).setDynamicStub(for: \(memberAccess), withSignature: "\(memberAccess.declName)", using: \(closure))
             """
-        } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self) {
+        } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self)?.trimmed {
             return """
-            setDynamicStub(for: \(expression), withSignature: "\(expression)", using: \(closure))
+            setDynamicStub(for: \(expression), withSignature: \(literal: expression.description), using: \(closure))
             """
         } else {
             context.diagnose(
