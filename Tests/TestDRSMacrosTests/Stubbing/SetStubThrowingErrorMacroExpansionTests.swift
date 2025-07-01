@@ -77,6 +77,37 @@ final class SetStubThrowingErrorMacroExpansionTests: XCTestCase {
         }
     }
 
+    func testStubbingMethod_WithMultilineFormatting() {
+        assertMacro {
+            """
+            #stub(
+                foo,
+                throwing: MyError.someError
+            )
+            """
+        } expansion: {
+            """
+            setStub(for: foo, withSignature: "foo", taking: nil, throwing: MyError.someError)
+            """
+        }
+    }
+
+    func testStubbingMethod_WithMultilineFormatting_WithArguments() {
+        assertMacro {
+            """
+            #stub(
+                foo(_:paramTwo:),
+                taking: Int.self,
+                throwing: MyError.someError
+            )
+            """
+        } expansion: {
+            """
+            setStub(for: foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", taking: Int.self, throwing: MyError.someError)
+            """
+        }
+    }
+
 }
 
 #endif

@@ -95,6 +95,40 @@ final class SetStubUsingClosureMacroExpansionTests: XCTestCase {
         }
     }
 
+    func testStubbingMethod_WithMultilineFormatting() {
+        assertMacro {
+            """
+            #stub(
+                foo,
+                using: { "Hello World" }
+            )
+            """
+        } expansion: {
+            """
+            setDynamicStub(for: foo, withSignature: "foo", using: {
+                    "Hello World"
+                })
+            """
+        }
+    }
+
+    func testStubbingMethod_WithMultilineFormatting_WithArguments() {
+        assertMacro {
+            """
+            #stub(
+                foo(_:paramTwo:),
+                using: { "Hello World" }
+            )
+            """
+        } expansion: {
+            """
+            setDynamicStub(for: foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", using: {
+                    "Hello World"
+                })
+            """
+        }
+    }
+
 }
 
 #endif

@@ -34,9 +34,9 @@ public struct SetStubReturningOutputMacro: ExpressionMacro {
             argument.label?.text == "taking"
         }?.expression
 
-        if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
+        if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self)?.trimmed, let base = memberAccess.base {
             return """
-            \(base).setStub(for: \(memberAccess), withSignature: "\(memberAccess.declName)", taking: \(inputType == nil ? "nil" : "\(inputType)"), returning: \(output))
+            \(base).setStub(for: \(memberAccess), withSignature: \(literal: memberAccess.declName.description), taking: \(inputType == nil ? "nil" : "\(inputType)"), returning: \(output))
             """
         } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self)?.trimmed {
             return """
@@ -79,9 +79,9 @@ public struct SetStubThrowingErrorMacro: ExpressionMacro {
             argument.label?.text == "taking"
         }?.expression
 
-        if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
+        if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self)?.trimmed, let base = memberAccess.base {
             return """
-            \(base).setStub(for: \(memberAccess), withSignature: "\(memberAccess.declName)", taking: \(inputType == nil ? "nil" : "\(inputType)"), throwing: \(error))
+            \(base).setStub(for: \(memberAccess), withSignature: \(literal: memberAccess.declName.description), taking: \(inputType == nil ? "nil" : "\(inputType)"), throwing: \(error))
             """
         } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self)?.trimmed {
             return """
@@ -120,9 +120,9 @@ public struct SetStubUsingClosureMacro: ExpressionMacro {
             return ""
         }
 
-        if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self), let base = memberAccess.base {
+        if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self)?.trimmed, let base = memberAccess.base {
             return """
-            \(base).setDynamicStub(for: \(memberAccess), withSignature: "\(memberAccess.declName)", using: \(closure))
+            \(base).setDynamicStub(for: \(memberAccess), withSignature: \(literal: memberAccess.declName.description), using: \(closure))
             """
         } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self)?.trimmed {
             return """
