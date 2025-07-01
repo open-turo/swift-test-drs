@@ -144,7 +144,7 @@ extension FunctionCallConfirmation where AmountMatching: MatchingMultiple {
 
 // MARK: - Confirming amount
 
-extension FunctionCallConfirmation where AmountMatching == MatchingFirst, Input: Sendable {
+extension FunctionCallConfirmation where AmountMatching == MatchingFirst {
 
     /// Makes a further confirmation that the specified call occurred exactly once.
     ///

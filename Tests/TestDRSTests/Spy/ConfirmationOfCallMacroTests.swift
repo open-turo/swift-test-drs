@@ -109,7 +109,7 @@ struct ConfirmationOfCallMacroTests: Sendable {
     func confirmationOfCall_WithSingleCall_Succeeds() async {
         spy.foo()
 
-        let call = await #confirmationOfCall(to: spy.foo)
+        let call = await #confirmationOfCall(to: spy.foo).matchingCall
 
         #expect(call != nil)
     }
