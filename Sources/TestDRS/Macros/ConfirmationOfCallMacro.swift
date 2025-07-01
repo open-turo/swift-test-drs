@@ -16,7 +16,7 @@ import Foundation
 ///   - function: A reference to the function to expect was called.
 ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
 ///   - outputType: An optional phantom parameter used to derive the output type of the `function` passed in.
-///   - timeLimit: The maximum amount of time to wait for confirmation. If the time limit is reached before the first call can be confirmed, a test failure is reported. Defaults to a duration that is effectively infinite.
+///   - timeLimit: The maximum amount of time to wait for confirmation. If the time limit is reached before the first call can be confirmed, a test failure is reported. Defaults to 5 seconds.
 /// - Returns: A `FunctionCallConfirmation` that waits for the first matching call. Further calls can be confirmed by calling methods on this confirmation.
 @freestanding(expression)
 @discardableResult
@@ -24,7 +24,7 @@ public macro confirmationOfCall<Input, Output>(
     to function: (Input) async throws -> Output,
     taking inputType: Input.Type? = nil,
     returning outputType: Output.Type? = nil,
-    timeLimit: Duration = .maxTimeLimit,
+    timeLimit: Duration = .seconds(5),
     isolation: isolated(any Actor)? = #isolation
 ) -> FunctionCallConfirmation<MatchingFirst, Input, Output> = #externalMacro(module: "TestDRSMacros", type: "ConfirmationOfCallMacro")
 
@@ -37,7 +37,7 @@ public macro confirmationOfCall<Input, Output>(
 ///   - function: A reference to the function to expect was called.
 ///   - expectedInput: The expected input parameter(s) for the function.
 ///   - outputType: An optional phantom parameter used to derive the output type of the `function` passed in.
-///   - timeLimit: The maximum amount of time to wait for confirmation. If the time limit is reached before the first call can be confirmed, a test failure is reported. Defaults to a duration that is effectively infinite.
+///   - timeLimit: The maximum amount of time to wait for confirmation. If the time limit is reached before the first call can be confirmed, a test failure is reported. Defaults to 5 seconds.
 /// - Returns: A `FunctionCallConfirmation` that waits for the first matching call. Further calls can be confirmed by calling methods on this confirmation.
 @freestanding(expression)
 @discardableResult
@@ -45,6 +45,6 @@ public macro confirmationOfCall<each Input: Equatable, Output>(
     to function: (repeat each Input) async throws -> Output,
     with expectedInput: repeat each Input,
     returning outputType: Output.Type? = nil,
-    timeLimit: Duration = .maxTimeLimit,
+    timeLimit: Duration = .seconds(5),
     isolation: isolated(any Actor)? = #isolation
 ) -> FunctionCallConfirmation<MatchingFirst, (repeat each Input), Output> = #externalMacro(module: "TestDRSMacros", type: "ConfirmationOfCallMacro")
