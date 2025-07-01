@@ -216,8 +216,3 @@ public extension Spy {
     }
 
 }
-
-extension Duration {
-    /// A duration that is long enough to essentially be considered infinite, but short enough to not cause an error when used to sleep a `Task`.
-    public static let maxTimeLimit = Duration.seconds(Int32.max)
-}
