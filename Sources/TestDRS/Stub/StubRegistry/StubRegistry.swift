@@ -14,7 +14,7 @@ public final class StubRegistry: @unchecked Sendable {
     private var propertyStubs: [String: Stub] = [:]
     private var functionStubs: [FunctionStubIdentifier: Stub] = [:]
 
-    var isEmpty: Bool { functionStubs.isEmpty }
+    var isEmpty: Bool { propertyStubs.isEmpty && functionStubs.isEmpty }
 
     public init() {}
 
@@ -76,29 +76,37 @@ extension StubRegistry: CustomDebugStringConvertible {
 
     public var debugDescription: String {
         storageQueue.sync {
-            let propertyStubDescriptions = propertyStubs
-                .sorted(by: { $0.key < $1.key })
-                .map { stub -> String in
-                    """
-                    ******* Property Stub *******
-                    \(String(reflecting: stub.key))
-                    \(String(reflecting: stub.value))
-                    """
-                }
-                .joined(separator: .emptyLine)
+            var sections: [String] = []
 
-            let functionStubDescriptions = functionStubs
-                .sorted(by: { $0.key.signature.name < $1.key.signature.name })
-                .map { stub -> String in
-                    """
-                    ******* Function Stub *******
-                    \(String(reflecting: stub.key))
-                    \(String(reflecting: stub.value))
-                    """
-                }
-                .joined(separator: .emptyLine)
+            if !propertyStubs.isEmpty {
+                let propertyStubDescriptions = propertyStubs
+                    .sorted(by: { $0.key < $1.key })
+                    .map { stub -> String in
+                        """
+                        ******* Property Stub *******
+                        \(String(reflecting: stub.key))
+                        \(String(reflecting: stub.value))
+                        """
+                    }
+                    .joined(separator: .emptyLine)
+                sections.append(propertyStubDescriptions)
+            }
 
-            return "\n" + propertyStubDescriptions + .emptyLine + functionStubDescriptions + .emptyLine
+            if !functionStubs.isEmpty {
+                let functionStubDescriptions = functionStubs
+                    .sorted(by: { $0.key.signature.name < $1.key.signature.name })
+                    .map { stub -> String in
+                        """
+                        ******* Function Stub *******
+                        \(String(reflecting: stub.key))
+                        \(String(reflecting: stub.value))
+                        """
+                    }
+                    .joined(separator: .emptyLine)
+                sections.append(functionStubDescriptions)
+            }
+
+            return sections.isEmpty ? "\n(no stubs configured)" : "\n" + sections.joined(separator: .emptyLine) + .emptyLine
         }
     }
 
