@@ -107,13 +107,27 @@ extension StubRegistry {
     ) {
         switch stubError {
         case .noStub:
+            let space = " "
+            let memberName = signature.name
+            let errorMessage: String
             if isEmpty {
-                fatalError("No stubs were set for this \(stubProvidingType)")
+                errorMessage = """
+                No stubs configured for \(stubProvidingType).
+                `\(memberName) was called before configuring any stubs.
+                """
             } else {
-                fatalError("No stub was found for \(signature) with input type \(Input.self) and output type \(Output.self):\(debugDescription)")
+                errorMessage = """
+                No stub found for \(memberName) with input type \(Input.self) and output type \(Output.self) in \(stubProvidingType).
+                Available stubs:\(String.emptyLine)\(debugDescription)
+                """
             }
+            reportFailure("""
+            \(errorMessage)
+            Fix: #stub(mockInstance.\(memberName), returning: <value>)
+            """)
+            fatalError("Missing stub")
         case .incorrectOutputType, .incorrectClosureType:
-            fatalError("This should not happen, there must be an issue in TestDRS within the `StubProviding` protocol and/or the `StubRegistry`.")
+            handleInternalError()
         }
     }
 
@@ -125,14 +139,30 @@ extension StubRegistry {
     ) {
         switch stubError {
         case .noStub:
+            let errorMessage: String
             if isEmpty {
-                fatalError("No stubs were set for this \(stubProvidingType)")
+                errorMessage = """
+                No stubs configured for \(stubProvidingType).
+                \(propertyName) was accessed before setting any stub value.
+                """
             } else {
-                fatalError("No stub was found for \(propertyName) with value type \(Value.self):\(debugDescription)")
+                errorMessage = """
+                No stub found for \(propertyName) in \(stubProvidingType).
+                Available stubs:\(String.emptyLine)\(debugDescription)
+                """
             }
+            reportFailure("""
+            \(errorMessage)
+            Fix: mockInstance.\(propertyName) = <value>
+            """)
+            fatalError("Missing stub")
         case .incorrectOutputType, .incorrectClosureType:
-            fatalError("This should not happen, there must be an issue in TestDRS within the `StubProviding` protocol and/or the `StubRegistry`.")
+            handleInternalError()
         }
+    }
+
+    private func handleInternalError() -> Never {
+        fatalError("This should not happen, there must be an issue in TestDRS within the `StubProviding` protocol and/or the `StubRegistry`.")
     }
 
 }

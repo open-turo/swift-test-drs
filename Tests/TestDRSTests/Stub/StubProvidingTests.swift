@@ -220,7 +220,7 @@ final class StubProvidingTests: XCTestCase {
         XCTAssertEqual(stubProvider.y, "Hello World")
     }
 
-    func testDebugDescrption() {
+    func testDebugDescription() {
         stubProvider.x = 63
         stubProvider.y = "Hello World"
         stubProvider.setStub(for: stubProvider.foo, withSignature: "foo()", returning: 7)
@@ -254,6 +254,58 @@ final class StubProvidingTests: XCTestCase {
             inputType: Void
             outputType: Int
             stubbed output: 7
+            \(space)
+
+            """
+        )
+    }
+
+    func testDebugDescriptionOnlyProperties() {
+        stubProvider.x = 42
+        stubProvider.y = "Test"
+
+        let space = " "
+
+        XCTAssertEqual(
+            stubProvider.stubRegistry.debugDescription,
+            """
+
+            ******* Property Stub *******
+            "x"
+            stubbed output: 42
+            \(space)
+            ******* Property Stub *******
+            "y"
+            stubbed output: Test
+            \(space)
+
+            """
+        )
+    }
+
+    func testDebugDescriptionOnlyFunctions() {
+        stubProvider.setStub(for: stubProvider.foo, withSignature: "foo()", returning: 123)
+        stubProvider.setDynamicStub(for: stubProvider.bar(paramOne:), withSignature: "bar(paramOne:)") { paramOne in
+            paramOne ? "Yes" : "No"
+        }
+
+        let space = " "
+
+        XCTAssertEqual(
+            stubProvider.stubRegistry.debugDescription,
+            """
+
+            ******* Function Stub *******
+            signature: "bar(paramOne:)"
+            inputType: Bool
+            outputType: String
+            stubbed using a closure
+            \(space)
+            ******* Function Stub *******
+            signature: "foo()"
+            inputType: Void
+            outputType: Int
+            stubbed output: 123
             \(space)
 
             """
