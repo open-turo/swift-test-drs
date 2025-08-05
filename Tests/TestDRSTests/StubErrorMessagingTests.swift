@@ -12,7 +12,7 @@ private protocol ErrorTestService {
 /// These tests are disabled by default since they cause fatal errors.
 /// To validate error messages manually, temporarily enable individual tests.
 @Suite(.disabled("Disabled by default to avoid fatal errors during normal test runs"))
-struct ErrorMessagingTests {
+struct StubErrorMessagingTests {
 
     @Test
     func methodCalledWithNoStubs() {
