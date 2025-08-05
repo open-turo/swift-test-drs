@@ -107,7 +107,6 @@ extension StubRegistry {
     ) {
         switch stubError {
         case .noStub:
-            let space = " "
             let memberName = signature.name
             let errorMessage: String
             if isEmpty {
