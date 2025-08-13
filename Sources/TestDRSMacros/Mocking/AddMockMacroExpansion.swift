@@ -47,8 +47,10 @@ public struct AddMockMacro: PeerMacro {
             typeBeingMocked != .class
         }
 
-        var shouldOverrideInitializers: Bool {
-            inheritsFromNSObject
+        func shouldOverrideInitializer(_ initializer: InitializerDeclSyntax) -> Bool {
+            guard inheritsFromNSObject else { return false }
+            // Only override init() - NSObject doesn't have other designated initializers
+            return initializer.signature.parameterClause.parameters.isEmpty
         }
 
         func shouldMockMember(member: WithModifiersSyntax) -> Bool {
@@ -300,7 +302,7 @@ public struct AddMockMacro: PeerMacro {
             if config.needsPublicInit {
                 emptyInit.modifiers.append(.publicModifier)
             }
-            if config.shouldOverrideInitializers {
+            if config.shouldOverrideInitializer(emptyInit) {
                 emptyInit.modifiers.append(.overrideModifier)
             }
             mockInits.insert(emptyInit, at: 0)
@@ -362,7 +364,7 @@ public struct AddMockMacro: PeerMacro {
             mockInit.modifiers += [.publicModifier]
         }
 
-        if config.shouldOverrideInitializers && !mockInit.isOverride {
+        if config.shouldOverrideInitializer(initializer) && !mockInit.isOverride {
             mockInit.modifiers += [.overrideModifier]
         }
 
