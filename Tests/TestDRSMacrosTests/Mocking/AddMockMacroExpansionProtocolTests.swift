@@ -236,6 +236,85 @@ final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
         }
     }
 
+    func testObjectiveCProtocolWithInitializer() {
+        assertMacro {
+            """
+            @AddMock
+            @objc protocol SomeProtocol {
+                init()
+                func foo()
+            }
+            """
+        } expansion: {
+            """
+            @objc protocol SomeProtocol {
+                init()
+                func foo()
+            }
+
+            #if DEBUG
+
+            @objc final class MockSomeProtocol: NSObject, SomeProtocol, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                override init() {
+                }
+
+                func foo() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
+            """
+        }
+    }
+
+    func testObjectiveCProtocolWithParameterizedInitializer() {
+        assertMacro {
+            """
+            @AddMock
+            @objc protocol SomeProtocol {
+                init(value: String)
+                func foo()
+            }
+            """
+        } expansion: {
+            """
+            @objc protocol SomeProtocol {
+                init(value: String)
+                func foo()
+            }
+
+            #if DEBUG
+
+            @objc final class MockSomeProtocol: NSObject, SomeProtocol, Mock {
+
+                let blackBox = BlackBox()
+                let stubRegistry = StubRegistry()
+
+                override init() {
+                }
+
+                @available(*, deprecated, message: "Use init() instead to initialize a mock") override init(value: String) {
+                }
+
+                func foo() {
+                    recordCall()
+                    return stubOutput()
+                }
+
+            }
+
+            #endif
+            """
+        }
+    }
+
     func testGenericProtocol() {
         assertMacro {
             """
