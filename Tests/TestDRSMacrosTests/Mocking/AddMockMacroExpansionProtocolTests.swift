@@ -300,7 +300,7 @@ final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
                 override init() {
                 }
 
-                @available(*, deprecated, message: "Use init() instead to initialize a mock") override init(value: String) {
+                @available(*, deprecated, message: "Use init() instead to initialize a mock") init(value: String) {
                 }
 
                 func foo() {
