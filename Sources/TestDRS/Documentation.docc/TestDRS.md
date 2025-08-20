@@ -44,6 +44,12 @@ After running your code under test, you'll often want to verify that it interact
 - ``expectWasNotCalled(_:taking:returning:)``
 - ``ExpectWasCalledResult``
 
+### Value and state verification
+
+Verify that values match expected patterns or enum cases.
+
+- ``expectCase(_:in:)``
+
 ### Asynchronous testing
 
 These tools help you test asynchronous code by allowing you to await and verify function calls that might happen in the future.
