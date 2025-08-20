@@ -65,6 +65,13 @@ struct ExpectCaseMacroTests {
     }
 
     @Test
+    func testExpectCase_MatchingAnyAssociatedValue() {
+        let value: TestEnum = .failure("any error message")
+
+        #expectCase(TestEnum.failure, in: value)
+    }
+
+    @Test
     func testExpectCase_WithNilOptional() {
         let optional: TestEnum? = nil
 

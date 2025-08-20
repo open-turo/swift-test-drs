@@ -202,6 +202,45 @@ XCTAssertTrue(options.preserveMetadata)
 
 The `getMatchingCall()` method returns the recorded function call, allowing you to access its `input` property. For methods with multiple parameters, the input is represented as a tuple, which you can destructure to access individual parameters.
 
+## Verifying enum values with expectCase
+
+TestDRS includes the `#expectCase` macro for verifying that enum values match expected patterns. The macro supports two approaches for different testing scenarios:
+
+### Specific value matching
+
+Use the shorthand syntax when you want to verify both the case and its associated values:
+
+```swift
+enum Result<T, E> {
+    case success(T)
+    case failure(E)
+}
+
+let result = performOperation()
+
+// Verify specific success value
+#expectCase(.success("expected data"), in: result)
+
+// Verify specific failure
+#expectCase(.failure(MyError.networkTimeout), in: result)
+```
+
+### Wildcard case matching
+
+Use the full enum type name when you only care about the case, not the associated values:
+
+```swift
+// Verify the result is a success (any success, ignore the value)
+#expectCase(Result.success, in: result)
+
+// Verify it's a failure case (any failure, ignore the error)
+#expectCase(Result.failure, in: result)
+```
+
+**Why the full type name?** Swift requires the full enum type name (`Result.success`) rather than shorthand (`.success`) because the macro uses the enum case as a function type. This allows the compiler to properly match any case with associated values without needing to specify them.
+
+This is particularly useful when testing functions that return Result types or other enums representing different states.
+
 ## Next steps
 
 Now that you've learned the basics of TestDRS, check out these additional articles:

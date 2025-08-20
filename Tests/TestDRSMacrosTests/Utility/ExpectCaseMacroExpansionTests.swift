@@ -59,6 +59,25 @@ final class ExpectCaseMacroExpansionTests: XCTestCase {
         }
     }
 
+    func testExpectCaseMacro_WithWildcardPattern() {
+        assertMacro {
+            """
+            #expectCase(Result.failure, in: result)
+            """
+        } expansion: {
+            """
+            {
+                switch result {
+                case Result.failure:
+                    break
+                default:
+                    _expectCaseFailure(expectedCase: "Result.failure", actualValue: result)
+                }
+            }()
+            """
+        }
+    }
+
     func testExpectCaseMacro_WithInvalidCasePattern() {
         assertMacro {
             """
