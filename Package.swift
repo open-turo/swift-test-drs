@@ -12,6 +12,10 @@ let package = Package(
             name: "TestDRS",
             targets: ["TestDRS"]
         ),
+        .library(
+            name: "TestDRSTestSupport",
+            targets: ["TestDRSTestSupport"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/swiftlang/swift-syntax", from: "600.0.1"),
@@ -37,11 +41,20 @@ let package = Package(
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),
 
+        .target(
+            name: "TestDRSTestSupport",
+            dependencies: [
+                "TestDRS"
+            ],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
+        ),
+
         .testTarget(
             name: "TestDRSTests",
             dependencies: [
                 "TestDRS",
                 "TestDRSMacros",
+                "TestDRSTestSupport",
             ],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),

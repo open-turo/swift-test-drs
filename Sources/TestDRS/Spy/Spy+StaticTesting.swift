@@ -23,7 +23,7 @@ extension Spy {
                 reportFailure(message)
             }
 
-            return BlackBox()
+            return BlackBox(mockType: Self.self)
         }
 
         return context.blackBox(for: Self.self)

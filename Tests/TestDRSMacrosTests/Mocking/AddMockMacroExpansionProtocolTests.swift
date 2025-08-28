@@ -36,8 +36,8 @@ final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeProtocol: SomeProtocol, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeProtocol.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeProtocol.self)
 
                 func foo() throws -> String {
                     recordCall(returning: String.self)
@@ -97,8 +97,8 @@ final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeProtocol: SomeProtocol, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeProtocol.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeProtocol.self)
 
                 var foo: String {
                     get {
@@ -155,8 +155,8 @@ final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeProtocol: SomeProtocol, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeProtocol.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeProtocol.self)
 
                 func foo<T>() -> T {
                     recordCall(returning: T.self)
@@ -188,8 +188,8 @@ final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeProtocol: SomeProtocol, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeProtocol.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeProtocol.self)
 
                 func foo<T>() -> T where T: Equatable {
                     recordCall(returning: T.self)
@@ -221,8 +221,8 @@ final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
 
             @objc final class MockSomeProtocol: NSObject, SomeProtocol, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeProtocol.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeProtocol.self)
 
                 func foo1() {
                     recordCall()
@@ -256,8 +256,8 @@ final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
 
             @objc final class MockSomeProtocol: NSObject, SomeProtocol, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeProtocol.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeProtocol.self)
 
                 override init() {
                 }
@@ -294,8 +294,8 @@ final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
 
             @objc final class MockSomeProtocol: NSObject, SomeProtocol, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeProtocol.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeProtocol.self)
 
                 override init() {
                 }
@@ -337,8 +337,8 @@ final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeProtocol<T>: SomeProtocol, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeProtocol.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeProtocol.self)
 
                 var foo: T {
                     get {
@@ -386,8 +386,8 @@ final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
             final
             public class MockSomeProtocol: SomeProtocol, Mock {
 
-                public let blackBox = BlackBox()
-                public let stubRegistry = StubRegistry()
+                public let blackBox = BlackBox(mockType: MockSomeProtocol.self)
+                public let stubRegistry = StubRegistry(mockType: MockSomeProtocol.self)
 
                 public var x: String {
                     get {
@@ -444,8 +444,8 @@ final class AddMockMacroExpansionProtocolTests: AddMockMacroExpansionTestCase {
             final
             public class MockSomeProtocol: SomeProtocol, Mock {
 
-                public let blackBox = BlackBox()
-                public let stubRegistry = StubRegistry()
+                public let blackBox = BlackBox(mockType: MockSomeProtocol.self)
+                public let stubRegistry = StubRegistry(mockType: MockSomeProtocol.self)
 
                 public var x: String {
                     get {

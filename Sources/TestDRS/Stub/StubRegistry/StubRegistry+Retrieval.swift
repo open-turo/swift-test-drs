@@ -112,7 +112,7 @@ extension StubRegistry {
             if isEmpty {
                 errorMessage = """
                 No stubs configured for \(stubProvidingType).
-                `\(memberName) was called before configuring any stubs.
+                \(memberName) was called before configuring any stubs.
                 """
             } else {
                 errorMessage = """

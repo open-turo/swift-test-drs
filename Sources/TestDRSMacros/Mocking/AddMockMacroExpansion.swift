@@ -186,11 +186,15 @@ public struct AddMockMacro: PeerMacro {
         var mockStructDeclaration = structDeclaration.trimmed
         mockStructDeclaration.memberBlock.rightBrace.leadingTrivia = []
 
+        let structName = structDeclaration.name.trimmedDescription
+        let mockName = "Mock\(structName)"
+
         mockStructDeclaration.memberBlock.members = mockMembers(
             from: structDeclaration.memberBlock.members,
-            config: .init(typeBeingMocked: .struct, isPublic: structDeclaration.isPublic, inheritsFromNSObject: false)
+            config: .init(typeBeingMocked: .struct, isPublic: structDeclaration.isPublic, inheritsFromNSObject: false),
+            mockTypeName: mockName
         )
-        mockStructDeclaration.name = mockTypeName(from: structDeclaration.name.trimmedDescription)
+        mockStructDeclaration.name = mockTypeName(from: structName)
         mockStructDeclaration.inheritanceClause = (structDeclaration.inheritanceClause ?? .emptyClause).appending([mockProtocolName])
 
         mockStructDeclaration.modifiers = structDeclaration.modifiers
@@ -205,12 +209,13 @@ public struct AddMockMacro: PeerMacro {
         members: MemberBlockItemListSyntax,
         config: MockGenerationConfig
     ) -> ClassDeclSyntax {
+        let mockName = "Mock\(typeName)"
         return ClassDeclSyntax(
             modifiers: DeclModifierListSyntax([.finalModifier]),
             name: mockTypeName(from: typeName),
             inheritanceClause: inheritanceClause
         ) {
-            mockMembers(from: members, config: config)
+            mockMembers(from: members, config: config, mockTypeName: mockName)
         }
     }
 
@@ -222,7 +227,8 @@ public struct AddMockMacro: PeerMacro {
 
     private static func mockMembers(
         from members: MemberBlockItemListSyntax,
-        config: MockGenerationConfig
+        config: MockGenerationConfig,
+        mockTypeName: String
     ) -> MemberBlockItemListSyntax {
         let mockTypes = members.filter { $0.decl.isTypeDeclaration }
         let mockProperties = mockProperties(from: members, config: config)
@@ -237,7 +243,16 @@ public struct AddMockMacro: PeerMacro {
                 .let,
                 name: "blackBox",
                 initializer: InitializerClauseSyntax(
-                    value: FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "BlackBox"))
+                    value: FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "BlackBox")) {
+                        LabeledExprSyntax(
+                            label: "mockType",
+                            expression: MemberAccessExprSyntax(
+                                base: ExprSyntax(stringLiteral: mockTypeName),
+                                period: .periodToken(),
+                                declName: DeclReferenceExprSyntax(baseName: .keyword(.self))
+                            )
+                        )
+                    }
                 )
             )
             VariableDeclSyntax(
@@ -245,7 +260,16 @@ public struct AddMockMacro: PeerMacro {
                 .let,
                 name: "stubRegistry",
                 initializer: InitializerClauseSyntax(
-                    value: FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "StubRegistry"))
+                    value: FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "StubRegistry")) {
+                        LabeledExprSyntax(
+                            label: "mockType",
+                            expression: MemberAccessExprSyntax(
+                                base: ExprSyntax(stringLiteral: mockTypeName),
+                                period: .periodToken(),
+                                declName: DeclReferenceExprSyntax(baseName: .keyword(.self))
+                            )
+                        )
+                    }
                 )
             )
             MemberBlockItemListSyntax {

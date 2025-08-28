@@ -14,30 +14,56 @@ public final class StubRegistry: @unchecked Sendable {
     private var propertyStubs: [String: Stub] = [:]
     private var functionStubs: [FunctionStubIdentifier: Stub] = [:]
 
+    /// The type of mock that owns this StubRegistry
+    private let mockType: Any.Type
+
     var isEmpty: Bool { propertyStubs.isEmpty && functionStubs.isEmpty }
 
-    public init() {}
+    public init(mockType: Any.Type) {
+        self.mockType = mockType
+        TestDRSLogger.current?.register(
+            component: self,
+            mockType: mockType
+        )
+    }
 
     func setPropertyStub(stub: Stub, for propertyName: String) {
+        TestDRSLogger.current?.log(
+            component: self,
+            mockType: mockType,
+            message: "setting \(String(describing: stub)) for \(propertyName)"
+        )
         storageQueue.sync {
             propertyStubs[propertyName] = stub
         }
     }
 
     func setFunctionStub(stub: Stub, for identifier: FunctionStubIdentifier) {
+        TestDRSLogger.current?.log(
+            component: self,
+            mockType: mockType,
+            message: "setting stub for \(identifier.signature)"
+        )
         storageQueue.sync {
             functionStubs[identifier] = stub
         }
     }
 
     func getValue<Output>(for propertyName: String) throws -> Output {
-        try storageQueue.sync {
+        let output: Output = try storageQueue.sync {
             guard let stub = propertyStubs[propertyName] else {
                 throw StubError.noStub
             }
-
             return try stub.evaluate()
         }
+
+        TestDRSLogger.current?.log(
+            component: self,
+            mockType: mockType,
+            message: "returning stub for property \(propertyName)"
+        )
+
+        return output
     }
 
     /// Retrieves the output value for a given input and function signature.
@@ -66,7 +92,15 @@ public final class StubRegistry: @unchecked Sendable {
         }
 
         // Evaluate the stub outside of the storageQueue so that we don't deadlock
-        return try stub.evaluate(with: input)
+        let output: Output = try stub.evaluate(with: input)
+
+        TestDRSLogger.current?.log(
+            component: self,
+            mockType: mockType,
+            message: "returning stub for \(signature)"
+        )
+
+        return output
     }
 
 }
@@ -106,7 +140,7 @@ extension StubRegistry: CustomDebugStringConvertible {
                 sections.append(functionStubDescriptions)
             }
 
-            return sections.isEmpty ? "\n(no stubs configured)" : "\n" + sections.joined(separator: .emptyLine) + .emptyLine
+            return sections.isEmpty ? "\n(no stubs configured)" + .emptyLine : "\n" + sections.joined(separator: .emptyLine) + .emptyLine
         }
     }
 

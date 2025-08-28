@@ -315,7 +315,7 @@ final class StubProvidingTests: XCTestCase {
 }
 
 private struct StubProvider: StubProviding {
-    let stubRegistry = StubRegistry()
+    let stubRegistry = StubRegistry(mockType: StubProvidingTests.self)
 
     var x: Int {
         get {
