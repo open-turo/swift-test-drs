@@ -16,7 +16,17 @@ public final class BlackBox: @unchecked Sendable {
 
     private var continuations: [any FunctionCallContinuationRepresentation] = []
 
-    public init() {}
+    /// The type of mock that owns this BlackBox
+    private let mockType: Any.Type
+
+    public init(mockType: Any.Type) {
+        self.mockType = mockType
+
+        TestDRSLogger.current?.register(
+            component: self,
+            mockType: mockType
+        )
+    }
 
     /// Records a function call with the given input, output, time, and signature.
     ///
@@ -31,6 +41,11 @@ public final class BlackBox: @unchecked Sendable {
         returning outputType: Output.Type,
         signature: FunctionSignature
     ) {
+        TestDRSLogger.current?.log(
+            component: self,
+            mockType: mockType,
+            message: "called \(signature)"
+        )
         storageQueue.sync {
             let call = FunctionCall(
                 signature: signature,

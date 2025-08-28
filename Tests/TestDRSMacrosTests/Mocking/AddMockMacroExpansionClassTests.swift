@@ -76,8 +76,8 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeClass: SomeClass, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeClass.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeClass.self)
 
                 override func foo() {
                     recordCall()
@@ -152,8 +152,8 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeClass: SomeClass, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeClass.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeClass.self)
 
                 override var foo {
                     get {
@@ -222,8 +222,8 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeClass: SomeClass, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeClass.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeClass.self)
 
                 override var foo {
                     get {
@@ -266,8 +266,8 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeClass: SomeClass, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeClass.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeClass.self)
 
                 override var foo {
                     get {
@@ -330,8 +330,8 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeClass: SomeClass, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeClass.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeClass.self)
 
                 override var foo: String {
                     get {
@@ -384,8 +384,8 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeClass: SomeClass, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeClass.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeClass.self)
 
                 override var foo: String? {
                     get {
@@ -450,8 +450,8 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeClass: SomeClass, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeClass.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeClass.self)
 
                 override var foo: String {
                     get {
@@ -516,8 +516,8 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeClass: SomeClass, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeClass.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeClass.self)
 
                 override var x: String {
                     get {
@@ -604,8 +604,8 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeClass: SomeClass, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeClass.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeClass.self)
 
                 override var x: String {
                     get {
@@ -664,8 +664,8 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeClass: SomeClass, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeClass.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeClass.self)
 
                 override var x {
                     get {
@@ -701,8 +701,8 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
             final
             private class MockSomeClass: SomeClass, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeClass.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeClass.self)
 
                 override func foo() {
                     recordCall()
@@ -747,8 +747,8 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
             final
             public class MockSomeClass: SomeClass, Mock {
 
-                public let blackBox = BlackBox()
-                public let stubRegistry = StubRegistry()
+                public let blackBox = BlackBox(mockType: MockSomeClass.self)
+                public let stubRegistry = StubRegistry(mockType: MockSomeClass.self)
 
                 override var x {
                     get {
@@ -802,8 +802,8 @@ final class AddMockMacroExpansionClassTests: AddMockMacroExpansionTestCase {
 
             final class MockSomeClass: SomeClass, Mock, @unchecked Sendable {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeClass.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeClass.self)
 
                 override var x {
                     get {

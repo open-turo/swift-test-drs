@@ -89,7 +89,7 @@ public class StaticTestingContext: @unchecked Sendable {
     func registerBlackBox<T>(for type: T.Type) {
         storageQueue.sync {
             let key = ObjectIdentifier(type)
-            blackBoxes[key] = BlackBox()
+            blackBoxes[key] = BlackBox(mockType: T.self)
         }
     }
 
@@ -100,7 +100,7 @@ public class StaticTestingContext: @unchecked Sendable {
                 return blackBox
             }
 
-            let blackBox = BlackBox()
+            let blackBox = BlackBox(mockType: T.self)
             blackBoxes[key] = blackBox
             return blackBox
         }
@@ -109,7 +109,7 @@ public class StaticTestingContext: @unchecked Sendable {
     func registerStubRegistry<T>(for type: T.Type) {
         storageQueue.sync {
             let key = ObjectIdentifier(type)
-            stubRegistries[key] = StubRegistry()
+            stubRegistries[key] = StubRegistry(mockType: T.self)
         }
     }
 
@@ -120,7 +120,7 @@ public class StaticTestingContext: @unchecked Sendable {
                 return stubRegistry
             }
 
-            let stubRegistry = StubRegistry()
+            let stubRegistry = StubRegistry(mockType: T.self)
             stubRegistries[key] = stubRegistry
             return stubRegistry
         }
