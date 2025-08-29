@@ -273,7 +273,7 @@ final class SpyTests: XCTestCase {
 }
 
 private struct MySpy: Spy {
-    let blackBox = BlackBox()
+    let blackBox = BlackBox(mockType: MySpy.self)
 
     static func staticFoo() {
         recordCall()

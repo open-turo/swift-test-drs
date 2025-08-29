@@ -43,9 +43,9 @@ final class MockMacroExpansionTests: XCTestCase {
                 @_MockFunction
                 mutating func rab(paramOne: Bool)
 
-                let blackBox = BlackBox()
+                let blackBox = BlackBox(mockType: SomeStruct.self)
 
-                let stubRegistry = StubRegistry()
+                let stubRegistry = StubRegistry(mockType: SomeStruct.self)
             }
 
             extension SomeStruct: Mock {
@@ -97,9 +97,9 @@ final class MockMacroExpansionTests: XCTestCase {
 
                 func foo()
 
-                let blackBox = BlackBox()
+                let blackBox = BlackBox(mockType: SomeStruct.self)
 
-                let stubRegistry = StubRegistry()
+                let stubRegistry = StubRegistry(mockType: SomeStruct.self)
             }
 
             extension SomeStruct: Mock {
@@ -134,9 +134,9 @@ final class MockMacroExpansionTests: XCTestCase {
                 @_MockFunction
                 mutating func rab(paramOne: Bool)
 
-                let blackBox = BlackBox()
+                let blackBox = BlackBox(mockType: SomeClass.self)
 
-                let stubRegistry = StubRegistry()
+                let stubRegistry = StubRegistry(mockType: SomeClass.self)
             }
 
             extension SomeClass: Mock {
@@ -186,9 +186,9 @@ final class MockMacroExpansionTests: XCTestCase {
 
                 func foo()
 
-                let blackBox = BlackBox()
+                let blackBox = BlackBox(mockType: SomeClass.self)
 
-                let stubRegistry = StubRegistry()
+                let stubRegistry = StubRegistry(mockType: SomeClass.self)
             }
 
             extension SomeClass: Mock {

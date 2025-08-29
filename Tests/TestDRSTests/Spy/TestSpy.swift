@@ -8,7 +8,7 @@ import TestDRS
 
 final class TestSpy: Spy, @unchecked Sendable {
 
-    let blackBox = BlackBox()
+    let blackBox = BlackBox(mockType: TestSpy.self)
 
     private var second = 0
 
