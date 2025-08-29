@@ -21,14 +21,14 @@ public final class StubRegistry: @unchecked Sendable {
 
     public init(mockType: Any.Type) {
         self.mockType = mockType
-        TestDRSLogger.current?.register(
+        MockLogger.current?.register(
             component: self,
             mockType: mockType
         )
     }
 
     func setPropertyStub(stub: Stub, for propertyName: String) {
-        TestDRSLogger.current?.log(
+        MockLogger.current?.log(
             component: self,
             mockType: mockType,
             message: "setting \(String(describing: stub)) for \(propertyName)"
@@ -39,7 +39,7 @@ public final class StubRegistry: @unchecked Sendable {
     }
 
     func setFunctionStub(stub: Stub, for identifier: FunctionStubIdentifier) {
-        TestDRSLogger.current?.log(
+        MockLogger.current?.log(
             component: self,
             mockType: mockType,
             message: "setting stub for \(identifier.signature)"
@@ -57,7 +57,7 @@ public final class StubRegistry: @unchecked Sendable {
             return try stub.evaluate()
         }
 
-        TestDRSLogger.current?.log(
+        MockLogger.current?.log(
             component: self,
             mockType: mockType,
             message: "returning stub for property \(propertyName)"
@@ -94,7 +94,7 @@ public final class StubRegistry: @unchecked Sendable {
         // Evaluate the stub outside of the storageQueue so that we don't deadlock
         let output: Output = try stub.evaluate(with: input)
 
-        TestDRSLogger.current?.log(
+        MockLogger.current?.log(
             component: self,
             mockType: mockType,
             message: "returning stub for \(signature)"

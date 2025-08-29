@@ -5,23 +5,37 @@
 
 import Foundation
 
+/// Enables TestDRS mock logging for the duration of the given operation.
+///
+/// - Parameters:
+///   - identifier: The emoji identifier to prefix log messages. Defaults to "🏎️".
+///   - testName: The test name to include in log messages. Defaults to the calling function name.
+///   - operation: The operation to run with logging enabled.
+/// - Returns: The result of the operation.
 @discardableResult
-public func withTestDRSLogging<R>(identifier: String = "🏎️", operation: () throws -> R) rethrows -> R {
-    try TestDRSLogger.$current.withValue(TestDRSLogger(identifier: identifier)) {
+public func withMockLogging<R>(identifier: String = "🏎️", testName: String = #function, operation: () throws -> R) rethrows -> R {
+    try MockLogger.$current.withValue(MockLogger(identifier: identifier, testName: testName)) {
         try operation()
     }
 }
 
+/// Enables TestDRS mock logging for the duration of the given async operation.
+///
+/// - Parameters:
+///   - identifier: The emoji identifier to prefix log messages. Defaults to "🏎️".
+///   - testName: The test name to include in log messages. Defaults to the calling function name.
+///   - operation: The async operation to run with logging enabled.
+/// - Returns: The result of the operation.
 @discardableResult
-public func withTestDRSLogging<R>(identifier: String = "🏎️", testName: String? = nil, operation: () async throws -> R) async rethrows -> R {
-    try await TestDRSLogger.$current.withValue(TestDRSLogger(identifier: identifier, testName: testName)) {
+public func withMockLogging<R>(identifier: String = "🏎️", testName: String = #function, operation: () async throws -> R) async rethrows -> R {
+    try await MockLogger.$current.withValue(MockLogger(identifier: identifier, testName: testName)) {
         try await operation()
     }
 }
 
-func withTestDRSLogging<R>(testName: String? = nil, identifier: String = "🏎️", print: (@Sendable (String) -> Void)? = nil, operation: () throws -> R) rethrows -> R {
-    try TestDRSLogger.$current.withValue(
-        TestDRSLogger(
+func withMockLogging<R>(identifier: String = "🏎️", testName: String = #function, print: (@Sendable (String) -> Void)? = nil, operation: () throws -> R) rethrows -> R {
+    try MockLogger.$current.withValue(
+        MockLogger(
             identifier: identifier,
             testName: testName,
             print: print
@@ -32,7 +46,7 @@ func withTestDRSLogging<R>(testName: String? = nil, identifier: String = "🏎�
 }
 
 /// Context for mock logging that tracks component instances and provides numbered identifiers
-public final class TestDRSLogger: Sendable {
+public final class MockLogger: Sendable {
 
     private let continuation: AsyncStream<Event>.Continuation
     private let print: @Sendable (String) -> Void
@@ -90,7 +104,7 @@ public final class TestDRSLogger: Sendable {
 
 }
 
-extension TestDRSLogger {
+extension MockLogger {
 
     private struct ComponentInfo {
         let id: ObjectIdentifier
@@ -151,8 +165,8 @@ extension TestDRSLogger {
 
 }
 
-extension TestDRSLogger {
+extension MockLogger {
 
-    @TaskLocal static var current: TestDRSLogger?
+    @TaskLocal static var current: MockLogger?
 
 }
