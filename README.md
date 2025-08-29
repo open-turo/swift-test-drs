@@ -60,21 +60,23 @@ dependencies: [
 ]
 ```
 
-Then add TestDRS to your target:
+Then add TestDRS to your app target:
 
 ```swift
 .target(
-    name: "YourTargetName",
+    name: "YourAppTarget",
     dependencies: ["TestDRS"]
 )
 ```
+
+> **Important**: Only link TestDRS to your app target, never to your test target. Your test target will automatically have access to TestDRS through your app target. This prevents duplicate symbol issues that can cause runtime problems.
 
 ### Xcode
 
 1. In Xcode, go to **File → Add Package Dependencies**
 2. Enter the repository URL: `https://github.com/open-turo/swift-test-drs`
 3. Select your desired version
-4. Add TestDRS to your test target
+4. Add TestDRS to your app target (not your test target)
 
 ## Quick start
 

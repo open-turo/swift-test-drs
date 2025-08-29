@@ -13,7 +13,7 @@ struct LoggingTests {
     func testLogging() async {
         let mockPrinter = MockPrinter()
 
-        withTestDRSLogging(print: mockPrinter.print) {
+        withMockLogging(print: mockPrinter.print) {
             let mock1 = SomePublicMockClass()
             let mock2 = SomePublicMockClass()
 
@@ -29,24 +29,24 @@ struct LoggingTests {
             .matchingCalls.map { $0.input }
 
         #expect(logs == [
-            #"🏎️ Registered SomePublicMockClass.BlackBox"#,
-            #"🏎️ Registered SomePublicMockClass.StubRegistry"#,
-            #"🏎️ Registered SomePublicMockClass2️⃣.BlackBox"#,
-            #"🏎️ Registered SomePublicMockClass2️⃣.StubRegistry"#,
-            #"🏎️ SomePublicMockClass.StubRegistry setting stub for "baz""#,
-            #"🏎️ SomePublicMockClass2️⃣.StubRegistry setting stub for "baz""#,
-            #"🏎️ SomePublicMockClass.BlackBox called "baz(paramOne:paramTwo:)""#,
-            #"🏎️ SomePublicMockClass.StubRegistry returning stub for "baz(paramOne:paramTwo:)""#,
-            #"🏎️ SomePublicMockClass2️⃣.BlackBox called "baz(paramOne:paramTwo:)""#,
-            #"🏎️ SomePublicMockClass2️⃣.StubRegistry returning stub for "baz(paramOne:paramTwo:)""#,
+            #"🏎️ Registered SomePublicMockClass.BlackBox in testLogging()"#,
+            #"🏎️ Registered SomePublicMockClass.StubRegistry in testLogging()"#,
+            #"🏎️ Registered SomePublicMockClass2️⃣.BlackBox in testLogging()"#,
+            #"🏎️ Registered SomePublicMockClass2️⃣.StubRegistry in testLogging()"#,
+            #"🏎️ SomePublicMockClass.StubRegistry setting stub for "baz" in testLogging()"#,
+            #"🏎️ SomePublicMockClass2️⃣.StubRegistry setting stub for "baz" in testLogging()"#,
+            #"🏎️ SomePublicMockClass.BlackBox called "baz(paramOne:paramTwo:)" in testLogging()"#,
+            #"🏎️ SomePublicMockClass.StubRegistry returning stub for "baz(paramOne:paramTwo:)" in testLogging()"#,
+            #"🏎️ SomePublicMockClass2️⃣.BlackBox called "baz(paramOne:paramTwo:)" in testLogging()"#,
+            #"🏎️ SomePublicMockClass2️⃣.StubRegistry returning stub for "baz(paramOne:paramTwo:)" in testLogging()"#,
         ])
     }
 
     @Test
-    func testLoggingWithCustomIdentifierAndTestName() async {
+    func testLoggingWithCustomIdentifier() async {
         let mockPrinter = MockPrinter()
 
-        withTestDRSLogging(testName: #function, identifier: "🙈", print: mockPrinter.print) {
+        withMockLogging(identifier: "🙈", print: mockPrinter.print) {
             let mock1 = SomePublicMockClass()
             let mock2 = SomePublicMockClass()
 
@@ -62,16 +62,16 @@ struct LoggingTests {
             .matchingCalls.map { $0.input }
 
         #expect(logs == [
-            #"🙈 Registered SomePublicMockClass.BlackBox in testLoggingWithCustomIdentifierAndTestName()"#,
-            #"🙈 Registered SomePublicMockClass.StubRegistry in testLoggingWithCustomIdentifierAndTestName()"#,
-            #"🙈 Registered SomePublicMockClass2️⃣.BlackBox in testLoggingWithCustomIdentifierAndTestName()"#,
-            #"🙈 Registered SomePublicMockClass2️⃣.StubRegistry in testLoggingWithCustomIdentifierAndTestName()"#,
-            #"🙈 SomePublicMockClass.StubRegistry setting stub for "baz" in testLoggingWithCustomIdentifierAndTestName()"#,
-            #"🙈 SomePublicMockClass2️⃣.StubRegistry setting stub for "baz" in testLoggingWithCustomIdentifierAndTestName()"#,
-            #"🙈 SomePublicMockClass.BlackBox called "baz(paramOne:paramTwo:)" in testLoggingWithCustomIdentifierAndTestName()"#,
-            #"🙈 SomePublicMockClass.StubRegistry returning stub for "baz(paramOne:paramTwo:)" in testLoggingWithCustomIdentifierAndTestName()"#,
-            #"🙈 SomePublicMockClass2️⃣.BlackBox called "baz(paramOne:paramTwo:)" in testLoggingWithCustomIdentifierAndTestName()"#,
-            #"🙈 SomePublicMockClass2️⃣.StubRegistry returning stub for "baz(paramOne:paramTwo:)" in testLoggingWithCustomIdentifierAndTestName()"#,
+            #"🙈 Registered SomePublicMockClass.BlackBox in testLoggingWithCustomIdentifier()"#,
+            #"🙈 Registered SomePublicMockClass.StubRegistry in testLoggingWithCustomIdentifier()"#,
+            #"🙈 Registered SomePublicMockClass2️⃣.BlackBox in testLoggingWithCustomIdentifier()"#,
+            #"🙈 Registered SomePublicMockClass2️⃣.StubRegistry in testLoggingWithCustomIdentifier()"#,
+            #"🙈 SomePublicMockClass.StubRegistry setting stub for "baz" in testLoggingWithCustomIdentifier()"#,
+            #"🙈 SomePublicMockClass2️⃣.StubRegistry setting stub for "baz" in testLoggingWithCustomIdentifier()"#,
+            #"🙈 SomePublicMockClass.BlackBox called "baz(paramOne:paramTwo:)" in testLoggingWithCustomIdentifier()"#,
+            #"🙈 SomePublicMockClass.StubRegistry returning stub for "baz(paramOne:paramTwo:)" in testLoggingWithCustomIdentifier()"#,
+            #"🙈 SomePublicMockClass2️⃣.BlackBox called "baz(paramOne:paramTwo:)" in testLoggingWithCustomIdentifier()"#,
+            #"🙈 SomePublicMockClass2️⃣.StubRegistry returning stub for "baz(paramOne:paramTwo:)" in testLoggingWithCustomIdentifier()"#,
         ])
     }
 

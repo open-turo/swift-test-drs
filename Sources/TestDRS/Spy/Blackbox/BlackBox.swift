@@ -22,7 +22,7 @@ public final class BlackBox: @unchecked Sendable {
     public init(mockType: Any.Type) {
         self.mockType = mockType
 
-        TestDRSLogger.current?.register(
+        MockLogger.current?.register(
             component: self,
             mockType: mockType
         )
@@ -41,7 +41,7 @@ public final class BlackBox: @unchecked Sendable {
         returning outputType: Output.Type,
         signature: FunctionSignature
     ) {
-        TestDRSLogger.current?.log(
+        MockLogger.current?.log(
             component: self,
             mockType: mockType,
             message: "called \(signature)"

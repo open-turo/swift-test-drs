@@ -58,6 +58,10 @@ These tools help you test asynchronous code by allowing you to await and verify 
 - ``confirmationOfCall(to:with:returning:timeLimit:isolation:)``
 - ``FunctionCallConfirmation``
 
+### Debugging and observability
+
+- <doc:MockLogging>
+
 ### Additional testing topics
 
 - <doc:MockingStaticMembers>
