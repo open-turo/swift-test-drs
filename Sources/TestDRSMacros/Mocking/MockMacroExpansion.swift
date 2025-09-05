@@ -76,11 +76,14 @@ public struct MockMacro: ExtensionMacro, MemberMacro, MemberAttributeMacro {
         conformingTo protocols: [TypeSyntax], in context: some MacroExpansionContext
     ) throws -> [DeclSyntax] {
         let declIsPublic: Bool
+        let typeName: String
 
         if let classDecl = declaration.as(ClassDeclSyntax.self) {
             declIsPublic = classDecl.isPublic
+            typeName = classDecl.name.trimmedDescription
         } else if let structDecl = declaration.as(StructDeclSyntax.self) {
             declIsPublic = structDecl.isPublic
+            typeName = structDecl.name.trimmedDescription
         } else {
             // Unsupported type
             return []
@@ -93,7 +96,16 @@ public struct MockMacro: ExtensionMacro, MemberMacro, MemberAttributeMacro {
                     .let,
                     name: "blackBox",
                     initializer: InitializerClauseSyntax(
-                        value: FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "BlackBox"))
+                        value: FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "BlackBox")) {
+                            LabeledExprSyntax(
+                                label: "mockType",
+                                expression: MemberAccessExprSyntax(
+                                    base: ExprSyntax(stringLiteral: typeName),
+                                    period: .periodToken(),
+                                    declName: DeclReferenceExprSyntax(baseName: .keyword(.self))
+                                )
+                            )
+                        }
                     )
                 )
             ),
@@ -103,7 +115,16 @@ public struct MockMacro: ExtensionMacro, MemberMacro, MemberAttributeMacro {
                     .let,
                     name: "stubRegistry",
                     initializer: InitializerClauseSyntax(
-                        value: FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "StubRegistry"))
+                        value: FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "StubRegistry")) {
+                            LabeledExprSyntax(
+                                label: "mockType",
+                                expression: MemberAccessExprSyntax(
+                                    base: ExprSyntax(stringLiteral: typeName),
+                                    period: .periodToken(),
+                                    declName: DeclReferenceExprSyntax(baseName: .keyword(.self))
+                                )
+                            )
+                        }
                     )
                 )
             )

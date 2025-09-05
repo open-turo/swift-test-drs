@@ -11,7 +11,6 @@
 		04272B652C1BA55F0022DB2F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04272B642C1BA55F0022DB2F /* ContentView.swift */; };
 		04272B672C1BA5600022DB2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04272B662C1BA5600022DB2F /* Assets.xcassets */; };
 		04272B6A2C1BA5600022DB2F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04272B692C1BA5600022DB2F /* Preview Assets.xcassets */; };
-		044411B62C1BA61E0031FF8C /* TestDRS in Frameworks */ = {isa = PBXBuildFile; productRef = 044411B52C1BA61E0031FF8C /* TestDRS */; };
 		044411BB2C1BA6370031FF8C /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044411B82C1BA6370031FF8C /* NetworkClient.swift */; };
 		044411BC2C1BA6370031FF8C /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044411BA2C1BA6370031FF8C /* WeatherService.swift */; };
 		044411BD2C1BA6370031FF8C /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044411B92C1BA6370031FF8C /* Weather.swift */; };
@@ -19,6 +18,7 @@
 		044411C02C1BA6400031FF8C /* WeatherServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044411BF2C1BA6400031FF8C /* WeatherServiceTests.swift */; };
 		044411C22C1BAD8B0031FF8C /* WeatherServiceSwiftTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044411C12C1BAD8B0031FF8C /* WeatherServiceSwiftTesting.swift */; };
 		044411C82C2090B30031FF8C /* TestDRS in Frameworks */ = {isa = PBXBuildFile; productRef = 044411C72C2090B30031FF8C /* TestDRS */; };
+		046BAB462E603498006CDB0A /* TestDRSTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 046BAB452E603498006CDB0A /* TestDRSTestSupport */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				044411B62C1BA61E0031FF8C /* TestDRS in Frameworks */,
+				046BAB462E603498006CDB0A /* TestDRSTestSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,7 +164,7 @@
 			);
 			name = ExampleClientTests;
 			packageProductDependencies = (
-				044411B52C1BA61E0031FF8C /* TestDRS */,
+				046BAB452E603498006CDB0A /* TestDRSTestSupport */,
 			);
 			productName = ExampleClientTests;
 			productReference = 04272B6F2C1BA5610022DB2F /* ExampleClientTests.xctest */;
@@ -388,7 +388,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ExampleClient/Preview Content\"";
-				DEVELOPMENT_TEAM = 869J9C3F5S;
+				DEVELOPMENT_TEAM = 94ZMA2MYR4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -417,7 +417,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ExampleClient/Preview Content\"";
-				DEVELOPMENT_TEAM = 869J9C3F5S;
+				DEVELOPMENT_TEAM = 94ZMA2MYR4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -444,7 +444,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 869J9C3F5S;
+				DEVELOPMENT_TEAM = 94ZMA2MYR4;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
@@ -463,7 +463,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 869J9C3F5S;
+				DEVELOPMENT_TEAM = 94ZMA2MYR4;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
@@ -509,13 +509,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		044411B52C1BA61E0031FF8C /* TestDRS */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TestDRS;
-		};
 		044411C72C2090B30031FF8C /* TestDRS */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TestDRS;
+		};
+		046BAB452E603498006CDB0A /* TestDRSTestSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TestDRSTestSupport;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -76,8 +76,8 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
 
             struct MockSomeStruct: ProtocolOne, ProtocolTwo, Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeStruct.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeStruct.self)
 
                 func foo() {
                     recordCall()
@@ -146,8 +146,8 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
 
             struct MockSomeStruct: Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeStruct.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeStruct.self)
 
                 var foo {
                     get {
@@ -228,8 +228,8 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
 
             struct MockSomeStruct: Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeStruct.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeStruct.self)
 
                 var foo: String {
                     get {
@@ -286,8 +286,8 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
 
             struct MockSomeStruct: Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeStruct.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeStruct.self)
 
                 var foo: String? {
                     get {
@@ -354,8 +354,8 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
 
             struct MockSomeStruct: Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeStruct.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeStruct.self)
 
                 var foo: String {
                     get {
@@ -427,8 +427,8 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
                     }
                 }
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeStruct.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeStruct.self)
 
                 var foo: NestedStruct {
                     get {
@@ -485,8 +485,8 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
 
                 struct MockNestedStruct: Mock {
 
-                    let blackBox = BlackBox()
-                    let stubRegistry = StubRegistry()
+                    let blackBox = BlackBox(mockType: MockNestedStruct.self)
+                    let stubRegistry = StubRegistry(mockType: MockNestedStruct.self)
 
                     var nestedFoo: String {
                         get {
@@ -546,8 +546,8 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
 
             struct MockSomeStruct<T> : Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeStruct.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeStruct.self)
 
                 var foo: T {
                     get {
@@ -612,8 +612,8 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
 
             struct MockSomeStruct: Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeStruct.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeStruct.self)
 
                 var x: String {
                     get {
@@ -690,8 +690,8 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
 
             struct MockSomeStruct: Mock {
 
-                let blackBox = BlackBox()
-                let stubRegistry = StubRegistry()
+                let blackBox = BlackBox(mockType: MockSomeStruct.self)
+                let stubRegistry = StubRegistry(mockType: MockSomeStruct.self)
 
                 var a: String {
                     get {
@@ -786,8 +786,8 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
 
             public struct MockSomeStruct: Mock {
 
-                public let blackBox = BlackBox()
-                public let stubRegistry = StubRegistry()
+                public let blackBox = BlackBox(mockType: MockSomeStruct.self)
+                public let stubRegistry = StubRegistry(mockType: MockSomeStruct.self)
 
                 var x {
                     get {
@@ -859,8 +859,8 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
 
             public struct MockSomeStruct: Mock {
 
-                public let blackBox = BlackBox()
-                public let stubRegistry = StubRegistry()
+                public let blackBox = BlackBox(mockType: MockSomeStruct.self)
+                public let stubRegistry = StubRegistry(mockType: MockSomeStruct.self)
 
                 var x {
                     get {
