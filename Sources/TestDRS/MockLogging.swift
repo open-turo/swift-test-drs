@@ -71,7 +71,7 @@ public final class MockLogger: Sendable {
     /// Register a mock component with the logger
     func register<Mock, Component: AnyObject>(
         component: Component,
-        mockType: Mock.Type,
+        mockType: Mock.Type
     ) {
         let componentInfo = ComponentInfo(component: component, mockType: mockType)
         continuation.yield(.register(componentInfo: componentInfo))
