@@ -6,7 +6,7 @@
 @testable import TestDRS
 import XCTest
 
-final class SpyExpectationsTests {
+final class SpyExpectationsTests: XCTestCase {
 
     private let file = #fileID.components(separatedBy: "/").last!
     private var line = 0
@@ -214,6 +214,21 @@ final class SpyExpectationsTests {
                 issue.description == """
                 Assertion Failure at \(self.file):\(self.line): failed - 2 calls to "zab(paramOne:)" with input type Int and output type Int were recorded
                 """
+            }
+        )
+    }
+
+    func testExpectWasCalled_ShowsNonExclusiveHint() {
+        spy.zab(paramOne: true)
+        spy.zab(paramOne: "Hello")
+        spy.zab(paramOne: 42)
+
+        _ = XCTExpectFailure(
+            failingBlock: {
+                spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true, mode: .exclusive)
+            },
+            issueMatcher: { issue in
+                issue.description.contains("To ignore non-matching calls, use ExpectedCallMode.nonExclusive.")
             }
         )
     }

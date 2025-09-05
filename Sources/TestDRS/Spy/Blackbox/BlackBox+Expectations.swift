@@ -35,7 +35,7 @@ extension BlackBox {
                     .filter { !expectedCallIds.contains($0.id) }
                     .map { $0.debugDescription }
                     .joined(separator: "\n")
-                let messaage = "\(signature) was called with input type \(Input.self) and output type \(Output.self), but was also called with other input and/or output types:\n\n\(unexpectedCalls)"
+                let messaage = "\(signature) was called with input type \(Input.self) and output type \(Output.self), but was also called with other input and/or output types:\n\n\(unexpectedCalls)\n\nTo ignore non-matching calls, use ExpectedCallMode.nonExclusive."
                 reportFailure(messaage, location: location)
             }
         }
@@ -75,7 +75,7 @@ extension BlackBox {
                     .filter { !expectedCallIDs.contains($0.id) }
                     .map { "+\($0.input)" }
                     .joined(separator: "\n")
-                let message = "\(signature) was called with the expected input, but was also called with other input:\n\n\(unexpectedInputs)"
+                let message = "\(signature) was called with the expected input, but was also called with other input:\n\n\(unexpectedInputs)\n\nTo ignore non-matching calls, use ExpectedCallMode.nonExclusive."
                 reportFailure(message, location: location)
             }
         }
