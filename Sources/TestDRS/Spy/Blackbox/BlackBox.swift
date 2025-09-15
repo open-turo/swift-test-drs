@@ -51,7 +51,7 @@ public final class BlackBox: @unchecked Sendable {
     ///
     /// - Parameters:
     ///   - signature: The signature to match.
-    func callsMatching<Input>(
+    public func callsMatching<Input>(
         signature: FunctionSignature,
         taking inputType: Input.Type = Void.self
     ) -> [any FunctionCallRepresentation] {
