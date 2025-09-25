@@ -99,9 +99,7 @@ struct ConfirmationOfCallMacroTests: Sendable {
         } matching: { issue in
             issue.sourceLocation?.line == #line - 2 &&
                 issue.sourceLocation?.fileID == #fileID &&
-                issue.description == """
-                Issue recorded: No calls to "foo" with input type () and output type () were recorded
-                """
+                issue.description.contains(#"No calls to "foo" with input type () and output type () were recorded"#)
         }
     }
 
@@ -156,9 +154,7 @@ struct ConfirmationOfCallMacroTests: Sendable {
             } matching: { issue in
                 issue.sourceLocation?.line == #line - 2 &&
                     issue.sourceLocation?.fileID == #fileID &&
-                    issue.description == """
-                    Issue recorded: Expected \"rab\" to be called exactly once as specified, but an additional call was recorded
-                    """
+                    issue.description.contains(#"Expected "rab" to be called exactly once as specified, but an additional call was recorded"#)
             }
         }
     }
@@ -181,9 +177,7 @@ struct ConfirmationOfCallMacroTests: Sendable {
         } matching: { issue in
             issue.sourceLocation?.line == #line - 2 &&
                 issue.sourceLocation?.fileID == #fileID &&
-                issue.description == """
-                Issue recorded: Expected "rab" to be called as specified 2 times, but only 1 calls were recorded before timing out
-                """
+                issue.description.contains(#"Expected "rab" to be called as specified 2 times, but only 1 calls were recorded before timing out"#)
         }
     }
 
@@ -221,9 +215,7 @@ struct ConfirmationOfCallMacroTests: Sendable {
             } matching: { issue in
                 issue.sourceLocation?.line == #line - 2 &&
                     issue.sourceLocation?.fileID == #fileID &&
-                    issue.description == """
-                    Issue recorded: Expected "rab" to be called as specified 2 times, but an additional call was recorded
-                    """
+                    issue.description.contains(#"Expected "rab" to be called as specified 2 times, but an additional call was recorded"#)
             }
         }
     }
@@ -246,9 +238,7 @@ struct ConfirmationOfCallMacroTests: Sendable {
         } matching: { issue in
             issue.sourceLocation?.line == #line - 2 &&
                 issue.sourceLocation?.fileID == #fileID &&
-                issue.description == """
-                Issue recorded: Expected "rab" to be called as specified at least 2 times, but only 1 calls were recorded before timing out
-                """
+                issue.description.contains(#"Expected "rab" to be called as specified at least 2 times, but only 1 calls were recorded before timing out"#)
         }
 
         await withKnownIssue {
@@ -261,9 +251,7 @@ struct ConfirmationOfCallMacroTests: Sendable {
         } matching: { issue in
             issue.sourceLocation?.line == #line - 2 &&
                 issue.sourceLocation?.fileID == #fileID &&
-                issue.description == """
-                Issue recorded: Expected "rab" to be called as specified at least 2 times, but only 1 calls were recorded before timing out
-                """
+                issue.description.contains(#"Expected "rab" to be called as specified at least 2 times, but only 1 calls were recorded before timing out"#)
         }
 
         await withKnownIssue {
@@ -276,9 +264,7 @@ struct ConfirmationOfCallMacroTests: Sendable {
         } matching: { issue in
             issue.sourceLocation?.line == #line - 2 &&
                 issue.sourceLocation?.fileID == #fileID &&
-                issue.description == """
-                Issue recorded: Expected "rab" to be called as specified at least 2 times, but only 1 calls were recorded before timing out
-                """
+                issue.description.contains(#"Expected "rab" to be called as specified at least 2 times, but only 1 calls were recorded before timing out"#)
         }
     }
 
@@ -319,9 +305,7 @@ struct ConfirmationOfCallMacroTests: Sendable {
             } matching: { issue in
                 issue.sourceLocation?.line == #line - 2 &&
                     issue.sourceLocation?.fileID == #fileID &&
-                    issue.description == """
-                    Issue recorded: Expected "rab" to be called as specified within 2...4 times, but an additional call was recorded
-                    """
+                    issue.description.contains(#"Expected "rab" to be called as specified within 2...4 times, but an additional call was recorded"#)
             }
 
             await withKnownIssue {
@@ -334,9 +318,7 @@ struct ConfirmationOfCallMacroTests: Sendable {
             } matching: { issue in
                 issue.sourceLocation?.line == #line - 2 &&
                     issue.sourceLocation?.fileID == #fileID &&
-                    issue.description == """
-                    Issue recorded: Expected "rab" to be called as specified within 2..<5 times, but an additional call was recorded
-                    """
+                    issue.description.contains(#"Expected "rab" to be called as specified within 2..<5 times, but an additional call was recorded"#)
             }
         }
     }
