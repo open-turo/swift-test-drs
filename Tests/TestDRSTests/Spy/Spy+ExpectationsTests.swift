@@ -54,17 +54,17 @@ final class SpyExpectationsTests: XCTestCase {
         spy.zab(paramOne: 2)
         spy.zab(paramOne: 3)
 
-        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true)
-        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello")
-        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "World")
-        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 1)
-        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 2)
-        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 3)
+        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: true, mode: .nonExclusive)
+        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Hello", mode: .nonExclusive)
+        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "World", mode: .nonExclusive)
+        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 1, mode: .nonExclusive)
+        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 2, mode: .nonExclusive)
+        spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 3, mode: .nonExclusive)
 
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", taking: Double.self)
+                spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", taking: Double.self, mode: .nonExclusive)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -76,11 +76,19 @@ final class SpyExpectationsTests: XCTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 1.0)
+                spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 1.0, mode: .nonExclusive)
             },
             issueMatcher: { issue in
                 issue.description == """
-                Assertion Failure at \(self.file):\(self.line): failed - No calls to "zab(paramOne:)" with input type Double and output type Double were recorded
+                Assertion Failure at \(self.file):\(self.line): failed - "zab(paramOne:)" was not called with expected input (-), but was called with other input (+):
+
+                -1.0
+                +true
+                +Hello
+                +World
+                +1
+                +2
+                +3
                 """
             }
         )
@@ -88,7 +96,7 @@ final class SpyExpectationsTests: XCTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: false)
+                spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: false, mode: .nonExclusive)
             },
             issueMatcher: { issue in
                 issue.description == """
@@ -96,6 +104,11 @@ final class SpyExpectationsTests: XCTestCase {
 
                 -false
                 +true
+                +Hello
+                +World
+                +1
+                +2
+                +3
                 """
             }
         )
@@ -103,15 +116,19 @@ final class SpyExpectationsTests: XCTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Goodbye")
+                spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: "Goodbye", mode: .nonExclusive)
             },
             issueMatcher: { issue in
                 issue.description == """
                 Assertion Failure at \(self.file):\(self.line): failed - "zab(paramOne:)" was not called with expected input (-), but was called with other input (+):
 
                 -Goodbye
+                +true
                 +Hello
                 +World
+                +1
+                +2
+                +3
                 """
             }
         )
@@ -119,13 +136,16 @@ final class SpyExpectationsTests: XCTestCase {
         XCTExpectFailure(
             failingBlock: {
                 line = #line + 1
-                spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 4)
+                spy.expectWasCalled(spy.zab(paramOne:), withSignature: "zab(paramOne:)", expectedInput: 4, mode: .nonExclusive)
             },
             issueMatcher: { issue in
                 issue.description == """
                 Assertion Failure at \(self.file):\(self.line): failed - "zab(paramOne:)" was not called with expected input (-), but was called with other input (+):
 
                 -4
+                +true
+                +Hello
+                +World
                 +1
                 +2
                 +3
@@ -138,8 +158,8 @@ final class SpyExpectationsTests: XCTestCase {
         spy.rab(paramOne: true, paramTwo: 1, paramThree: "Hello")
         spy.rab(paramOne: false, paramTwo: nil, paramThree: nil)
 
-        spy.expectWasCalled(spy.rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello")
-        spy.expectWasCalled(spy.rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: false, Int?.none, String?.none)
+        spy.expectWasCalled(spy.rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: true, 1, "Hello", mode: .nonExclusive)
+        spy.expectWasCalled(spy.rab(paramOne:paramTwo:paramThree:), withSignature: "rab(paramOne:paramTwo:paramThree:)", expectedInput: false, Int?.none, String?.none, mode: .nonExclusive)
 
         XCTExpectFailure(
             failingBlock: {
