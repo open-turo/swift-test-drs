@@ -69,7 +69,7 @@ Then add TestDRS to your app target:
 )
 ```
 
-> **Important**: Only link TestDRS to your app target, never to your test target. Your test target will automatically have access to TestDRS through your app target. This prevents duplicate symbol issues that can cause runtime problems.
+> **⚠️ Important ⚠️**: Only link TestDRS to your app target or your test target, never to both! When linking to your app target, your test target will automatically have transitive access to TestDRS through your app target. This prevents duplicate symbol issues that can cause runtime problems. Most users will want to link TestDRS to their app target as that allows for using generated mocks in SwiftUI previews.
 
 ### Xcode
 
