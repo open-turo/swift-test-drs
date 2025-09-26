@@ -5,8 +5,6 @@
 [![License](https://img.shields.io/github/license/open-turo/swift-test-drs)](LICENSE)
 [![SwiftPM Compatible](https://img.shields.io/badge/SwiftPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 
-> ⚠️ **Alpha Version**: TestDRS is currently in alpha and the API may change. We welcome feedback and contributions!
-
 **Test DRS** (Dependency Replacement System) is a modern Swift testing library that accelerates your testing velocity with lightning-fast spying, stubbing, and mocking capabilities. Built with Swift macros, TestDRS provides type-safe, compiler-verified test doubles that integrate seamlessly with both XCTest and Swift Testing frameworks.
 
 ## Table of contents
