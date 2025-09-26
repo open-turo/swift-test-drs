@@ -29,11 +29,10 @@ jobs:
           defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
           xcodebuild test -scheme TestDRS
 
-  # Package is in alpha and not ready for release
-  # release-notes:
-  #   name: Release notes preview
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: open-turo/actions-release/lint-release-notes@v5
-  #       with:
-  #         github-token: ${{ secrets.GITHUB_TOKEN }}
+  release-notes:
+    name: Release notes preview
+    runs-on: ubuntu-latest
+    steps:
+      - uses: open-turo/actions-release/lint-release-notes@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
