@@ -282,14 +282,14 @@ class Logger {
 func testLogging() {
     withStaticTestingContext {
         // Configure mock behavior
-        #stub(MockLogger.isEnabled, returning: true)
-        systemUnderTest.logger = MockLogger.self
+        #stub(TestDRSMockLogger.isEnabled, returning: true)
+        systemUnderTest.logger = TestDRSMockLogger.self
 
         // Test code that uses Logger.log(...)
         systemUnderTest.performAction()
 
         // Verify static method calls
-        #expectWasCalled(MockLogger.log, with: "Action completed", .info)
+        #expectWasCalled(TestDRSMockLogger.log, with: "Action completed", .info)
     }
 }
 ```
