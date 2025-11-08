@@ -14,7 +14,7 @@ import Foundation
 /// - Returns: The result of the operation.
 @discardableResult
 public func withMockLogging<R>(identifier: String = "🏎️", testName: String = #function, operation: () throws -> R) rethrows -> R {
-    try MockLogger.$current.withValue(MockLogger(identifier: identifier, testName: testName)) {
+    try TestDRSMockLogger.$current.withValue(TestDRSMockLogger(identifier: identifier, testName: testName)) {
         try operation()
     }
 }
@@ -28,14 +28,14 @@ public func withMockLogging<R>(identifier: String = "🏎️", testName: String 
 /// - Returns: The result of the operation.
 @discardableResult
 public func withMockLogging<R>(identifier: String = "🏎️", testName: String = #function, operation: () async throws -> R) async rethrows -> R {
-    try await MockLogger.$current.withValue(MockLogger(identifier: identifier, testName: testName)) {
+    try await TestDRSMockLogger.$current.withValue(TestDRSMockLogger(identifier: identifier, testName: testName)) {
         try await operation()
     }
 }
 
 func withMockLogging<R>(identifier: String = "🏎️", testName: String = #function, print: (@Sendable (String) -> Void)? = nil, operation: () throws -> R) rethrows -> R {
-    try MockLogger.$current.withValue(
-        MockLogger(
+    try TestDRSMockLogger.$current.withValue(
+        TestDRSMockLogger(
             identifier: identifier,
             testName: testName,
             print: print
@@ -46,7 +46,7 @@ func withMockLogging<R>(identifier: String = "🏎️", testName: String = #func
 }
 
 /// Context for mock logging that tracks component instances and provides numbered identifiers
-public final class MockLogger: Sendable {
+public final class TestDRSMockLogger: Sendable {
 
     private let continuation: AsyncStream<Event>.Continuation
     private let print: @Sendable (String) -> Void
@@ -104,7 +104,7 @@ public final class MockLogger: Sendable {
 
 }
 
-extension MockLogger {
+extension TestDRSMockLogger {
 
     private struct ComponentInfo {
         let id: ObjectIdentifier
@@ -165,8 +165,8 @@ extension MockLogger {
 
 }
 
-extension MockLogger {
+extension TestDRSMockLogger {
 
-    @TaskLocal static var current: MockLogger?
+    @TaskLocal static var current: TestDRSMockLogger?
 
 }
