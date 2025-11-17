@@ -27,13 +27,14 @@
 
 ## Features
 
-- ✨ **Zero Boilerplate**: Generate mocks with simple macro annotations
-- 🔒 **Type-Safe**: Compile-time verification of mock implementations
+- ✨ **Zero Boilerplate**: Generate mocks and spies with simple macro annotations
+- 🔒 **Type-Safe**: Compile-time verification of mock and spy implementations
 - 🏃 **Swift Concurrency**: First-class support for async/await testing
-- 🎯 **Flexible**: Mock protocols, classes, and structs
+- 🎯 **Flexible**: Mock or spy on protocols, classes, and structs
+- 🕵️ **Spying**: Test with real implementations while recording interactions
 - 🧪 **Framework Agnostic**: Works with XCTest and Swift Testing
 - 📋 **Rich Verification**: Comprehensive call verification and parameter matching
-- ⚡ **Static Testing**: Isolated mocks of static members
+- ⚡ **Static Testing**: Isolated mocks and spies of static members
 - 🔧 **Debugging**: Clear error messages and debug descriptions
 
 ## Requirements
@@ -114,9 +115,9 @@ final class WeatherViewModelTests: XCTestCase {
 
 ## Core features
 
-### Creating mocks
+### Creating mocks and spies
 
-TestDRS offers two primary approaches for creating mocks:
+TestDRS offers two types of test doubles: **mocks** for stubbing behavior and **spies** for testing with real implementations.
 
 #### `@AddMock` - Recommended Approach
 
@@ -158,9 +159,52 @@ class MockNetworkService: NetworkService {
 - Not included in production target
 - Explicit mock definitions
 
+#### `@AddSpy` - Spy on Real Implementations
+
+Create spies that delegate to real implementations while recording calls:
+
+```swift
+@AddSpy
+protocol AnalyticsService {
+    func trackEvent(_ name: String, properties: [String: Any])
+}
+
+@AddSpy
+class FileManager {
+    func createDirectory(at path: String) throws {
+        // Real implementation
+    }
+}
+```
+
+**Benefits:**
+- Test with real implementations
+- Verify interactions with production code
+- Useful for integration-style testing
+
+**Key Differences:**
+- **Protocol/Struct spies**: Wrap a real instance via `init(real:)`
+- **Class spies**: Subclass that delegates to `super` (uses parent initializers)
+- **Cannot be stubbed**: Spies always use real behavior
+
+```swift
+// Protocol spy - wraps real instance
+let realService = ProductionAnalyticsService()
+let spy = SpyAnalyticsService(real: realService)
+
+// Class spy - subclass with parent initializers
+let spy = SpyFileManager()
+
+// Both support verification
+spy.trackEvent("login", properties: [:])
+#expectWasCalled(spy.trackEvent, with: "login")
+```
+
+See [Getting Started with Spies](https://open-turo.github.io/swift-test-drs/documentation/testdrs/gettingstartedwithspies) for detailed examples.
+
 ### Stubbing methods
 
-Control mock behavior with powerful stubbing capabilities:
+Control mock behavior with powerful stubbing capabilities. Note: Spies cannot be stubbed as they always delegate to real implementations.
 
 #### Return values
 
@@ -189,7 +233,7 @@ Control mock behavior with powerful stubbing capabilities:
 
 ### Verifying function calls
 
-Comprehensive verification of mock interactions:
+Comprehensive verification of mock and spy interactions:
 
 #### Basic verification
 
@@ -351,6 +395,7 @@ struct MyTests {
 📚 **[Complete Documentation](https://open-turo.github.io/swift-test-drs/documentation/testdrs/)**
 
 - [Getting Started Guide](https://open-turo.github.io/swift-test-drs/documentation/testdrs/gettingstarted)
+- [Getting Started with Spies](https://open-turo.github.io/swift-test-drs/documentation/testdrs/gettingstartedwithspies)
 - [Testing Asynchronous Code](https://open-turo.github.io/swift-test-drs/documentation/testdrs/testingasynchronouscode)
 - [Mocking Static Members](https://open-turo.github.io/swift-test-drs/documentation/testdrs/mockingstaticmembers)
 - [FAQ](https://open-turo.github.io/swift-test-drs/documentation/testdrs/faq)
