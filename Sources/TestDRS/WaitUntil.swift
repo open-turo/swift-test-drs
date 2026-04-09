@@ -17,7 +17,7 @@ import IssueReporting
 ///   - line: The line number where the failure occurs.
 ///   - column: The column number where the failure occurs.
 @available(*, noasync, message: "Use the async version when in an async context.")
-public func run(
+public func wait(
     until predicate: @autoclosure () -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
@@ -45,7 +45,7 @@ public func run(
     }
 }
 
-/// Runs the current run loop until the given predicate evaluates to true, or the timeout is reached, whichever happens first. If the timeout is reached before the closure returns true, a test failure is reported.
+/// Waits by running the current run loop until the given predicate evaluates to true, or the timeout is reached, whichever happens first. If the timeout is reached before the closure returns true, a test failure is reported.
 /// - Parameters:
 ///   - predicate: A closure that must return true before the timeout occurs for the test to pass.
 ///   - timeout: The time in seconds to wait before failing the test. The default/minimum is 5 seconds, values less than this will be ignored to avoid test flakiness.
@@ -54,7 +54,7 @@ public func run(
 ///   - line: The line number where the failure occurs.
 ///   - column: The column number where the failure occurs.
 @available(*, noasync, message: "Use the async version when in an async context.")
-public func runUntil(
+public func waitUntil(
     _ predicate: () -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
@@ -62,12 +62,12 @@ public func runUntil(
     line: UInt = #line,
     column: UInt = #column
 ) {
-    run(until: predicate(), timeout: timeout, fileID: fileID, filePath: filePath, line: line, column: column)
+    wait(until: predicate(), timeout: timeout, fileID: fileID, filePath: filePath, line: line, column: column)
 }
 
 // MARK: - Async Version
 
-/// Runs until the given predicate evaluates to true, or the timeout is reached, whichever happens first. If the timeout is reached before the closure returns true, a test failure is reported.
+/// Waits until the given predicate evaluates to true, or the timeout is reached, whichever happens first. If the timeout is reached before the closure returns true, a test failure is reported.
 /// - Parameters:
 ///   - predicate: An autoclosure that must return true before the timeout occurs for the test to pass.
 ///   - timeout: The time in seconds to wait before failing the test. The default/minimum is 5 seconds, values less than this will be ignored to avoid test flakiness.
@@ -76,7 +76,7 @@ public func runUntil(
 ///   - line: The line number where the failure occurs.
 ///   - column: The column number where the failure occurs.
 @MainActor
-public func run(
+public func wait(
     until predicate: @MainActor @autoclosure () -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
@@ -108,7 +108,7 @@ public func run(
     }
 }
 
-/// Runs until the given predicate evaluates to true, or the timeout is reached, whichever happens first. If the timeout is reached before the closure returns true, a test failure is reported.
+/// Waits until the given predicate evaluates to true, or the timeout is reached, whichever happens first. If the timeout is reached before the closure returns true, a test failure is reported.
 /// - Parameters:
 ///   - predicate: A closure that must return true before the timeout occurs for the test to pass.
 ///   - timeout: The time in seconds to wait before failing the test. The default/minimum is 5 seconds, values less than this will be ignored to avoid test flakiness.
@@ -117,7 +117,7 @@ public func run(
 ///   - line: The line number where the failure occurs.
 ///   - column: The column number where the failure occurs.
 @MainActor
-public func runUntil(
+public func waitUntil(
     predicate: () -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
@@ -125,15 +125,15 @@ public func runUntil(
     line: UInt = #line,
     column: UInt = #column
 ) async throws {
-    try await run(until: predicate(), timeout: timeout, fileID: fileID, filePath: filePath, line: line, column: column)
+    try await wait(until: predicate(), timeout: timeout, fileID: fileID, filePath: filePath, line: line, column: column)
 }
 
 // MARK: - Async Version (async predicate)
 
-/// Runs until the given *async* predicate evaluates to true, or the timeout is reached.
+/// Waits until the given *async* predicate evaluates to true, or the timeout is reached.
 /// This variant lets you `await` inside the predicate, so you can check actor-isolated state.
 @MainActor
-public func run(
+public func wait(
     until asyncPredicate: @escaping () async -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
