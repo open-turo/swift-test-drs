@@ -9,29 +9,29 @@ import Testing
 @MainActor
 struct EventuallyTests {
 
-    // MARK: - Async eventually(_:) autoclosure
+    // MARK: - Async until(_:) autoclosure
 
     @Test
-    func eventually_succeeds_whenPredicateIsImmediatelyTrue() async throws {
-        try await eventually(true, timeout: 5)
+    func until_succeeds_whenPredicateIsImmediatelyTrue() async throws {
+        try await until(true, timeout: 5)
     }
 
     @Test
-    func eventually_reportsIssue_whenPredicateNeverBecomesTrue() async {
+    func until_reportsIssue_whenPredicateNeverBecomesTrue() async {
         await withKnownIssue {
-            try await eventually(false, timeout: 0.1)
+            try await until(false, timeout: 0.1)
         }
     }
 
-    // MARK: - Async eventually(_:) with async predicate
+    // MARK: - Async until(_:) with async predicate
 
     @Test
-    func eventuallyAsyncPredicate_succeeds_whenPredicateIsImmediatelyTrue() async throws {
-        try await eventually({ true }, timeout: 5)
+    func untilAsyncPredicate_succeeds_whenPredicateIsImmediatelyTrue() async throws {
+        try await until({ true }, timeout: 5)
     }
 
     @Test
-    func eventuallyAsyncPredicate_succeeds_whenPredicateBecomesTrue() async throws {
+    func untilAsyncPredicate_succeeds_whenPredicateBecomesTrue() async throws {
         let flag = Flag()
 
         Task {
@@ -39,29 +39,29 @@ struct EventuallyTests {
             await flag.set()
         }
 
-        try await eventually({ await flag.value }, timeout: 5)
+        try await until({ await flag.value }, timeout: 5)
     }
 
     @Test
-    func eventuallyAsyncPredicate_reportsIssue_whenPredicateNeverBecomesTrue() async {
+    func untilAsyncPredicate_reportsIssue_whenPredicateNeverBecomesTrue() async {
         await withKnownIssue {
-            try await eventually({ false }, timeout: 0.1)
+            try await until({ false }, timeout: 0.1)
         }
     }
 
-    // MARK: - eventually(_:) closure variant
+    // MARK: - until(_:) closure variant
 
     @Test
-    func eventuallyClosure_succeeds_whenPredicateIsTrue() async throws {
+    func untilClosure_succeeds_whenPredicateIsTrue() async throws {
         let predicate: () -> Bool = { true }
-        try await eventually(predicate, timeout: 5)
+        try await until(predicate, timeout: 5)
     }
 
     @Test
-    func eventuallyClosure_reportsIssue_whenPredicateNeverBecomesTrue() async {
+    func untilClosure_reportsIssue_whenPredicateNeverBecomesTrue() async {
         await withKnownIssue {
             let predicate: () -> Bool = { false }
-            try await eventually(predicate, timeout: 0.1)
+            try await until(predicate, timeout: 0.1)
         }
     }
 }
