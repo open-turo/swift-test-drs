@@ -7,7 +7,7 @@ import TestDRS
 import Testing
 
 @MainActor
-struct EventuallyTests {
+struct WaitUntilTests {
 
     // MARK: - Async until(_:) autoclosure
 
