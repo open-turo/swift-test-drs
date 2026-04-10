@@ -17,7 +17,7 @@ import IssueReporting
 ///   - line: The line number where the failure occurs.
 ///   - column: The column number where the failure occurs.
 @available(*, noasync, message: "Use the async version when in an async context.")
-public func eventually(
+public func waitUntil(
     _ predicate: @autoclosure () -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
@@ -54,7 +54,7 @@ public func eventually(
 ///   - line: The line number where the failure occurs.
 ///   - column: The column number where the failure occurs.
 @available(*, noasync, message: "Use the async version when in an async context.")
-public func eventually(
+public func waitUntil(
     _ predicate: () -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
@@ -62,7 +62,7 @@ public func eventually(
     line: UInt = #line,
     column: UInt = #column
 ) {
-    eventually(predicate(), timeout: timeout, fileID: fileID, filePath: filePath, line: line, column: column)
+    waitUntil(predicate(), timeout: timeout, fileID: fileID, filePath: filePath, line: line, column: column)
 }
 
 // MARK: - Async Version
@@ -76,7 +76,7 @@ public func eventually(
 ///   - line: The line number where the failure occurs.
 ///   - column: The column number where the failure occurs.
 @MainActor
-public func eventually(
+public func until(
     _ predicate: @MainActor @autoclosure () -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
@@ -117,7 +117,7 @@ public func eventually(
 ///   - line: The line number where the failure occurs.
 ///   - column: The column number where the failure occurs.
 @MainActor
-public func eventually(
+public func until(
     _ predicate: () -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
@@ -125,7 +125,7 @@ public func eventually(
     line: UInt = #line,
     column: UInt = #column
 ) async throws {
-    try await eventually(predicate(), timeout: timeout, fileID: fileID, filePath: filePath, line: line, column: column)
+    try await until(predicate(), timeout: timeout, fileID: fileID, filePath: filePath, line: line, column: column)
 }
 
 // MARK: - Async Version (async predicate)
@@ -133,7 +133,7 @@ public func eventually(
 /// Polls the given *async* predicate until it evaluates to true, or the timeout is reached.
 /// This variant lets you `await` inside the predicate, so you can check actor-isolated state.
 @MainActor
-public func eventually(
+public func until(
     _ asyncPredicate: @escaping () async -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
