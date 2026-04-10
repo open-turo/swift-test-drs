@@ -8,17 +8,17 @@ import IssueReporting
 
 // MARK: - Sync Version
 
-/// Runs the current run loop until the given predicate evaluates to true, or the timeout is reached, whichever happens first. If the timeout is reached before the closure returns true, a test failure is reported.
+/// Polls the given predicate by spinning the current run loop until it evaluates to true, or the timeout is reached, whichever happens first. If the timeout is reached before the predicate returns true, a test failure is reported.
 /// - Parameters:
 ///   - predicate: An autoclosure that must return true before the timeout occurs for the test to pass.
-///   - timeout: The time in seconds to wait before failing the test. The default/minimum is 5 seconds, values less than this will be ignored to avoid test flakiness.
+///   - timeout: The time in seconds to wait before failing the test. Defaults to 5 seconds.
 ///   - fileID: The file where the failure occurs.
 ///   - filePath: The file where the failure occurs.
 ///   - line: The line number where the failure occurs.
 ///   - column: The column number where the failure occurs.
 @available(*, noasync, message: "Use the async version when in an async context.")
-public func wait(
-    until predicate: @autoclosure () -> Bool,
+public func eventually(
+    _ predicate: @autoclosure () -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
     filePath: StaticString = #filePath,
@@ -27,7 +27,7 @@ public func wait(
 ) {
     let checkInterval: TimeInterval = 0.01
     let startDate = Date()
-    let endDate = startDate.addingTimeInterval(max(timeout, 5.0))
+    let endDate = startDate.addingTimeInterval(timeout)
 
     while !predicate() {
         let checkDate = Date().addingTimeInterval(checkInterval)
@@ -45,16 +45,16 @@ public func wait(
     }
 }
 
-/// Waits by running the current run loop until the given predicate evaluates to true, or the timeout is reached, whichever happens first. If the timeout is reached before the closure returns true, a test failure is reported.
+/// Polls the given predicate by spinning the current run loop until it evaluates to true, or the timeout is reached, whichever happens first. If the timeout is reached before the predicate returns true, a test failure is reported.
 /// - Parameters:
 ///   - predicate: A closure that must return true before the timeout occurs for the test to pass.
-///   - timeout: The time in seconds to wait before failing the test. The default/minimum is 5 seconds, values less than this will be ignored to avoid test flakiness.
+///   - timeout: The time in seconds to wait before failing the test. Defaults to 5 seconds.
 ///   - fileID: The file where the failure occurs.
 ///   - filePath: The file where the failure occurs.
 ///   - line: The line number where the failure occurs.
 ///   - column: The column number where the failure occurs.
 @available(*, noasync, message: "Use the async version when in an async context.")
-public func waitUntil(
+public func eventually(
     _ predicate: () -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
@@ -62,22 +62,22 @@ public func waitUntil(
     line: UInt = #line,
     column: UInt = #column
 ) {
-    wait(until: predicate(), timeout: timeout, fileID: fileID, filePath: filePath, line: line, column: column)
+    eventually(predicate(), timeout: timeout, fileID: fileID, filePath: filePath, line: line, column: column)
 }
 
 // MARK: - Async Version
 
-/// Waits until the given predicate evaluates to true, or the timeout is reached, whichever happens first. If the timeout is reached before the closure returns true, a test failure is reported.
+/// Polls the given predicate until it evaluates to true, or the timeout is reached, whichever happens first. If the timeout is reached before the predicate returns true, a test failure is reported.
 /// - Parameters:
 ///   - predicate: An autoclosure that must return true before the timeout occurs for the test to pass.
-///   - timeout: The time in seconds to wait before failing the test. The default/minimum is 5 seconds, values less than this will be ignored to avoid test flakiness.
+///   - timeout: The time in seconds to wait before failing the test. Defaults to 5 seconds.
 ///   - fileID: The file where the failure occurs.
 ///   - filePath: The file where the failure occurs.
 ///   - line: The line number where the failure occurs.
 ///   - column: The column number where the failure occurs.
 @MainActor
-public func wait(
-    until predicate: @MainActor @autoclosure () -> Bool,
+public func eventually(
+    _ predicate: @MainActor @autoclosure () -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
     filePath: StaticString = #filePath,
@@ -92,7 +92,7 @@ public func wait(
             }
         }
         let timeoutTask = Task {
-            try await Task.sleep(nanoseconds: UInt64(max(timeout, 5.0)) * NSEC_PER_SEC)
+            try await Task.sleep(nanoseconds: UInt64(timeout) * NSEC_PER_SEC)
             confirmationTask.cancel()
             reportIssue(
                 "Timed out waiting for expression to evaluate to true.",
@@ -108,33 +108,33 @@ public func wait(
     }
 }
 
-/// Waits until the given predicate evaluates to true, or the timeout is reached, whichever happens first. If the timeout is reached before the closure returns true, a test failure is reported.
+/// Polls the given predicate until it evaluates to true, or the timeout is reached, whichever happens first. If the timeout is reached before the predicate returns true, a test failure is reported.
 /// - Parameters:
 ///   - predicate: A closure that must return true before the timeout occurs for the test to pass.
-///   - timeout: The time in seconds to wait before failing the test. The default/minimum is 5 seconds, values less than this will be ignored to avoid test flakiness.
+///   - timeout: The time in seconds to wait before failing the test. Defaults to 5 seconds.
 ///   - fileID: The file where the failure occurs.
 ///   - filePath: The file where the failure occurs.
 ///   - line: The line number where the failure occurs.
 ///   - column: The column number where the failure occurs.
 @MainActor
-public func waitUntil(
-    predicate: () -> Bool,
+public func eventually(
+    _ predicate: () -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
     filePath: StaticString = #filePath,
     line: UInt = #line,
     column: UInt = #column
 ) async throws {
-    try await wait(until: predicate(), timeout: timeout, fileID: fileID, filePath: filePath, line: line, column: column)
+    try await eventually(predicate(), timeout: timeout, fileID: fileID, filePath: filePath, line: line, column: column)
 }
 
 // MARK: - Async Version (async predicate)
 
-/// Waits until the given *async* predicate evaluates to true, or the timeout is reached.
+/// Polls the given *async* predicate until it evaluates to true, or the timeout is reached.
 /// This variant lets you `await` inside the predicate, so you can check actor-isolated state.
 @MainActor
-public func wait(
-    until asyncPredicate: @escaping () async -> Bool,
+public func eventually(
+    _ asyncPredicate: @escaping () async -> Bool,
     timeout: TimeInterval = 5.0,
     fileID: StaticString = #fileID,
     filePath: StaticString = #filePath,
@@ -148,7 +148,7 @@ public func wait(
         }
     }
     let timeoutTask = Task {
-        try await Task.sleep(nanoseconds: UInt64(max(timeout, 5.0)) * NSEC_PER_SEC)
+        try await Task.sleep(nanoseconds: UInt64(timeout) * NSEC_PER_SEC)
         confirmationTask.cancel()
         reportIssue(
             "Timed out waiting for expression to evaluate to true.",
