@@ -120,11 +120,12 @@ extension StubRegistry {
                 Available stubs:\(String.emptyLine)\(debugDescription)
                 """
             }
-            reportFailure("""
+            let fullMessage = """
             \(errorMessage)
             Fix: #stub(mockInstance.\(memberName), returning: <value>)
-            """)
-            fatalError("Missing stub")
+            """
+            reportFailure(fullMessage)
+            fatalError(fullMessage)
         case .incorrectOutputType, .incorrectClosureType:
             handleInternalError()
         }
@@ -150,11 +151,12 @@ extension StubRegistry {
                 Available stubs:\(String.emptyLine)\(debugDescription)
                 """
             }
-            reportFailure("""
+            let fullMessage = """
             \(errorMessage)
             Fix: mockInstance.\(propertyName) = <value>
-            """)
-            fatalError("Missing stub")
+            """
+            reportFailure(fullMessage)
+            fatalError(fullMessage)
         case .incorrectOutputType, .incorrectClosureType:
             handleInternalError()
         }
