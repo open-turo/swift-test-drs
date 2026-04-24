@@ -84,16 +84,12 @@ public func until(
     line: UInt = #line,
     column: UInt = #column
 ) async throws {
-    try await withoutActuallyEscaping(predicate) { predicate in
-        let checkInterval: TimeInterval = 0.01
-        let confirmationTask = Task {
-            while !predicate() {
-                try await Task.sleep(nanoseconds: UInt64(checkInterval) * NSEC_PER_SEC)
-            }
-        }
-        let timeoutTask = Task {
-            try await Task.sleep(nanoseconds: UInt64(timeout) * NSEC_PER_SEC)
-            confirmationTask.cancel()
+    let checkInterval: TimeInterval = 0.01
+    let deadline = Date().addingTimeInterval(timeout)
+
+    while !predicate() {
+        let remaining = deadline.timeIntervalSinceNow
+        guard remaining > 0 else {
             reportIssue(
                 "Timed out waiting for expression to evaluate to true.",
                 fileID: fileID,
@@ -101,10 +97,10 @@ public func until(
                 line: line,
                 column: column
             )
+            return
         }
 
-        try await confirmationTask.value
-        timeoutTask.cancel()
+        try await Task.sleep(nanoseconds: nanoseconds(for: min(checkInterval, remaining)))
     }
 }
 
@@ -142,23 +138,25 @@ public func until(
     column: UInt = #column
 ) async throws {
     let checkInterval: TimeInterval = 0.01
-    let confirmationTask = Task {
-        while !(await asyncPredicate()) {
-            try await Task.sleep(nanoseconds: UInt64(checkInterval) * NSEC_PER_SEC)
-        }
-    }
-    let timeoutTask = Task {
-        try await Task.sleep(nanoseconds: UInt64(timeout) * NSEC_PER_SEC)
-        confirmationTask.cancel()
-        reportIssue(
-            "Timed out waiting for expression to evaluate to true.",
-            fileID: fileID,
-            filePath: filePath,
-            line: line,
-            column: column
-        )
-    }
+    let deadline = Date().addingTimeInterval(timeout)
 
-    try await confirmationTask.value
-    timeoutTask.cancel()
+    while !(await asyncPredicate()) {
+        let remaining = deadline.timeIntervalSinceNow
+        guard remaining > 0 else {
+            reportIssue(
+                "Timed out waiting for expression to evaluate to true.",
+                fileID: fileID,
+                filePath: filePath,
+                line: line,
+                column: column
+            )
+            return
+        }
+
+        try await Task.sleep(nanoseconds: nanoseconds(for: min(checkInterval, remaining)))
+    }
+}
+
+private func nanoseconds(for interval: TimeInterval) -> UInt64 {
+    UInt64(max(0, interval) * Double(NSEC_PER_SEC))
 }
