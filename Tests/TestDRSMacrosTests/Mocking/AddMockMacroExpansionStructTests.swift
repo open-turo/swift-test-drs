@@ -106,7 +106,7 @@ final class AddMockMacroExpansionStructTests: AddMockMacroExpansionTestCase {
 
                 func zab(paramOne: Int) async throws -> Int {
                     recordCall(with: paramOne, returning: Int.self)
-                    return try throwingStubOutput(for: paramOne)
+                    return try await asyncThrowingStubOutput(for: paramOne)
                 }
 
             }

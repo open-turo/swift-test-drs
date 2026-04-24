@@ -95,6 +95,20 @@ final class SetStubUsingClosureMacroExpansionTests: XCTestCase {
         }
     }
 
+    func testStubbingMethod_WithAsyncClosure() {
+        assertMacro {
+            """
+            #stub(mock.foo, using: { await value() })
+            """
+        } expansion: {
+            """
+            mock.setDynamicStub(for: mock.foo, withSignature: "foo", using: {
+                    await value()
+                })
+            """
+        }
+    }
+
     func testStubbingMethod_WithMultilineFormatting() {
         assertMacro {
             """
