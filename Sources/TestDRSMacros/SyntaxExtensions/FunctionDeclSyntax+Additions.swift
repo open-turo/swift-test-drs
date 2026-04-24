@@ -27,6 +27,10 @@ extension FunctionDeclSyntax {
         signature.effectSpecifiers?.throwsClause?.throwsSpecifier != nil
     }
 
+    var isAsync: Bool {
+        signature.effectSpecifiers?.asyncSpecifier != nil
+    }
+
     var hasParameters: Bool { !signature.parameterClause.parameters.isEmpty }
 
 }

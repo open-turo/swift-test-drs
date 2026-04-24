@@ -35,7 +35,14 @@ public struct MockFunctionMacro: BodyMacro {
     }
 
     private static func stubOutputSyntax(for method: FunctionDeclSyntax) -> ExprSyntax {
-        FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: method.isThrowing ? "throwingStubOutput" : "stubOutput")) {
+        let callee = switch (method.isAsync, method.isThrowing) {
+        case (true, true): "asyncThrowingStubOutput"
+        case (true, false): "asyncStubOutput"
+        case (false, true): "throwingStubOutput"
+        case (false, false): "stubOutput"
+        }
+
+        let call = FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: callee)) {
             if method.hasParameters {
                 LabeledExprSyntax(
                     label: "for",
@@ -43,7 +50,10 @@ public struct MockFunctionMacro: BodyMacro {
                 )
             }
         }
-        .wrappedInTry(method.isThrowing)
+
+        let tryPrefix = method.isThrowing ? "try " : ""
+        let awaitPrefix = method.isAsync ? "await " : ""
+        return ExprSyntax(stringLiteral: "\(tryPrefix)\(awaitPrefix)\(call.trimmedDescription)")
     }
 
     private static func recordCallSyntax(for method: FunctionDeclSyntax) -> FunctionCallExprSyntax {

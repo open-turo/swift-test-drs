@@ -14,6 +14,8 @@ extension StubRegistry {
         case incorrectOutputType
         /// This would indicate an issue with the `StubProviding` protocol or the `StubRegistry`.
         case incorrectClosureType
+        /// An async dynamic stub was evaluated by a synchronous stub retrieval API.
+        case asyncClosureUsedFromSynchronousContext
     }
 
 }

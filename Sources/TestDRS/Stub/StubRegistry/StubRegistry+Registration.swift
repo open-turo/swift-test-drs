@@ -62,4 +62,17 @@ extension StubRegistry {
         setFunctionStub(stub: .closure(closure), for: identifier)
     }
 
+    /// Registers an async closure for a given function signature.
+    ///
+    /// - Parameters:
+    ///   - closure: The async closure to be executed when the registered function is called.
+    ///   - signature: The signature of the function.
+    func register<Input, Output>(
+        asyncClosure closure: @escaping (Input) async throws -> Output,
+        forSignature signature: FunctionSignature
+    ) {
+        let identifier = FunctionStubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
+        setFunctionStub(stub: .asyncClosure(closure), for: identifier)
+    }
+
 }
