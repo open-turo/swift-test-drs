@@ -59,9 +59,9 @@ public struct SetStubThrowingErrorMacro: ExpressionMacro {
         of node: some FreestandingMacroExpansionSyntax,
         in context: some MacroExpansionContext
     ) -> ExprSyntax {
-        guard (2 ... 3).contains(node.arguments.count),
+        guard (2 ... 4).contains(node.arguments.count),
               let firstArgument = node.arguments.first?.expression,
-              let error = node.arguments.last?.expression
+              let error = node.arguments.first(where: { $0.label?.text == "throwing" })?.expression
         else {
             context.diagnose(
                 Diagnostic(
@@ -79,13 +79,17 @@ public struct SetStubThrowingErrorMacro: ExpressionMacro {
             argument.label?.text == "taking"
         }?.expression
 
+        let outputType = node.arguments.first { argument in
+            argument.label?.text == "returning"
+        }?.expression
+
         if let memberAccess = firstArgument.as(MemberAccessExprSyntax.self)?.trimmed, let base = memberAccess.base {
             return """
-            \(base).setStub(for: \(memberAccess), withSignature: \(literal: memberAccess.declName.description), taking: \(inputType == nil ? "nil" : "\(inputType)"), throwing: \(error))
+            \(base).setStub(for: \(memberAccess), withSignature: \(literal: memberAccess.declName.description), taking: \(inputType == nil ? "nil" : "\(inputType)"), returning: \(outputType == nil ? "nil" : "\(outputType)"), throwing: \(error))
             """
         } else if let expression = firstArgument.as(DeclReferenceExprSyntax.self)?.trimmed {
             return """
-            setStub(for: \(expression), withSignature: \(literal: expression.description), taking: \(inputType == nil ? "nil" : "\(inputType)"), throwing: \(error))
+            setStub(for: \(expression), withSignature: \(literal: expression.description), taking: \(inputType == nil ? "nil" : "\(inputType)"), returning: \(outputType == nil ? "nil" : "\(outputType)"), throwing: \(error))
             """
         } else {
             context.diagnose(
