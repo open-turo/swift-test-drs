@@ -22,12 +22,16 @@ public macro stub<Input, Output>(
 /// - Parameters:
 ///   - function: The function to stub. The specified function must be a member of a `StubProviding` type.
 ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
+///   - outputType: An optional phantom parameter used to specify the output type of the `function` passed in.
+///   This is useful for functions that are generic over their output or have overloads that differ only by their output type,
+///   where the output type cannot otherwise be inferred when throwing an error.
 ///   - error: The error to be thrown when the function is called.
 @freestanding(expression)
 @discardableResult
 public macro stub<Input, Output>(
     _ function: (Input) async throws -> Output,
     taking inputType: Input.Type? = nil,
+    returning outputType: Output.Type? = nil,
     throwing error: Error
 ) -> Void = #externalMacro(module: "TestDRSMacros", type: "SetStubThrowingErrorMacro")
 

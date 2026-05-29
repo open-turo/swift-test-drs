@@ -30,6 +30,18 @@ struct StubTypeDisambiguationTests {
         }
     }
 
+    @Test func disambiguateOutputType_ThrowingError() {
+        #stub(mock.fetch, returning: String.self, throwing: MockError.stringOutput)
+        #stub(mock.fetch, returning: Int.self, throwing: MockError.intOutput)
+
+        #expect(throws: MockError.stringOutput) {
+            let _: String = try mock.fetch()
+        }
+        #expect(throws: MockError.intOutput) {
+            let _: Int = try mock.fetch()
+        }
+    }
+
 }
 
 @AddMock
@@ -39,10 +51,13 @@ private protocol DisambiguationTesting {
     func foo(paramOne: Bool) -> String
     func bar(paramOne: String) throws
     func bar(paramOne: Bool) throws
+    func fetch<T>() throws -> T
 
 }
 
 private enum MockError: Error {
     case stringInput
     case boolInput
+    case stringOutput
+    case intOutput
 }

@@ -24,7 +24,7 @@ final class SetStubThrowingErrorMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.setStub(for: mock.foo, withSignature: "foo", taking: nil, throwing: MyError.someError)
+            mock.setStub(for: mock.foo, withSignature: "foo", taking: nil, returning: nil, throwing: MyError.someError)
             """
         }
     }
@@ -36,7 +36,7 @@ final class SetStubThrowingErrorMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            mock.setStub(for: mock.foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", taking: nil, throwing: MyError.someError)
+            mock.setStub(for: mock.foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", taking: nil, returning: nil, throwing: MyError.someError)
             """
         }
     }
@@ -48,7 +48,7 @@ final class SetStubThrowingErrorMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            setStub(for: foo, withSignature: "foo", taking: nil, throwing: MyError.someError)
+            setStub(for: foo, withSignature: "foo", taking: nil, returning: nil, throwing: MyError.someError)
             """
         }
     }
@@ -60,7 +60,7 @@ final class SetStubThrowingErrorMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            setStub(for: foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", taking: nil, throwing: MyError.someError)
+            setStub(for: foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", taking: nil, returning: nil, throwing: MyError.someError)
             """
         }
     }
@@ -72,7 +72,31 @@ final class SetStubThrowingErrorMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            setStub(for: foo, withSignature: "foo", taking: Int.self, throwing: MyError.someError)
+            setStub(for: foo, withSignature: "foo", taking: Int.self, returning: nil, throwing: MyError.someError)
+            """
+        }
+    }
+
+    func testStubbingMethod_WithOutputTypeSpecified() {
+        assertMacro {
+            """
+            #stub(foo, returning: String.self, throwing: MyError.someError)
+            """
+        } expansion: {
+            """
+            setStub(for: foo, withSignature: "foo", taking: nil, returning: String.self, throwing: MyError.someError)
+            """
+        }
+    }
+
+    func testStubbingMethod_WithInputAndOutputTypeSpecified() {
+        assertMacro {
+            """
+            #stub(foo, taking: Int.self, returning: String.self, throwing: MyError.someError)
+            """
+        } expansion: {
+            """
+            setStub(for: foo, withSignature: "foo", taking: Int.self, returning: String.self, throwing: MyError.someError)
             """
         }
     }
@@ -87,7 +111,7 @@ final class SetStubThrowingErrorMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            setStub(for: foo, withSignature: "foo", taking: nil, throwing: MyError.someError)
+            setStub(for: foo, withSignature: "foo", taking: nil, returning: nil, throwing: MyError.someError)
             """
         }
     }
@@ -103,7 +127,7 @@ final class SetStubThrowingErrorMacroExpansionTests: XCTestCase {
             """
         } expansion: {
             """
-            setStub(for: foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", taking: Int.self, throwing: MyError.someError)
+            setStub(for: foo(_:paramTwo:), withSignature: "foo(_:paramTwo:)", taking: Int.self, returning: nil, throwing: MyError.someError)
             """
         }
     }

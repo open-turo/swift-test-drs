@@ -58,11 +58,15 @@ public extension StubProviding {
     ///   - signature: The signature of the function to stub, which can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
     ///   This should also match what is recorded by the `#function` macro.
     ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
+    ///   - outputType: An optional phantom parameter used to specify the output type of the `function` passed in.
+    ///   This is useful for functions that are generic over their output or have overloads that differ only by their output type,
+    ///   where the output type cannot otherwise be inferred when throwing an error.
     ///   - error: The error to be thrown when the function is called.
     func setStub<Input, Output>(
         for function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
+        returning outputType: Output.Type? = nil,
         throwing error: Error
     ) {
         stubRegistry.register(error: error, for: function, withSignature: signature)
@@ -177,11 +181,15 @@ public extension StubProviding {
     ///   - signature: The signature of the function to stub, which can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
     ///   This should also match what is recorded by the `#function` macro.
     ///   - inputType: An optional phantom parameter used to derive the input type of the `function` passed in.
+    ///   - outputType: An optional phantom parameter used to specify the output type of the `function` passed in.
+    ///   This is useful for functions that are generic over their output or have overloads that differ only by their output type,
+    ///   where the output type cannot otherwise be inferred when throwing an error.
     ///   - error: The error to be thrown when the function is called.
     static func setStub<Input, Output>(
         for function: (Input) async throws -> Output,
         withSignature signature: FunctionSignature,
         taking inputType: Input.Type? = nil,
+        returning outputType: Output.Type? = nil,
         throwing error: Error
     ) {
         getStaticStubRegistry().register(error: error, for: function, withSignature: signature)
