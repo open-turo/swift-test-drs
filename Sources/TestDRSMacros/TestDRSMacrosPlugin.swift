@@ -12,9 +12,12 @@ import SwiftSyntaxMacros
 struct TestDRSMacrosPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
         AddMockMacro.self,
+        AddSpyMacro.self,
         MockMacro.self,
         MockFunctionMacro.self,
         MockPropertyMacro.self,
+        SpyFunctionMacro.self,
+        SpyPropertyMacro.self,
         SetStubReturningOutputMacro.self,
         SetStubThrowingErrorMacro.self,
         SetStubUsingClosureMacro.self,

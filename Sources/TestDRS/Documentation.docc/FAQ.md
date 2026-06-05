@@ -52,3 +52,23 @@ See ``ExpectWasCalledResult`` for additional methods for accessing function call
 TestDRS does not currently have a way to reset a mock. Generally, you should create a new mock instance for each test. If you find yourself wanting to reset a mock during a test, consider if that test should be refactored into multiple tests.
 
 For static mocks, use `withStaticTestingContext` to isolate test cases, as described in the <doc:MockingStaticMembers> article.
+
+## Can I verify calls to mutating methods on structs?
+
+No, this is a fundamental Swift limitation. Swift does not allow referencing mutating methods as function values, which means `#expectWasCalled` cannot be used to verify calls to mutating methods.
+
+```swift
+@AddMock
+struct Counter {
+    mutating func increment()
+}
+
+var mock = MockCounter()
+mock.increment()  // Works fine
+#expectWasCalled(mock.increment)  // ❌ Compiler error: cannot reference 'mutating' method as function value
+```
+
+This limitation applies to both mocks and spies. If you need to test behavior involving mutating methods on structs, consider:
+- Testing the observable effects instead of the method calls
+- Refactoring to use classes (which don't have mutating methods)
+- Using protocols with non-mutating methods that classes and structs can implement differently

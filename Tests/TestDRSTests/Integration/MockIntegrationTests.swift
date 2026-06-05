@@ -17,7 +17,7 @@ struct MockIntegrationTests {
     private static var mocks: [any TestableMockType] {
         [
             AddMockToProtocol().with(\.id, UUID()),
-            MockStruct().with(\.id, UUID()),
+            AddMockToStruct().with(\.id, UUID()),
             AddMockToClass(x: "", y: 0).with(\.id, UUID()),
             MockStruct().with(\.id, UUID()),
             MockClass().with(\.id, UUID())
@@ -160,15 +160,6 @@ struct MockIntegrationTests {
             #expect(mockStruct.y == 89)
             #expect(MockStruct.z == true)
         }
-    }
-
-}
-
-private extension StubProviding {
-
-    func with<T>(_ keyPath: KeyPath<Self, T>, _ value: T) -> Self {
-        setStub(value: value, forPropertyNamed: "\(keyPath)".components(separatedBy: ".").last!)
-        return self
     }
 
 }

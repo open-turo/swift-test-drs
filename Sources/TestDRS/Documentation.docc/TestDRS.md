@@ -19,17 +19,28 @@ With TestDRS, you can:
 ### Getting started
 
 - <doc:GettingStarted>
+- <doc:GettingStartedWithSpies>
 
 ### Creating test doubles
 
-Test doubles are objects that stand in for real objects in your tests. This section covers how to create mocks that you can use to test your code in isolation.
+TestDRS provides two types of test doubles: **mocks** that allow you to stub behavior, and **spies** that delegate to real implementations. Both support call recording and verification.
 
-- ``AddMock()``
-- ``Mock()``
+#### Generating test doubles from existing types
 
-### Stubbing methods
+Apply these macros to your protocols, classes, or structs to automatically generate test doubles. The generated types are wrapped in `#if DEBUG` so they're available in tests and debug builds but not in production.
 
-Once you have a mock, you can control how it behaves by stubbing its methods to return specific values or throw errors.
+- ``AddMock()`` - Generates a mock (e.g., `MockUserService` from `UserService`) that you can stub and verify
+- ``AddSpy()`` - Generates a spy (e.g., `SpyUserService` from `UserService`) that wraps or inherits from the real implementation
+
+#### Creating test doubles manually
+
+Apply these macros to test double types you define yourself, giving you more control over where the test double lives.
+
+- ``Mock()`` - Marks a manually created type as a mock, generating the necessary stubbing and verification infrastructure
+
+### Stubbing behavior
+
+Control how your mocks behave by stubbing their methods to return specific values or throw errors. Note: Spies always delegate to real implementations and cannot be stubbed.
 
 - ``stub(_:taking:returning:)``
 - ``stub(_:taking:throwing:)``
@@ -37,7 +48,7 @@ Once you have a mock, you can control how it behaves by stubbing its methods to 
 
 ### Verifying interactions
 
-After running your code under test, you'll often want to verify that it interacted with your mock in the expected way.
+Verify that your test doubles (mocks or spies) were called as expected during your tests.
 
 - ``expectWasCalled(_:taking:returning:mode:)``
 - ``expectWasCalled(_:with:returning:mode:)``

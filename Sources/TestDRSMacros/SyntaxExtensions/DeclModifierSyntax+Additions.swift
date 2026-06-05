@@ -9,4 +9,5 @@ extension DeclModifierSyntax {
     static let publicModifier = DeclModifierSyntax(name: .keyword(.public))
     static let overrideModifier = DeclModifierSyntax(name: .keyword(.override))
     static let finalModifier = DeclModifierSyntax(name: .keyword(.final))
+    static let privateModifier = DeclModifierSyntax(name: .keyword(.private))
 }
