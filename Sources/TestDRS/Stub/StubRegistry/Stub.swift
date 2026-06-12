@@ -12,6 +12,7 @@ extension StubRegistry {
         case output(Any)
         case error(Error)
         case closure(Any)
+        case asyncClosure(Any)
 
         func evaluate<Input, Output>(with input: Input = Void()) throws -> Output {
             switch self {
@@ -27,6 +28,30 @@ extension StubRegistry {
                     throw StubError.incorrectClosureType
                 }
                 return try closure(input)
+            case .asyncClosure:
+                throw StubError.asyncClosureUsedFromSynchronousContext
+            }
+        }
+
+        func evaluateAsync<Input, Output>(with input: Input = Void()) async throws -> Output {
+            switch self {
+            case .output(let output):
+                guard let output = output as? Output else {
+                    throw StubError.incorrectOutputType
+                }
+                return output
+            case .error(let error):
+                throw error
+            case .closure(let closure):
+                guard let closure = closure as? (Input) throws -> Output else {
+                    throw StubError.incorrectClosureType
+                }
+                return try closure(input)
+            case .asyncClosure(let closure):
+                guard let closure = closure as? (Input) async throws -> Output else {
+                    throw StubError.incorrectClosureType
+                }
+                return try await closure(input)
             }
         }
     }
@@ -43,6 +68,8 @@ extension StubRegistry.Stub: CustomDebugStringConvertible {
             "stubbed error: \(error)"
         case .closure:
             "stubbed using a closure"
+        case .asyncClosure:
+            "stubbed using an async closure"
         }
     }
 }

@@ -87,6 +87,21 @@ public extension StubProviding {
         stubRegistry.register(closure: closure, forSignature: signature)
     }
 
+    /// Sets a stub for a given function using an async closure to dynamically determine the output.
+    ///
+    /// - Parameters:
+    ///   - function: The function to stub.
+    ///   - signature: The signature of the function to stub, which can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
+    ///   This should also match what is recorded by the `#function` macro.
+    ///   - closure: An async closure that takes in the function's input and returns the desired output when the function is called.
+    func setDynamicStub<Input, Output>(
+        for function: (Input) async throws -> Output,
+        withSignature signature: FunctionSignature,
+        using closure: @escaping (Input) async throws -> Output
+    ) {
+        stubRegistry.register(asyncClosure: closure, forSignature: signature)
+    }
+
     /// Sets a stub for a given property to return a provided output.
     ///
     /// - Parameters:
@@ -129,6 +144,21 @@ public extension StubProviding {
         stubRegistry.stubOutput(for: input, signature: signature, in: Self.self)
     }
 
+    /// Retrieves the stubbed output for the calling async function based on the given input and expected output type.
+    ///
+    /// - Parameters:
+    ///   - input: The input to the calling function.
+    ///   - signature: **Do not pass in this argument**, it will automatically capture the signature of the calling function.
+    /// - Returns: The stubbed output for the calling function.
+    ///
+    /// - Precondition: A corresponding stub must be set prior to calling this function. Otherwise, a fatal error will be thrown.
+    func asyncStubOutput<Input, Output>(
+        for input: Input = Void(),
+        signature: FunctionSignature = #function
+    ) async -> Output {
+        await stubRegistry.asyncStubOutput(for: input, signature: signature, in: Self.self)
+    }
+
     /// Retrieves the stubbed output for the calling function based on the given input and expected output type, allowing for potential throwing of errors.
     ///
     /// - Parameters:
@@ -141,6 +171,20 @@ public extension StubProviding {
         signature: FunctionSignature = #function
     ) throws -> Output {
         try stubRegistry.throwingStubOutput(for: input, signature: signature, in: Self.self)
+    }
+
+    /// Retrieves the stubbed output for the calling async function based on the given input and expected output type, allowing for potential throwing of errors.
+    ///
+    /// - Parameters:
+    ///   - input: The input to the calling function.
+    ///   - signature: **Do not pass in this argument**, it will automatically capture the signature of the calling function.
+    /// - Returns: The stubbed output for the calling function, provided one has been set.
+    /// - Throws: Any error that has been set to be thrown for this function.
+    func asyncThrowingStubOutput<Input, Output>(
+        for input: Input = Void(),
+        signature: FunctionSignature = #function
+    ) async throws -> Output {
+        try await stubRegistry.asyncThrowingStubOutput(for: input, signature: signature, in: Self.self)
     }
 
     func stubValue<Output>(for propertyName: String = #function) -> Output {
@@ -210,6 +254,21 @@ public extension StubProviding {
         getStaticStubRegistry().register(closure: closure, forSignature: signature)
     }
 
+    /// Sets a stub for a given function using an async closure to dynamically determine the output.
+    ///
+    /// - Parameters:
+    ///   - function: The function to stub.
+    ///   - signature: The signature of the function to stub, which can be obtained by right-clicking on the function's signature and selecting "Copy" > "Copy Symbol Name".
+    ///   This should also match what is recorded by the `#function` macro.
+    ///   - closure: An async closure that takes in the function's input and returns the desired output when the function is called.
+    static func setDynamicStub<Input, Output>(
+        for function: (Input) async throws -> Output,
+        withSignature signature: FunctionSignature,
+        using closure: @escaping (Input) async throws -> Output
+    ) {
+        getStaticStubRegistry().register(asyncClosure: closure, forSignature: signature)
+    }
+
     /// Sets a stub for a given property to return a provided output.
     ///
     /// - Parameters:
@@ -252,6 +311,21 @@ public extension StubProviding {
         getStaticStubRegistry().stubOutput(for: input, signature: signature, in: Self.self)
     }
 
+    /// Retrieves the stubbed output for the calling async function based on the given input and expected output type.
+    ///
+    /// - Parameters:
+    ///   - input: The input to the calling function.
+    ///   - signature: **Do not pass in this argument**, it will automatically capture the signature of the calling function.
+    /// - Returns: The stubbed output for the calling function.
+    ///
+    /// - Precondition: A corresponding stub must be set prior to calling this function. Otherwise, a fatal error will be thrown.
+    static func asyncStubOutput<Input, Output>(
+        for input: Input = Void(),
+        signature: FunctionSignature = #function
+    ) async -> Output {
+        await getStaticStubRegistry().asyncStubOutput(for: input, signature: signature, in: Self.self)
+    }
+
     /// Retrieves the stubbed output for the calling function based on the given input and expected output type, allowing for potential throwing of errors.
     ///
     /// - Parameters:
@@ -264,6 +338,20 @@ public extension StubProviding {
         signature: FunctionSignature = #function
     ) throws -> Output {
         try getStaticStubRegistry().throwingStubOutput(for: input, signature: signature, in: Self.self)
+    }
+
+    /// Retrieves the stubbed output for the calling async function based on the given input and expected output type, allowing for potential throwing of errors.
+    ///
+    /// - Parameters:
+    ///   - input: The input to the calling function.
+    ///   - signature: **Do not pass in this argument**, it will automatically capture the signature of the calling function.
+    /// - Returns: The stubbed output for the calling function, provided one has been set.
+    /// - Throws: Any error that has been set to be thrown for this function.
+    static func asyncThrowingStubOutput<Input, Output>(
+        for input: Input = Void(),
+        signature: FunctionSignature = #function
+    ) async throws -> Output {
+        try await getStaticStubRegistry().asyncThrowingStubOutput(for: input, signature: signature, in: Self.self)
     }
 
     static func stubValue<Output>(for propertyName: String = #function) -> Output {

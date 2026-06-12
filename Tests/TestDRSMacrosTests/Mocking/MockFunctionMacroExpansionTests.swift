@@ -97,6 +97,22 @@ final class MockFunctionMacroExpansionTests: XCTestCase {
         }
     }
 
+    func testAsyncFunction_TakingInt_ReturningString() {
+        assertMacro {
+            """
+            @_MockFunction
+            func foo(paramOne: Int) async -> String
+            """
+        } expansion: {
+            """
+            func foo(paramOne: Int) async -> String {
+                recordCall(with: paramOne, returning: String.self)
+                return await asyncStubOutput(for: paramOne)
+            }
+            """
+        }
+    }
+
     func testAsyncThrowingFunction_TakingInt_ReturningBlock() {
         assertMacro {
             """
@@ -107,7 +123,7 @@ final class MockFunctionMacroExpansionTests: XCTestCase {
             """
             func foo(paramOne: Int) async throws -> (() -> Void) {
                 recordCall(with: paramOne, returning: (() -> Void).self)
-                return try throwingStubOutput(for: paramOne)
+                return try await asyncThrowingStubOutput(for: paramOne)
             }
             """
         }

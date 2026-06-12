@@ -143,6 +143,20 @@ final class StubProvidingTests: XCTestCase {
         XCTAssertEqual(resultTwo, 49)
     }
 
+    func testDynamicallyStubbingAsyncFunction_WithAsyncClosure() async {
+        var x = 1
+        stubProvider.setDynamicStub(for: stubProvider.zab, withSignature: "zab()") {
+            await asyncValue(x * 7)
+        }
+
+        let resultOne = await stubProvider.zab()
+        x = 7
+        let resultTwo = await stubProvider.zab()
+
+        XCTAssertEqual(resultOne, 7)
+        XCTAssertEqual(resultTwo, 49)
+    }
+
     func testStubbingAsyncThrowingFunction_ReturningValue() async throws {
         stubProvider.setStub(for: stubProvider.zoo, withSignature: "zoo()", returning: 7)
 
@@ -183,6 +197,27 @@ final class StubProvidingTests: XCTestCase {
         stubProvider.setDynamicStub(for: stubProvider.zoo, withSignature: "zoo()") {
             guard !shouldThrow else { throw StubProviderError() }
             return 7
+        }
+
+        let result = try await stubProvider.zoo()
+        XCTAssertEqual(result, 7)
+
+        shouldThrow = true
+
+        do {
+            _ = try await stubProvider.zoo()
+            XCTFail("Expected error to be thrown")
+        } catch _ as StubProviderError {
+            // Expected
+        } catch {
+            XCTFail("Expected error to be StubProviderError")
+        }
+    }
+
+    func testDynamicallyStubbingAsyncThrowingFunction_WithAsyncClosure() async throws {
+        var shouldThrow = false
+        stubProvider.setDynamicStub(for: stubProvider.zoo, withSignature: "zoo()") {
+            try await asyncThrowingValue(7, shouldThrow: shouldThrow)
         }
 
         let result = try await stubProvider.zoo()
@@ -360,16 +395,25 @@ private struct StubProvider: StubProviding {
     }
 
     func zab() async -> Int {
-        stubOutput()
+        await asyncStubOutput()
     }
 
     func zoo() async throws -> Int {
-        try throwingStubOutput()
+        try await asyncThrowingStubOutput()
     }
 
     static func staticFoo() -> Int {
         stubOutput()
     }
+}
+
+private func asyncValue<T>(_ value: T) async -> T {
+    value
+}
+
+private func asyncThrowingValue<T>(_ value: T, shouldThrow: Bool) async throws -> T {
+    guard !shouldThrow else { throw StubProviderError() }
+    return value
 }
 
 private struct StubProviderError: Error {}

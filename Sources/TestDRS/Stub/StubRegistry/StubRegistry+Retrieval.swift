@@ -69,6 +69,36 @@ extension StubRegistry {
         }
     }
 
+    /// Retrieves the stubbed output for the calling async function based on the given input and expected output type.
+    ///
+    /// - Parameters:
+    ///   - input: The input to the calling function.
+    ///   - signature: **Do not pass in this argument**, it will automatically capture the signature of the calling function.
+    ///   - stubProvidingType: The type where the stub is being retrieved.
+    /// - Returns: The stubbed output for the calling function.
+    ///
+    /// - Precondition: A corresponding stub must be set prior to calling this function. Otherwise, a fatal error will be thrown.
+    func asyncStubOutput<Input, Output>(
+        for input: Input,
+        signature: FunctionSignature,
+        in stubProvidingType: StubProviding.Type
+    ) async -> Output {
+        do {
+            return try await getOutputAsync(for: input, withSignature: signature)
+        } catch {
+            if let stubError = error as? StubRegistry.StubError {
+                report(
+                    stubError,
+                    in: stubProvidingType,
+                    signature: signature,
+                    inputType: Input.self,
+                    outputType: Output.self
+                )
+            }
+            fatalError("Unexpected error getting stub for \(signature)")
+        }
+    }
+
     /// Retrieves the stubbed output for the calling function based on the given input and expected output type, allowing for potential throwing of errors.
     ///
     /// - Parameters:
@@ -84,6 +114,33 @@ extension StubRegistry {
     ) throws -> Output {
         do {
             return try getOutput(for: input, withSignature: signature)
+        } catch let stubError as StubRegistry.StubError {
+            report(
+                stubError,
+                in: stubProvidingType,
+                signature: signature,
+                inputType: Input.self,
+                outputType: Output.self
+            )
+            fatalError("Unexpected error getting stub for \(signature)")
+        }
+    }
+
+    /// Retrieves the stubbed output for the calling async function based on the given input and expected output type, allowing for potential throwing of errors.
+    ///
+    /// - Parameters:
+    ///   - input: The input to the calling function.
+    ///   - signature: **Do not pass in this argument**, it will automatically capture the signature of the calling function.
+    ///   - stubProvidingType: The type where the stub is being retrieved.
+    /// - Returns: The stubbed output for the calling function, provided one has been set.
+    /// - Throws: Any error that has been set to be thrown for this function.
+    func asyncThrowingStubOutput<Input, Output>(
+        for input: Input,
+        signature: FunctionSignature,
+        in stubProvidingType: StubProviding.Type
+    ) async throws -> Output {
+        do {
+            return try await getOutputAsync(for: input, withSignature: signature)
         } catch let stubError as StubRegistry.StubError {
             report(
                 stubError,
@@ -128,6 +185,13 @@ extension StubRegistry {
             fatalError(fullMessage)
         case .incorrectOutputType, .incorrectClosureType:
             handleInternalError()
+        case .asyncClosureUsedFromSynchronousContext:
+            let fullMessage = """
+            Async dynamic stub configured for \(signature.name), but it was retrieved from a synchronous stub output API.
+            Fix: use asyncStubOutput/asyncThrowingStubOutput in async mocked functions.
+            """
+            reportFailure(fullMessage)
+            fatalError(fullMessage)
         }
     }
 
@@ -157,7 +221,7 @@ extension StubRegistry {
             """
             reportFailure(fullMessage)
             fatalError(fullMessage)
-        case .incorrectOutputType, .incorrectClosureType:
+        case .incorrectOutputType, .incorrectClosureType, .asyncClosureUsedFromSynchronousContext:
             handleInternalError()
         }
     }

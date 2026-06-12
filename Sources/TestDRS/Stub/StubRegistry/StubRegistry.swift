@@ -74,15 +74,7 @@ public final class StubRegistry: @unchecked Sendable {
     /// - Returns: The output value for the given input and function signature.
     /// - Throws: `StubError.noStub` if no stub is registered for the given input and function signature, or any error thrown by the registered closure.
     func getOutput<Input, Output>(for input: Input, withSignature signature: FunctionSignature) throws -> Output {
-        let stub = storageQueue.sync {
-            let identifier = FunctionStubIdentifier(signature: signature, inputType: Input.self, outputType: Output.self)
-
-            // Stubs could be set with either the full signature like `foo(paramOne:)`
-            // or if there is no ambiguity, they could be set with an abbreviated signature like `foo`.
-            // When we go to retrieve them, we should have the full signature since it is captured by #function.
-            // So first we try to retrieve using the full signature provided, and then using the abbreviated version.
-            return functionStubs[identifier] ?? functionStubs[identifier.abbreviatedIdentifier]
-        }
+        let stub: Stub? = getFunctionStub(forInputType: Input.self, outputType: Output.self, withSignature: signature)
 
         guard let stub else {
             if let void = Void() as? Output {
@@ -101,6 +93,51 @@ public final class StubRegistry: @unchecked Sendable {
         )
 
         return output
+    }
+
+    /// Retrieves the output value for a given input and function signature, allowing async dynamic stubs.
+    ///
+    /// - Parameters:
+    ///   - input: The input value for the function.
+    ///   - signature: The signature of the function.
+    /// - Returns: The output value for the given input and function signature.
+    /// - Throws: `StubError.noStub` if no stub is registered for the given input and function signature, or any error thrown by the registered closure.
+    func getOutputAsync<Input, Output>(for input: Input, withSignature signature: FunctionSignature) async throws -> Output {
+        let stub: Stub? = getFunctionStub(forInputType: Input.self, outputType: Output.self, withSignature: signature)
+
+        guard let stub else {
+            if let void = Void() as? Output {
+                return void
+            }
+            throw StubError.noStub
+        }
+
+        // Evaluate the stub outside of the storageQueue so that we don't deadlock
+        let output: Output = try await stub.evaluateAsync(with: input)
+
+        TestDRSMockLogger.current?.log(
+            component: self,
+            mockType: mockType,
+            message: "returning stub for \(signature)"
+        )
+
+        return output
+    }
+
+    private func getFunctionStub<Input, Output>(
+        forInputType inputType: Input.Type,
+        outputType: Output.Type,
+        withSignature signature: FunctionSignature
+    ) -> Stub? {
+        storageQueue.sync {
+            let identifier = FunctionStubIdentifier(signature: signature, inputType: inputType, outputType: outputType)
+
+            // Stubs could be set with either the full signature like `foo(paramOne:)`
+            // or if there is no ambiguity, they could be set with an abbreviated signature like `foo`.
+            // When we go to retrieve them, we should have the full signature since it is captured by #function.
+            // So first we try to retrieve using the full signature provided, and then using the abbreviated version.
+            return functionStubs[identifier] ?? functionStubs[identifier.abbreviatedIdentifier]
+        }
     }
 
 }
